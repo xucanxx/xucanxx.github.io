@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, vegetable bird">
+    <meta name="keywords" content="One-Dimensional Battle Ships cf567D, vegetable bird">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | vegetable bird</title>
+    <title>One-Dimensional Battle Ships cf567D | vegetable bird</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">One-Dimensional Battle Ships cf567D</h1>
                 </div>
             </div>
         </div>
@@ -436,9 +436,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%88%B7%E9%A2%98/">
+                                <span class="chip bg-color">刷题</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -450,7 +454,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-22
+                    2020-04-23
                 </div>
                 
 
@@ -466,15 +470,24 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
+<p>At the beginning of the game Alice puts k ships on the field without telling their positions to Bob. Each ship looks as a 1 × a rectangle (that is, it occupies a sequence of a consecutive squares of the field). The ships cannot intersect and even touch each other.</p>
+<p>After that Bob makes a sequence of “shots”. He names cells of the field and Alice either says that the cell is empty (“miss”), or that the cell belongs to some ship (“hit”).</p>
+<p>But here’s the problem! Alice like to cheat. May be that is why she responds to each Bob’s move with a “miss”.</p>
+<p>Help Bob catch Alice cheating — find Bob’s first move, such that after it you can be sure that Alice cheated.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains three integers: n, k and a (1 ≤ n, k, a ≤ 2·105) — the size of the field, the number of the ships and the size of each ship. It is guaranteed that the n, k and a are such that you can put k ships of size a on the field, so that no two ships intersect or touch each other.</p>
+<p>The second line contains integer m (1 ≤ m ≤ n) — the number of Bob’s moves.</p>
+<p>The third line contains m distinct integers x1, x2, …, xm, where xi is the number of the cell where Bob made the i-th shot. The cells are numbered from left to right from 1 to n.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print a single integer — the number of such Bob’s first move, after which you can be sure that Alice lied. Bob’s moves are numbered from 1 to m in the order the were made. If the sought move doesn’t exist, then print “-1”.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>11 3 3<br>5<br>4 8 6 1 11</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>3</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>2<br>1 5</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>-1</p>
+<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>1<br>3</p>
+<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>1  </p>
+<h1 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h1><p> 有k条船，每一条船都是一个1xa的矩形放在1Xn的范围内（不能相邻），bob进行m次射击，输出第几次无论船怎么排列，bob一定会击中一艘船，如果不能确定则输出‘-1’。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p> 这是一个二分答案，不断二分步数，当那个步骤时是否满足情况，最终得出答案</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>```javascript<br>#include&lt;stdio.h&gt;<br>#include<algorithm><br>using namespace std;<br>int n, k, a, m;<br>struct point<br>{<br>    int id, distance;<br>}c[200010];<br>bool cmp(point x, point y)<br>{<br>    return x.id &lt; y.id;<br>}<br>int solve(int x)<br>{<br>    int pr[200010] = { 0 };<br>    for (int i = 1; i &lt;= x; i++)<br>    {<br>        pr[i] = c[i].distance;<br>    }<br>    pr[x + 1] = n + 1;<br>    sort(pr + 1, pr + x + 2);<br>    int t = k;<br>    for (int i = 1; i &lt;= x + 1; i++)<br>    {<br>        int temp = pr[i] - pr[i - 1] - 1;<br>        int xx = (temp + 1) / (a + 1);<br>        t -= xx;<br>    }<br>    if (t &gt; 0)<br>        return 0;<br>    else<br>        return 1;<br>}<br>int dimidate(int l, int r)//第l次射击时无法击中，第R次已经击中<br>{<br>    int mid = (l + r) / 2;<br>    if (mid == l)<br>    {<br>        int f = mid;<br>        if (solve(mid) == 1)<br>            f = -1;<br>        if (f == -1 &amp;&amp; mid != 1 &amp;&amp; solve(mid - 1) == 0)<br>            f = mid - 1;<br>        if (f == -1 &amp;&amp; mid != m &amp;&amp; solve(mid + 1) == 0)<br>            f = mid + 1;<br>        return f;<br>    }<br>    int f = solve(mid);<br>    if (f)<br>    {<br>        return dimidate(mid + 1, r);<br>    }<br>    else<br>    {<br>        return dimidate(l, mid);<br>    }<br>}<br>int main()<br>{<br>    //freopen(“F:/y.txt”, “r”, stdin);<br>    scanf(“%d %d %d”, &amp;n, &amp;k, &amp;a);<br>    scanf(“%d”, &amp;m);<br>    for (int i = 1; i &lt;= m; i++)<br>    {<br>        scanf(“%d”, &amp;c[i].distance);<br>        c[i].id = i;<br>    }<br>    printf(“%d”, dimidate(1, m));<br>    return 0;<br>}</p>
 
             </div>
             <hr/>
@@ -500,7 +513,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2020/04/22/hello-world/">https://xucanxx.github.io/2020/04/22/hello-world/</a>
+                    <a href="https://xucanxx.github.io/2020/04/23/One-Dimensional-Battle-Ships-cf567D/">https://xucanxx.github.io/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -537,7 +550,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E5%88%B7%E9%A2%98/">
+                                    <span class="chip bg-color">刷题</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -708,24 +725,24 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2020/04/22/hello-world/">
+                <a href="/2020/04/23/One-Dimensional-Battle-Ships-cf567D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="One-Dimensional Battle Ships cf567D">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">One-Dimensional Battle Ships cf567D</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            题目题面Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
                             </span>
                         <span class="publish-author">
                             
@@ -737,6 +754,14 @@
                 </div>
 
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%B7%E9%A2%98/">
+                        <span class="chip bg-color">刷题</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
@@ -746,24 +771,24 @@
                 本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/22/hello-world/">
+                <a href="/2020/04/23/One-Dimensional-Battle-Ships-cf567D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="One-Dimensional Battle Ships cf567D">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">One-Dimensional Battle Ships cf567D</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            题目题面Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
                             </span>
                         <span class="publish-author">
                             
@@ -774,6 +799,14 @@
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%88%B7%E9%A2%98/">
+                        <span class="chip bg-color">刷题</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
