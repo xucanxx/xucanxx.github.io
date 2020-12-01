@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 菜鸟">
+    <meta name="keywords" content="sql常用语法, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 菜鸟</title>
+    <title>sql常用语法 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">sql常用语法</h1>
                 </div>
             </div>
         </div>
@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/" class="post-category">
+                                课程
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -365,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-04-27
                 </div>
                 
 
@@ -381,7 +394,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="sql基本语法"><a href="#sql基本语法" class="headerlink" title="sql基本语法"></a>sql基本语法</h1><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code>CREATE DATABASE database-name</code></pre><h3 id="表"><a href="#表" class="headerlink" title="表"></a>表</h3><h4 id="创建新表"><a href="#创建新表" class="headerlink" title="创建新表"></a>创建新表</h4><pre><code> create table 表名 （列名 数据类型 primary key(设置主键)，  
+                         列名 数据类型 ，
+                         列名 数据类型 not null(不能设置空值)）</code></pre><h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><pre><code>create [unique] index idxname on tabname(col….)</code></pre><h4 id="根据已有的表创建新表"><a href="#根据已有的表创建新表" class="headerlink" title="根据已有的表创建新表"></a>根据已有的表创建新表</h4><pre><code>create table tab_new as select col1,col2… from tab_old definition only</code></pre><h4 id="使用旧表创建新表"><a href="#使用旧表创建新表" class="headerlink" title="使用旧表创建新表"></a>使用旧表创建新表</h4><pre><code>create table tab_new like tab_old </code></pre><h4 id="创建索引-1"><a href="#创建索引-1" class="headerlink" title="创建索引"></a>创建索引</h4><pre><code>create [unique] index idxname on tabname(col….)</code></pre><h4 id="将元素插入表"><a href="#将元素插入表" class="headerlink" title="将元素插入表"></a>将元素插入表</h4><pre><code>insert into table1(field1,field2) values(value1,value2)</code></pre><h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><pre><code>create view viewname as select statement</code></pre><h2 id="删"><a href="#删" class="headerlink" title="删"></a>删</h2><h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><pre><code>drop database 数据库名</code></pre><h3 id="表-1"><a href="#表-1" class="headerlink" title="表"></a>表</h3><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre><code>drop table tabname</code></pre><h4 id="删除主键"><a href="#删除主键" class="headerlink" title="删除主键"></a>删除主键</h4><pre><code>Alter table tabname drop primary key(col)</code></pre><h3 id="删除表中指定的元素"><a href="#删除表中指定的元素" class="headerlink" title="删除表中指定的元素"></a>删除表中指定的元素</h3><pre><code>delete from table1 where 范围</code></pre><h3 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h3><pre><code>drop view viewname</code></pre><h2 id="改"><a href="#改" class="headerlink" title="改"></a>改</h2><h3 id="添加主键"><a href="#添加主键" class="headerlink" title="添加主键"></a>添加主键</h3><pre><code>Alter table tabname add primary key(col)</code></pre><h3 id="在表中增加一列"><a href="#在表中增加一列" class="headerlink" title="在表中增加一列"></a>在表中增加一列</h3><pre><code>Alter table 表名 add column 列名 数据类型</code></pre><h3 id="元素更新"><a href="#元素更新" class="headerlink" title="元素更新"></a>元素更新</h3><pre><code>update table1 set field1=value1 where</code></pre><h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><pre><code>select * from table1 where field1 like ’%value1%’</code></pre><h3 id="查询前n项数据"><a href="#查询前n项数据" class="headerlink" title="查询前n项数据"></a>查询前n项数据</h3><pre><code>SELECT TOP n  table_name FROM table</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="where"><a href="#where" class="headerlink" title="where"></a>where</h3><p>字句用于筛选数据，提取满足条件的记录。</p>
+<pre><code>SELECT * from 表名 WHERE 条件语句;</code></pre><h3 id="in"><a href="#in" class="headerlink" title="in"></a>in</h3><pre><code>SELECT * FROM table1 WHERE age1 IN(value1,value2,...);</code></pre><h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>一张表，一旦分组 完成后，查询后只能得到组相关的信息。<br>组相关的信息：(统计信息) count,sum,max,min,avg 分组的标准)<br>在SQLServer中分组时：不能以text,ntext,image类型的字段作为分组依据 在selecte统计函数中的字段，不能和普通的字段放在一起;</p>
+<pre><code>select 类别, sum(数量) as 数量之和 from A group by 类别</code></pre><h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><h4 id="inner-join"><a href="#inner-join" class="headerlink" title="inner join"></a>inner join</h4><p>产生的结果是A和B的交集（相同列里面的相同值）。内连接是最常见的一种连接，它也被称为普通连接，只连接匹配的行（仅对满足连接条件的CROSS中的列）。它又分为等值连接（连接条件运算符为”=”）和不等值连接（连接条件运算符不为”=”，例如between…and）。</p>
+<pre><code>SELECT *FROM b INNER JOIN A on b.name=A.name</code></pre><h4 id="full-outer-join"><a href="#full-outer-join" class="headerlink" title="full (outer) join"></a>full (outer) join</h4><p>产生的结果是A和B的并集（如果没有相同的值会用null作为值）。FULL JOIN 会从左表和右表那里返回所有的行。如果其中一个表的数据行在另一个表中没有匹配的行，那么对面的数据用NULL代替</p>
+<pre><code>SELECT * FROM b FULL OUTER JOIN A on b.name=A.name</code></pre><h4 id="left-outer-join"><a href="#left-outer-join" class="headerlink" title="left (outer) join"></a>left (outer) join</h4><p>产生表B的完全集，而A表中匹配的则有值（没有匹配的则以null值取代）。LEFT JOIN返回左表的全部行和右表满足ON条件的行，如果左表的行在右表中没有匹配，那么这一行右表中对应数据用NULL代替。</p>
+<pre><code>SELECT * FROM b Left outer join A on b.name=A.name</code></pre><h4 id="right-outer-join"><a href="#right-outer-join" class="headerlink" title="right (outer) join"></a>right (outer) join</h4><p>参考Left (outer) join</p>
+<h4 id="cross-outer-join"><a href="#cross-outer-join" class="headerlink" title="cross (outer) join"></a>cross (outer) join</h4><p>cross对两个表执行笛卡尔乘积。它为左表行和右表行的每种可能的组合返回一行。返回（左表行数*右表行数）行的表。ps：很少用到这个语法。注意如果不是使用嵌套的select语句，一般系统都会产生笛卡尔乘积然再做过滤。这是对于性能来说是非常危险的，尤其是表很大的时候。</p>
+<pre><code>SELECT * FROM b  cross join A</code></pre><h4 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h4><p>自然连接是一种特殊的等值连接,在连接条件中使用等于(=)运算符比较被连接列的列值，但它使用选择列表指出查询结果集合中所包括的列，并删除连接表中的重复列。</p>
+<h3 id="模糊查询-like"><a href="#模糊查询-like" class="headerlink" title="模糊查询 like"></a>模糊查询 like</h3><p>like语句的语法格式是：select * from 表名 where 字段名 like 对应值（子串），它主要是针对字符型字段的，它的作用是在一个字符型字段列中检索包含对应子串的</p>
+<h4 id="包含零个或多个字符的任意字符串"><a href="#包含零个或多个字符的任意字符串" class="headerlink" title="% 包含零个或多个字符的任意字符串"></a>% 包含零个或多个字符的任意字符串</h4><pre><code>例，查询name字段中包含有“明”字的。
+select * from table1 where name like &#39;%明%&#39;</code></pre><h4 id="（下划线）-任何单个字符："><a href="#（下划线）-任何单个字符：" class="headerlink" title="_（下划线） 任何单个字符："></a>_（下划线） 任何单个字符：</h4><pre><code>like&#39;_heryl&#39; 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）</code></pre><h4 id="指定范围-a-f-或集合-abcdef-中的任何单个字符："><a href="#指定范围-a-f-或集合-abcdef-中的任何单个字符：" class="headerlink" title="[ ] 指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符："></a>[ ] 指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符：</h4><pre><code>例，查询name字段中含有数字的。
+select * from table1 where name like &#39;%[0-9]%&#39;
+例，查询name字段中含有小写字母的。
+select * from table1 where name like &#39;%[a-z]%
+例，查询name字段中不含有数字的。
+select * from table1 where name like &#39;%[!0-9]%&#39;</code></pre><h4 id="不属于指定范围-a-f-或集合-abcdef-的任何单个字符："><a href="#不属于指定范围-a-f-或集合-abcdef-的任何单个字符：" class="headerlink" title="[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符："></a>[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符：</h4><pre><code>like&#39;M[^c]%&#39; 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称
+（如MacFeather）。</code></pre><h4 id="它同于DOS命令中的通配符，代表多个字符："><a href="#它同于DOS命令中的通配符，代表多个字符：" class="headerlink" title="* 它同于DOS命令中的通配符，代表多个字符："></a>* 它同于DOS命令中的通配符，代表多个字符：</h4><pre><code>例，查询name字段中以“李”字开头。
+select * from table1 where name like &#39;李*</code></pre><h4 id="？同于DOS命令中的？通配符，代表单个字符"><a href="#？同于DOS命令中的？通配符，代表单个字符" class="headerlink" title="？同于DOS命令中的？通配符，代表单个字符 :"></a>？同于DOS命令中的？通配符，代表单个字符 :</h4><pre><code>b?b代表brb,bFb等</code></pre><h4 id="大致同-，不同的是代只能代表单个数字"><a href="#大致同-，不同的是代只能代表单个数字" class="headerlink" title="# 大致同?，不同的是代只能代表单个数字"></a># 大致同?，不同的是代只能代表单个数字</h4><pre><code>k#k代表k1k,k8k,k0k</code></pre><h3 id="运算词"><a href="#运算词" class="headerlink" title="运算词"></a>运算词</h3><h4 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h4><p>UNION 运算符通过组合其他两个结果表(例如 TABLE1 和 TABLE2)并消去表中任何重复行而派生出一个结果表。当 ALL 随 UNION 一起使用时(即 UNION ALL)，不消除重复行。两种情况下，派生表的每一行不是来自 TABLE1 就是来自 TABLE2</p>
+<h4 id="EXCEPT"><a href="#EXCEPT" class="headerlink" title="EXCEPT"></a>EXCEPT</h4><p>EXCEPT 运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个结果表。当 ALL 随 EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。</p>
+<h4 id="INTERSECT"><a href="#INTERSECT" class="headerlink" title="INTERSECT"></a>INTERSECT</h4><p>INTERSECT 运算符通过只包括 TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果表。当 ALL 随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。</p>
+<h1 id="欢迎补充"><a href="#欢迎补充" class="headerlink" title="欢迎补充"></a>欢迎补充</h1>
             </div>
             <hr/>
 
@@ -406,7 +441,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/categories/index-1.html">https://xucanxx.github.io/categories/index-1.html</a>
+                    <a href="https://xucanxx.github.io/2020/04/27/sql%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/">https://xucanxx.github.io/2020/04/27/sql%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,7 +478,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -612,7 +651,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: "xucanxx",
-        id: '2020-04-23T09-56-55',
+        id: '2020-04-27T10-56-48',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -636,39 +675,51 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/27/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="数据模型">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">数据模型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            数据模型它是对现实数据特征的抽象，数据模型是数据库系统的核心和基础。
+概念模型按用户的观点对数据和信息进行建模
+逻辑模型和物理模型逻辑模型层次模型(hierarchical model)有且只有一个节点没有双亲结点，这个节点称为根节点根以外
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-27
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%BE%E7%A8%8B/" class="post-category">
+                                    课程
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -676,37 +727,49 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/26/poj1458/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/7.jpg" class="responsive-img" alt="poj1458">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">poj1458</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目Common Subsequence
+题面Cry对于泡妹子十分不熟练，在见到小姐姐后十分紧张，这时，他想起了czh对他的教诲，于是他决定尽可能找到自己与小姐姐的共同点。Cry靠他强大的人格魅力获取了小姐姐的基因片段，同时他也提供了自己的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-26
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

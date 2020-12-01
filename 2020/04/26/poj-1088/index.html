@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 菜鸟">
+    <meta name="keywords" content="poj-1088, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 菜鸟</title>
+    <title>poj-1088 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">poj-1088</h1>
                 </div>
             </div>
         </div>
@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ACM/">
+                                <span class="chip bg-color">ACM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                刷题
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -365,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-04-26
                 </div>
                 
 
@@ -381,7 +394,67 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组的每个数字代表点的高度。下面是一个例子</p>
+<p>1  2  3  4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9 </p>
+<p>一个人可以从某个点滑向上下左右相邻四个点之一，当且仅当高度减小。在上面的例子中，一条可滑行的滑坡为24-17-16-1。当然25-24-23-…-3-2-1更长。事实上，这是最长的一条。</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行表示区域的行数R和列数C(1 &lt;= R,C &lt;= 100)。下面是R行，每行有C个整数，代表高度h，0&lt;=h&lt;=10000。</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出最长区域的长度。</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5 5<br>1 2 3 4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>25</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这个完全可以用一种递归的思想，因为每个位置的步数都与周围的步数有关（周围的步数加一）所以可以使用递归的思想将大问题转化为小问题，并建立一个数组记录最佳结果并不断更新，最后输出答案。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+int a[110][110],map[110][110],ans;
+int m,n;
+int kk[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+int dp(int x,int y)
+{
+    int max=0;
+    if(x&lt;0||x&gt;=n||y&lt;0||y&gt;=m)
+    return 0;
+    if(map[y][x]!=-1)
+    {
+       if(ans&lt;map[y][x])
+       ans=map[y][x];
+       return map[y][x];
+    }
+    for(int i=0;i&lt;4;i++)
+    {
+       if(a[y][x]&lt;a[y+kk[i][1]][x+kk[i][0]])
+       {
+          int k=dp(x+kk[i][0],y+kk[i][1]);
+           if(max&lt;k)
+           max=k;
+       }
+    }
+    map[y][x]=max+1;
+    if(ans&lt;map[y][x])
+    ans=map[y][x];
+    return map[y][x];
+}
+int main()
+{
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d %d&quot;,&amp;m,&amp;n))
+    {
+       memset(map,0,sizeof(map));
+       ans=1;
+       for(int i=0;i&lt;m;i++)
+       {
+           for(int j=0;j&lt;n;j++)
+           {
+              scanf(&quot;%d&quot;,&amp;a[i][j]);
+              map[i][j]=-1;
+           }
+       }
+       for(int i=0;i&lt;m;i++)
+       for(int j=0;j&lt;n;j++)
+       if(map[i][j]==-1)
+       dp(j,i);
+       printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}</code></pre>
             </div>
             <hr/>
 
@@ -406,7 +479,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/categories/index-1.html">https://xucanxx.github.io/categories/index-1.html</a>
+                    <a href="https://xucanxx.github.io/2020/04/26/poj-1088/">https://xucanxx.github.io/2020/04/26/poj-1088/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,7 +516,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/ACM/">
+                                    <span class="chip bg-color">ACM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -612,7 +689,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: "xucanxx",
-        id: '2020-04-23T09-56-55',
+        id: '2020-04-26T09-21-33',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -636,39 +713,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/26/HDU1003-dp(%E5%A4%A7%E6%A6%82%EF%BC%89/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="HDU1003-dp（大概）">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">HDU1003-dp（大概）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目Max Sum
+题面Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-26
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -676,37 +764,48 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/25/poj-1157-LITTLE-SHOP-OF-FLOWERS/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/11.jpg" class="responsive-img" alt="poj-1157 LITTLE SHOP OF FLOWERS">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">poj-1157 LITTLE SHOP OF FLOWERS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目题面You want to arrange the window of your flower shop in a most pleasant way. You have F bunches of flowers, each being
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

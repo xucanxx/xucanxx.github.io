@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 菜鸟">
+    <meta name="keywords" content="cf 830B-Cards Sorting, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 菜鸟</title>
+    <title>cf 830B-Cards Sorting | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -228,7 +228,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">cf 830B-Cards Sorting</h1>
                 </div>
             </div>
         </div>
@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ACM/">
+                                <span class="chip bg-color">ACM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                刷题
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -365,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-04-24
                 </div>
                 
 
@@ -381,7 +394,114 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Cards Sorting</p>
+<p>Vasily has a deck of cards consisting of n cards.There is an integer on each of the cards, this integer is between 1 and 100 000, inclusive .It is possible that some cards have the same integers on them.</p>
+<p>Vasily decided to sort the cards .To do this, he repeatedly takes the top card from the deck, and if the number on it equals the minimum number written on the cards in the deck, then he places the card away.Otherwise, he puts it under the deckand takes the next card from the top, and so on.The process ends as soon as there are no cards in the deck.You can assume that Vasily always knows the minimum number written on some card in the remaining deck, but doesn’t know where this card (or these cards) is.</p>
+<p>You are to determine the total number of times Vasily takes the top card from the deck.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains single integer n (1 ≤ n ≤ 100 000) — the number of cards in the deck.</p>
+<p>The second line contains a sequence of n integers a1, a2, …, an (1 ≤ ai ≤ 100 000), where ai is the number written on the i - th from top card in the deck.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the total number of times Vasily takes the top card from the deck.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>4<br>6 3 1 2</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>1<br>1000</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>1</p>
+<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>7<br>3 3 3 3 3 3 3</p>
+<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>7</p>
+<h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 瓦西里有一副由n张牌组成的牌组。每张牌上都有一个整数，介于1到100 000之间（包括1和100000），有些牌上可能有相同的整数。</p>
+<p>瓦西里决定对卡片进行排序，为此他反复从卡组中取出最上面的卡，如果卡上的数字等于卡组中卡片上所写的最小值，则他将卡取走。否则 他会将此卡放到卡组底部，然后从顶部取出下一张卡，依此类推。一旦卡座中没有卡，该过程就会结束。您可以假设Vasily始终知道剩余卡座中某张卡上写入的最小值，但是 不知道这张卡（或这些卡）在哪里。</p>
+<p>您将确定Vasily从卡片组拿走顶卡的总次数。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>开始看错题目了，还天真的以为没有重复的数。这个题的主要还是要用树状数组计算前缀和，</p>
+<p>因为每次都是吧最小值去掉，所以对于输入的数据进行排序就可以了。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;string.h&gt;
+using namespace std;
+vector&lt;int&gt; ve[100010];/*建立一个vector数组，记录每一个数在数组中的位置*/
+int c[100010], n, a[100010], pr[100010];
+/*用树状数组计算前缀和（一个位置前有多少个数*/
+int lowbit(int x)
+{
+    return x &amp; (-x);
+}
+void add(int x,int y)
+{
+    for (int i = x; i &lt;= n; i += lowbit(i))
+        c[i] += y;
+}
+int find(int x)
+{
+    int ans = 0;
+    for (int i = x; i &gt; 0; i -= lowbit(i))
+        ans += c[i];
+    return ans;
+}
+int main()
+{
+    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+    while (~scanf(&quot;%d&quot;, &amp;n))
+    {
+        memset(c, 0, sizeof(c));
+        memset(pr, 0, sizeof(pr));
+        int t = 0;
+        for (int i = 1; i &lt;= n; i++)
+        {
+            int x;
+            scanf(&quot;%d&quot;, &amp;x);
+            if (pr[x] == 0)
+            {
+                pr[x] = 1;
+                a[t++] = x;
+            }
+            ve[x].push_back(i);
+            add(i, 1);
+        }
+    /*因为存入vector时是安i的顺序存的，所以在vector[]内部的元素是有序的*/
+        sort(a, a + t);/*查看每次操作后的最小值*/
+        long long ans = 0, p = 0;
+        for (int i = 0; i &lt; t; i++)//每次要保证最小的卡片全部被取走
+        {
+            int s = ve[a[i]].size();
+            if (p &lt; ve[a[i]][0])/*记录p之前的数*/
+            {
+                vector&lt;int&gt;::iterator it = ve[a[i]].begin();
+                int x = ve[a[i]][s - 1];
+                ans += find(x) - find(p);
+                p = x;
+                for (it; it != ve[a[i]].end(); it++)
+                {
+                    add(*it, -1);/* *it前面的数的数量减一*/
+                }
+            }
+            else/*记录p之后的数*/
+            {
+                int temp = 0;
+                vector&lt;int&gt;::iterator it = ve[a[i]].begin();
+                int x = 0;
+                for (it; it != ve[a[i]].end(); it++)
+                {
+                    if (*it &lt; p)
+                    {
+                        x = *it;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                ans += find(n) - find(p) + find(x);
+                p = x;
+                it = ve[a[i]].begin();
+                for (it; it != ve[a[i]].end(); it++)
+                {
+                    add(*it, -1);/**it前面的数的数量减一*/
+                }
+            }
+        }
+        printf(&quot;%lld\n&quot;, ans);
+    }
+    return 0;
+}</code></pre>
             </div>
             <hr/>
 
@@ -406,7 +526,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/categories/index-1.html">https://xucanxx.github.io/categories/index-1.html</a>
+                    <a href="https://xucanxx.github.io/2020/04/24/cf-830B-Cards-Sorting/">https://xucanxx.github.io/2020/04/24/cf-830B-Cards-Sorting/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,7 +563,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/ACM/">
+                                    <span class="chip bg-color">ACM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -612,7 +736,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: "xucanxx",
-        id: '2020-04-23T09-56-55',
+        id: '2020-04-24T09-16-24',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -636,39 +760,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/25/poj-2479/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="poj-2479">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">poj-2479</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目题面Maximum sumTime Limit: 1000MSMemory Limit: 65536KDescription
+Given a set of n integers: A={a1, a2,…, an}, we define 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -676,22 +811,24 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="Yet Another Subarray Problem cf1197D">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">Yet Another Subarray Problem cf1197D</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目题面You are given an array a1,a2,…,an and two integers m and k.
+You can choose some subarray al,al+1,…,ar−1,ar.
+The cost
                         
                     </div>
                     <div class="publish-info">
@@ -700,13 +837,24 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

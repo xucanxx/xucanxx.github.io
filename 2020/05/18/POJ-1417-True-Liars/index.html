@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 菜鸟">
+    <meta name="keywords" content="POJ 1417 True Liars, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 菜鸟</title>
+    <title>POJ 1417 True Liars | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">POJ 1417 True Liars</h1>
                 </div>
             </div>
         </div>
@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ACM/">
+                                <span class="chip bg-color">ACM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                刷题
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -365,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-05-18
                 </div>
                 
 
@@ -381,7 +394,189 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>参考自大佬的博客：<a href="https://blog.csdn.net/gg_gogoing/article/details/38753567" target="_blank" rel="noopener">https://blog.csdn.net/gg_gogoing/article/details/38753567</a></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p>
+<p>n,x,y</p>
+<p>这个人问n次 ，x为神的个数，y为恶魔的个数。</p>
+<p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes/no。注意xi,yi可能为同一个人</p>
+<p>若最终可得出哪些是神则从小到大输出神的编号，并最终输出end</p>
+<p>否则输出no</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入格式如下： </p>
+<pre><code>n p1 p2 
+xl yl a1 
+x2 y2 a2 
+... 
+xi yi ai 
+... 
+xn yn an </code></pre><p>第一行有三个非负整数 n, p1, 和 p2. n 是 Akira 问的问题数. p1 和 p2 是在传说中记载的神族和恶魔族的人口数量。下面的每 n 行包括两个整数xi, yi和一个单词 ai。 xi 和 yi 是每个人的编号，号码范围从 1 到 p1 + p2。 ai 可能是 yes 或者 no。如果居民 xi 想让你认为 yi 是神族，他会回答 yes。注意：xi 和 yi 可能相同。所以”你是神族吗？“是一个有效的问题。还要注意，Akira 十分紧张，所以相同的问题可能重复出现。<br>数据范围：<br>n ＜ 1000<br>p1,p2 &lt; 300<br>出现 0 0 0 的一行标示数据结束。 数据保证成立，没有矛盾数据。 </p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个数据集，如果它包含足够的信息来对所有居民进行分类，则按升序打印所有神族居民的编号，一行一个。 在输出数字后再输出end。 如果给定数据集不包括足以识别所有神族的信息，输出no。</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre><code>2 1 1
+1 2 no
+2 1 no
+3 2 1
+1 1 yes
+2 2 yes
+3 3 yes
+2 2 1
+1 2 yes
+2 3 no
+5 4 3
+1 2 yes
+1 3 no
+4 5 yes
+5 6 yes
+6 7 no
+0 0 0</code></pre><h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre><code>no
+no
+1
+2
+end
+3
+4
+5
+6
+end</code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>经过简单的推理可得只要说了‘yes’那么那两个就属于同一类，‘no’则相反<br>使用并查集表名它们的关系，用背包统计在不同情况下有多少种答案。<br>最后进行答案统计。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;iostream&gt;
+#include&lt;string.h&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int pr[1010], relation[1010];
+int kind[1010], cnt[2010], dp[1010][1010];//dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况
+int p[1010][1010];//p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类
+int x, y, z;
+int ans[1010], f;
+int find(int xx)
+{
+    if (pr[xx] == -1)
+    {
+        return xx;
+    }
+    int tmp = find(pr[xx]);
+    relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系
+    pr[xx] = tmp;
+    return tmp;
+}
+int solve()
+{
+    memset(dp, 0, sizeof(dp));
+    memset(p, 0, sizeof(p));
+    memset(cnt, 0, sizeof(cnt));
+    f = 0;
+    int k = 0;
+    for (int i = 1; i &lt;= x + y; i++)//压缩路径
+        find(i);
+    for (int i = 1; i &lt;= x + y; i++)
+    {
+        if (pr[i] == -1)
+            kind[k++] = i;//看看有多少头节点结点
+    }
+    for (int i = 0; i &lt; k; i++)
+    {
+        cnt[i * 2] = 1;
+        for (int j = 1; j &lt;= x + y; j++)
+        {
+            if (pr[j] == kind[i])
+            {
+                if (relation[j] == 0)
+                    cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类
+                else
+                    cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类
+            }
+        }
+    }
+    dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点
+    dp[0][cnt[1]]++; p[0][cnt[1]] = 1;
+    for (int i = 1; i &lt; k; i++)
+        for (int j = x; j &gt;= 0; j--)
+        {
+            if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包
+            {
+                dp[i][j] += dp[i - 1][j - cnt[2 * i]];
+                p[i][j] = 0;
+            }
+            if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
+            {
+                dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];
+                p[i][j] = 1;
+            }
+        }
+    if (dp[k - 1][x] != 1)
+        return 0;
+    int m = x, t;
+    f = 0;
+    for (int i = k - 1; i &gt;= 0; i--)
+    {
+        if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反
+        {
+            t = 0; m = m - cnt[i * 2];
+        }
+        else
+        {
+            t = 1; m = m - cnt[2 * i + 1];
+        }
+        for (int j = 1; j &lt;= x + y; j++)
+        {
+            if (pr[j] == kind[i] || j == kind[i])//统计个数
+            {
+                if (relation[j] == t)
+                    ans[f++]=j;
+            }
+        }
+    }
+    sort(ans, ans + f);
+    return 1;
+}
+int main()
+{
+    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+    while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)
+    {
+        if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)
+            break;
+        memset(pr, -1, sizeof(pr));
+        memset(relation, 0, sizeof(relation));
+        for (int i = 0; i &lt; z; i++)
+        {
+            int a, b;
+            char s[10];
+            cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
+            if (a &lt; b)
+            {
+                int tmp = a; a = b; b = tmp;
+            }
+            int aa = find(a), bb = find(b);
+            if (aa == bb)
+            {
+                continue;
+            }
+            if (s[0] == &#39;y&#39;)
+            {
+                pr[aa] = bb;
+                relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集
+            }
+            else
+            {
+                pr[aa] = bb;
+                relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集
+            }
+        }
+        if (x == y)
+        {
+            cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;
+        }
+        if (solve())//f可能为0
+        {
+            for (int i = 0; i &lt; f; i++)
+            {
+                cout &lt;&lt; ans[i]&lt;&lt;endl;
+            }
+            cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
+        }
+        else
+            cout &lt;&lt; &quot;no&quot; &lt;&lt; endl;
+    }
+    return 0;
+}</code></pre>
             </div>
             <hr/>
 
@@ -406,7 +601,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/categories/index-1.html">https://xucanxx.github.io/categories/index-1.html</a>
+                    <a href="https://xucanxx.github.io/2020/05/18/POJ-1417-True-Liars/">https://xucanxx.github.io/2020/05/18/POJ-1417-True-Liars/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,7 +638,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/ACM/">
+                                    <span class="chip bg-color">ACM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -612,7 +811,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: "xucanxx",
-        id: '2020-04-23T09-56-55',
+        id: '2020-05-18T15-18-32',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -636,39 +835,52 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/05/24/%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="牛客西安邮大校赛-D最简单的一道题">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">牛客西安邮大校赛-D最简单的一道题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            参考自官方的博客：https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73
+题目题面有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：
+
+修改：区间 l 到 r 内的建
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-24
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -676,37 +888,49 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/05/01/cf1336A-1337C/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="cf1336A/1337C">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">cf1336A/1337C</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            参考自大佬的博客：https://www.cnblogs.com/stelayuri/p/12709923.html
+题目题面A. Linova and Kingdomtime limit per test2 secondsmemory l
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-01
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

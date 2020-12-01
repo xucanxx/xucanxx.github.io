@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="分类, 菜鸟">
+    <meta name="keywords" content="cf1336A/1337C, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>分类 | 菜鸟</title>
+    <title>cf1336A/1337C | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">cf1336A/1337C</h1>
                 </div>
             </div>
         </div>
@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ACM/">
+                                <span class="chip bg-color">ACM</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                刷题
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -365,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-05-01
                 </div>
                 
 
@@ -381,7 +394,87 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>参考自大佬的博客：<a href="https://www.cnblogs.com/stelayuri/p/12709923.html" target="_blank" rel="noopener">https://www.cnblogs.com/stelayuri/p/12709923.html</a></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>A. Linova and Kingdom<br>time limit per test2 seconds<br>memory limit per test256 megabytes<br>inputstandard input<br>outputstandard output<br>Writing light novels is the most important thing in Linova’s life. Last night, Linova dreamed about a fantastic kingdom. She began to write a light novel for the kingdom as soon as she woke up, and of course, she is the queen of it.</p>
+<p>There are n cities and n−1 two-way roads connecting pairs of cities in the kingdom. From any city, you can reach any other city by walking through some roads. The cities are numbered from 1 to n, and the city 1 is the capital of the kingdom. So, the kingdom has a tree structure.</p>
+<p>As the queen, Linova plans to choose exactly k cities developing industry, while the other cities will develop tourism. The capital also can be either industrial or tourism city.</p>
+<p>A meeting is held in the capital once a year. To attend the meeting, each industry city sends an envoy. All envoys will follow the shortest path from the departure city to the capital (which is unique).</p>
+<p>Traveling in tourism cities is pleasant. For each envoy, his happiness is equal to the number of tourism cities on his path.</p>
+<p>In order to be a queen loved by people, Linova wants to choose k cities which can maximize the sum of happinesses of all envoys. Can you calculate the maximum sum for her?</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains two integers n and k (2≤n≤2⋅105, 1≤ k &lt; n)  — the number of cities and industry cities respectively.</p>
+<p>Each of the next n−1 lines contains two integers u and v (1≤u,v≤n), denoting there is a road connecting city u and city v.</p>
+<p>It is guaranteed that from any city, you can reach any other city by the roads.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the only line containing a single integer  — the maximum possible sum of happinesses of all envoys.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre><code>7 4
+1 2
+1 3
+1 4
+3 5
+3 6
+4 7</code></pre><h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre><code>7</code></pre><h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><pre><code>4 1
+1 2
+1 3
+2 4</code></pre><h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><pre><code>2</code></pre><h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><pre><code>8 5
+7 5
+1 7
+6 1
+3 7
+8 3
+2 1
+4 5</code></pre><h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><pre><code>9</code></pre><h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有n座城市组成的最小无向联通图（即n-1条路线），其中有k个工业城市，其余的都是旅游城市，其中每一个工业城市都会派出一位大使前往1号城市，大使其中经过了多少旅游城市就是大使的满意度，问通过分配工业城市与旅游城市，能取得的大使满意度的和最大的值。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>搭建以1号城市为根节点的树，并以1为中心，在1的周围选择旅游城市，这样远离1的工业城市大使就能经过更多旅游城市，而每次选择一个旅游城市它之后每个工业城市大使的满意度就会加一（首先直接默认它之后的城市都为工业城市），但是他从工业城市变成旅游城市会失去满意度（节点的深度），所以整体的贡献度为所有的子节点数-节点的深度</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+using namespace std;
+struct nod
+{
+    long long d,v;
+}a[200010];
+int k, n;
+int pr[200010] = { 0 };
+vector&lt;int&gt; p[200010];//p[i]代表有那些地方与i地相连
+bool cmp(nod x, nod y)
+{
+    return x.v - x.d &gt; y.v - y.d;//对一个点的贡献值进行排序
+}
+int dfs(int t)//深搜得出每个点的深度与有多少个子节点
+{
+    vector&lt;int&gt;::iterator it = p[t].begin();
+    pr[t] = 1;
+    long long sum = 0;
+    for (it; it != p[t].end(); it++)
+    {
+        if (!pr[*it])
+        {
+            a[*it].d = a[t].d + 1;
+            sum += dfs(*it);
+        }
+    }
+    a[t].v = sum;
+    return sum + 1;
+}
+int main()
+{
+    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+    cin &gt;&gt; n &gt;&gt; k;
+    for (int i = 0; i &lt; n - 1; i++)
+    {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        p[x].push_back(y);
+        p[y].push_back(x);
+    }
+    a[0].d = -1;
+    dfs(1);
+    sort(a + 1, a + 1 + n, cmp);
+    long long ans = 0;
+    for (int i = 1; i &lt;= n - k; i++)//由于我们选择的是多少旅游城市，所以数量为n-k
+    {
+        ans += (a[i].v - a[i].d);
+    }
+    cout &lt;&lt; ans &lt;&lt; endl;
+}</code></pre>
             </div>
             <hr/>
 
@@ -406,7 +499,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/categories/index-1.html">https://xucanxx.github.io/categories/index-1.html</a>
+                    <a href="https://xucanxx.github.io/2020/05/01/cf1336A-1337C/">https://xucanxx.github.io/2020/05/01/cf1336A-1337C/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,7 +536,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/ACM/">
+                                    <span class="chip bg-color">ACM</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -612,7 +709,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: "xucanxx",
-        id: '2020-04-23T09-56-55',
+        id: '2020-05-01T19-12-52',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -636,39 +733,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/05/18/POJ-1417-True-Liars/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="POJ 1417 True Liars">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">POJ 1417 True Liars</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            参考自大佬的博客：https://blog.csdn.net/gg_gogoing/article/details/38753567
+题目题面一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-18
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -676,37 +784,51 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index-1.html">
+                <a href="/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="dp基础：poj1887">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">dp基础：poj1887</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            题目最长不上升子序列
+Input所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5
+Output每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行
+Examp
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
+                                    刷题
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
