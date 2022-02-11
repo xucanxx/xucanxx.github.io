@@ -351,12 +351,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SpringBoot/">
+                                <span class="chip bg-color">SpringBoot</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                学习笔记
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -381,7 +394,45 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span><span class="token string">"tom"</span><span class="token punctuation">)</span>
+        <span class="token keyword">public</span> Pet <span class="token function">cat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pet</span><span class="token punctuation">(</span><span class="token string">"tomcat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h3><pre><code>告诉Springboot这是一个配置类，其作用相当于配置文件
+
+@Configuration(proxyBeanMethods = true)
+外部无论对配置类中的这个组件注册方法调用多少次获取的都是之前注册容器中的单实例对象</code></pre><h4 id="proxyBeanMethods"><a href="#proxyBeanMethods" class="headerlink" title="proxyBeanMethods"></a>proxyBeanMethods</h4><h5 id="如果proxyBeanMethods-true-（代理对象调用方法Full模式）"><a href="#如果proxyBeanMethods-true-（代理对象调用方法Full模式）" class="headerlink" title="如果proxyBeanMethods = true （代理对象调用方法Full模式）"></a>如果proxyBeanMethods = true （代理对象调用方法Full模式）</h5><pre><code>SpringBoot默认就会检查容器中有没有这个方法以及返回的组件如果有就拿，如果没有就新创（保持组件单实例）</code></pre><h5 id="如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）"><a href="#如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）" class="headerlink" title="如果proxyBeanMethods = false （不代理对象调用方法Lite模式）"></a>如果proxyBeanMethods = false （不代理对象调用方法Lite模式）</h5><pre><code>就只是执行那个方法并不会在容器中拿取</code></pre><h3 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h3><pre><code>将类放入容器中，默认的id为方法名，也可以通过@Bean(&quot;id&quot;)的方式自定义id
+方法中的返回值就是组件类型(类)</code></pre><h2 id="import"><a href="#import" class="headerlink" title="@import()"></a>@import()</h2><pre><code>给容器自动创建组件</code></pre><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span>User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>DBHelper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">//给容器自动创建了这两个组件</span></code></pre>
+<h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p>条件装配：满足Conditional指定条件，则进行组件注入</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）</span>
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+     <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时下面的配置才生效</span>
+    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span></code></pre>
+<h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>导入原生配置文件</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@ImportResource</span><span class="token punctuation">(</span><span class="token string">"xxx.xml"</span><span class="token punctuation">)</span></code></pre>
+
             </div>
             <hr/>
 
@@ -443,7 +494,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/SpringBoot/">
+                                    <span class="chip bg-color">SpringBoot</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -653,7 +708,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            常用注解@Configuration 与 @Bean    @Configuration
+    public class test{
+        @Bean
+        public User user1(){
+         
                         
                     </div>
                     <div class="publish-info">
@@ -662,13 +721,25 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            xucanxx
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    学习笔记
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot/">
+                        <span class="chip bg-color">SpringBoot</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
