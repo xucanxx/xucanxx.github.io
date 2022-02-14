@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Yet Another Subarray Problem cf1197D, 菜鸟">
+    <meta name="keywords" content="java的三种随机函数, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Yet Another Subarray Problem cf1197D | 菜鸟</title>
+    <title>java的三种随机函数 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Yet Another Subarray Problem cf1197D</h1>
+                    <h1 class="description center-align post-title">java的三种随机函数</h1>
                 </div>
             </div>
         </div>
@@ -353,8 +353,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/ACM/">
-                                <span class="chip bg-color">ACM</span>
+                            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">学习笔记</span>
                             </a>
                         
                     </div>
@@ -378,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2022-02-14
                 </div>
                 
 
@@ -394,55 +394,33 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>You are given an array a1,a2,…,an and two integers m and k.</p>
-<p>You can choose some subarray al,al+1,…,ar−1,ar.</p>
-<p>The cost of subarray al,al+1,…,ar−1,ar is equal to ∑i=lrai−k⌈(r−l+1)/m⌉, where ⌈x⌉ is the least integer greater than or equal to xx.</p>
-<p>The cost of empty subarray is equal to zero.</p>
-<p>For example, if m=3m=3, k=10k=10 and a=[2,−4,15,−3,4,8,3]a=[2,−4,15,−3,4,8,3], then the cost of some subarrays are:</p>
-<p>·       a3…a3:15−k⌈1/3⌉=15−10=5</p>
-<p>·       a3…a4:(15−3)−k⌈2/3⌉=12−10=2</p>
-<p>·       a3…a5:(15−3+4)−k⌈3/3⌉=16−10=6</p>
-<p>·       a3…a6:(15−3+4+8)−k⌈4/3⌉=24−20=4</p>
-<p>·       a3…a7:(15−3+4+8+3)−k⌈5/3⌉=27−20=7</p>
-<p>Your task is to find the maximum cost of some subarray (possibly empty) of array a.</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains three integers nn, mm, and kk (1≤n≤3⋅10^5,1≤m≤10,1≤k≤10^91≤n≤3⋅10^5,1≤m≤10,1≤k≤10^9).</p>
-<p>The second line contains nn integers a1,a2,…,ana1,a2,…,an (−109≤ai≤109−109≤ai≤109).</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the maximum cost of some subarray of array a.</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>7 3 10  </p>
-<p>2 -4 15 -3 4 8 3</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
-<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 2 1000</p>
-<p>-13 -4 -9 -20 -11</p>
-<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>0</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这可以理解是一个01背包的拓展（就是一个板子题），思路是将所取数组的长度对m取余来减少状态量</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;string.h&gt;
-using namespace std;
-long long dp[300010][20]/*第一个代表所取数组的末尾，第二个代表长度对m取余*/, a[300010];
-int main()
-{
-    int n, m, k;
-    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
-    while (~scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k))
+                <h1 id="java的三种随机数生成方式"><a href="#java的三种随机数生成方式" class="headerlink" title="java的三种随机数生成方式"></a>java的三种随机数生成方式</h1><p>完全取自这篇大佬文章：<a href="https://www.cnblogs.com/blogxjc/p/9687297.html" target="_blank" rel="noopener">https://www.cnblogs.com/blogxjc/p/9687297.html</a></p>
+<p>随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：</p>
+<h2 id="第一种-new-Random"><a href="#第一种-new-Random" class="headerlink" title="第一种: new Random()"></a>第一种: new Random()</h2><p>第一种需要借助java.util.Random类来产生一个随机数发生器，也是最常用的一种，构造函数有两个，Random()和Random(long seed)。第一个就是以当前时间为默认种子，第二个是以指定的种子值进行。产生之后，借助不同的语句产生不同类型的数。</p>
+<p>种子就是产生随机数的第一次使用值,机制是通过一个函数,将这个种子的值转化为随机数空间中的某一个点上,并且产生的随机数均匀的散布在空间中。以后产生的随机数都与前一个随机数有关。以代码为例。</p>
+<pre><code>    public static void main(String[] args)
     {
-        memset(dp, -0x3f3f3f3f, sizeof(dp));
-        dp[0][m - 1] = 0;
-        long long ans = 0;
-        for (int i = 1; i &lt;= n; i++)scanf(&quot;%lld&quot;, &amp;a[i]);
-        for (int i = 1; i &lt;= n; i++)
-            for (int j = 0; j &lt; m; j++)
-            {
-                if (j == 0)/*当j=0时，[(r-l+1)/m]将会加1，所以判断a[i]-k
-                            与dp[i - 1][m - 1] + a[i] - k的大小来保证dp[][]中的是最大值*/
-                    dp[i][j] = max(dp[i - 1][m - 1] + a[i] - k, a[i] - k);
-                else/*当j!=0时，数组的长度加1不会影响[(r-l+1)/m]的大小*/
-                    dp[i][j] = dp[i - 1][j - 1] + a[i];
-                ans = max(ans, dp[i][j]);
-            }
-        printf(&quot;%lld\n&quot;, ans);
-    }
-    return 0;
+    　　Random r = new Random(1);
+    　　for(int i=0 ; i&lt;5 ;  i++)
+    　　{
+    　　　　int ran1 = r.nextInt(100);
+    　　　　System.out.println(ran1);
+    　　}
+    }</code></pre><p>在我的编译器下产生的五个数均为85,88,47,13,54，如果采用Random r = new Random()，产生的随机数就不同，这就是确定种子导致的结果。</p>
+<h2 id="第二种：Math-random"><a href="#第二种：Math-random" class="headerlink" title="第二种：Math.random()"></a>第二种：Math.random()</h2><p>而第二种方法返回的数值是[0.0,1.0）的double型数值，由于double类数的精度很高，可以在一定程度下看做随机数，借助（int）来进行类型转换就可以得到整数随机数了，代码如下。</p>
+<pre><code>public static void main(String[] args)
+{    
+    int max=100,min=1;
+    int ran2 = (int) (Math.random()*(max-min)+min); 
+    System.out.println(ran2);
+}</code></pre><h2 id="第三种：currentTimeMillis"><a href="#第三种：currentTimeMillis" class="headerlink" title="第三种：currentTimeMillis()"></a>第三种：currentTimeMillis()</h2><p>至于第三种方法虽然不常用，但是也是一种思路。方法返回从1970年1月1日0时0分0秒（这与UNIX系统有关）到现在的一个long型的毫秒数，取模之后即可得到所需范围内的随机数。</p>
+<pre><code>public static void main(String[] args)
+{    
+    int max=100,min=1;
+    long randomNum = System.currentTimeMillis();  
+    int ran3 = (int) (randomNum%(max-min)+min);  
+    System.out.println(ran3);
+
 }</code></pre>
             </div>
             <hr/>
@@ -468,7 +446,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/">https://xucanxx.github.io/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/</a>
+                    <a href="https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -506,8 +484,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/ACM/">
-                                    <span class="chip bg-color">ACM</span>
+                                <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">学习笔记</span>
                                 </a>
                             
                         </div>
@@ -678,7 +656,7 @@ int main()
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2020-04-23T16-43-01',
+        id: '2022-02-14T14-21-16',
         proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -704,78 +682,31 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/04/24/cf-830B-Cards-Sorting/">
+                <a href="/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="cf 830B-Cards Sorting">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="java的三种随机函数">
                         
-                        <span class="card-title">cf 830B-Cards Sorting</span>
+                        <span class="card-title">java的三种随机函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目题面Cards Sorting
-Vasily has a deck of cards consisting of n cards.There is an integer on each of the cards, this intege
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-24
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%88%B7%E9%A2%98/" class="post-category">
-                                    刷题
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ACM/">
-                        <span class="chip bg-color">ACM</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/04/23/One-Dimensional-Battle-Ships-cf567D/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/20.jpg" class="responsive-img" alt="One-Dimensional Battle Ships cf567D">
-                        
-                        <span class="card-title">One-Dimensional Battle Ships cf567D</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            题目题面Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of 
+                            java的三种随机数生成方式完全取自这篇大佬文章：https://www.cnblogs.com/blogxjc/p/9687297.html
+随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-14
                             </span>
                         <span class="publish-author">
                             
@@ -789,11 +720,65 @@ Vasily has a deck of cards consisting of n cards.There is an integer on each of 
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ACM/">
-                        <span class="chip bg-color">ACM</span>
+                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">学习笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/02/11/%E5%B8%B8%E7%94%A8%E6%B3%A8%E9%87%8A/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="常用注释">
+                        
+                        <span class="card-title">常用注释</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            常用注解@Configuration 与 @Bean    @Configuration
+    public class test{
+        @Bean
+        public User user1(){
+         
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot/">
+                        <span class="chip bg-color">SpringBoot</span>
                     </a>
                     
                 </div>
