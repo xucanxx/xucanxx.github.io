@@ -394,7 +394,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+                <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><p>取自B站视频：<a href="https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver</a></p>
+<h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
     <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
         <span class="token annotation punctuation">@Bean</span>
         <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -432,7 +433,25 @@
         <span class="token punctuation">}</span></code></pre>
 <h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>导入原生配置文件</p>
 <pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@ImportResource</span><span class="token punctuation">(</span><span class="token string">"xxx.xml"</span><span class="token punctuation">)</span></code></pre>
+<h2 id="配置绑定"><a href="#配置绑定" class="headerlink" title="配置绑定"></a>配置绑定</h2><h3 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h3><pre><code>前缀定义了哪些外部属性将绑定到类的字段上  
+根据 Spring Boot 宽松的绑定规则，类的属性名称必须与外部属性的名称匹配  
+我们可以简单地用一个值初始化一个字段来定义一个默认值  
+类本身可以是包私有的  
+类的字段必须有公共 setter 方法  </code></pre><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@component</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"mycar"</span><span class="token punctuation">)</span>
 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String Integer price<span class="token punctuation">;</span>
+
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token comment" spellcheck="true">//setter方法</span>
+<span class="token punctuation">}</span></code></pre>
+<p>@ConfigurationProperties括号中的值为前缀在application.Properties文件中的配置如下  </p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">mycar.brand</span><span class="token punctuation">=</span><span class="token attr-value">BYD</span>
+<span class="token attr-name">mycar.price</span><span class="token punctuation">=</span><span class="token attr-value">100000</span></code></pre>
+<h3 id="EnableConfigurationProperties"><a href="#EnableConfigurationProperties" class="headerlink" title="@EnableConfigurationProperties"></a>@EnableConfigurationProperties</h3><pre><code>@EnableConfigurationProperties(xxx.class)  
+开启xxx.class的属性配置功能   
+把xxx这个组件自动注册到容器中</code></pre>
             </div>
             <hr/>
 
