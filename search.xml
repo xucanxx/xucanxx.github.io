@@ -59,6 +59,19 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
+    <url>/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/</url>
+    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
+<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077" target="_blank" rel="noopener">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>One-Dimensional Battle Ships cf567D</title>
     <url>/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</url>
     <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
@@ -153,79 +166,6 @@ int main()
       </categories>
       <tags>
         <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Yet Another Subarray Problem cf1197D</title>
-    <url>/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>You are given an array a1,a2,…,an and two integers m and k.</p>
-<p>You can choose some subarray al,al+1,…,ar−1,ar.</p>
-<p>The cost of subarray al,al+1,…,ar−1,ar is equal to ∑i=lrai−k⌈(r−l+1)/m⌉, where ⌈x⌉ is the least integer greater than or equal to xx.</p>
-<p>The cost of empty subarray is equal to zero.</p>
-<p>For example, if m=3m=3, k=10k=10 and a=[2,−4,15,−3,4,8,3]a=[2,−4,15,−3,4,8,3], then the cost of some subarrays are:</p>
-<p>·       a3…a3:15−k⌈1/3⌉=15−10=5</p>
-<p>·       a3…a4:(15−3)−k⌈2/3⌉=12−10=2</p>
-<p>·       a3…a5:(15−3+4)−k⌈3/3⌉=16−10=6</p>
-<p>·       a3…a6:(15−3+4+8)−k⌈4/3⌉=24−20=4</p>
-<p>·       a3…a7:(15−3+4+8+3)−k⌈5/3⌉=27−20=7</p>
-<p>Your task is to find the maximum cost of some subarray (possibly empty) of array a.</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains three integers nn, mm, and kk (1≤n≤3⋅10^5,1≤m≤10,1≤k≤10^91≤n≤3⋅10^5,1≤m≤10,1≤k≤10^9).</p>
-<p>The second line contains nn integers a1,a2,…,ana1,a2,…,an (−109≤ai≤109−109≤ai≤109).</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the maximum cost of some subarray of array a.</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>7 3 10  </p>
-<p>2 -4 15 -3 4 8 3</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
-<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 2 1000</p>
-<p>-13 -4 -9 -20 -11</p>
-<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>0</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这可以理解是一个01背包的拓展（就是一个板子题），思路是将所取数组的长度对m取余来减少状态量</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;string.h&gt;
-using namespace std;
-long long dp[300010][20]/*第一个代表所取数组的末尾，第二个代表长度对m取余*/, a[300010];
-int main()
-{
-    int n, m, k;
-    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
-    while (~scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k))
-    {
-        memset(dp, -0x3f3f3f3f, sizeof(dp));
-        dp[0][m - 1] = 0;
-        long long ans = 0;
-        for (int i = 1; i &lt;= n; i++)scanf(&quot;%lld&quot;, &amp;a[i]);
-        for (int i = 1; i &lt;= n; i++)
-            for (int j = 0; j &lt; m; j++)
-            {
-                if (j == 0)/*当j=0时，[(r-l+1)/m]将会加1，所以判断a[i]-k
-                            与dp[i - 1][m - 1] + a[i] - k的大小来保证dp[][]中的是最大值*/
-                    dp[i][j] = max(dp[i - 1][m - 1] + a[i] - k, a[i] - k);
-                else/*当j!=0时，数组的长度加1不会影响[(r-l+1)/m]的大小*/
-                    dp[i][j] = dp[i - 1][j - 1] + a[i];
-                ans = max(ans, dp[i][j]);
-            }
-        printf(&quot;%lld\n&quot;, ans);
-    }
-    return 0;
-}</code></pre>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
-    <url>/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/</url>
-    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
-<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077" target="_blank" rel="noopener">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -540,44 +480,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>java的三种随机函数</title>
-    <url>/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h1 id="java的三种随机数生成方式"><a href="#java的三种随机数生成方式" class="headerlink" title="java的三种随机数生成方式"></a>java的三种随机数生成方式</h1><p>完全取自这篇大佬文章：<a href="https://www.cnblogs.com/blogxjc/p/9687297.html" target="_blank" rel="noopener">https://www.cnblogs.com/blogxjc/p/9687297.html</a></p>
-<p>随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：</p>
-<h2 id="第一种-new-Random"><a href="#第一种-new-Random" class="headerlink" title="第一种: new Random()"></a>第一种: new Random()</h2><p>第一种需要借助java.util.Random类来产生一个随机数发生器，也是最常用的一种，构造函数有两个，Random()和Random(long seed)。第一个就是以当前时间为默认种子，第二个是以指定的种子值进行。产生之后，借助不同的语句产生不同类型的数。</p>
-<p>种子就是产生随机数的第一次使用值,机制是通过一个函数,将这个种子的值转化为随机数空间中的某一个点上,并且产生的随机数均匀的散布在空间中。以后产生的随机数都与前一个随机数有关。以代码为例。</p>
-<pre><code>    public static void main(String[] args)
-    {
-    　　Random r = new Random(1);
-    　　for(int i=0 ; i&lt;5 ;  i++)
-    　　{
-    　　　　int ran1 = r.nextInt(100);
-    　　　　System.out.println(ran1);
-    　　}
-    }</code></pre><p>在我的编译器下产生的五个数均为85,88,47,13,54，如果采用Random r = new Random()，产生的随机数就不同，这就是确定种子导致的结果。</p>
-<h2 id="第二种：Math-random"><a href="#第二种：Math-random" class="headerlink" title="第二种：Math.random()"></a>第二种：Math.random()</h2><p>而第二种方法返回的数值是[0.0,1.0）的double型数值，由于double类数的精度很高，可以在一定程度下看做随机数，借助（int）来进行类型转换就可以得到整数随机数了，代码如下。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    int ran2 = (int) (Math.random()*(max-min)+min); 
-    System.out.println(ran2);
-}</code></pre><h2 id="第三种：currentTimeMillis"><a href="#第三种：currentTimeMillis" class="headerlink" title="第三种：currentTimeMillis()"></a>第三种：currentTimeMillis()</h2><p>至于第三种方法虽然不常用，但是也是一种思路。方法返回从1970年1月1日0时0分0秒（这与UNIX系统有关）到现在的一个long型的毫秒数，取模之后即可得到所需范围内的随机数。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    long randomNum = System.currentTimeMillis();  
-    int ran3 = (int) (randomNum%(max-min)+min);  
-    System.out.println(ran3);
-
-}</code></pre>]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cf1336A/1337C</title>
     <url>/2020/05/01/cf1336A-1337C/</url>
     <content><![CDATA[<p>参考自大佬的博客：<a href="https://www.cnblogs.com/stelayuri/p/12709923.html" target="_blank" rel="noopener">https://www.cnblogs.com/stelayuri/p/12709923.html</a></p>
@@ -669,6 +571,66 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>Yet Another Subarray Problem cf1197D</title>
+    <url>/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>You are given an array a1,a2,…,an and two integers m and k.</p>
+<p>You can choose some subarray al,al+1,…,ar−1,ar.</p>
+<p>The cost of subarray al,al+1,…,ar−1,ar is equal to ∑i=lrai−k⌈(r−l+1)/m⌉, where ⌈x⌉ is the least integer greater than or equal to xx.</p>
+<p>The cost of empty subarray is equal to zero.</p>
+<p>For example, if m=3m=3, k=10k=10 and a=[2,−4,15,−3,4,8,3]a=[2,−4,15,−3,4,8,3], then the cost of some subarrays are:</p>
+<p>·       a3…a3:15−k⌈1/3⌉=15−10=5</p>
+<p>·       a3…a4:(15−3)−k⌈2/3⌉=12−10=2</p>
+<p>·       a3…a5:(15−3+4)−k⌈3/3⌉=16−10=6</p>
+<p>·       a3…a6:(15−3+4+8)−k⌈4/3⌉=24−20=4</p>
+<p>·       a3…a7:(15−3+4+8+3)−k⌈5/3⌉=27−20=7</p>
+<p>Your task is to find the maximum cost of some subarray (possibly empty) of array a.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains three integers nn, mm, and kk (1≤n≤3⋅10^5,1≤m≤10,1≤k≤10^91≤n≤3⋅10^5,1≤m≤10,1≤k≤10^9).</p>
+<p>The second line contains nn integers a1,a2,…,ana1,a2,…,an (−109≤ai≤109−109≤ai≤109).</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the maximum cost of some subarray of array a.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>7 3 10  </p>
+<p>2 -4 15 -3 4 8 3</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 2 1000</p>
+<p>-13 -4 -9 -20 -11</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>0</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这可以理解是一个01背包的拓展（就是一个板子题），思路是将所取数组的长度对m取余来减少状态量</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;string.h&gt;
+using namespace std;
+long long dp[300010][20]/*第一个代表所取数组的末尾，第二个代表长度对m取余*/, a[300010];
+int main()
+{
+    int n, m, k;
+    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+    while (~scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k))
+    {
+        memset(dp, -0x3f3f3f3f, sizeof(dp));
+        dp[0][m - 1] = 0;
+        long long ans = 0;
+        for (int i = 1; i &lt;= n; i++)scanf(&quot;%lld&quot;, &amp;a[i]);
+        for (int i = 1; i &lt;= n; i++)
+            for (int j = 0; j &lt; m; j++)
+            {
+                if (j == 0)/*当j=0时，[(r-l+1)/m]将会加1，所以判断a[i]-k
+                            与dp[i - 1][m - 1] + a[i] - k的大小来保证dp[][]中的是最大值*/
+                    dp[i][j] = max(dp[i - 1][m - 1] + a[i] - k, a[i] - k);
+                else/*当j!=0时，数组的长度加1不会影响[(r-l+1)/m]的大小*/
+                    dp[i][j] = dp[i - 1][j - 1] + a[i];
+                ans = max(ans, dp[i][j]);
+            }
+        printf(&quot;%lld\n&quot;, ans);
+    }
+    return 0;
+}</code></pre>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>dp基础：poj1887</title>
     <url>/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</url>
     <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>最长不上升子序列</p>
@@ -721,6 +683,115 @@ int main()
     return 0;
  }
 </code></pre>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java的三种随机函数</title>
+    <url>/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="java的三种随机数生成方式"><a href="#java的三种随机数生成方式" class="headerlink" title="java的三种随机数生成方式"></a>java的三种随机数生成方式</h1><p>完全取自这篇大佬文章：<a href="https://www.cnblogs.com/blogxjc/p/9687297.html" target="_blank" rel="noopener">https://www.cnblogs.com/blogxjc/p/9687297.html</a></p>
+<p>随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：</p>
+<h2 id="第一种-new-Random"><a href="#第一种-new-Random" class="headerlink" title="第一种: new Random()"></a>第一种: new Random()</h2><p>第一种需要借助java.util.Random类来产生一个随机数发生器，也是最常用的一种，构造函数有两个，Random()和Random(long seed)。第一个就是以当前时间为默认种子，第二个是以指定的种子值进行。产生之后，借助不同的语句产生不同类型的数。</p>
+<p>种子就是产生随机数的第一次使用值,机制是通过一个函数,将这个种子的值转化为随机数空间中的某一个点上,并且产生的随机数均匀的散布在空间中。以后产生的随机数都与前一个随机数有关。以代码为例。</p>
+<pre><code>    public static void main(String[] args)
+    {
+    　　Random r = new Random(1);
+    　　for(int i=0 ; i&lt;5 ;  i++)
+    　　{
+    　　　　int ran1 = r.nextInt(100);
+    　　　　System.out.println(ran1);
+    　　}
+    }</code></pre><p>在我的编译器下产生的五个数均为85,88,47,13,54，如果采用Random r = new Random()，产生的随机数就不同，这就是确定种子导致的结果。</p>
+<h2 id="第二种：Math-random"><a href="#第二种：Math-random" class="headerlink" title="第二种：Math.random()"></a>第二种：Math.random()</h2><p>而第二种方法返回的数值是[0.0,1.0）的double型数值，由于double类数的精度很高，可以在一定程度下看做随机数，借助（int）来进行类型转换就可以得到整数随机数了，代码如下。</p>
+<pre><code>public static void main(String[] args)
+{    
+    int max=100,min=1;
+    int ran2 = (int) (Math.random()*(max-min)+min); 
+    System.out.println(ran2);
+}</code></pre><h2 id="第三种：currentTimeMillis"><a href="#第三种：currentTimeMillis" class="headerlink" title="第三种：currentTimeMillis()"></a>第三种：currentTimeMillis()</h2><p>至于第三种方法虽然不常用，但是也是一种思路。方法返回从1970年1月1日0时0分0秒（这与UNIX系统有关）到现在的一个long型的毫秒数，取模之后即可得到所需范围内的随机数。</p>
+<pre><code>public static void main(String[] args)
+{    
+    int max=100,min=1;
+    long randomNum = System.currentTimeMillis();  
+    int ran3 = (int) (randomNum%(max-min)+min);  
+    System.out.println(ran3);
+
+}</code></pre>]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>poj-1088</title>
+    <url>/2020/04/26/poj-1088/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组的每个数字代表点的高度。下面是一个例子</p>
+<p>1  2  3  4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9 </p>
+<p>一个人可以从某个点滑向上下左右相邻四个点之一，当且仅当高度减小。在上面的例子中，一条可滑行的滑坡为24-17-16-1。当然25-24-23-…-3-2-1更长。事实上，这是最长的一条。</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行表示区域的行数R和列数C(1 &lt;= R,C &lt;= 100)。下面是R行，每行有C个整数，代表高度h，0&lt;=h&lt;=10000。</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出最长区域的长度。</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5 5<br>1 2 3 4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>25</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这个完全可以用一种递归的思想，因为每个位置的步数都与周围的步数有关（周围的步数加一）所以可以使用递归的思想将大问题转化为小问题，并建立一个数组记录最佳结果并不断更新，最后输出答案。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+int a[110][110],map[110][110],ans;
+int m,n;
+int kk[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+int dp(int x,int y)
+{
+    int max=0;
+    if(x&lt;0||x&gt;=n||y&lt;0||y&gt;=m)
+    return 0;
+    if(map[y][x]!=-1)
+    {
+       if(ans&lt;map[y][x])
+       ans=map[y][x];
+       return map[y][x];
+    }
+    for(int i=0;i&lt;4;i++)
+    {
+       if(a[y][x]&lt;a[y+kk[i][1]][x+kk[i][0]])
+       {
+          int k=dp(x+kk[i][0],y+kk[i][1]);
+           if(max&lt;k)
+           max=k;
+       }
+    }
+    map[y][x]=max+1;
+    if(ans&lt;map[y][x])
+    ans=map[y][x];
+    return map[y][x];
+}
+int main()
+{
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d %d&quot;,&amp;m,&amp;n))
+    {
+       memset(map,0,sizeof(map));
+       ans=1;
+       for(int i=0;i&lt;m;i++)
+       {
+           for(int j=0;j&lt;n;j++)
+           {
+              scanf(&quot;%d&quot;,&amp;a[i][j]);
+              map[i][j]=-1;
+           }
+       }
+       for(int i=0;i&lt;m;i++)
+       for(int j=0;j&lt;n;j++)
+       if(map[i][j]==-1)
+       dp(j,i);
+       printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}</code></pre>]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -792,77 +863,6 @@ int main()
     return 0;
 }
 </code></pre>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>poj-1088</title>
-    <url>/2020/04/26/poj-1088/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组的每个数字代表点的高度。下面是一个例子</p>
-<p>1  2  3  4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9 </p>
-<p>一个人可以从某个点滑向上下左右相邻四个点之一，当且仅当高度减小。在上面的例子中，一条可滑行的滑坡为24-17-16-1。当然25-24-23-…-3-2-1更长。事实上，这是最长的一条。</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行表示区域的行数R和列数C(1 &lt;= R,C &lt;= 100)。下面是R行，每行有C个整数，代表高度h，0&lt;=h&lt;=10000。</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出最长区域的长度。</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5 5<br>1 2 3 4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>25</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这个完全可以用一种递归的思想，因为每个位置的步数都与周围的步数有关（周围的步数加一）所以可以使用递归的思想将大问题转化为小问题，并建立一个数组记录最佳结果并不断更新，最后输出答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-int a[110][110],map[110][110],ans;
-int m,n;
-int kk[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
-int dp(int x,int y)
-{
-    int max=0;
-    if(x&lt;0||x&gt;=n||y&lt;0||y&gt;=m)
-    return 0;
-    if(map[y][x]!=-1)
-    {
-       if(ans&lt;map[y][x])
-       ans=map[y][x];
-       return map[y][x];
-    }
-    for(int i=0;i&lt;4;i++)
-    {
-       if(a[y][x]&lt;a[y+kk[i][1]][x+kk[i][0]])
-       {
-          int k=dp(x+kk[i][0],y+kk[i][1]);
-           if(max&lt;k)
-           max=k;
-       }
-    }
-    map[y][x]=max+1;
-    if(ans&lt;map[y][x])
-    ans=map[y][x];
-    return map[y][x];
-}
-int main()
-{
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    while(~scanf(&quot;%d %d&quot;,&amp;m,&amp;n))
-    {
-       memset(map,0,sizeof(map));
-       ans=1;
-       for(int i=0;i&lt;m;i++)
-       {
-           for(int j=0;j&lt;n;j++)
-           {
-              scanf(&quot;%d&quot;,&amp;a[i][j]);
-              map[i][j]=-1;
-           }
-       }
-       for(int i=0;i&lt;m;i++)
-       for(int j=0;j&lt;n;j++)
-       if(map[i][j]==-1)
-       dp(j,i);
-       printf(&quot;%d\n&quot;,ans);
-    }
-    return 0;
-}</code></pre>]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -1486,7 +1486,7 @@ int main()
   <entry>
     <title>B站上的面试题</title>
     <url>/2022/02/18/B%E7%AB%99%E4%B8%8A%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="B站面试题"><a href="#B站面试题" class="headerlink" title="B站面试题"></a>B站面试题</h1><p><a href="https://www.bilibili.com/video/BV1UL4y137z6?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1UL4y137z6?p=2</a></p>
+    <content><![CDATA[<h1 id="B站上的面试题"><a href="#B站上的面试题" class="headerlink" title="B站上的面试题"></a>B站上的面试题</h1><p><a href="https://www.bilibili.com/video/BV1UL4y137z6?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1UL4y137z6?p=2</a></p>
 <h2 id="Java面向对象有哪些特征，如何应用"><a href="#Java面向对象有哪些特征，如何应用" class="headerlink" title="Java面向对象有哪些特征，如何应用"></a><strong>Java面向对象有哪些特征，如何应用</strong></h2><p>​        面向对象编程是利用类和对象编程的一种思想。万物可归类，类是对于世界事物的高度抽象 ，不同的事物之间有不同的关系 ，一个类自身与外界的封装关系，一个父类和子类的继承关系， 一个类和多个类的多态关系。万物皆对象，对象是具体的世界事物，面向对象的三大特征封装，继承，多态。封装，封装说明一个类行为和属性与其他类的关系，低耦合，高内聚；继承是父类和子类的关系，多态说的是类与类的关系。</p>
 <p>​        封装隐藏了类的内部实现机制，可以在不影响使用的情况下改变类的内部结构，同时也保护了数据。对外界而已它的内部细节是隐藏的，暴露给外界的只是它的访问方法。属性的封装：使用者只能通过事先定制好的方法来访问数据，可以方便地加入逻辑控制，限制对属性的 不合理操作；方法的封装：使用者按照既定的方式调用方法，不必关心方法的内部实现，便于使用； 便于修改，增强 代码的可维护性；</p>
 <p>​        继承是从已有的类中派生出新的类，新的类能吸收已有类的数据属性和行为，并能扩展新的能力。在本质上是特殊~一般的关系，即常说的is-a关系。子类继承父类，表明子类是一种特殊的父类，并且具有父类所不具有的一些属性或方法。从多种实现类中抽象出一个基类，使其具备多种实现类的共同特性 ，当实现类用extends关键字继承了基类（父类）后，实现类就具备了这些相同的属性。继承的类叫做子类（派生类或者超类），被继承的类叫做父类（或者基类）。比如从猫类、狗类、虎类中可以抽象出一个动物类，具有和猫、狗、虎类的共同特性（吃、跑、叫等）。Java通过extends关键字来实现继承，父类中通过private定义的变量和方法不会被继承，不能在子类中直接操作父类通过private定义的变量以及方法。继承避免了对一般类和特殊类之间共同特征进行的重复描述，通过继承可以清晰地表达每一项共同特征所适应的概念范围，在一般类中定义的属性和操作适应于这个类本身以及它以下的每一层特殊类的全部对象。运用继承原则使得系统模型比较简练也比较清晰。</p>
