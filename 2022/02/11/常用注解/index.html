@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java的三种随机函数, 菜鸟">
+    <meta name="keywords" content="SpringBoot常用注解, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java的三种随机函数 | 菜鸟</title>
+    <title>SpringBoot常用注解 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java的三种随机函数</h1>
+                    <h1 class="description center-align post-title">SpringBoot常用注解</h1>
                 </div>
             </div>
         </div>
@@ -353,8 +353,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/SpringBoot/">
+                                <span class="chip bg-color">SpringBoot</span>
                             </a>
                         
                     </div>
@@ -380,7 +380,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-14
+                    2022-02-22
                 </div>
                 
 
@@ -394,34 +394,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java的三种随机数生成方式"><a href="#java的三种随机数生成方式" class="headerlink" title="java的三种随机数生成方式"></a>java的三种随机数生成方式</h1><p>完全取自这篇大佬文章：<a href="https://www.cnblogs.com/blogxjc/p/9687297.html" target="_blank" rel="noopener">https://www.cnblogs.com/blogxjc/p/9687297.html</a></p>
-<p>随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：</p>
-<h2 id="第一种-new-Random"><a href="#第一种-new-Random" class="headerlink" title="第一种: new Random()"></a>第一种: new Random()</h2><p>第一种需要借助java.util.Random类来产生一个随机数发生器，也是最常用的一种，构造函数有两个，Random()和Random(long seed)。第一个就是以当前时间为默认种子，第二个是以指定的种子值进行。产生之后，借助不同的语句产生不同类型的数。</p>
-<p>种子就是产生随机数的第一次使用值,机制是通过一个函数,将这个种子的值转化为随机数空间中的某一个点上,并且产生的随机数均匀的散布在空间中。以后产生的随机数都与前一个随机数有关。以代码为例。</p>
-<pre><code>    public static void main(String[] args)
-    {
-    　　Random r = new Random(1);
-    　　for(int i=0 ; i&lt;5 ;  i++)
-    　　{
-    　　　　int ran1 = r.nextInt(100);
-    　　　　System.out.println(ran1);
-    　　}
-    }</code></pre><p>在我的编译器下产生的五个数均为85,88,47,13,54，如果采用Random r = new Random()，产生的随机数就不同，这就是确定种子导致的结果。</p>
-<h2 id="第二种：Math-random"><a href="#第二种：Math-random" class="headerlink" title="第二种：Math.random()"></a>第二种：Math.random()</h2><p>而第二种方法返回的数值是[0.0,1.0）的double型数值，由于double类数的精度很高，可以在一定程度下看做随机数，借助（int）来进行类型转换就可以得到整数随机数了，代码如下。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    int ran2 = (int) (Math.random()*(max-min)+min); 
-    System.out.println(ran2);
-}</code></pre><h2 id="第三种：currentTimeMillis"><a href="#第三种：currentTimeMillis" class="headerlink" title="第三种：currentTimeMillis()"></a>第三种：currentTimeMillis()</h2><p>至于第三种方法虽然不常用，但是也是一种思路。方法返回从1970年1月1日0时0分0秒（这与UNIX系统有关）到现在的一个long型的毫秒数，取模之后即可得到所需范围内的随机数。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    long randomNum = System.currentTimeMillis();  
-    int ran3 = (int) (randomNum%(max-min)+min);  
-    System.out.println(ran3);
+                <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><p>取自B站视频：<a href="https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver</a></p>
+<h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-}</code></pre>
+        <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span><span class="token string">"tom"</span><span class="token punctuation">)</span>
+        <span class="token keyword">public</span> Pet <span class="token function">cat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pet</span><span class="token punctuation">(</span><span class="token string">"tomcat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h3><pre><code>告诉Springboot这是一个配置类，其作用相当于配置文件
+
+@Configuration(proxyBeanMethods = true)
+外部无论对配置类中的这个组件注册方法调用多少次获取的都是之前注册容器中的单实例对象</code></pre><h4 id="proxyBeanMethods"><a href="#proxyBeanMethods" class="headerlink" title="proxyBeanMethods"></a>proxyBeanMethods</h4><h5 id="如果proxyBeanMethods-true-（代理对象调用方法Full模式）"><a href="#如果proxyBeanMethods-true-（代理对象调用方法Full模式）" class="headerlink" title="如果proxyBeanMethods = true （代理对象调用方法Full模式）"></a>如果proxyBeanMethods = true （代理对象调用方法Full模式）</h5><pre><code>SpringBoot默认就会检查容器中有没有这个方法以及返回的组件如果有就拿，如果没有就新创（保持组件单实例）</code></pre><h5 id="如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）"><a href="#如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）" class="headerlink" title="如果proxyBeanMethods = false （不代理对象调用方法Lite模式）"></a>如果proxyBeanMethods = false （不代理对象调用方法Lite模式）</h5><pre><code>就只是执行那个方法并不会在容器中拿取</code></pre><h3 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h3><pre><code>将类放入容器中，默认的id为方法名，也可以通过@Bean(&quot;id&quot;)的方式自定义id
+方法中的返回值就是组件类型(类)</code></pre><h2 id="import"><a href="#import" class="headerlink" title="@import()"></a>@import()</h2><pre><code>给容器自动创建组件</code></pre><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span>User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>DBHelper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">//给容器自动创建了这两个组件</span></code></pre>
+<h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p>条件装配：满足Conditional指定条件，则进行组件注入</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）</span>
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+     <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时下面的配置才生效</span>
+    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span></code></pre>
+<h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>导入原生配置文件</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@ImportResource</span><span class="token punctuation">(</span><span class="token string">"xxx.xml"</span><span class="token punctuation">)</span></code></pre>
+<h2 id="配置绑定"><a href="#配置绑定" class="headerlink" title="配置绑定"></a>配置绑定</h2><h3 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h3><pre><code>前缀定义了哪些外部属性将绑定到类的字段上  
+根据 Spring Boot 宽松的绑定规则，类的属性名称必须与外部属性的名称匹配  
+我们可以简单地用一个值初始化一个字段来定义一个默认值  
+类本身可以是包私有的  
+类的字段必须有公共 setter 方法  </code></pre><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@component</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"mycar"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String Integer price<span class="token punctuation">;</span>
+
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token comment" spellcheck="true">//setter方法</span>
+<span class="token punctuation">}</span></code></pre>
+<p>@ConfigurationProperties括号中的值为前缀在application.Properties文件中的配置如下  </p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">mycar.brand</span><span class="token punctuation">=</span><span class="token attr-value">BYD</span>
+<span class="token attr-name">mycar.price</span><span class="token punctuation">=</span><span class="token attr-value">100000</span></code></pre>
+<h3 id="EnableConfigurationProperties"><a href="#EnableConfigurationProperties" class="headerlink" title="@EnableConfigurationProperties"></a>@EnableConfigurationProperties</h3><pre><code>@EnableConfigurationProperties(xxx.class)  
+开启xxx.class的属性配置功能   
+把xxx这个组件自动注册到容器中</code></pre>
             </div>
             <hr/>
 
@@ -446,7 +476,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</a>
+                    <a href="https://xucanxx.github.io/2022/02/11/%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">https://xucanxx.github.io/2022/02/11/%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -484,8 +514,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/tags/SpringBoot/">
+                                    <span class="chip bg-color">SpringBoot</span>
                                 </a>
                             
                         </div>
@@ -656,7 +686,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-02-14T14-21-16',
+        id: '2022-02-11T14-07-10',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -686,31 +716,33 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/">
+                <a href="/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="java的三种随机函数">
                         
-                        <span class="card-title">IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</span>
+                        <span class="card-title">java的三种随机函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope 没有设置
+                            java的三种随机数生成方式完全取自这篇大佬文章：https://www.cnblogs.com/blogxjc/p/9687297.html
+随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：
+
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-14
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -735,34 +767,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/11/%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+                <a href="/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="SpringBoot常用注解">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/11.jpg" class="responsive-img" alt="英语考研规划">
                         
-                        <span class="card-title">SpringBoot常用注解</span>
+                        <span class="card-title">英语考研规划</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            常用注解取自B站视频：https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver
-@Configuration 与 @Bean    @Config
+                            英语考研规划题型重点把握：阅读和作文
+客观题完形填空20*0.5=10要求： 带入符合语境，意思
+阅读理解20*2=40发力点在于逻辑关系
+1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The decision to
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-21
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category">
-                                    java
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            xucanxx
                             
                         </span>
                     </div>
@@ -770,8 +800,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SpringBoot/">
-                        <span class="chip bg-color">SpringBoot</span>
+                    <a href="/tags/%E8%8B%B1%E8%AF%AD/">
+                        <span class="chip bg-color">英语</span>
                     </a>
                     
                 </div>

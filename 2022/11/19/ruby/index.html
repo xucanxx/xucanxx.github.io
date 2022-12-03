@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="java的三种随机函数, 菜鸟">
+    <meta name="keywords" content="Ruby 入门随笔, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>java的三种随机函数 | 菜鸟</title>
+    <title>Ruby 入门随笔 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -223,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">java的三种随机函数</h1>
+                    <h1 class="description center-align post-title">Ruby 入门随笔</h1>
                 </div>
             </div>
         </div>
@@ -353,8 +353,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/shell/">
+                                <span class="chip bg-color">shell</span>
                             </a>
                         
                     </div>
@@ -365,8 +365,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category">
-                                java
+                            <a href="/categories/%E8%84%9A%E6%9C%AC/" class="post-category">
+                                脚本
                             </a>
                         
                     </div>
@@ -380,7 +380,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-14
+                    2022-12-03
                 </div>
                 
 
@@ -394,34 +394,58 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java的三种随机数生成方式"><a href="#java的三种随机数生成方式" class="headerlink" title="java的三种随机数生成方式"></a>java的三种随机数生成方式</h1><p>完全取自这篇大佬文章：<a href="https://www.cnblogs.com/blogxjc/p/9687297.html" target="_blank" rel="noopener">https://www.cnblogs.com/blogxjc/p/9687297.html</a></p>
-<p>随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：</p>
-<h2 id="第一种-new-Random"><a href="#第一种-new-Random" class="headerlink" title="第一种: new Random()"></a>第一种: new Random()</h2><p>第一种需要借助java.util.Random类来产生一个随机数发生器，也是最常用的一种，构造函数有两个，Random()和Random(long seed)。第一个就是以当前时间为默认种子，第二个是以指定的种子值进行。产生之后，借助不同的语句产生不同类型的数。</p>
-<p>种子就是产生随机数的第一次使用值,机制是通过一个函数,将这个种子的值转化为随机数空间中的某一个点上,并且产生的随机数均匀的散布在空间中。以后产生的随机数都与前一个随机数有关。以代码为例。</p>
-<pre><code>    public static void main(String[] args)
-    {
-    　　Random r = new Random(1);
-    　　for(int i=0 ; i&lt;5 ;  i++)
-    　　{
-    　　　　int ran1 = r.nextInt(100);
-    　　　　System.out.println(ran1);
-    　　}
-    }</code></pre><p>在我的编译器下产生的五个数均为85,88,47,13,54，如果采用Random r = new Random()，产生的随机数就不同，这就是确定种子导致的结果。</p>
-<h2 id="第二种：Math-random"><a href="#第二种：Math-random" class="headerlink" title="第二种：Math.random()"></a>第二种：Math.random()</h2><p>而第二种方法返回的数值是[0.0,1.0）的double型数值，由于double类数的精度很高，可以在一定程度下看做随机数，借助（int）来进行类型转换就可以得到整数随机数了，代码如下。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    int ran2 = (int) (Math.random()*(max-min)+min); 
-    System.out.println(ran2);
-}</code></pre><h2 id="第三种：currentTimeMillis"><a href="#第三种：currentTimeMillis" class="headerlink" title="第三种：currentTimeMillis()"></a>第三种：currentTimeMillis()</h2><p>至于第三种方法虽然不常用，但是也是一种思路。方法返回从1970年1月1日0时0分0秒（这与UNIX系统有关）到现在的一个long型的毫秒数，取模之后即可得到所需范围内的随机数。</p>
-<pre><code>public static void main(String[] args)
-{    
-    int max=100,min=1;
-    long randomNum = System.currentTimeMillis();  
-    int ran3 = (int) (randomNum%(max-min)+min);  
-    System.out.println(ran3);
+                <h1 id="Ruby-入门随笔"><a href="#Ruby-入门随笔" class="headerlink" title="Ruby 入门随笔"></a>Ruby 入门随笔</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><pre><code>定义：在变量名前加&quot;$&quot;  
+例如：</code></pre><pre class=" language-ruby"><code class="language-ruby"><span class="token variable">$testString</span> <span class="token operator">=</span> <span class="token string">"23333"</span></code></pre>
+<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
+    <span class="token comment" spellcheck="true">#静态变量(类变量)</span>
+    <span class="token variable">@@A</span>
+    <span class="token comment" spellcheck="true">#普通类成员</span>
+    <span class="token variable">@B</span>
+<span class="token keyword">end</span></code></pre>
+<h4 id="静态变量-类变量"><a href="#静态变量-类变量" class="headerlink" title="静态变量(类变量)"></a>静态变量(类变量)</h4><pre><code>定义：在变量名前加&quot;@@&quot;</code></pre><h4 id="普通类成员"><a href="#普通类成员" class="headerlink" title="普通类成员"></a>普通类成员</h4><pre><code>定义：在变量名前加&quot;@&quot;</code></pre><h4 id="访问类中的变量"><a href="#访问类中的变量" class="headerlink" title="访问类中的变量"></a>访问类中的变量</h4><h5 id="为变量设置getter方法"><a href="#为变量设置getter方法" class="headerlink" title="为变量设置getter方法"></a>为变量设置getter方法</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token constant">At</span>
+    <span class="token variable">@@A</span>
+<span class="token keyword">end</span></code></pre>
+<p>这样一来就可以通过 $变量名.At 来调用@@A</p>
+<h5 id="通过attr-accessor为指定的属性创建"><a href="#通过attr-accessor为指定的属性创建" class="headerlink" title="通过attr_accessor为指定的属性创建"></a>通过attr_accessor为指定的属性创建</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
+    <span class="token variable">@@A</span>
+    <span class="token variable">@B</span>
+    attr_accessor <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
+<span class="token keyword">end</span></code></pre>
+<p>等价于</p>
+<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
+    <span class="token variable">@@A</span>
+    <span class="token variable">@B</span>
+    attr_reader <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
+    attr_writer <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
+<span class="token keyword">end</span></code></pre>
+<p>与</p>
+<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
+    <span class="token variable">@@A</span>
+    <span class="token variable">@B</span>
+    <span class="token keyword">def</span> <span class="token constant">A</span>
+        <span class="token variable">@@A</span>
+    <span class="token keyword">end</span>
+    <span class="token keyword">def</span> <span class="token constant">B</span>
+        <span class="token variable">@B</span>
+    <span class="token keyword">end</span>
+    <span class="token keyword">def</span> <span class="token constant">A</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+        <span class="token variable">@@A</span><span class="token operator">=</span>value
+    <span class="token keyword">end</span>
+    <span class="token keyword">def</span> <span class="token constant">B</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+        <span class="token variable">@B</span><span class="token operator">=</span>value
+    <span class="token keyword">end</span>
 
-}</code></pre>
+<span class="token keyword">end</span></code></pre>
+<p>这样一来就可以通过 $变量名.A来调用@@A , $变量名.B来调用@@B</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>ruby 中函数的返回值不需要定义</p>
+<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> test
+    code
+
+    <span class="token keyword">return</span> xxx
+<span class="token keyword">end</span></code></pre>
+<h2 id="ruby-中的模板引擎"><a href="#ruby-中的模板引擎" class="headerlink" title="ruby 中的模板引擎"></a>ruby 中的模板引擎</h2><h3 id="ruby-on-rails"><a href="#ruby-on-rails" class="headerlink" title="ruby-on-rails"></a>ruby-on-rails</h3><p> 暂时没学，欸嘿</p>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p><a href="https://www.imooc.com/wenda/detail/564294" target="_blank" rel="noopener">https://www.imooc.com/wenda/detail/564294</a></p>
+
             </div>
             <hr/>
 
@@ -446,7 +470,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/">https://xucanxx.github.io/2022/02/14/java%E7%9A%84%E4%B8%89%E7%A7%8D%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0/</a>
+                    <a href="https://xucanxx.github.io/2022/11/19/ruby/">https://xucanxx.github.io/2022/11/19/ruby/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -484,8 +508,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
+                                <a href="/tags/shell/">
+                                    <span class="chip bg-color">shell</span>
                                 </a>
                             
                         </div>
@@ -656,7 +680,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-02-14T14-21-16',
+        id: '2022-11-19T06-12-26',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -686,31 +710,40 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/">
+                <a href="/2022/11/19/shell/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/12.jpg" class="responsive-img" alt="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="shell 入门随笔">
                         
-                        <span class="card-title">IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</span>
+                        <span class="card-title">shell 入门随笔</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope 没有设置
+                            shell 入门随笔判断if [ command1 ];then
+    code
+elif [ command2 ];then
+    code
+else
+    code
+fi
+循环for循环for 变量 in 列表
+do
+    co
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-19
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/%E8%84%9A%E6%9C%AC/" class="post-category">
+                                    脚本
                                 </a>
                             
                             
@@ -720,8 +753,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/shell/">
+                        <span class="chip bg-color">shell</span>
                     </a>
                     
                 </div>
@@ -735,25 +768,25 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/11/%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+                <a href="/2022/02/18/B%E7%AB%99%E4%B8%8A%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="SpringBoot常用注解">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/20.jpg" class="responsive-img" alt="B站上的面试题">
                         
-                        <span class="card-title">SpringBoot常用注解</span>
+                        <span class="card-title">B站上的面试题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            常用注解取自B站视频：https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver
-@Configuration 与 @Bean    @Config
+                            B站上的面试题https://www.bilibili.com/video/BV1UL4y137z6?p=2
+Java面向对象有哪些特征，如何应用​        面向对象编程是利用类和对象编程的一种思想。万物可归类，类是对于世界事物的高度
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-18
                             </span>
                         <span class="publish-author">
                             
@@ -770,8 +803,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SpringBoot/">
-                        <span class="chip bg-color">SpringBoot</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
