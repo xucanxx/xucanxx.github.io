@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Ruby 入门随笔, 菜鸟">
+    <meta name="keywords" content="果子私房笔记-子网掩码, 菜鸟">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Ruby 入门随笔 | 菜鸟</title>
+    <title>果子私房笔记-子网掩码 | 菜鸟</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Ruby 入门随笔</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-子网掩码</h1>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Ruby/">
-                                <span class="chip bg-color">Ruby</span>
+                            <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">果子私房笔记</span>
                             </a>
                         
                     </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%84%9A%E6%9C%AC/" class="post-category">
-                                脚本
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                计算机网络
                             </a>
                         
                     </div>
@@ -395,57 +395,24 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Ruby-入门随笔"><a href="#Ruby-入门随笔" class="headerlink" title="Ruby 入门随笔"></a>Ruby 入门随笔</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><pre><code>定义：在变量名前加&quot;$&quot;  
-例如：</code></pre><pre class=" language-ruby"><code class="language-ruby"><span class="token variable">$testString</span> <span class="token operator">=</span> <span class="token string">"23333"</span></code></pre>
-<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token comment" spellcheck="true">#静态变量(类变量)</span>
-    <span class="token variable">@@A</span>
-    <span class="token comment" spellcheck="true">#普通类成员</span>
-    <span class="token variable">@B</span>
-<span class="token keyword">end</span></code></pre>
-<h4 id="静态变量-类变量"><a href="#静态变量-类变量" class="headerlink" title="静态变量(类变量)"></a>静态变量(类变量)</h4><pre><code>定义：在变量名前加&quot;@@&quot;</code></pre><h4 id="普通类成员"><a href="#普通类成员" class="headerlink" title="普通类成员"></a>普通类成员</h4><pre><code>定义：在变量名前加&quot;@&quot;</code></pre><h4 id="访问类中的变量"><a href="#访问类中的变量" class="headerlink" title="访问类中的变量"></a>访问类中的变量</h4><h5 id="为变量设置getter方法"><a href="#为变量设置getter方法" class="headerlink" title="为变量设置getter方法"></a>为变量设置getter方法</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token constant">At</span>
-    <span class="token variable">@@A</span>
-<span class="token keyword">end</span></code></pre>
-<p>这样一来就可以通过 $变量名.At 来调用@@A</p>
-<h5 id="通过attr-accessor为指定的属性创建"><a href="#通过attr-accessor为指定的属性创建" class="headerlink" title="通过attr_accessor为指定的属性创建"></a>通过attr_accessor为指定的属性创建</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    attr_accessor <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-<span class="token keyword">end</span></code></pre>
-<p>等价于</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    attr_reader <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-    attr_writer <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-<span class="token keyword">end</span></code></pre>
-<p>与</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    <span class="token keyword">def</span> <span class="token constant">A</span>
-        <span class="token variable">@@A</span>
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">B</span>
-        <span class="token variable">@B</span>
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">A</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-        <span class="token variable">@@A</span><span class="token operator">=</span>value
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">B</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-        <span class="token variable">@B</span><span class="token operator">=</span>value
-    <span class="token keyword">end</span>
-
-<span class="token keyword">end</span></code></pre>
-<p>这样一来就可以通过 $变量名.A来调用@@A , $变量名.B来调用@@B</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>ruby 中函数的返回值不需要定义</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> test
-    code
-
-    <span class="token keyword">return</span> xxx
-<span class="token keyword">end</span></code></pre>
-<h2 id="ruby-中的模板引擎"><a href="#ruby-中的模板引擎" class="headerlink" title="ruby 中的模板引擎"></a>ruby 中的模板引擎</h2><h3 id="ruby-on-rails"><a href="#ruby-on-rails" class="headerlink" title="ruby-on-rails"></a>ruby-on-rails</h3><p> 暂时没学，欸嘿</p>
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p><a href="https://www.imooc.com/wenda/detail/564294" target="_blank" rel="noopener">https://www.imooc.com/wenda/detail/564294</a></p>
+                <h1 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h1><p>子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。</p>
+<h2 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h2><h3 id="根据子网数："><a href="#根据子网数：" class="headerlink" title="根据子网数："></a>根据子网数：</h3><p>如欲将B类IP地址168.195.0.0划分成27个子网：</p>
+<pre><code>1)27=11011  
+2)该二进制为五位数，N=5  
+3)将B类地址的子网掩码255.255.0.0的主机地址前5位置1（B类地址的主机位包括后两个字节，所以这里要把第三个字节的前5位置1），得到 255.255.248.0即为划分成27个子网的B类IP地址 168.195.0.0的子网掩码（实际上是划成了32-2=30个子网）。</code></pre><h3 id="根据主机数"><a href="#根据主机数" class="headerlink" title="根据主机数"></a>根据主机数</h3><p>如欲将B类IP地址168.195.0.0划分成若干子网，每个子网内有主机700台：</p>
+<pre><code>1) 700=1010111100  
+2)该二进制为十位数，N=10  
+3)将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255  
+然后再从后向前将后10位置0，即为：11111111.11111111.11111100.00000000
+即255.255.252.0。这就是该欲划分成主机为700台的B类IP地址168.195.0.0的子网掩码。</code></pre><h3 id="子网ID增量计算法（即计算每个子网的IP范围）"><a href="#子网ID增量计算法（即计算每个子网的IP范围）" class="headerlink" title="子网ID增量计算法（即计算每个子网的IP范围）"></a>子网ID增量计算法（即计算每个子网的IP范围）</h3><p>其基本计算步骤如下：</p>
+<h4 id="第1步"><a href="#第1步" class="headerlink" title="第1步"></a>第1步</h4><p>将所需的子网数转换为二进制，如所需划分的子网数为“4”，则转换成成二进制为00000100；</p>
+<h4 id="第2步"><a href="#第2步" class="headerlink" title="第2步"></a>第2步</h4><p>取子网数的二进制中有效位数，即为向缺省子网掩码中加入的位数（既向主机ID中借用的位数）。如前面的00000100，有效位为“100”，为3位（在新标准中只需要2位就可以了）；</p>
+<h4 id="第3步"><a href="#第3步" class="headerlink" title="第3步"></a>第3步</h4><p>决定子网掩码。如IP地址为B类129.20.0.0网络，则缺省子网掩码为：255.255.0.0，借用主机ID的3位以后变为：255.255.224（11100000）.0，即将所借的位全表示为1，用作子网掩码。</p>
+<h4 id="第4步"><a href="#第4步" class="headerlink" title="第4步"></a>第4步</h4><p>将所借位的主机ID的起始位段最右边的“1”转换为十进制，即为每个子网ID之间的增量，如前面的借位的主机ID起始位段为“11100000”，最右边的“1”，转换成十进制后为2^5=32（此为子网ID增量）。</p>
+<h4 id="第5步"><a href="#第5步" class="headerlink" title="第5步"></a>第5步</h4><p>产生的子网ID数为：2^m-2 （m为向缺省子网掩码中加入的位数），如本例向子网掩码中添加的位数为3，则可用子网ID数为：2^3-2=6个；</p>
+<h4 id="第6步"><a href="#第6步" class="headerlink" title="第6步"></a>第6步</h4><p>将上面产生的子网ID增量附在原网络ID之后的第一个位段，便形成第一个子网网络ID 129.20.32.0（即第一个子网的起始IP段）；</p>
+<h4 id="第7步"><a href="#第7步" class="headerlink" title="第7步"></a>第7步</h4><p>重复上步操作，在原子网ID基础上加上一个子网ID增量，依次类推，直到子网ID中的最后位段为缺省子网掩码位用主机ID位之后的最后一个位段值，这样就可得到所有的子网网络ID。如缺省子网掩码位用主机ID位之后的子网ID为255.255.224.0，其中的“224”为借用主机ID后子网ID的最后一位段值，所以当子网ID通过以上增加增量的方法得到129.20.224.0时便终止，不要再添加了（只能用到129.20.192.0）。  </p>
+<p>我们知道当主机ID为全0时表示网络ID，全1时表示广播地址。在RFC950标准中，不建议使用全0和全1的子网ID。<br>例如把最后一个字节的前3位借给网络ID，用后面的5位来表示主机ID，这样就会产生2^3=8个子网，子网ID就分别为000、001、010、011、100、101、110、111这样8个，在RFC950标准中只能使用中间的6个子网ID。</p>
 
             </div>
             <hr/>
@@ -471,7 +438,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/11/19/ruby/">https://xucanxx.github.io/2022/11/19/ruby/</a>
+                    <a href="https://xucanxx.github.io/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/">https://xucanxx.github.io/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -509,8 +476,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Ruby/">
-                                    <span class="chip bg-color">Ruby</span>
+                                <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">果子私房笔记</span>
                                 </a>
                             
                         </div>
@@ -681,7 +648,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-11-19T19-26-03',
+        id: '2022-12-04T13-24-33',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -711,20 +678,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/">
+                <a href="/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/16.jpg" class="responsive-img" alt="果子私房笔记-子网掩码">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="果子私房笔记-对称加密和非对称加密">
                         
-                        <span class="card-title">果子私房笔记-子网掩码</span>
+                        <span class="card-title">果子私房笔记-对称加密和非对称加密</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            子网掩码子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。
-计算方式根据子网数：如欲将B类IP地址168.195.0.
+                            对称加密技术原理：文件加密和解密使用相同的密钥特点：使用起来简单快捷，密钥较短，加密效率高。
+对称加密算法存在几个问题：1、要求提供一条安全的渠道使通讯双方在首次通讯时协商一个共同的密钥。2、密钥的数目难于管理。因为对于每一个合作者都需要使
                         
                     </div>
                     <div class="publish-info">
@@ -761,27 +728,26 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/11/19/shell/">
+                <a href="/2022/11/19/ruby/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="shell 入门随笔">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/22.jpg" class="responsive-img" alt="Ruby 入门随笔">
                         
-                        <span class="card-title">shell 入门随笔</span>
+                        <span class="card-title">Ruby 入门随笔</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            shell 入门随笔判断if [ command1 ];then
-    code
-elif [ command2 ];then
-    code
-else
-    code
-fi循环for循环for 变量 in 列表
-do
-    cod
+                            Ruby 入门随笔变量全局变量定义：在变量名前加&quot;$&quot;  
+例如：$testString = "23333"
+类成员class test
+    #静态变量(类变量)
+    @@A
+    #普通类成员
+    @B
+
                         
                     </div>
                     <div class="publish-info">
@@ -803,8 +769,8 @@ do
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/shell/">
-                        <span class="chip bg-color">shell</span>
+                    <a href="/tags/Ruby/">
+                        <span class="chip bg-color">Ruby</span>
                     </a>
                     
                 </div>
