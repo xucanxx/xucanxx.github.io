@@ -190,7 +190,7 @@
     <link href="https://xucanxx.github.io/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/"/>
     <id>https://xucanxx.github.io/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/</id>
     <published>2022-02-15T15:03:51.000Z</published>
-    <updated>2022-12-04T14:45:58.745Z</updated>
+    <updated>2022-12-04T14:48:05.811Z</updated>
     
     <content type="html"><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p><p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077" target="_blank" rel="noopener">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>]]></content>
     
