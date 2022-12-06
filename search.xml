@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
+    <url>/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/</url>
+    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
+<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077" target="_blank" rel="noopener">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HDU1003-dp（大概）</title>
     <url>/2020/04/26/HDU1003-dp(%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
     <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
@@ -56,19 +69,6 @@ int main()
       </categories>
       <tags>
         <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
-    <url>/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope/</url>
-    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
-<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077" target="_blank" rel="noopener">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>bug</tag>
       </tags>
   </entry>
   <entry>
