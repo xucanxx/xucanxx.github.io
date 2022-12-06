@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</loc>
     
     <lastmod>2022-12-06</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</loc>
+    <loc>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2022-12-06</lastmod>
     
@@ -400,14 +400,14 @@
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/categories/shell/</loc>
+    <loc>https://xucanxx.github.io/categories/Ruby/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/categories/Ruby/</loc>
+    <loc>https://xucanxx.github.io/categories/shell/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
