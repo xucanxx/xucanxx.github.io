@@ -349,14 +349,14 @@
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <loc>https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -407,13 +407,6 @@
   </url>
   
   <url>
-    <loc>https://xucanxx.github.io/categories/shell/</loc>
-    <lastmod>2022-12-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://xucanxx.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -422,6 +415,13 @@
   
   <url>
     <loc>https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://xucanxx.github.io/categories/shell/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
