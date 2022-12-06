@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2022-12-06T11:54:40.219Z</updated>
+  <updated>2022-12-06T15:55:39.244Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/"/>
     <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/</id>
     <published>2022-12-06T11:41:42.000Z</published>
-    <updated>2022-12-06T11:54:40.219Z</updated>
+    <updated>2022-12-06T15:55:39.244Z</updated>
     
     <content type="html"><![CDATA[<h1 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h1><p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p><p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p><h2 id="URI一般由三部组成："><a href="#URI一般由三部组成：" class="headerlink" title="URI一般由三部组成："></a>URI一般由三部组成：</h2><h3 id="①访问资源的命名机制"><a href="#①访问资源的命名机制" class="headerlink" title="①访问资源的命名机制"></a>①访问资源的命名机制</h3><h3 id="②存放资源的主机名"><a href="#②存放资源的主机名" class="headerlink" title="②存放资源的主机名"></a>②存放资源的主机名</h3><h3 id="③资源自身的名称，由路径表示，着重强调于资源。"><a href="#③资源自身的名称，由路径表示，着重强调于资源。" class="headerlink" title="③资源自身的名称，由路径表示，着重强调于资源。"></a>③资源自身的名称，由路径表示，着重强调于资源。</h3><h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p><h2 id="URL一般由三部组成："><a href="#URL一般由三部组成：" class="headerlink" title="URL一般由三部组成："></a>URL一般由三部组成：</h2><h3 id="①协议-或称为服务方式"><a href="#①协议-或称为服务方式" class="headerlink" title="①协议(或称为服务方式)"></a>①协议(或称为服务方式)</h3><h3 id="②存有该资源的主机IP地址-有时也包括端口号"><a href="#②存有该资源的主机IP地址-有时也包括端口号" class="headerlink" title="②存有该资源的主机IP地址(有时也包括端口号)"></a>②存有该资源的主机IP地址(有时也包括端口号)</h3><h3 id="③主机资源的具体地址。如目录和文件名等"><a href="#③主机资源的具体地址。如目录和文件名等" class="headerlink" title="③主机资源的具体地址。如目录和文件名等"></a>③主机资源的具体地址。如目录和文件名等</h3>]]></content>
     
@@ -45,7 +45,7 @@
     <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/"/>
     <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</id>
     <published>2022-12-06T11:38:03.000Z</published>
-    <updated>2022-12-06T12:22:39.327Z</updated>
+    <updated>2022-12-06T15:55:39.248Z</updated>
     
     <content type="html"><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p><h1 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h1><p>rpc 是应用层由用户自己在制定的协议</p><h1 id="HTTP和RPC区别"><a href="#HTTP和RPC区别" class="headerlink" title="HTTP和RPC区别"></a>HTTP和RPC区别</h1><p>HTTP指的是通信协议。<br>而RPC则是远程调用协议，其对应的是本地调用。<br>RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p><h1 id="那为什么要有RPC？"><a href="#那为什么要有RPC？" class="headerlink" title="那为什么要有RPC？"></a>那为什么要有RPC？</h1><p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>]]></content>
     
@@ -69,7 +69,7 @@
     <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"/>
     <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</id>
     <published>2022-12-06T11:32:26.000Z</published>
-    <updated>2022-12-06T11:35:39.863Z</updated>
+    <updated>2022-12-06T15:55:39.252Z</updated>
     
     <content type="html"><![CDATA[<h1 id="http的常用方法"><a href="#http的常用方法" class="headerlink" title="http的常用方法"></a>http的常用方法</h1><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>只请求服务端的数据，但是没有改变数据。</p><h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>比如上传一篇博客用的post会改变服务器端的数据。</p><h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p><h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p><h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p><h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><p>查询相应URI支持的HTTP方法。</p><h1 id="get和post的区别https-www-cnblogs-com-logsharing-p-8448446-html"><a href="#get和post的区别https-www-cnblogs-com-logsharing-p-8448446-html" class="headerlink" title="get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html"></a>get和post的区别<a href="https://www.cnblogs.com/logsharing/p/8448446.html" target="_blank" rel="noopener">https://www.cnblogs.com/logsharing/p/8448446.html</a></h1><p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>GET产生的URL地址可以被Bookmark，而POST不可以。<br>GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>GET请求只能进行url编码，而POST支持多种编码方式。<br>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>GET参数通过URL传递，POST放在Request body中。<br>GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>GET产生一个TCP数据包；POST产生两个TCP数据包。</p>]]></content>
     
@@ -162,30 +162,6 @@
   </entry>
   
   <entry>
-    <title>shell 入门随笔</title>
-    <link href="https://xucanxx.github.io/2022/11/19/shell/"/>
-    <id>https://xucanxx.github.io/2022/11/19/shell/</id>
-    <published>2022-11-19T19:26:03.000Z</published>
-    <updated>2022-12-04T14:09:29.185Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="shell-入门随笔"><a href="#shell-入门随笔" class="headerlink" title="shell 入门随笔"></a>shell 入门随笔</h1><h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><pre><code>if [ command1 ];then    codeelif [ command2 ];then    codeelse    codefi</code></pre><h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><pre><code>for 变量 in 列表do    codedonefor ((i=0;i&lt;n;i++))do     codedone </code></pre><h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><pre><code>while [ command ]do    codedone</code></pre><h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre><code>cat 文件path | while read -r linedo#在这里line的最后一行有/r换行符，需要用sed过滤掉    newline = $(echo $line | sed &#39;s/\r//&#39;)done</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;shell-入门随笔&quot;&gt;&lt;a href=&quot;#shell-入门随笔&quot; class=&quot;headerlink&quot; title=&quot;shell 入门随笔&quot;&gt;&lt;/a&gt;shell 入门随笔&lt;/h1&gt;&lt;h2 id=&quot;判断&quot;&gt;&lt;a href=&quot;#判断&quot; class=&quot;headerli</summary>
-      
-    
-    
-    
-    <category term="shell" scheme="https://xucanxx.github.io/categories/shell/"/>
-    
-    
-    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Ruby 入门随笔</title>
     <link href="https://xucanxx.github.io/2022/11/19/ruby/"/>
     <id>https://xucanxx.github.io/2022/11/19/ruby/</id>
@@ -203,6 +179,30 @@
     
     
     <category term="Ruby" scheme="https://xucanxx.github.io/categories/Ruby/"/>
+    
+    
+    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>shell 入门随笔</title>
+    <link href="https://xucanxx.github.io/2022/11/19/shell/"/>
+    <id>https://xucanxx.github.io/2022/11/19/shell/</id>
+    <published>2022-11-19T19:26:03.000Z</published>
+    <updated>2022-12-04T14:09:29.185Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="shell-入门随笔"><a href="#shell-入门随笔" class="headerlink" title="shell 入门随笔"></a>shell 入门随笔</h1><h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><pre><code>if [ command1 ];then    codeelif [ command2 ];then    codeelse    codefi</code></pre><h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><pre><code>for 变量 in 列表do    codedonefor ((i=0;i&lt;n;i++))do     codedone </code></pre><h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><pre><code>while [ command ]do    codedone</code></pre><h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre><code>cat 文件path | while read -r linedo#在这里line的最后一行有/r换行符，需要用sed过滤掉    newline = $(echo $line | sed &#39;s/\r//&#39;)done</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;shell-入门随笔&quot;&gt;&lt;a href=&quot;#shell-入门随笔&quot; class=&quot;headerlink&quot; title=&quot;shell 入门随笔&quot;&gt;&lt;/a&gt;shell 入门随笔&lt;/h1&gt;&lt;h2 id=&quot;判断&quot;&gt;&lt;a href=&quot;#判断&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    <category term="shell" scheme="https://xucanxx.github.io/categories/shell/"/>
     
     
     <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
