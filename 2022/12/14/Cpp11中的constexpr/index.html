@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="kafka日常操作, 咸鱼">
+    <meta name="keywords" content="C++11中的constexpr, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>kafka日常操作 | 咸鱼</title>
+    <title>C++11中的constexpr | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">kafka日常操作</h1>
+                    <h1 class="description center-align post-title">C++11中的constexpr</h1>
                 </div>
             </div>
         </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/kafka/" class="post-category">
-                                kafka
+                            <a href="/categories/Cpp/" class="post-category">
+                                Cpp
                             </a>
                         
                     </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-12-13
+                    2022-12-14
                 </div>
                 
 
@@ -395,7 +395,122 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX</code></pre><h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe</code></pre><h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX</code></pre><h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning</code></pre><h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX</code></pre><h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre><code>./bin/kafka-server-start.sh ./config/server.properties</code></pre><h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;</code></pre><h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre><code>./bin/kafka-server-stop.sh</code></pre>
+                <h1 id="C-11中的constexpr"><a href="#C-11中的constexpr" class="headerlink" title="C++11中的constexpr"></a>C++11中的constexpr</h1><pre><code>https://blog.csdn.net/m0_52902391/article/details/120308866</code></pre><h2 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h2><pre><code>值不会改变且在编译期就能得到计算结果的表达式。
+字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。</code></pre><h2 id="constexpr-与-const"><a href="#constexpr-与-const" class="headerlink" title="constexpr 与 const"></a>constexpr 与 const</h2><p> 在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br> 但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰</p>
+<pre class=" language-Cpp"><code class="language-Cpp"> // error
+void func1(constexpr int p) {
+
+}
+
+
+// ok
+void func2(const int p) {
+
+}
+
+
+void func3(const int p) {
+    int a[p];//error ,此时p并非常量表达式，只是只读参数
+}
+</code></pre>
+<h2 id="用constexpr修饰函数"><a href="#用constexpr修饰函数" class="headerlink" title="用constexpr修饰函数"></a>用constexpr修饰函数</h2><p>constexpr 并不能修改任意函数的返回值，时这些函数成为常量表达式函数，必须要满足以下几个条件：<br>（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）  </p>
+<h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3><pre class=" language-Cpp"><code class="language-Cpp">// error，不是常量表达式函数
+constexpr void func1()
+{
+    int a = 100;
+    cout << "a: " << a << endl;
+}
+
+// error，不是常量表达式函数
+constexpr int func2()
+{
+    int a = 100;
+    return a;
+}
+
+// ok
+constexpr int func3()
+{
+    constexpr int a = 100;
+    return a;
+}
+</code></pre>
+<p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求  </p>
+<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class=" language-Cpp"><code class="language-Cpp">// error
+constexpr int func1()
+{
+    constexpr int a = 100;
+    constexpr int b = 10;
+    for (int i = 0; i < b; ++i)
+    {
+        cout << "i: " << i << endl;
+    }
+    return a + b;
+}
+
+// ok
+constexpr int func2()
+{
+    using mytype = int;
+    constexpr mytype a = 100;
+    constexpr mytype b = 10;
+    constexpr mytype c = a * b;
+    return c - (a + b);
+}
+</code></pre>
+<h2 id="修饰模板函数"><a href="#修饰模板函数" class="headerlink" title="修饰模板函数"></a>修饰模板函数</h2><p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p>
+<pre class=" language-Cpp"><code class="language-Cpp">#include <iostream>
+using namespace std;
+
+struct Person {
+    const char* name;
+    int age;
+};
+
+// 定义函数模板
+template<typename T>
+constexpr T dispaly(T t) {
+    return t;
+}
+
+int main()
+{
+    struct Person p { "luffy", 19 };
+    //普通函数
+    struct Person ret = dispaly(p);
+    cout << "luffy's name: " << ret.name << ", age: " << ret.age << endl;
+
+    //常量表达式函数
+    constexpr int ret1 = dispaly(250);
+    cout << ret1 << endl;
+
+    constexpr struct Person p1 { "luffy", 19 };
+    constexpr struct Person p2 = dispaly(p1);
+    cout << "luffy's name: " << p2.name << ", age: " << p2.age << endl;
+    return 0;
+}</code></pre>
+<p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p>
+<p>struct Person ret = dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的</p>
+<h2 id="修饰构造函数"><a href="#修饰构造函数" class="headerlink" title="修饰构造函数"></a>修饰构造函数</h2><p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p>
+<pre class=" language-Cpp"><code class="language-Cpp">#include <iostream>
+using namespace std;
+
+struct Person {
+    constexpr Person(const char* p, int age) :name(p), age(age)
+    {
+    }
+    const char* name;
+    int age;
+};
+
+int main()
+{
+    constexpr struct Person p1("luffy", 19);
+    cout << "luffy's name: " << p1.name << ", age: " << p1.age << endl;
+    return 0;
+}
+</code></pre>
+<h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"><a href="#1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定" class="headerlink" title="1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"></a>1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3><h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"><a href="#2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。" class="headerlink" title="2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"></a>2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3><h3 id="3-constexpr函数都是inline函数"><a href="#3-constexpr函数都是inline函数" class="headerlink" title="3.constexpr函数都是inline函数"></a>3.constexpr函数都是inline函数</h3>
             </div>
             <hr/>
 
@@ -420,7 +535,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">https://xucanxx.github.io/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</a>
+                    <a href="https://xucanxx.github.io/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/">https://xucanxx.github.io/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -630,7 +745,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-12-13T08-15-34',
+        id: '2022-12-14T01-42-14',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -656,9 +771,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/">
                     <div class="card-image">
@@ -677,9 +793,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -692,6 +808,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -710,31 +827,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/">
+                <a href="/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/18.jpg" class="responsive-img" alt="果子私房笔记-http的URI和URL">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="kafka日常操作">
                         
-                        <span class="card-title">果子私房笔记-http的URI和URL</span>
+                        <span class="card-title">kafka日常操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            URIURI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此
+                            kafka日常操作kafka查看数据查看所有topic./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list查看所有group./kafka-consumer-groups.sh
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-13
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/kafka/" class="post-category">
+                                    kafka
                                 </a>
                             
                             
@@ -744,8 +861,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">果子私房笔记</span>
+                    <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">笔记</span>
                     </a>
                     
                 </div>
