@@ -396,23 +396,41 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>参考自官方的博客：<a href="https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73" target="_blank" rel="noopener">https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73</a></p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p>
+<h1>题目</h1>
+<h2 id="题面">题面</h2>
+<p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p>
 <ol>
 <li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li>
 <li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li>
 </ol>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>第二行 n 个数字，表示建筑高度<br>后面 m 行指令：c l r k<br>或者：q x<br>数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>1≤x≤n,1≤k≤10^4</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个查询，输出答案，每个答案一行</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre><code>5 5
+<h2 id="Input">Input</h2>
+<p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>
+第二行 n 个数字，表示建筑高度<br>
+后面 m 行指令：c l r k<br>
+或者：q x<br>
+数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>
+1≤x≤n,1≤k≤10^4</p>
+<h2 id="Output">Output</h2>
+<p>对于每个查询，输出答案，每个答案一行</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<pre><code>5 5
 1 2 3 4 3
 q 3
 c 1 3 3
 q 2
 c 5 5 4
-q 5</code></pre><h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre><code>1
+q 5
+</code></pre>
+<h3 id="Output-2">Output</h3>
+<pre><code>1
 2
-0</code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;iostream&gt;
+0
+</code></pre>
+<h2 id="思路">思路</h2>
+<p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;time.h&gt;
 using namespace std;
@@ -488,19 +506,19 @@ struct Segt {
     int que(int a, int&amp; val, int l, int r, int p) {//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）
         if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数
         int m = mid;
-           //cout &lt;&lt; l &lt;&lt; &#39; &#39; &lt;&lt; r &lt;&lt; endl;
+           //cout &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; endl;
         if (l != r) push_down(p);//更新子节点数值
         if (l &gt;= a) {
             if (tree[p].minn &lt;= val) {//只有后面数值的最小值比val小才能组成
                 if (l == r) {
-                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; &#39; &#39; &lt;&lt;  l &lt;&lt; &#39; &#39; &lt;&lt; tree[p].minn &lt;&lt; endl;
+                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; ' ' &lt;&lt;  l &lt;&lt; ' ' &lt;&lt; tree[p].minn &lt;&lt; endl;
                     val = tree[p].minn;//之后的数要小于val
                     return 1;//minn是一个可以接在val后面的数
                 }
                 if (tree[(p &lt;&lt; 1)].minn &lt;= val) {//如果r-l的前半部分的最小值比val小
                     int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组
                     val = tree[p].minn;//更新最小值
-                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; &#39; &#39; &lt;&lt; l &lt;&lt; &#39; &#39; &lt;&lt; r &lt;&lt; &#39; &#39; &lt;&lt; an &lt;&lt; &#39; &#39; &lt;&lt; tree[p].value &lt;&lt; endl;
+                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; ' ' &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; ' ' &lt;&lt; an &lt;&lt; ' ' &lt;&lt; tree[p].value &lt;&lt; endl;
                     return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）
                 }
                 else {
@@ -542,10 +560,10 @@ void make_ans(istream&amp; in, ostream&amp; out) {//输入，输出流
     while (m--) {
         char ch;
           //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
-          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; &#39; &#39;; cout &lt;&lt; endl;
+          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; ' '; cout &lt;&lt; endl;
           //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
         in &gt;&gt; ch;
-        if (ch == &#39;c&#39;) {
+        if (ch == 'c') {
             int l, r, k;
             in &gt;&gt; l &gt;&gt; r &gt;&gt; k;
             segt.update(l, r, k, 1, n, 1);
@@ -564,7 +582,9 @@ int main(void) {
     freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
     make_ans(cin, cout);
     return 0;
-}</code></pre>
+}
+</code></pre>
+
             </div>
             <hr/>
 
@@ -841,10 +861,16 @@ int main(void) {
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            英语考研规划题型重点把握：阅读和作文
-客观题完形填空20*0.5=10要求： 带入符合语境，意思
-阅读理解20*2=40发力点在于逻辑关系
-1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The decision to
+                            英语考研规划
+题型
+重点把握：阅读和作文
+客观题
+完形填空20*0.5=10
+要求： 带入符合语境，意思
+阅读理解20*2=40
+发力点在于逻辑关系
+1.正向(没有转折句):子的总体趋势相通，都在说一件事
+【2011-2】The decis
                         
                     </div>
                     <div class="publish-info">
@@ -890,7 +916,9 @@ int main(void) {
                     <div class="summary block-with-text">
                         
                             参考自大佬的博客：https://blog.csdn.net/gg_gogoing/article/details/38753567
-题目题面一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪
+题目
+题面
+一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属
                         
                     </div>
                     <div class="publish-info">

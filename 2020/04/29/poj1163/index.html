@@ -395,42 +395,61 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>The Triangle</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>7<br>3   8<br>8   1   0<br>2   7   4   4<br>4   5   2   6   5</p>
+                <h1>题目</h1>
+<p>The Triangle</p>
+<h2 id="题面">题面</h2>
+<p>7<br>
+3   8<br>
+8   1   0<br>
+2   7   4   4<br>
+4   5   2   6   5</p>
 <p>(Figure 1)</p>
 <p>Figure 1 shows a number triangle. Write a program that calculates the highest sum of numbers passed on a route that starts at the top and ends somewhere on the base. Each step can go either diagonally down to the left or diagonally down to the right.</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;= 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Your program is to write to standard output. The highest sum is written as an integer.</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5</p>
-<p>7<br>3   8<br>8   1   0<br>2   7   4   4<br>4   5   2   6   5</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>30</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+=max(a[i+1][j],a[i+1][j+1]);</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+<h2 id="Input">Input</h2>
+<p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;= 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
+<h2 id="Output">Output</h2>
+<p>Your program is to write to standard output. The highest sum is written as an integer.</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>5</p>
+<p>7<br>
+3   8<br>
+8   1   0<br>
+2   7   4   4<br>
+4   5   2   6   5</p>
+<h3 id="Output-2">Output</h3>
+<p>30</p>
+<h2 id="思路">思路</h2>
+<p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+=max(a[i+1][j],a[i+1][j+1]);</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
 using namespace std;
 int a[110][110];
 int main()
 {
-    int n;
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    while(~scanf(&quot;%d&quot;,&amp;n))
-    {
-       for(int i=1;i&lt;=n;i++)
-       {
-           for(int j=1;j&lt;=i;j++)
-           scanf(&quot;%d&quot;,&amp;a[i][j]);
-       }
-       for(int i=n-1;i&gt;0;i--)
-       {
-           for(int j=1;j&lt;=i;j++)
-           {
-              a[i][j]+=max(a[i+1][j],a[i+1][j+1]);
-           }
-       }
-       printf(&quot;%d\n&quot;,a[1][1]);
-    }
-    return 0;
-}</code></pre>
+    int n;
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d&quot;,&amp;n))
+    {
+       for(int i=1;i&lt;=n;i++)
+       {
+           for(int j=1;j&lt;=i;j++)
+           scanf(&quot;%d&quot;,&amp;a[i][j]);
+       }
+       for(int i=n-1;i&gt;0;i--)
+       {
+           for(int j=1;j&lt;=i;j++)
+           {
+              a[i][j]+=max(a[i+1][j],a[i+1][j+1]);
+           }
+       }
+       printf(&quot;%d\n&quot;,a[1][1]);
+    }
+    return 0;
+}
+</code></pre>
+
             </div>
             <hr/>
 
@@ -707,10 +726,13 @@ int main()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目最长不上升子序列
-Input所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5
-Output每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行
-Examp
+                            题目
+最长不上升子序列
+Input
+所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5
+Output
+每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行
+Ex
                         
                     </div>
                     <div class="publish-info">
@@ -759,12 +781,17 @@ Examp
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            总线总线是连接各个部件的信息传输线，是 各个部件共享的传输介质
-总线的分类片内总线芯片内部的总线
-系统总线计算机各部件之间的信息传输线
-数据总线双向  与机器字长、存储字长有关
-地址总线单向（从cpu单向输出）与存储地址、 I/O地址有关
-
+                            总线
+总线是连接各个部件的信息传输线，是 各个部件共享的传输介质
+总线的分类
+片内总线
+芯片内部的总线
+系统总线
+计算机各部件之间的信息传输线
+数据总线
+双向  与机器字长、存储字长有关
+地址总线
+单向（从cpu单向输出）与存储地址、 I/
                         
                     </div>
                     <div class="publish-info">

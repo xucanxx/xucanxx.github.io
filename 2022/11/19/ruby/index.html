@@ -395,57 +395,83 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Ruby-入门随笔"><a href="#Ruby-入门随笔" class="headerlink" title="Ruby 入门随笔"></a>Ruby 入门随笔</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><pre><code>定义：在变量名前加&quot;$&quot;  
-例如：</code></pre><pre class=" language-ruby"><code class="language-ruby"><span class="token variable">$testString</span> <span class="token operator">=</span> <span class="token string">"23333"</span></code></pre>
-<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token comment" spellcheck="true">#静态变量(类变量)</span>
-    <span class="token variable">@@A</span>
-    <span class="token comment" spellcheck="true">#普通类成员</span>
-    <span class="token variable">@B</span>
-<span class="token keyword">end</span></code></pre>
-<h4 id="静态变量-类变量"><a href="#静态变量-类变量" class="headerlink" title="静态变量(类变量)"></a>静态变量(类变量)</h4><pre><code>定义：在变量名前加&quot;@@&quot;</code></pre><h4 id="普通类成员"><a href="#普通类成员" class="headerlink" title="普通类成员"></a>普通类成员</h4><pre><code>定义：在变量名前加&quot;@&quot;</code></pre><h4 id="访问类中的变量"><a href="#访问类中的变量" class="headerlink" title="访问类中的变量"></a>访问类中的变量</h4><h5 id="为变量设置getter方法"><a href="#为变量设置getter方法" class="headerlink" title="为变量设置getter方法"></a>为变量设置getter方法</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> <span class="token constant">At</span>
-    <span class="token variable">@@A</span>
-<span class="token keyword">end</span></code></pre>
-<p>这样一来就可以通过 $变量名.At 来调用@@A</p>
-<h5 id="通过attr-accessor为指定的属性创建"><a href="#通过attr-accessor为指定的属性创建" class="headerlink" title="通过attr_accessor为指定的属性创建"></a>通过attr_accessor为指定的属性创建</h5><pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    attr_accessor <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-<span class="token keyword">end</span></code></pre>
+                <h1>Ruby 入门随笔</h1>
+<h2 id="变量">变量</h2>
+<h3 id="全局变量">全局变量</h3>
+<pre><code>定义：在变量名前加&quot;$&quot;  
+例如：
+</code></pre>
+<pre class=" language-language-ruby"><code class="language-language-ruby">$testString = "23333"
+</code></pre>
+<h3 id="类成员">类成员</h3>
+<pre class=" language-language-ruby"><code class="language-language-ruby">class test
+    #静态变量(类变量)
+    @@A
+    #普通类成员
+    @B
+end
+</code></pre>
+<h4 id="静态变量-类变量">静态变量(类变量)</h4>
+<pre><code>定义：在变量名前加&quot;@@&quot;
+</code></pre>
+<h4 id="普通类成员">普通类成员</h4>
+<pre><code>定义：在变量名前加&quot;@&quot;
+</code></pre>
+<h4 id="访问类中的变量">访问类中的变量</h4>
+<h5 id="为变量设置getter方法">为变量设置getter方法</h5>
+<pre class=" language-language-ruby"><code class="language-language-ruby">def At
+   @@A
+end
+</code></pre>
+<p>这样一来就可以通过 $<a href="http://xn--vorse398q.At" target="_blank" rel="noopener">变量名.At</a> 来调用@@A</p>
+<h5 id="通过attr-accessor为指定的属性创建">通过attr_accessor为指定的属性创建</h5>
+<pre class=" language-language-ruby"><code class="language-language-ruby">class test
+   @@A
+   @B
+   attr_accessor :A,:B
+end
+</code></pre>
 <p>等价于</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    attr_reader <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-    attr_writer <span class="token symbol">:A</span><span class="token punctuation">,</span><span class="token symbol">:B</span>
-<span class="token keyword">end</span></code></pre>
+<pre class=" language-language-ruby"><code class="language-language-ruby">class test
+    @@A
+    @B
+    attr_reader :A,:B
+    attr_writer :A,:B
+end
+</code></pre>
 <p>与</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">test</span>
-    <span class="token variable">@@A</span>
-    <span class="token variable">@B</span>
-    <span class="token keyword">def</span> <span class="token constant">A</span>
-        <span class="token variable">@@A</span>
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">B</span>
-        <span class="token variable">@B</span>
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">A</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-        <span class="token variable">@@A</span><span class="token operator">=</span>value
-    <span class="token keyword">end</span>
-    <span class="token keyword">def</span> <span class="token constant">B</span><span class="token operator">=</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-        <span class="token variable">@B</span><span class="token operator">=</span>value
-    <span class="token keyword">end</span>
+<pre class=" language-language-ruby"><code class="language-language-ruby">class test
+    @@A
+    @B
+    def A
+        @@A
+    end
+    def B
+        @B
+    end
+    def A=(value)
+        @@A=value
+    end
+    def B=(value)
+        @B=value
+    end
 
-<span class="token keyword">end</span></code></pre>
+end
+</code></pre>
 <p>这样一来就可以通过 $变量名.A来调用@@A , $变量名.B来调用@@B</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>ruby 中函数的返回值不需要定义</p>
-<pre class=" language-ruby"><code class="language-ruby"><span class="token keyword">def</span> test
+<h3 id="函数">函数</h3>
+<p>ruby 中函数的返回值不需要定义</p>
+<pre class=" language-language-ruby"><code class="language-language-ruby">def test
     code
 
-    <span class="token keyword">return</span> xxx
-<span class="token keyword">end</span></code></pre>
-<h2 id="ruby-中的模板引擎"><a href="#ruby-中的模板引擎" class="headerlink" title="ruby 中的模板引擎"></a>ruby 中的模板引擎</h2><h3 id="ruby-on-rails"><a href="#ruby-on-rails" class="headerlink" title="ruby-on-rails"></a>ruby-on-rails</h3><p> 暂时没学，欸嘿</p>
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p><a href="https://www.imooc.com/wenda/detail/564294" target="_blank" rel="noopener">https://www.imooc.com/wenda/detail/564294</a></p>
+    return xxx
+end
+</code></pre>
+<h2 id="ruby-中的模板引擎">ruby 中的模板引擎</h2>
+<h3 id="ruby-on-rails">ruby-on-rails</h3>
+<p>暂时没学，欸嘿</p>
+<h3 id="简单使用">简单使用</h3>
+<p><a href="https://www.imooc.com/wenda/detail/564294" target="_blank" rel="noopener">https://www.imooc.com/wenda/detail/564294</a></p>
 
             </div>
             <hr/>
@@ -723,8 +749,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            子网掩码子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。
-计算方式根据子网数：如欲将B类IP地址168.195.0.
+                            子网掩码
+子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。
+计算方式
+根据子网数：
+如欲将B类IP地址168.195
                         
                     </div>
                     <div class="publish-info">
@@ -773,15 +802,21 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            shell 入门随笔判断if [ command1 ];then
+                            shell 入门随笔
+判断
+if [ command1 ];then
     code
 elif [ command2 ];then
     code
 else
     code
-fi循环for循环for 变量 in 列表
+fi
+
+循环
+for循环
+for 变量 in 列表
 do
-    cod
+ 
                         
                     </div>
                     <div class="publish-info">

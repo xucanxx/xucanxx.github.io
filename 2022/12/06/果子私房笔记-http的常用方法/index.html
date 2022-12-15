@@ -395,13 +395,33 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="http的常用方法"><a href="#http的常用方法" class="headerlink" title="http的常用方法"></a>http的常用方法</h1><h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>只请求服务端的数据，但是没有改变数据。</p>
-<h2 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h2><p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>比如上传一篇博客用的post会改变服务器端的数据。</p>
-<h2 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h2><p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p>
-<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p>
-<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p>
-<h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><p>查询相应URI支持的HTTP方法。</p>
-<h1 id="get和post的区别https-www-cnblogs-com-logsharing-p-8448446-html"><a href="#get和post的区别https-www-cnblogs-com-logsharing-p-8448446-html" class="headerlink" title="get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html"></a>get和post的区别<a href="https://www.cnblogs.com/logsharing/p/8448446.html" target="_blank" rel="noopener">https://www.cnblogs.com/logsharing/p/8448446.html</a></h1><p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>GET产生的URL地址可以被Bookmark，而POST不可以。<br>GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>GET请求只能进行url编码，而POST支持多种编码方式。<br>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>GET参数通过URL传递，POST放在Request body中。<br>GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
+                <h1>http的常用方法</h1>
+<h2 id="GET">GET</h2>
+<p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>
+只请求服务端的数据，但是没有改变数据。</p>
+<h2 id="POST">POST</h2>
+<p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>
+比如上传一篇博客用的post会改变服务器端的数据。</p>
+<h2 id="PUT">PUT</h2>
+<p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p>
+<h2 id="HEAD">HEAD</h2>
+<p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p>
+<h2 id="DELETE">DELETE</h2>
+<p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p>
+<h2 id="OPTIONS">OPTIONS</h2>
+<p>查询相应URI支持的HTTP方法。</p>
+<h1>get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html</h1>
+<p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>
+GET产生的URL地址可以被Bookmark，而POST不可以。<br>
+GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>
+GET请求只能进行url编码，而POST支持多种编码方式。<br>
+GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>
+GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>
+对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>
+GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>
+GET参数通过URL传递，POST放在Request body中。<br>
+GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>
+GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
 
             </div>
             <hr/>
@@ -679,7 +699,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            http的作用和RPCHTTPHTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。传输信息需要一种
+                            http的作用和RPC
+HTTP
+HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。
+HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。
+传输信息
                         
                     </div>
                     <div class="publish-info">
@@ -728,7 +752,8 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            数据在五层网络中的传输https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd8989
+                            数据在五层网络中的传输
+https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd898
                         
                     </div>
                     <div class="publish-info">

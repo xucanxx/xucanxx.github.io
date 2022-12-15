@@ -395,13 +395,19 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="shell-入门随笔"><a href="#shell-入门随笔" class="headerlink" title="shell 入门随笔"></a>shell 入门随笔</h1><h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><pre><code>if [ command1 ];then
+                <h1>shell 入门随笔</h1>
+<h2 id="判断">判断</h2>
+<pre><code>if [ command1 ];then
     code
 elif [ command2 ];then
     code
 else
     code
-fi</code></pre><h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><pre><code>for 变量 in 列表
+fi
+</code></pre>
+<h2 id="循环">循环</h2>
+<h3 id="for循环">for循环</h3>
+<pre><code>for 变量 in 列表
 do
     code
 done
@@ -410,16 +416,27 @@ done
 for ((i=0;i&lt;n;i++))
 do 
     code
-done </code></pre><h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><pre><code>while [ command ]
+done 
+</code></pre>
+<h3 id="while循环">while循环</h3>
+<pre><code>while [ command ]
 do
     code
-done</code></pre><h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre><code>cat 文件path | while read -r line
+done
+</code></pre>
+<h4 id="文件读取">文件读取</h4>
+<pre><code>cat 文件path | while read -r line
 do
 #在这里line的最后一行有/r换行符，需要用sed过滤掉
-    newline = $(echo $line | sed &#39;s/\r//&#39;)
-done</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格
+    newline = $(echo $line | sed 's/\r//')
+done
+</code></pre>
+<h2 id="注：">注：</h2>
+<pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格
 
-不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/</code></pre>
+不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/
+</code></pre>
+
             </div>
             <hr/>
 
@@ -696,13 +713,19 @@ done</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Ruby 入门随笔变量全局变量定义：在变量名前加&quot;$&quot;  
-例如：$testString = "23333"
-类成员class test
+                            Ruby 入门随笔
+变量
+全局变量
+定义：在变量名前加&quot;$&quot;  
+例如：
+
+$testString = "23333"
+
+类成员
+class test
     #静态变量(类变量)
     @@A
     #普通类成员
-    @B
 
                         
                     </div>
@@ -752,8 +775,10 @@ done</code></pre><h2 id="注："><a href="#注：" class="headerlink" title="注
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            B站上的面试题https://www.bilibili.com/video/BV1UL4y137z6?p=2
-Java面向对象有哪些特征，如何应用​        面向对象编程是利用类和对象编程的一种思想。万物可归类，类是对于世界事物的高度
+                            B站上的面试题
+https://www.bilibili.com/video/BV1UL4y137z6?p=2
+Java面向对象有哪些特征，如何应用
+​		面向对象编程是利用类和对象编程的一种思想。万物可归类，类是对于世界事物的高度抽象 ，
                         
                     </div>
                     <div class="publish-info">

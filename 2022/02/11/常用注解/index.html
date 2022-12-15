@@ -395,64 +395,98 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><p>取自B站视频：<a href="https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver</a></p>
-<h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
-    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
-        <span class="token annotation punctuation">@Bean</span>
-        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+                <h1>常用注解</h1>
+<p>取自B站视频：<a href="https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver" target="_blank" rel="noopener">https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver</a></p>
+<h2 id="Configuration-与-Bean">@Configuration 与 @Bean</h2>
+<pre class=" language-language-java"><code class="language-language-java">    @Configuration
+    public class test{
+        @Bean
+        public User user1(){
+            return new User("滑稽","18");
+        }
 
-        <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span><span class="token string">"tom"</span><span class="token punctuation">)</span>
-        <span class="token keyword">public</span> Pet <span class="token function">cat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pet</span><span class="token punctuation">(</span><span class="token string">"tomcat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
-<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h3><pre><code>告诉Springboot这是一个配置类，其作用相当于配置文件
+        @Bean("tom")
+        public Pet cat(){
+            return new Pet("tomcat");
+        }
+    }
+</code></pre>
+<h3 id="Configuration">@Configuration</h3>
+<pre><code>告诉Springboot这是一个配置类，其作用相当于配置文件
 
 @Configuration(proxyBeanMethods = true)
-外部无论对配置类中的这个组件注册方法调用多少次获取的都是之前注册容器中的单实例对象</code></pre><h4 id="proxyBeanMethods"><a href="#proxyBeanMethods" class="headerlink" title="proxyBeanMethods"></a>proxyBeanMethods</h4><h5 id="如果proxyBeanMethods-true-（代理对象调用方法Full模式）"><a href="#如果proxyBeanMethods-true-（代理对象调用方法Full模式）" class="headerlink" title="如果proxyBeanMethods = true （代理对象调用方法Full模式）"></a>如果proxyBeanMethods = true （代理对象调用方法Full模式）</h5><pre><code>SpringBoot默认就会检查容器中有没有这个方法以及返回的组件如果有就拿，如果没有就新创（保持组件单实例）</code></pre><h5 id="如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）"><a href="#如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）" class="headerlink" title="如果proxyBeanMethods = false （不代理对象调用方法Lite模式）"></a>如果proxyBeanMethods = false （不代理对象调用方法Lite模式）</h5><pre><code>就只是执行那个方法并不会在容器中拿取</code></pre><h3 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h3><pre><code>将类放入容器中，默认的id为方法名，也可以通过@Bean(&quot;id&quot;)的方式自定义id
-方法中的返回值就是组件类型(类)</code></pre><h2 id="import"><a href="#import" class="headerlink" title="@import()"></a>@import()</h2><pre><code>给容器自动创建组件</code></pre><pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span>User<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>DBHelper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true">//给容器自动创建了这两个组件</span></code></pre>
-<h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p>条件装配：满足Conditional指定条件，则进行组件注入</p>
-<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
-    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
-        <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）</span>
-        <span class="token annotation punctuation">@Bean</span>
-        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span></code></pre>
-<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
-     <span class="token comment" spellcheck="true">//当bean中存在id为tom的实体类时下面的配置才生效</span>
-    <span class="token annotation punctuation">@Configuration</span>
-    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">test</span><span class="token punctuation">{</span>
-
-        <span class="token annotation punctuation">@Bean</span>
-        <span class="token keyword">public</span> User <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span></code></pre>
-<h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>导入原生配置文件</p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@ImportResource</span><span class="token punctuation">(</span><span class="token string">"xxx.xml"</span><span class="token punctuation">)</span></code></pre>
-<h2 id="配置绑定"><a href="#配置绑定" class="headerlink" title="配置绑定"></a>配置绑定</h2><h3 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h3><pre><code>前缀定义了哪些外部属性将绑定到类的字段上  
+外部无论对配置类中的这个组件注册方法调用多少次获取的都是之前注册容器中的单实例对象
+</code></pre>
+<h4 id="proxyBeanMethods">proxyBeanMethods</h4>
+<h5 id="如果proxyBeanMethods-true-（代理对象调用方法Full模式）">如果proxyBeanMethods = true （代理对象调用方法Full模式）</h5>
+<pre><code>SpringBoot默认就会检查容器中有没有这个方法以及返回的组件如果有就拿，如果没有就新创（保持组件单实例）
+</code></pre>
+<h5 id="如果proxyBeanMethods-false-（不代理对象调用方法Lite模式）">如果proxyBeanMethods = false （不代理对象调用方法Lite模式）</h5>
+<pre><code>就只是执行那个方法并不会在容器中拿取
+</code></pre>
+<h3 id="Bean">@Bean</h3>
+<pre><code>将类放入容器中，默认的id为方法名，也可以通过@Bean(&quot;id&quot;)的方式自定义id
+方法中的返回值就是组件类型(类)
+</code></pre>
+<h2 id="import">@import()</h2>
+<pre><code>给容器自动创建组件
+</code></pre>
+<pre class=" language-language-java"><code class="language-language-java">   @Import({User.class,DBHelper.class})
+   //给容器自动创建了这两个组件
+</code></pre>
+<h2 id="Conditional">@Conditional</h2>
+<p>条件装配：满足Conditional指定条件，则进行组件注入</p>
+<pre class=" language-language-java"><code class="language-language-java">    @Configuration
+    public class test{
+        @ConditionalOnBean(name = "tom")
+        //当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）
+        @Bean
+        public User user1(){
+            return new User("滑稽","18");
+        }
+</code></pre>
+<pre class=" language-language-java"><code class="language-language-java">    @ConditionalOnBean(name = "tom")
+     //当bean中存在id为tom的实体类时下面的配置才生效
+    @Configuration
+    public class test{
+        
+        @Bean
+        public User user1(){
+            return new User("滑稽","18");
+        }
+</code></pre>
+<h2 id="ImportResource">@ImportResource</h2>
+<p>导入原生配置文件</p>
+<pre class=" language-language-java"><code class="language-language-java">@ImportResource("xxx.xml")
+</code></pre>
+<h2 id="配置绑定">配置绑定</h2>
+<h3 id="ConfigurationProperties">@ConfigurationProperties</h3>
+<pre><code>前缀定义了哪些外部属性将绑定到类的字段上  
 根据 Spring Boot 宽松的绑定规则，类的属性名称必须与外部属性的名称匹配  
 我们可以简单地用一个值初始化一个字段来定义一个默认值  
 类本身可以是包私有的  
-类的字段必须有公共 setter 方法  </code></pre><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@component</span>
-<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"mycar"</span><span class="token punctuation">)</span>
+类的字段必须有公共 setter 方法  
+</code></pre>
+<pre class=" language-language-java"><code class="language-language-java">@component
+@ConfigurationProperties(prefix = "mycar")
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
-    <span class="token keyword">private</span> String brand<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> String Integer price<span class="token punctuation">;</span>
+public class Car{
+    private String brand;
+    private String Integer price;
 
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token comment" spellcheck="true">//setter方法</span>
-<span class="token punctuation">}</span></code></pre>
-<p>@ConfigurationProperties括号中的值为前缀在application.Properties文件中的配置如下  </p>
-<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">mycar.brand</span><span class="token punctuation">=</span><span class="token attr-value">BYD</span>
-<span class="token attr-name">mycar.price</span><span class="token punctuation">=</span><span class="token attr-value">100000</span></code></pre>
-<h3 id="EnableConfigurationProperties"><a href="#EnableConfigurationProperties" class="headerlink" title="@EnableConfigurationProperties"></a>@EnableConfigurationProperties</h3><pre><code>@EnableConfigurationProperties(xxx.class)  
+    ...//setter方法
+}
+</code></pre>
+<p>@ConfigurationProperties括号中的值为前缀在application.Properties文件中的配置如下</p>
+<pre class=" language-language-properties"><code class="language-language-properties">mycar.brand=BYD
+mycar.price=100000
+</code></pre>
+<h3 id="EnableConfigurationProperties">@EnableConfigurationProperties</h3>
+<pre><code>@EnableConfigurationProperties(xxx.class)  
 开启xxx.class的属性配置功能   
-把xxx这个组件自动注册到容器中</code></pre>
+把xxx这个组件自动注册到容器中
+</code></pre>
+
             </div>
             <hr/>
 
@@ -729,9 +763,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java的三种随机数生成方式完全取自这篇大佬文章：https://www.cnblogs.com/blogxjc/p/9687297.html
+                            java的三种随机数生成方式
+完全取自这篇大佬文章：https://www.cnblogs.com/blogxjc/p/9687297.html
 随机数的产生在一些代码中很常用，也是我们必须要掌握的。而java中产生随机数的方法主要有三种：
-
                         
                     </div>
                     <div class="publish-info">
@@ -780,10 +814,16 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            英语考研规划题型重点把握：阅读和作文
-客观题完形填空20*0.5=10要求： 带入符合语境，意思
-阅读理解20*2=40发力点在于逻辑关系
-1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The decision to
+                            英语考研规划
+题型
+重点把握：阅读和作文
+客观题
+完形填空20*0.5=10
+要求： 带入符合语境，意思
+阅读理解20*2=40
+发力点在于逻辑关系
+1.正向(没有转折句):子的总体趋势相通，都在说一件事
+【2011-2】The decis
                         
                     </div>
                     <div class="publish-info">

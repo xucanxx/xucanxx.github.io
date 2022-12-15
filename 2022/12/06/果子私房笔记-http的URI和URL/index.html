@@ -395,10 +395,22 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h1><p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p>
+                <h1>URI</h1>
+<p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p>
 <p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p>
-<h2 id="URI一般由三部组成："><a href="#URI一般由三部组成：" class="headerlink" title="URI一般由三部组成："></a>URI一般由三部组成：</h2><h3 id="①访问资源的命名机制"><a href="#①访问资源的命名机制" class="headerlink" title="①访问资源的命名机制"></a>①访问资源的命名机制</h3><h3 id="②存放资源的主机名"><a href="#②存放资源的主机名" class="headerlink" title="②存放资源的主机名"></a>②存放资源的主机名</h3><h3 id="③资源自身的名称，由路径表示，着重强调于资源。"><a href="#③资源自身的名称，由路径表示，着重强调于资源。" class="headerlink" title="③资源自身的名称，由路径表示，着重强调于资源。"></a>③资源自身的名称，由路径表示，着重强调于资源。</h3><h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
-<h2 id="URL一般由三部组成："><a href="#URL一般由三部组成：" class="headerlink" title="URL一般由三部组成："></a>URL一般由三部组成：</h2><h3 id="①协议-或称为服务方式"><a href="#①协议-或称为服务方式" class="headerlink" title="①协议(或称为服务方式)"></a>①协议(或称为服务方式)</h3><h3 id="②存有该资源的主机IP地址-有时也包括端口号"><a href="#②存有该资源的主机IP地址-有时也包括端口号" class="headerlink" title="②存有该资源的主机IP地址(有时也包括端口号)"></a>②存有该资源的主机IP地址(有时也包括端口号)</h3><h3 id="③主机资源的具体地址。如目录和文件名等"><a href="#③主机资源的具体地址。如目录和文件名等" class="headerlink" title="③主机资源的具体地址。如目录和文件名等"></a>③主机资源的具体地址。如目录和文件名等</h3>
+<h2 id="URI一般由三部组成：">URI一般由三部组成：</h2>
+<h3 id="①访问资源的命名机制">①访问资源的命名机制</h3>
+<h3 id="②存放资源的主机名">②存放资源的主机名</h3>
+<h3 id="③资源自身的名称，由路径表示，着重强调于资源。">③资源自身的名称，由路径表示，着重强调于资源。</h3>
+<h1>URL</h1>
+<p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>
+URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>
+采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
+<h2 id="URL一般由三部组成：">URL一般由三部组成：</h2>
+<h3 id="①协议-或称为服务方式">①协议(或称为服务方式)</h3>
+<h3 id="②存有该资源的主机IP地址-有时也包括端口号">②存有该资源的主机IP地址(有时也包括端口号)</h3>
+<h3 id="③主机资源的具体地址。如目录和文件名等">③主机资源的具体地址。如目录和文件名等</h3>
+
             </div>
             <hr/>
 
@@ -675,7 +687,13 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            kafka日常操作kafka查看数据查看所有topic./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list查看所有group./kafka-consumer-groups.sh
+                            kafka日常操作
+kafka查看数据
+查看所有topic
+./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
+
+查看所有group
+./kafka-consumer-gro
                         
                     </div>
                     <div class="publish-info">
@@ -724,7 +742,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            http的作用和RPCHTTPHTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。传输信息需要一种
+                            http的作用和RPC
+HTTP
+HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。
+HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。
+传输信息
                         
                     </div>
                     <div class="publish-info">

@@ -396,22 +396,34 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>参考自大佬的博客：<a href="https://blog.csdn.net/gg_gogoing/article/details/38753567" target="_blank" rel="noopener">https://blog.csdn.net/gg_gogoing/article/details/38753567</a></p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p>
+<h1>题目</h1>
+<h2 id="题面">题面</h2>
+<p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p>
 <p>n,x,y</p>
 <p>这个人问n次 ，x为神的个数，y为恶魔的个数。</p>
 <p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes/no。注意xi,yi可能为同一个人</p>
 <p>若最终可得出哪些是神则从小到大输出神的编号，并最终输出end</p>
 <p>否则输出no</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入格式如下： </p>
+<h2 id="Input">Input</h2>
+<p>输入格式如下：</p>
 <pre><code>n p1 p2 
 xl yl a1 
 x2 y2 a2 
 ... 
 xi yi ai 
 ... 
-xn yn an </code></pre><p>第一行有三个非负整数 n, p1, 和 p2. n 是 Akira 问的问题数. p1 和 p2 是在传说中记载的神族和恶魔族的人口数量。下面的每 n 行包括两个整数xi, yi和一个单词 ai。 xi 和 yi 是每个人的编号，号码范围从 1 到 p1 + p2。 ai 可能是 yes 或者 no。如果居民 xi 想让你认为 yi 是神族，他会回答 yes。注意：xi 和 yi 可能相同。所以”你是神族吗？“是一个有效的问题。还要注意，Akira 十分紧张，所以相同的问题可能重复出现。<br>数据范围：<br>n ＜ 1000<br>p1,p2 &lt; 300<br>出现 0 0 0 的一行标示数据结束。 数据保证成立，没有矛盾数据。 </p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个数据集，如果它包含足够的信息来对所有居民进行分类，则按升序打印所有神族居民的编号，一行一个。 在输出数字后再输出end。 如果给定数据集不包括足以识别所有神族的信息，输出no。</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre><code>2 1 1
+xn yn an 
+</code></pre>
+<p>第一行有三个非负整数 n, p1, 和 p2. n 是 Akira 问的问题数. p1 和 p2 是在传说中记载的神族和恶魔族的人口数量。下面的每 n 行包括两个整数xi, yi和一个单词 ai。 xi 和 yi 是每个人的编号，号码范围从 1 到 p1 + p2。 ai 可能是 yes 或者 no。如果居民 xi 想让你认为 yi 是神族，他会回答 yes。注意：xi 和 yi 可能相同。所以”你是神族吗？“是一个有效的问题。还要注意，Akira 十分紧张，所以相同的问题可能重复出现。<br>
+数据范围：<br>
+n ＜ 1000<br>
+p1,p2 &lt; 300<br>
+出现 0 0 0 的一行标示数据结束。 数据保证成立，没有矛盾数据。</p>
+<h2 id="Output">Output</h2>
+<p>对于每个数据集，如果它包含足够的信息来对所有居民进行分类，则按升序打印所有神族居民的编号，一行一个。 在输出数字后再输出end。 如果给定数据集不包括足以识别所有神族的信息，输出no。</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<pre><code>2 1 1
 1 2 no
 2 1 no
 3 2 1
@@ -427,7 +439,10 @@ xn yn an </code></pre><p>第一行有三个非负整数 n, p1, 和 p2. n 是 Aki
 4 5 yes
 5 6 yes
 6 7 no
-0 0 0</code></pre><h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre><code>no
+0 0 0
+</code></pre>
+<h3 id="Output-2">Output</h3>
+<pre><code>no
 no
 1
 2
@@ -436,8 +451,14 @@ end
 4
 5
 6
-end</code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>经过简单的推理可得只要说了‘yes’那么那两个就属于同一类，‘no’则相反<br>使用并查集表名它们的关系，用背包统计在不同情况下有多少种答案。<br>最后进行答案统计。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;iostream&gt;
+end
+</code></pre>
+<h2 id="思路">思路</h2>
+<p>经过简单的推理可得只要说了‘yes’那么那两个就属于同一类，‘no’则相反<br>
+使用并查集表名它们的关系，用背包统计在不同情况下有多少种答案。<br>
+最后进行答案统计。</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;iostream&gt;
 #include&lt;string.h&gt;
 #include&lt;algorithm&gt;
 using namespace std;
@@ -448,136 +469,138 @@ int x, y, z;
 int ans[1010], f;
 int find(int xx)
 {
-    if (pr[xx] == -1)
-    {
-        return xx;
-    }
-    int tmp = find(pr[xx]);
-    relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系
-    pr[xx] = tmp;
-    return tmp;
+	if (pr[xx] == -1)
+	{
+		return xx;
+	}
+	int tmp = find(pr[xx]);
+	relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系
+	pr[xx] = tmp;
+	return tmp;
 }
 int solve()
 {
-    memset(dp, 0, sizeof(dp));
-    memset(p, 0, sizeof(p));
-    memset(cnt, 0, sizeof(cnt));
-    f = 0;
-    int k = 0;
-    for (int i = 1; i &lt;= x + y; i++)//压缩路径
-        find(i);
-    for (int i = 1; i &lt;= x + y; i++)
-    {
-        if (pr[i] == -1)
-            kind[k++] = i;//看看有多少头节点结点
-    }
-    for (int i = 0; i &lt; k; i++)
-    {
-        cnt[i * 2] = 1;
-        for (int j = 1; j &lt;= x + y; j++)
-        {
-            if (pr[j] == kind[i])
-            {
-                if (relation[j] == 0)
-                    cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类
-                else
-                    cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类
-            }
-        }
-    }
-    dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点
-    dp[0][cnt[1]]++; p[0][cnt[1]] = 1;
-    for (int i = 1; i &lt; k; i++)
-        for (int j = x; j &gt;= 0; j--)
-        {
-            if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包
-            {
-                dp[i][j] += dp[i - 1][j - cnt[2 * i]];
-                p[i][j] = 0;
-            }
-            if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
-            {
-                dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];
-                p[i][j] = 1;
-            }
-        }
-    if (dp[k - 1][x] != 1)
-        return 0;
-    int m = x, t;
-    f = 0;
-    for (int i = k - 1; i &gt;= 0; i--)
-    {
-        if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反
-        {
-            t = 0; m = m - cnt[i * 2];
-        }
-        else
-        {
-            t = 1; m = m - cnt[2 * i + 1];
-        }
-        for (int j = 1; j &lt;= x + y; j++)
-        {
-            if (pr[j] == kind[i] || j == kind[i])//统计个数
-            {
-                if (relation[j] == t)
-                    ans[f++]=j;
-            }
-        }
-    }
-    sort(ans, ans + f);
-    return 1;
+	memset(dp, 0, sizeof(dp));
+	memset(p, 0, sizeof(p));
+	memset(cnt, 0, sizeof(cnt));
+	f = 0;
+	int k = 0;
+	for (int i = 1; i &lt;= x + y; i++)//压缩路径
+		find(i);
+	for (int i = 1; i &lt;= x + y; i++)
+	{
+		if (pr[i] == -1)
+			kind[k++] = i;//看看有多少头节点结点
+	}
+	for (int i = 0; i &lt; k; i++)
+	{
+		cnt[i * 2] = 1;
+		for (int j = 1; j &lt;= x + y; j++)
+		{
+			if (pr[j] == kind[i])
+			{
+				if (relation[j] == 0)
+					cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类
+				else
+					cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类
+			}
+		}
+	}
+	dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点
+	dp[0][cnt[1]]++; p[0][cnt[1]] = 1;
+	for (int i = 1; i &lt; k; i++)
+		for (int j = x; j &gt;= 0; j--)
+		{
+			if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包
+			{
+				dp[i][j] += dp[i - 1][j - cnt[2 * i]];
+				p[i][j] = 0;
+			}
+			if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
+			{
+				dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];
+				p[i][j] = 1;
+			}
+		}
+	if (dp[k - 1][x] != 1)
+		return 0;
+	int m = x, t;
+	f = 0;
+	for (int i = k - 1; i &gt;= 0; i--)
+	{
+		if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反
+		{
+			t = 0; m = m - cnt[i * 2];
+		}
+		else
+		{
+			t = 1; m = m - cnt[2 * i + 1];
+		}
+		for (int j = 1; j &lt;= x + y; j++)
+		{
+			if (pr[j] == kind[i] || j == kind[i])//统计个数
+			{
+				if (relation[j] == t)
+					ans[f++]=j;
+			}
+		}
+	}
+	sort(ans, ans + f);
+	return 1;
 }
 int main()
 {
-    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
-    while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)
-    {
-        if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)
-            break;
-        memset(pr, -1, sizeof(pr));
-        memset(relation, 0, sizeof(relation));
-        for (int i = 0; i &lt; z; i++)
-        {
-            int a, b;
-            char s[10];
-            cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
-            if (a &lt; b)
-            {
-                int tmp = a; a = b; b = tmp;
-            }
-            int aa = find(a), bb = find(b);
-            if (aa == bb)
-            {
-                continue;
-            }
-            if (s[0] == &#39;y&#39;)
-            {
-                pr[aa] = bb;
-                relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集
-            }
-            else
-            {
-                pr[aa] = bb;
-                relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集
-            }
-        }
-        if (x == y)
-        {
-            cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;
-        }
-        if (solve())//f可能为0
-        {
-            for (int i = 0; i &lt; f; i++)
-            {
-                cout &lt;&lt; ans[i]&lt;&lt;endl;
-            }
-            cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
-        }
-        else
-            cout &lt;&lt; &quot;no&quot; &lt;&lt; endl;
-    }
-    return 0;
-}</code></pre>
+	//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+	while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)
+	{
+		if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)
+			break;
+		memset(pr, -1, sizeof(pr));
+		memset(relation, 0, sizeof(relation));
+		for (int i = 0; i &lt; z; i++)
+		{
+			int a, b;
+			char s[10];
+			cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
+			if (a &lt; b)
+			{
+				int tmp = a; a = b; b = tmp;
+			}
+			int aa = find(a), bb = find(b);
+			if (aa == bb)
+			{
+				continue;
+			}
+			if (s[0] == 'y')
+			{
+				pr[aa] = bb;
+				relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集
+			}
+			else
+			{
+				pr[aa] = bb;
+				relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集
+			}
+		}
+		if (x == y)
+		{
+			cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;
+		}
+		if (solve())//f可能为0
+		{
+			for (int i = 0; i &lt; f; i++)
+			{
+				cout &lt;&lt; ans[i]&lt;&lt;endl;
+			}
+			cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
+		}
+		else
+			cout &lt;&lt; &quot;no&quot; &lt;&lt; endl;
+	}
+	return 0;
+}
+</code></pre>
+
             </div>
             <hr/>
 
@@ -855,9 +878,11 @@ int main()
                     <div class="summary block-with-text">
                         
                             参考自官方的博客：https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73
-题目题面有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：
+题目
+题面
+有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：
 
-修改：区间 l 到 r 内的建
+修改：区间 l 到 r 内
                         
                     </div>
                     <div class="publish-info">
@@ -907,7 +932,11 @@ int main()
                     <div class="summary block-with-text">
                         
                             参考自大佬的博客：https://www.cnblogs.com/stelayuri/p/12709923.html
-题目题面A. Linova and Kingdomtime limit per test2 secondsmemory l
+题目
+题面
+A. Linova and Kingdom
+time limit per test2 seconds
+memo
                         
                     </div>
                     <div class="publish-info">

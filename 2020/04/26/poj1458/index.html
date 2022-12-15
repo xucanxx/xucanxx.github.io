@@ -395,63 +395,78 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Common Subsequence</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Cry对于泡妹子十分不熟练，在见到小姐姐后十分紧张，这时，他想起了czh对他的教诲，于是他决定尽可能找到自己与小姐姐的共同点。Cry靠他强大的人格魅力获取了小姐姐的基因片段，同时他也提供了自己的基因片段，现在我们假定，他们的公共点个数为两个片段的最长公共子序列中元素个数，cry有点方因为他完全不会做，他的幸福生活只能靠在座的各位了！</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>多组输入，每行有两个字符串，根据本czh的经验，如果对小姐姐问来问去是很失礼的一件事，因此每个基因片段长度最好不超过1000吧</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>每行一个答案，表示每组数据中他们的公共点个数</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>abcfbc         abfcab<br>programming    contest<br>abcd           mnp</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>4<br>2<br>0</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题于poj1887有相似之处，寻找最长序列数因为这个题目有2个序列所以以一个为模板，逐个变化另一个字符串的开头字母，不断更新最后输出答案</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+                <h1>题目</h1>
+<p>Common Subsequence</p>
+<h2 id="题面">题面</h2>
+<p>Cry对于泡妹子十分不熟练，在见到小姐姐后十分紧张，这时，他想起了czh对他的教诲，于是他决定尽可能找到自己与小姐姐的共同点。Cry靠他强大的人格魅力获取了小姐姐的基因片段，同时他也提供了自己的基因片段，现在我们假定，他们的公共点个数为两个片段的最长公共子序列中元素个数，cry有点方因为他完全不会做，他的幸福生活只能靠在座的各位了！</p>
+<h2 id="Input">Input</h2>
+<p>多组输入，每行有两个字符串，根据本czh的经验，如果对小姐姐问来问去是很失礼的一件事，因此每个基因片段长度最好不超过1000吧</p>
+<h2 id="Output">Output</h2>
+<p>每行一个答案，表示每组数据中他们的公共点个数</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>abcfbc         abfcab<br>
+programming    contest<br>
+abcd           mnp</p>
+<h3 id="Output-2">Output</h3>
+<p>4<br>
+2<br>
+0</p>
+<h2 id="思路">思路</h2>
+<p>这个题于poj1887有相似之处，寻找最长序列数因为这个题目有2个序列所以以一个为模板，逐个变化另一个字符串的开头字母，不断更新最后输出答案</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
 #include&lt;string.h&gt;
 int len;
 char s1[1010],s2[1010];
 int num[1010];
 int solve(int k)
 {
-    int l=1,r=len;
-    while(l&lt;r)
-    {
-       int mid=(l+r)/2;
-       if(num[mid]&gt;=k)
-       {
-           r=mid;
-       }
-       else
-       l=mid+1;
-    }
-    return r;
+    int l=1,r=len;
+    while(l&lt;r)
+    {
+       int mid=(l+r)/2;
+       if(num[mid]&gt;=k)
+       {
+           r=mid;
+       }
+       else
+       l=mid+1;
+    }
+    return r;
 }
 int main()
 {
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    while(~scanf(&quot;%s %s&quot;,s1,s2))
-    {
-       len=0;
-       num[len]=-1;
-       int k1=strlen(s1),k2=strlen(s2);
-       for(int i=0;i&lt;k1;i++)
-       {
-           for(int j=0;j&lt;k2;j++)
-           {
-              if(s1[i]==s2[j])
-              {
-                  if(j&gt;num[len])
-                  {
-                     num[++len]=j;
-                     break;
-                  }
-                  else
-                  {
-                     num[solve(j)]=j; 
-                  }
-              }
-           }
-       }
-       printf(&quot;%d\n&quot;,len);
-    }
-    return 0;
-}</code></pre>
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%s %s&quot;,s1,s2))
+    {
+       len=0;
+       num[len]=-1;
+       int k1=strlen(s1),k2=strlen(s2);
+       for(int i=0;i&lt;k1;i++)
+       {
+           for(int j=0;j&lt;k2;j++)
+           {
+              if(s1[i]==s2[j])
+              {
+                  if(j&gt;num[len])
+                  {
+                     num[++len]=j;
+                     break;
+                  }
+                  else
+                  {
+                     num[solve(j)]=j; 
+                  }
+              }
+           }
+       }
+       printf(&quot;%d\n&quot;,len);
+    }
+    return 0;
+}
+</code></pre>
+
             </div>
             <hr/>
 
@@ -728,8 +743,15 @@ int main()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            sql基本语法增创建数据库CREATE DATABASE database-name表创建新表 create table 表名 （列名 数据类型 primary key(设置主键)，  
-                         列
+                            sql基本语法
+增
+创建数据库
+CREATE DATABASE database-name
+
+表
+创建新表
+ create table 表名 （列名 数据类型 primary key(设置主键)，  
+                   
                         
                     </div>
                     <div class="publish-info">
@@ -778,8 +800,10 @@ int main()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目Max Sum
-题面Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, 
+                            题目
+Max Sum
+题面
+Given a sequence a[1],a[2],a[3]…a[n], your job is to calculate the max sum of a sub-sequence. For example,
                         
                     </div>
                     <div class="publish-info">

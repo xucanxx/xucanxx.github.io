@@ -395,54 +395,69 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14. </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000). </p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases. </p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
-<p>Case 2:<br>7 1 6</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>#include&lt;stdio.h&gt;
+                <h1>题目</h1>
+<p>Max Sum</p>
+<h2 id="题面">题面</h2>
+<p>Given a sequence a[1],a[2],a[3]…a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.</p>
+<h2 id="Input">Input</h2>
+<p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000).</p>
+<h2 id="Output">Output</h2>
+<p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases.</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>2<br>
+5 6 -1 5 4 -7<br>
+7 0 6 -1 1 -6 7 -5</p>
+<h3 id="Output-2">Output</h3>
+<p>Case 1:<br>
+14 1 4</p>
+<p>Case 2:<br>
+7 1 6</p>
+<h2 id="思路">思路</h2>
+<p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
 int main()
 {
-    long long max,n,sum;
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    int T;
-    scanf(&quot;%d&quot;,&amp;T);
-    for(int t=1;t&lt;=T;t++)
-    {
-       scanf(&quot;%lld&quot;,&amp;n);
-       int l1=1,l=1,r=1;
-       sum=0;
-       max=0;
-       int f=1;
-       long long x;
-       for(int i=1;i&lt;=n;i++)
-       {
-           scanf(&quot;%lld&quot;,&amp;x);
-           if(i==1)
-           max=x;
-           sum+=x;
-           if(sum&gt;max)
-           {
-              max=sum;
-              l=l1;
-              r=i;
-           }
-           if(sum&lt;0)
-           {
-              sum=0;
-              l1=i+1;
-           }
-       }
-       printf(&quot;Case %d:\n&quot;,t);
-       printf(&quot;%lld %d %d\n&quot;,max,l,r);
-       if(t!=T)
-       printf(&quot;\n&quot;);
-    }
-    return 0;
-}</code></pre>
+    long long max,n,sum;
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    int T;
+    scanf(&quot;%d&quot;,&amp;T);
+    for(int t=1;t&lt;=T;t++)
+    {
+       scanf(&quot;%lld&quot;,&amp;n);
+       int l1=1,l=1,r=1;
+       sum=0;
+       max=0;
+       int f=1;
+       long long x;
+       for(int i=1;i&lt;=n;i++)
+       {
+           scanf(&quot;%lld&quot;,&amp;x);
+           if(i==1)
+           max=x;
+           sum+=x;
+           if(sum&gt;max)
+           {
+              max=sum;
+              l=l1;
+              r=i;
+           }
+           if(sum&lt;0)
+           {
+              sum=0;
+              l1=i+1;
+           }
+       }
+       printf(&quot;Case %d:\n&quot;,t);
+       printf(&quot;%lld %d %d\n&quot;,max,l,r);
+       if(t!=T)
+       printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+</code></pre>
+
             </div>
             <hr/>
 
@@ -719,8 +734,10 @@ int main()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目Common Subsequence
-题面Cry对于泡妹子十分不熟练，在见到小姐姐后十分紧张，这时，他想起了czh对他的教诲，于是他决定尽可能找到自己与小姐姐的共同点。Cry靠他强大的人格魅力获取了小姐姐的基因片段，同时他也提供了自己的
+                            题目
+Common Subsequence
+题面
+Cry对于泡妹子十分不熟练，在见到小姐姐后十分紧张，这时，他想起了czh对他的教诲，于是他决定尽可能找到自己与小姐姐的共同点。Cry靠他强大的人格魅力获取了小姐姐的基因片段，同时他也提供了自
                         
                     </div>
                     <div class="publish-info">
@@ -769,7 +786,9 @@ int main()
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目题面Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组的每
+                            题目
+题面
+Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组
                         
                     </div>
                     <div class="publish-info">

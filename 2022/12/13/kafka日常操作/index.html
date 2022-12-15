@@ -395,7 +395,41 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX</code></pre><h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe</code></pre><h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX</code></pre><h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning</code></pre><h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX</code></pre><h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre><code>./bin/kafka-server-start.sh ./config/server.properties</code></pre><h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;</code></pre><h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre><code>./bin/kafka-server-stop.sh</code></pre>
+                <h1>kafka日常操作</h1>
+<h2 id="kafka查看数据">kafka查看数据</h2>
+<h3 id="查看所有topic">查看所有topic</h3>
+<pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看所有group">查看所有group</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3>
+<pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
+</code></pre>
+<h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
+</code></pre>
+<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
+</code></pre>
+<h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
+</code></pre>
+<h2 id="kafka创建指令">kafka创建指令</h2>
+<h3 id="kafka创建topic">kafka创建topic</h3>
+<pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
+</code></pre>
+<h2 id="kafka启动命令">kafka启动命令</h2>
+<h3 id="前台启动">前台启动</h3>
+<pre><code>./bin/kafka-server-start.sh ./config/server.properties
+</code></pre>
+<h3 id="后台启动">后台启动</h3>
+<pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
+</code></pre>
+<h2 id="kafka关闭命令">kafka关闭命令</h2>
+<pre><code>./bin/kafka-server-stop.sh
+</code></pre>
+
             </div>
             <hr/>
 
@@ -672,9 +706,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            C++11中的constexprhttps://blog.csdn.net/m0_52902391/article/details/120308866
-常量表达式值不会改变且在编译期就能得到计算结果的表达式。
-字面值属于常量表达式，用常量表
+                            C++11中的constexpr
+https://blog.csdn.net/m0_52902391/article/details/120308866
+常量表达式
+值不会改变且在编译期就能得到计算结果的表达式。
+字面值属于常量表达式，用常
                         
                     </div>
                     <div class="publish-info">
@@ -723,7 +759,8 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            URIURI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此
+                            URI
+URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除
                         
                     </div>
                     <div class="publish-info">
