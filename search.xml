@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HDU1003-dp（大概）</title>
+    <url>/2020/04/26/HDU1003-dp(%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
+    <content><![CDATA[<h1>题目</h1>
+<p>Max Sum</p>
+<h2 id="题面">题面</h2>
+<p>Given a sequence a[1],a[2],a[3]…a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.</p>
+<h2 id="Input">Input</h2>
+<p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000).</p>
+<h2 id="Output">Output</h2>
+<p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases.</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>2<br>
+5 6 -1 5 4 -7<br>
+7 0 6 -1 1 -6 7 -5</p>
+<h3 id="Output-2">Output</h3>
+<p>Case 1:<br>
+14 1 4</p>
+<p>Case 2:<br>
+7 1 6</p>
+<h2 id="思路">思路</h2>
+<p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
+int main()
+{
+    long long max,n,sum;
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    int T;
+    scanf(&quot;%d&quot;,&amp;T);
+    for(int t=1;t&lt;=T;t++)
+    {
+       scanf(&quot;%lld&quot;,&amp;n);
+       int l1=1,l=1,r=1;
+       sum=0;
+       max=0;
+       int f=1;
+       long long x;
+       for(int i=1;i&lt;=n;i++)
+       {
+           scanf(&quot;%lld&quot;,&amp;x);
+           if(i==1)
+           max=x;
+           sum+=x;
+           if(sum&gt;max)
+           {
+              max=sum;
+              l=l1;
+              r=i;
+           }
+           if(sum&lt;0)
+           {
+              sum=0;
+              l1=i+1;
+           }
+       }
+       printf(&quot;Case %d:\n&quot;,t);
+       printf(&quot;%lld %d %d\n&quot;,max,l,r);
+       if(t!=T)
+       printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++11中的constexpr</title>
     <url>/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/</url>
     <content><![CDATA[<h1>C++11中的constexpr</h1>
@@ -150,79 +223,6 @@ int main()
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HDU1003-dp（大概）</title>
-    <url>/2020/04/26/HDU1003-dp(%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
-    <content><![CDATA[<h1>题目</h1>
-<p>Max Sum</p>
-<h2 id="题面">题面</h2>
-<p>Given a sequence a[1],a[2],a[3]…a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.</p>
-<h2 id="Input">Input</h2>
-<p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000).</p>
-<h2 id="Output">Output</h2>
-<p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases.</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<p>2<br>
-5 6 -1 5 4 -7<br>
-7 0 6 -1 1 -6 7 -5</p>
-<h3 id="Output-2">Output</h3>
-<p>Case 1:<br>
-14 1 4</p>
-<p>Case 2:<br>
-7 1 6</p>
-<h2 id="思路">思路</h2>
-<p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
-<h2 id="代码">代码</h2>
-<pre><code>#include&lt;stdio.h&gt;
-int main()
-{
-    long long max,n,sum;
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    int T;
-    scanf(&quot;%d&quot;,&amp;T);
-    for(int t=1;t&lt;=T;t++)
-    {
-       scanf(&quot;%lld&quot;,&amp;n);
-       int l1=1,l=1,r=1;
-       sum=0;
-       max=0;
-       int f=1;
-       long long x;
-       for(int i=1;i&lt;=n;i++)
-       {
-           scanf(&quot;%lld&quot;,&amp;x);
-           if(i==1)
-           max=x;
-           sum+=x;
-           if(sum&gt;max)
-           {
-              max=sum;
-              l=l1;
-              r=i;
-           }
-           if(sum&lt;0)
-           {
-              sum=0;
-              l1=i+1;
-           }
-       }
-       printf(&quot;Case %d:\n&quot;,t);
-       printf(&quot;%lld %d %d\n&quot;,max,l,r);
-       if(t!=T)
-       printf(&quot;\n&quot;);
-    }
-    return 0;
-}
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -576,80 +576,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Yet Another Subarray Problem cf1197D</title>
-    <url>/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/</url>
-    <content><![CDATA[<h1>题目</h1>
-<h2 id="题面">题面</h2>
-<p>You are given an array a1,a2,…,an and two integers m and k.</p>
-<p>You can choose some subarray al,al+1,…,ar−1,ar.</p>
-<p>The cost of subarray al,al+1,…,ar−1,ar is equal to ∑i=lrai−k⌈(r−l+1)/m⌉, where ⌈x⌉ is the least integer greater than or equal to xx.</p>
-<p>The cost of empty subarray is equal to zero.</p>
-<p>For example, if m=3m=3, k=10k=10 and a=[2,−4,15,−3,4,8,3]a=[2,−4,15,−3,4,8,3], then the cost of some subarrays are:</p>
-<p>·       a3…a3:15−k⌈1/3⌉=15−10=5</p>
-<p>·       a3…a4:(15−3)−k⌈2/3⌉=12−10=2</p>
-<p>·       a3…a5:(15−3+4)−k⌈3/3⌉=16−10=6</p>
-<p>·       a3…a6:(15−3+4+8)−k⌈4/3⌉=24−20=4</p>
-<p>·       a3…a7:(15−3+4+8+3)−k⌈5/3⌉=27−20=7</p>
-<p>Your task is to find the maximum cost of some subarray (possibly empty) of array a.</p>
-<p></p>
-<h2 id="Input">Input</h2>
-<p>The first line contains three integers nn, mm, and kk (1≤n≤3⋅10^5,1≤m≤10,1≤k≤10^91≤n≤3⋅10^5,1≤m≤10,1≤k≤10^9).</p>
-<p>The second line contains nn integers a1,a2,…,ana1,a2,…,an (−109≤ai≤109−109≤ai≤109).</p>
-<h2 id="Output">Output</h2>
-<p>Print the maximum cost of some subarray of array a.</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<p>7 3 10</p>
-<p>2 -4 15 -3 4 8 3</p>
-<h3 id="Output-2">Output</h3>
-<p>7</p>
-<h3 id="Input-3">Input</h3>
-<p>5 2 1000</p>
-<p>-13 -4 -9 -20 -11</p>
-<h3 id="Output-3">Output</h3>
-<p>0</p>
-<h2 id="思路">思路</h2>
-<p>这可以理解是一个01背包的拓展（就是一个板子题），思路是将所取数组的长度对m取余来减少状态量</p>
-<h2 id="代码">代码</h2>
-<pre><code>#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-#include&lt;string.h&gt;
-using namespace std;
-long long dp[300010][20]/*第一个代表所取数组的末尾，第二个代表长度对m取余*/, a[300010];
-int main()
-{
-	int n, m, k;
-	//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
-	while (~scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k))
-	{
-		memset(dp, -0x3f3f3f3f, sizeof(dp));
-		dp[0][m - 1] = 0;
-		long long ans = 0;
-		for (int i = 1; i &lt;= n; i++)scanf(&quot;%lld&quot;, &amp;a[i]);
-		for (int i = 1; i &lt;= n; i++)
-			for (int j = 0; j &lt; m; j++)
-			{
-				if (j == 0)/*当j=0时，[(r-l+1)/m]将会加1，所以判断a[i]-k
-                            与dp[i - 1][m - 1] + a[i] - k的大小来保证dp[][]中的是最大值*/
-					dp[i][j] = max(dp[i - 1][m - 1] + a[i] - k, a[i] - k);
-				else/*当j!=0时，数组的长度加1不会影响[(r-l+1)/m]的大小*/
-					dp[i][j] = dp[i - 1][j - 1] + a[i];
-				ans = max(ans, dp[i][j]);
-			}
-		printf(&quot;%lld\n&quot;, ans);
-	}
-	return 0;
-}
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cf 830B-Cards Sorting</title>
     <url>/2020/04/24/cf-830B-Cards-Sorting/</url>
     <content><![CDATA[<h1>题目</h1>
@@ -787,6 +713,164 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>Yet Another Subarray Problem cf1197D</title>
+    <url>/2020/04/23/Yet-Another-Subarray-Problem-cf1197D/</url>
+    <content><![CDATA[<h1>题目</h1>
+<h2 id="题面">题面</h2>
+<p>You are given an array a1,a2,…,an and two integers m and k.</p>
+<p>You can choose some subarray al,al+1,…,ar−1,ar.</p>
+<p>The cost of subarray al,al+1,…,ar−1,ar is equal to ∑i=lrai−k⌈(r−l+1)/m⌉, where ⌈x⌉ is the least integer greater than or equal to xx.</p>
+<p>The cost of empty subarray is equal to zero.</p>
+<p>For example, if m=3m=3, k=10k=10 and a=[2,−4,15,−3,4,8,3]a=[2,−4,15,−3,4,8,3], then the cost of some subarrays are:</p>
+<p>·       a3…a3:15−k⌈1/3⌉=15−10=5</p>
+<p>·       a3…a4:(15−3)−k⌈2/3⌉=12−10=2</p>
+<p>·       a3…a5:(15−3+4)−k⌈3/3⌉=16−10=6</p>
+<p>·       a3…a6:(15−3+4+8)−k⌈4/3⌉=24−20=4</p>
+<p>·       a3…a7:(15−3+4+8+3)−k⌈5/3⌉=27−20=7</p>
+<p>Your task is to find the maximum cost of some subarray (possibly empty) of array a.</p>
+<p></p>
+<h2 id="Input">Input</h2>
+<p>The first line contains three integers nn, mm, and kk (1≤n≤3⋅10^5,1≤m≤10,1≤k≤10^91≤n≤3⋅10^5,1≤m≤10,1≤k≤10^9).</p>
+<p>The second line contains nn integers a1,a2,…,ana1,a2,…,an (−109≤ai≤109−109≤ai≤109).</p>
+<h2 id="Output">Output</h2>
+<p>Print the maximum cost of some subarray of array a.</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>7 3 10</p>
+<p>2 -4 15 -3 4 8 3</p>
+<h3 id="Output-2">Output</h3>
+<p>7</p>
+<h3 id="Input-3">Input</h3>
+<p>5 2 1000</p>
+<p>-13 -4 -9 -20 -11</p>
+<h3 id="Output-3">Output</h3>
+<p>0</p>
+<h2 id="思路">思路</h2>
+<p>这可以理解是一个01背包的拓展（就是一个板子题），思路是将所取数组的长度对m取余来减少状态量</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;string.h&gt;
+using namespace std;
+long long dp[300010][20]/*第一个代表所取数组的末尾，第二个代表长度对m取余*/, a[300010];
+int main()
+{
+	int n, m, k;
+	//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);
+	while (~scanf(&quot;%d %d %d&quot;, &amp;n, &amp;m, &amp;k))
+	{
+		memset(dp, -0x3f3f3f3f, sizeof(dp));
+		dp[0][m - 1] = 0;
+		long long ans = 0;
+		for (int i = 1; i &lt;= n; i++)scanf(&quot;%lld&quot;, &amp;a[i]);
+		for (int i = 1; i &lt;= n; i++)
+			for (int j = 0; j &lt; m; j++)
+			{
+				if (j == 0)/*当j=0时，[(r-l+1)/m]将会加1，所以判断a[i]-k
+                            与dp[i - 1][m - 1] + a[i] - k的大小来保证dp[][]中的是最大值*/
+					dp[i][j] = max(dp[i - 1][m - 1] + a[i] - k, a[i] - k);
+				else/*当j!=0时，数组的长度加1不会影响[(r-l+1)/m]的大小*/
+					dp[i][j] = dp[i - 1][j - 1] + a[i];
+				ans = max(ans, dp[i][j]);
+			}
+		printf(&quot;%lld\n&quot;, ans);
+	}
+	return 0;
+}
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dp基础：poj1887</title>
+    <url>/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</url>
+    <content><![CDATA[<h1>题目</h1>
+<p>最长不上升子序列</p>
+<h2 id="Input">Input</h2>
+<p>所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5</p>
+<h2 id="Output">Output</h2>
+<p>每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>389<br>
+207<br>
+155<br>
+300<br>
+299<br>
+170<br>
+158<br>
+65<br>
+-1<br>
+23<br>
+34<br>
+21<br>
+-1<br>
+-1</p>
+<h3 id="Output-2">Output</h3>
+<p>Test #1:<br>
+ maximum possible interceptions: 6</p>
+<p>Test #2:<br>
+ maximum possible interceptions: 2</p>
+<h2 id="代码">代码</h2>
+<pre class=" language-language-c++"><code class="language-language-c++">#include<stdio.h>
+int num[50000],len;/*num为dp数组，其中的数组地址的值表示长度，而其对应的值表示该长度下的序列末尾数值的最小值*/
+int solve(int k)/*二分，由于之前的序列都是采用的最优解，所以说长度越长末尾的数就越小，不然则反之利用这一规律用二分来减少时间复杂度*/
+{
+    int r=len,l=1,mid;
+    while(r>l)
+    {
+       mid=(r+l)/2;
+       if(num[mid]>=k)/*要num[mid]小于k时k才能成为长度为mid时序列的最后项*/
+       {
+           l=mid+1;
+       }
+       else
+       r=mid;
+    }
+    return r;
+}
+int main()
+{
+    int k,t=1;
+    //freopen("F:/y.txt","r",stdin);
+    while(~scanf("%d",&k)&&k!=-1)
+    {
+       len=1;
+       num[len]=k;
+       while(~scanf("%d",&k)&&k!=-1)
+       {
+           if(num[len]>=k)/*如果该长度下的序列末尾数值比k大，则该序列长度加一末尾数值变成成k*/
+           {
+              num[++len]=k;
+           }
+           else/*而如果小于k则用二分法更新之前序列的末尾值以便于之后容纳更多的数字且最大长度不会增加*/
+           {
+              num[solve(k)]=k;
+           }
+       }
+       if(t!=1)
+       printf("\n");
+       printf("Test #%d:\n",t++);
+       printf("  maximum possible interceptions: %d\n",len);
+    }
+    return 0;
+ }
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>cf1336A/1337C</title>
     <url>/2020/05/01/cf1336A-1337C/</url>
     <content><![CDATA[<p>参考自大佬的博客：<a href="https://www.cnblogs.com/stelayuri/p/12709923.html" target="_blank" rel="noopener">https://www.cnblogs.com/stelayuri/p/12709923.html</a></p>
@@ -901,90 +985,6 @@ int main()
 	}
 	cout &lt;&lt; ans &lt;&lt; endl;
 }
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dp基础：poj1887</title>
-    <url>/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</url>
-    <content><![CDATA[<h1>题目</h1>
-<p>最长不上升子序列</p>
-<h2 id="Input">Input</h2>
-<p>所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5</p>
-<h2 id="Output">Output</h2>
-<p>每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<p>389<br>
-207<br>
-155<br>
-300<br>
-299<br>
-170<br>
-158<br>
-65<br>
--1<br>
-23<br>
-34<br>
-21<br>
--1<br>
--1</p>
-<h3 id="Output-2">Output</h3>
-<p>Test #1:<br>
- maximum possible interceptions: 6</p>
-<p>Test #2:<br>
- maximum possible interceptions: 2</p>
-<h2 id="代码">代码</h2>
-<pre><code>#include&lt;stdio.h&gt;
-int num[50000],len;/*num为dp数组，其中的数组地址的值表示长度，而其对应的值表示该长度下的序列末尾数值的最小值*/
-int solve(int k)/*二分，由于之前的序列都是采用的最优解，所以说长度越长末尾的数就越小，不然则反之利用这一规律用二分来减少时间复杂度*/
-{
-    int r=len,l=1,mid;
-    while(r&gt;l)
-    {
-       mid=(r+l)/2;
-       if(num[mid]&gt;=k)/*要num[mid]小于k时k才能成为长度为mid时序列的最后项*/
-       {
-           l=mid+1;
-       }
-       else
-       r=mid;
-    }
-    return r;
-}
-int main()
-{
-    int k,t=1;
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    while(~scanf(&quot;%d&quot;,&amp;k)&amp;&amp;k!=-1)
-    {
-       len=1;
-       num[len]=k;
-       while(~scanf(&quot;%d&quot;,&amp;k)&amp;&amp;k!=-1)
-       {
-           if(num[len]&gt;=k)/*如果该长度下的序列末尾数值比k大，则该序列长度加一末尾数值变成成k*/
-           {
-              num[++len]=k;
-           }
-           else/*而如果小于k则用二分法更新之前序列的末尾值以便于之后容纳更多的数字且最大长度不会增加*/
-           {
-              num[solve(k)]=k;
-           }
-       }
-       if(t!=1)
-       printf(&quot;\n&quot;);
-       printf(&quot;Test #%d:\n&quot;,t++);
-       printf(&quot;  maximum possible interceptions: %d\n&quot;,len);
-    }
-    return 0;
- }
-
 </code></pre>
 ]]></content>
       <categories>
@@ -1179,6 +1179,71 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>poj1163</title>
+    <url>/2020/04/29/poj1163/</url>
+    <content><![CDATA[<h1>题目</h1>
+<p>The Triangle</p>
+<h2 id="题面">题面</h2>
+<p>7<br>
+3   8<br>
+8   1   0<br>
+2   7   4   4<br>
+4   5   2   6   5</p>
+<p>(Figure 1)</p>
+<p>Figure 1 shows a number triangle. Write a program that calculates the highest sum of numbers passed on a route that starts at the top and ends somewhere on the base. Each step can go either diagonally down to the left or diagonally down to the right.</p>
+<h2 id="Input">Input</h2>
+<p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;= 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
+<h2 id="Output">Output</h2>
+<p>Your program is to write to standard output. The highest sum is written as an integer.</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>5</p>
+<p>7<br>
+3   8<br>
+8   1   0<br>
+2   7   4   4<br>
+4   5   2   6   5</p>
+<h3 id="Output-2">Output</h3>
+<p>30</p>
+<h2 id="思路">思路</h2>
+<p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+=max(a[i+1][j],a[i+1][j+1]);</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int a[110][110];
+int main()
+{
+    int n;
+    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d&quot;,&amp;n))
+    {
+       for(int i=1;i&lt;=n;i++)
+       {
+           for(int j=1;j&lt;=i;j++)
+           scanf(&quot;%d&quot;,&amp;a[i][j]);
+       }
+       for(int i=n-1;i&gt;0;i--)
+       {
+           for(int j=1;j&lt;=i;j++)
+           {
+              a[i][j]+=max(a[i+1][j],a[i+1][j+1]);
+           }
+       }
+       printf(&quot;%d\n&quot;,a[1][1]);
+    }
+    return 0;
+}
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>poj-2479</title>
     <url>/2020/04/25/poj-2479/</url>
     <content><![CDATA[<h1>题目</h1>
@@ -1260,71 +1325,6 @@ int main()
     return 0;
 }
 
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>poj1163</title>
-    <url>/2020/04/29/poj1163/</url>
-    <content><![CDATA[<h1>题目</h1>
-<p>The Triangle</p>
-<h2 id="题面">题面</h2>
-<p>7<br>
-3   8<br>
-8   1   0<br>
-2   7   4   4<br>
-4   5   2   6   5</p>
-<p>(Figure 1)</p>
-<p>Figure 1 shows a number triangle. Write a program that calculates the highest sum of numbers passed on a route that starts at the top and ends somewhere on the base. Each step can go either diagonally down to the left or diagonally down to the right.</p>
-<h2 id="Input">Input</h2>
-<p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;= 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
-<h2 id="Output">Output</h2>
-<p>Your program is to write to standard output. The highest sum is written as an integer.</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<p>5</p>
-<p>7<br>
-3   8<br>
-8   1   0<br>
-2   7   4   4<br>
-4   5   2   6   5</p>
-<h3 id="Output-2">Output</h3>
-<p>30</p>
-<h2 id="思路">思路</h2>
-<p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+=max(a[i+1][j],a[i+1][j+1]);</p>
-<h2 id="代码">代码</h2>
-<pre><code>#include&lt;stdio.h&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-int a[110][110];
-int main()
-{
-    int n;
-    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    while(~scanf(&quot;%d&quot;,&amp;n))
-    {
-       for(int i=1;i&lt;=n;i++)
-       {
-           for(int j=1;j&lt;=i;j++)
-           scanf(&quot;%d&quot;,&amp;a[i][j]);
-       }
-       for(int i=n-1;i&gt;0;i--)
-       {
-           for(int j=1;j&lt;=i;j++)
-           {
-              a[i][j]+=max(a[i+1][j],a[i+1][j+1]);
-           }
-       }
-       printf(&quot;%d\n&quot;,a[1][1]);
-    }
-    return 0;
-}
 </code></pre>
 ]]></content>
       <categories>
@@ -1833,6 +1833,27 @@ mycar.price=100000
       </tags>
   </entry>
   <entry>
+    <title>果子私房笔记-SSL握手过程</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1>SSL握手过程</h1>
+<h2 id="本质">本质</h2>
+<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
+<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
+<h2 id="过程">过程</h2>
+<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
+2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
+3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
+4.服务器使用私钥对随机数字3解密。<br>
+5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据模型</title>
     <url>/2020/04/27/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1>数据模型</h1>
@@ -1931,6 +1952,122 @@ E-R图由什么构成以及如何才能画一个E-R图？</p>
       </tags>
   </entry>
   <entry>
+    <title>果子私房笔记-TCP与UDP的区别</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1>TCP与UDP的区别</h1>
+<h2 id="TCP">TCP</h2>
+<h3 id="TCP的优点：">TCP的优点：</h3>
+<p>可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。</p>
+<h3 id="TCP的缺点：">TCP的缺点：</h3>
+<p>慢，效率低，占用系统资源高，易被攻击TCP在传递数据之前，要先建连接，这会消耗时间，而且在数据传递时，确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，而且要在每台设备上维护所有的传输连接，事实上，每个连接都会占用系统的CPU、内存等硬件资源。 而且，因为TCP有确认机制、三次握手机制，这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。</p>
+<h3 id="什么时候应该使用TCP：">什么时候应该使用TCP：</h3>
+<p>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输</p>
+<h2 id="UDP">UDP</h2>
+<h3 id="UDP的优点：">UDP的优点：</h3>
+<p>快，比TCP稍安全 UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，UDP是一个无状态的传输协议，所以它在传递数据时非常快。没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。但UDP也是无法避免攻击的，比如：UDP Flood攻击。</p>
+<h3 id="UDP的缺点：">UDP的缺点：</h3>
+<p>不可靠，不稳定<br>
+因为UDP没有TCP那些可靠的机制，在数据传递时，如果网络质量不好，就会很容易丢包。</p>
+<h3 id="什么时候应该使用UDP：">什么时候应该使用UDP：</h3>
+<p>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>
+比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP</p>
+<h2 id="小结TCP与UDP的区别：">小结TCP与UDP的区别：</h2>
+<p>1.基于连接与无连接；<br>
+2.对系统资源的要求（TCP较多，UDP少）；<br>
+3.UDP程序结构较简单；<br>
+4.流模式与数据报模式 ；<br>
+5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">tcp协议和udp协议的差别</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">TCP</th>
+<th style="text-align:center">UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否连接</td>
+<td style="text-align:center">面向连接</td>
+<td style="text-align:center">面向非连接</td>
+</tr>
+<tr>
+<td style="text-align:center">传输可靠性</td>
+<td style="text-align:center">可靠</td>
+<td style="text-align:center">不可靠 （可靠的UDP基于应用层实现）</td>
+</tr>
+<tr>
+<td style="text-align:center">应用场合</td>
+<td style="text-align:center">少量数据</td>
+<td style="text-align:center">传输大量数据</td>
+</tr>
+<tr>
+<td style="text-align:center">速度</td>
+<td style="text-align:center">慢</td>
+<td style="text-align:center">快</td>
+</tr>
+</tbody>
+</table>
+<h2 id="TCP与UDP区别总结：">TCP与UDP区别总结：</h2>
+<p>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</p>
+<p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p>
+<p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p>
+<p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p>
+<p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
+<p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节，其中有2个byte用于记录包体长度因此包最大大小为64k。</p>
+<p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
+<p>问：.tcp如何可靠<br>
+应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http与https的区别</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1>http与https的区别</h1>
+<p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>
+HTTP是不安全的，而HTTPS是安全的<br>
+HTTP标准端口是80 ，而HTTPS的标准端口是443<br>
+在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>
+HTTP无法加密，而HTTPS对传输的数据进行加密<br>
+HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http协议无状态协议以及解决方案</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h1>http协议无状态协议以及解决方案</h1>
+<p>http本身是一种无状态协议</p>
+<p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>
+也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p>
+<p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>果子私房笔记-http的URI和URL</title>
     <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/</url>
     <content><![CDATA[<h1>URI</h1>
@@ -1948,30 +2085,6 @@ URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客
 <h3 id="①协议-或称为服务方式">①协议(或称为服务方式)</h3>
 <h3 id="②存有该资源的主机IP地址-有时也包括端口号">②存有该资源的主机IP地址(有时也包括端口号)</h3>
 <h3 id="③主机资源的具体地址。如目录和文件名等">③主机资源的具体地址。如目录和文件名等</h3>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http的作用和RPC</title>
-    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</url>
-    <content><![CDATA[<h1>http的作用和RPC</h1>
-<h2 id="HTTP">HTTP</h2>
-<p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>
-HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>
-传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p>
-<h2 id="RPC">RPC</h2>
-<p>rpc 是应用层由用户自己在制定的协议</p>
-<h2 id="HTTP和RPC区别">HTTP和RPC区别</h2>
-<p>HTTP指的是通信协议。<br>
-而RPC则是远程调用协议，其对应的是本地调用。<br>
-RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p>
-<h2 id="那为什么要有RPC？">那为什么要有RPC？</h2>
-<p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>
 ]]></content>
       <categories>
         <category>计算机网络</category>
@@ -2065,6 +2178,30 @@ GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
       </tags>
   </entry>
   <entry>
+    <title>果子私房笔记-http的作用和RPC</title>
+    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</url>
+    <content><![CDATA[<h1>http的作用和RPC</h1>
+<h2 id="HTTP">HTTP</h2>
+<p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>
+HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>
+传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p>
+<h2 id="RPC">RPC</h2>
+<p>rpc 是应用层由用户自己在制定的协议</p>
+<h2 id="HTTP和RPC区别">HTTP和RPC区别</h2>
+<p>HTTP指的是通信协议。<br>
+而RPC则是远程调用协议，其对应的是本地调用。<br>
+RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p>
+<h2 id="那为什么要有RPC？">那为什么要有RPC？</h2>
+<p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>果子私房笔记-对称加密和非对称加密</title>
     <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</url>
     <content><![CDATA[<h1>对称加密技术</h1>
@@ -2089,67 +2226,6 @@ GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
 <h1>Hash算法（摘要算法）</h1>
 <p>原理：Hash算法特别的地方在于它是一种单向算法，用户可以通过Hash算法对目标信息生成一段特定长度的唯一hash值，却不能通过这个hash值重新获得目标信息。因此Hash算法常用在不可还原的密码存储、信息完整性校验等。<br>
 常用算法：MD2、MD4、MD5、HAVAL、SHA</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-数据在五层网络中的传输</title>
-    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E5%9C%A8%E4%BA%94%E5%B1%82%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%A0%E8%BE%93/</url>
-    <content><![CDATA[<h1>数据在五层网络中的传输</h1>
-<p><a href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect</a></p>
-<p>五层网络模型中，自底向上的讲解一台计算机是如何找到另外一台计算机并且把数据发送给另一台计算机的。</p>
-<h2 id="1-物理层">1.物理层</h2>
-<p>计算机之间要进行通信，第一件事当然是通过光纤，电缆，双绞线等介质把计算机互相连接起来。<br>
-物理层就是负责把两台计算机连起来，然后在计算机之间通过高低电频来传送0,1这样的电信号。</p>
-<h2 id="2-数据链路层-传输的叫帧">2.数据链路层 传输的叫帧</h2>
-<p>物理层传输的0，1电信号如果毫无规则的话，计算机是解读不了的。因此我们需要制定一套规则来进行0，1的传送。例如多少个电信号为一组啊，每一组信号应该如何标识等等。于是，有了以太网协议。</p>
-<h3 id="1-以太网协议">(1).以太网协议</h3>
-<p>以太网协议规定，一组电信号构成一个数据包，我们把这个数据包称之为帧。每一个桢由标头(Head)和数据(Data)两部分组成。<br>
-一个桢的长度是64~1518个字节，标头部分固定为18个字节。<br>
-标头部分主要是一些说明数据，例如发送者，接收者等信息。而数据部分则是这个数据包具体的，想给接收者的内容。<br>
-把一台计算的的数据通过物理层和链路层发送给另一台计算机，究竟是谁发给谁的，计算机与计算机之间如何区分？于是，MAC地址出现了。</p>
-<h3 id="2-MAC地址">(2).MAC地址</h3>
-<p>连入网络的每一个计算机都会有网卡，每个网卡都会有一个唯一的MAC地址。计算机之间的数据传送，就是通过MAC地址来唯一寻找、传送的。MAC地址由48个字节所构成，在网卡生产时就被唯一标识了。</p>
-<h3 id="3-广播与ARP协议">(3).广播与ARP协议</h3>
-<h4 id="1-广播">1).广播</h4>
-<p>假如计算机A知道了计算机B的MAC地址，然后想要给计算机B传送数据，可是它要怎么给它传送数据呢？计算机A不仅连着计算机B，而且还连着其他的计算机。为了解决这个问题，于是广播出现了。在同一个子网中，计算机A要向计算机B发送一个数据包，这个数据包会包含接收者的MAC地址。当发送时，计算机A是通过广播的方式发送的，这时同一个子网中的计算机C, D也会收到这个数据包的，然后收到这个数据包的计算机，会把数据包的MAC地址取出来，与自身的MAC地址对比，如果相同，则接受这个数据包，否则就丢弃。这种发送方式我们称之为广播。</p>
-<h4 id="2-ARP协议。">2).ARP协议。</h4>
-<p>通过它我们可以知道子网中其他计算机的MAC地址，是根据IP地址获取物理地址的一个TCP/IP协议。</p>
-<h2 id="3-网络层-传输的叫分组-包">3.网络层 传输的叫分组/包</h2>
-<p>我们所处的网络，是由无数个子网络构成的。广播时，也只有同一个子网里面的计算机能够收到。<br>
-那么问题来了，我们如何区分哪些MAC地址是属于同一个子网的呢？假如是同一个子网，那我们就用广播的形式把数据传送给对方，如果不是同一个子网的，我们就会把数据发给网关，让网关进行转发。为了解决这个问题，于是有了IP协议。</p>
-<h3 id="1-IP协议">(1).IP协议</h3>
-<p>IP协议，它所定义的地址，我们称之为IP地址。IP协议有两种版本，一种是IPv4,另一种是IPv6。不过我们目前大多数用的还是IPv4，我们现在也只讨论IPv4这个版本的协议。<br>
-IP地址由32位的二进制数组成，我们一般把它分成4段的十进制表示，地址范围为0.0.0.0~255.255.255.255。<br>
-每一台想要联网的计算机都会有一个IP地址。这个IP地址被分为两部分，前面一部分代表网络部分，后面一部分代表主机部分。并且网络部分和主机部分所占用的二进制位数是不固定的。<br>
-假如两台计算机的网络部分是一模一样的，我们就说这两台计算机是处于同一个子网中。例如192.168.43.1和192.168.43.2, 假如这两个IP地址的网络部分为24位，主机部分为8位。那么他们的网络部分都为192.168.43，所以他们处于同一个子网中。<br>
-可是问题来了，你怎么知道网络部分和主机部分分别占几位呢？<br>
-这就引申出了另一个关键词————子网掩码。子网掩码和IP地址一样也是32位二进制数，不过它的网络部分规定全部为1，主机部分规定全部为0.也就是说，假如上面那两个IP地址的网络部分为24位，主机部分为8位的话，那他们的子网掩码都为 11111111.11111111.11111111.00000000，即255.255.255.0。</p>
-<h3 id="2-ARP协议">(2).ARP协议</h3>
-<p>结合上面IP协议的知识，我们回来讲一下ARP协议。<br>
-有了两台计算机的IP地址与子网掩码，我们就可以判断出它们是否处于同一个子网之中了。<br>
-假如他们处于同一个子网之中，计算机A要给计算机B发送数据时。我们可以通过ARP协议来得到计算机B的MAC地址。<br>
-ARP协议也是通过广播的形式给同一个子网中的每台电脑发送一个数据包(当然，这个数据包会包含接收方的IP地址)。对方收到这个数据包之后，会取出IP地址与自身的对比，如果相同，则把自己的MAC地址回复给对方，否则就丢弃这个数据包。这样，计算机A就能知道计算机B的MAC地址了。<br>
-可能有人会问，知道了MAC地址之后，发送数据是通过广播的形式发送，询问对方的MAC地址也是通过广播的形式来发送，那其他计算机怎么知道你是要传送数据还是要询问MAC地址呢？其实在询问MAC地址的数据包中，在对方的MAC地址这一栏中，填的是一个特殊的MAC地址，其他计算机看到这个特殊的MAC地址之后，就能知道广播想干嘛了。<br>
-假如两台计算机的IP不是处于同一个子网之中，这个时候，我们就会把数据包发送给网关，然后让网关让我们进行转发传送</p>
-<h3 id="3-DNS服务器">(3).DNS服务器</h3>
-<p>这里再说一个问题，我们是如何知道对方计算机的IP地址的呢？可能有人会说当然是计算机的操作者来进行输入。这没错，当我们想要访问某个网站的时候，我们可以输入IP来进行访问，但绝大多数人是输入一个网址域名。其实当我们输入这个域名时，会有一个叫做DNS服务器的家伙来帮我们解析这个域名，然后返回这个域名对应的IP给我们的。<br>
-因此，网络层的功能就是让我们在茫茫人海中，能够找到另一台计算机在哪里，是否属于同一个子网等。</p>
-<h2 id="4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报">4.传输层 传输的叫报文段/数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)</h2>
-<p>通过物理层、数据链路层以及网络层的互相帮助，我们已经把数据成功从计算机A传送到计算机B了，可是，计算机B里面有各种各样的应用程序，计算机该如何知道这些数据是给谁的呢？<br>
-这个时候，端口(Port)这个家伙就上场了，也就是说，我们在从计算机A传数据给计算表B的时候，还得指定一个端口，以供特定的应用程序来接受处理。<br>
-也就是说，传输层的功能就是建立端口到端口的通信。相比网络层的功能是建立主机到主机的通信。<br>
-也就是说，只有有了IP和端口，我们才能进行准确着通信。这个时候可能有人会说，我输入IP地址的时候并没有指定一个端口啊。其实呢，对于有些传输协议，已经有设定了一些默认端口了。例如http的传输默认端口是80，这些端口信息也会包含在数据包里的。<br>
-传输层协议：最常见的两大协议是TCP协议和UDP协议，其中TCP协议与UDP最大的不同就是TCP提供可靠的传输，而UDP提供的是不可靠传输。</p>
-<h2 id="5-应用层-通常叫消息">5.应用层 通常叫消息</h2>
-<p>应用层这一层最接近我们用户。<br>
-虽然我们收到了传输层传来的数据，可是这些传过来的数据五花八门，有html格式的，有mp4格式的，各种各样。<br>
-因此我们需要指定这些数据的格式规则，收到后才好解读渲染。例如我们最常见的Http数据包中，就会指定该数据包是什么格式的文件了。</p>
 ]]></content>
       <categories>
         <category>计算机网络</category>
@@ -2483,6 +2559,67 @@ int main(void) {
       </categories>
       <tags>
         <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-数据在五层网络中的传输</title>
+    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E5%9C%A8%E4%BA%94%E5%B1%82%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%A0%E8%BE%93/</url>
+    <content><![CDATA[<h1>数据在五层网络中的传输</h1>
+<p><a href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect</a></p>
+<p>五层网络模型中，自底向上的讲解一台计算机是如何找到另外一台计算机并且把数据发送给另一台计算机的。</p>
+<h2 id="1-物理层">1.物理层</h2>
+<p>计算机之间要进行通信，第一件事当然是通过光纤，电缆，双绞线等介质把计算机互相连接起来。<br>
+物理层就是负责把两台计算机连起来，然后在计算机之间通过高低电频来传送0,1这样的电信号。</p>
+<h2 id="2-数据链路层-传输的叫帧">2.数据链路层 传输的叫帧</h2>
+<p>物理层传输的0，1电信号如果毫无规则的话，计算机是解读不了的。因此我们需要制定一套规则来进行0，1的传送。例如多少个电信号为一组啊，每一组信号应该如何标识等等。于是，有了以太网协议。</p>
+<h3 id="1-以太网协议">(1).以太网协议</h3>
+<p>以太网协议规定，一组电信号构成一个数据包，我们把这个数据包称之为帧。每一个桢由标头(Head)和数据(Data)两部分组成。<br>
+一个桢的长度是64~1518个字节，标头部分固定为18个字节。<br>
+标头部分主要是一些说明数据，例如发送者，接收者等信息。而数据部分则是这个数据包具体的，想给接收者的内容。<br>
+把一台计算的的数据通过物理层和链路层发送给另一台计算机，究竟是谁发给谁的，计算机与计算机之间如何区分？于是，MAC地址出现了。</p>
+<h3 id="2-MAC地址">(2).MAC地址</h3>
+<p>连入网络的每一个计算机都会有网卡，每个网卡都会有一个唯一的MAC地址。计算机之间的数据传送，就是通过MAC地址来唯一寻找、传送的。MAC地址由48个字节所构成，在网卡生产时就被唯一标识了。</p>
+<h3 id="3-广播与ARP协议">(3).广播与ARP协议</h3>
+<h4 id="1-广播">1).广播</h4>
+<p>假如计算机A知道了计算机B的MAC地址，然后想要给计算机B传送数据，可是它要怎么给它传送数据呢？计算机A不仅连着计算机B，而且还连着其他的计算机。为了解决这个问题，于是广播出现了。在同一个子网中，计算机A要向计算机B发送一个数据包，这个数据包会包含接收者的MAC地址。当发送时，计算机A是通过广播的方式发送的，这时同一个子网中的计算机C, D也会收到这个数据包的，然后收到这个数据包的计算机，会把数据包的MAC地址取出来，与自身的MAC地址对比，如果相同，则接受这个数据包，否则就丢弃。这种发送方式我们称之为广播。</p>
+<h4 id="2-ARP协议。">2).ARP协议。</h4>
+<p>通过它我们可以知道子网中其他计算机的MAC地址，是根据IP地址获取物理地址的一个TCP/IP协议。</p>
+<h2 id="3-网络层-传输的叫分组-包">3.网络层 传输的叫分组/包</h2>
+<p>我们所处的网络，是由无数个子网络构成的。广播时，也只有同一个子网里面的计算机能够收到。<br>
+那么问题来了，我们如何区分哪些MAC地址是属于同一个子网的呢？假如是同一个子网，那我们就用广播的形式把数据传送给对方，如果不是同一个子网的，我们就会把数据发给网关，让网关进行转发。为了解决这个问题，于是有了IP协议。</p>
+<h3 id="1-IP协议">(1).IP协议</h3>
+<p>IP协议，它所定义的地址，我们称之为IP地址。IP协议有两种版本，一种是IPv4,另一种是IPv6。不过我们目前大多数用的还是IPv4，我们现在也只讨论IPv4这个版本的协议。<br>
+IP地址由32位的二进制数组成，我们一般把它分成4段的十进制表示，地址范围为0.0.0.0~255.255.255.255。<br>
+每一台想要联网的计算机都会有一个IP地址。这个IP地址被分为两部分，前面一部分代表网络部分，后面一部分代表主机部分。并且网络部分和主机部分所占用的二进制位数是不固定的。<br>
+假如两台计算机的网络部分是一模一样的，我们就说这两台计算机是处于同一个子网中。例如192.168.43.1和192.168.43.2, 假如这两个IP地址的网络部分为24位，主机部分为8位。那么他们的网络部分都为192.168.43，所以他们处于同一个子网中。<br>
+可是问题来了，你怎么知道网络部分和主机部分分别占几位呢？<br>
+这就引申出了另一个关键词————子网掩码。子网掩码和IP地址一样也是32位二进制数，不过它的网络部分规定全部为1，主机部分规定全部为0.也就是说，假如上面那两个IP地址的网络部分为24位，主机部分为8位的话，那他们的子网掩码都为 11111111.11111111.11111111.00000000，即255.255.255.0。</p>
+<h3 id="2-ARP协议">(2).ARP协议</h3>
+<p>结合上面IP协议的知识，我们回来讲一下ARP协议。<br>
+有了两台计算机的IP地址与子网掩码，我们就可以判断出它们是否处于同一个子网之中了。<br>
+假如他们处于同一个子网之中，计算机A要给计算机B发送数据时。我们可以通过ARP协议来得到计算机B的MAC地址。<br>
+ARP协议也是通过广播的形式给同一个子网中的每台电脑发送一个数据包(当然，这个数据包会包含接收方的IP地址)。对方收到这个数据包之后，会取出IP地址与自身的对比，如果相同，则把自己的MAC地址回复给对方，否则就丢弃这个数据包。这样，计算机A就能知道计算机B的MAC地址了。<br>
+可能有人会问，知道了MAC地址之后，发送数据是通过广播的形式发送，询问对方的MAC地址也是通过广播的形式来发送，那其他计算机怎么知道你是要传送数据还是要询问MAC地址呢？其实在询问MAC地址的数据包中，在对方的MAC地址这一栏中，填的是一个特殊的MAC地址，其他计算机看到这个特殊的MAC地址之后，就能知道广播想干嘛了。<br>
+假如两台计算机的IP不是处于同一个子网之中，这个时候，我们就会把数据包发送给网关，然后让网关让我们进行转发传送</p>
+<h3 id="3-DNS服务器">(3).DNS服务器</h3>
+<p>这里再说一个问题，我们是如何知道对方计算机的IP地址的呢？可能有人会说当然是计算机的操作者来进行输入。这没错，当我们想要访问某个网站的时候，我们可以输入IP来进行访问，但绝大多数人是输入一个网址域名。其实当我们输入这个域名时，会有一个叫做DNS服务器的家伙来帮我们解析这个域名，然后返回这个域名对应的IP给我们的。<br>
+因此，网络层的功能就是让我们在茫茫人海中，能够找到另一台计算机在哪里，是否属于同一个子网等。</p>
+<h2 id="4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报">4.传输层 传输的叫报文段/数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)</h2>
+<p>通过物理层、数据链路层以及网络层的互相帮助，我们已经把数据成功从计算机A传送到计算机B了，可是，计算机B里面有各种各样的应用程序，计算机该如何知道这些数据是给谁的呢？<br>
+这个时候，端口(Port)这个家伙就上场了，也就是说，我们在从计算机A传数据给计算表B的时候，还得指定一个端口，以供特定的应用程序来接受处理。<br>
+也就是说，传输层的功能就是建立端口到端口的通信。相比网络层的功能是建立主机到主机的通信。<br>
+也就是说，只有有了IP和端口，我们才能进行准确着通信。这个时候可能有人会说，我输入IP地址的时候并没有指定一个端口啊。其实呢，对于有些传输协议，已经有设定了一些默认端口了。例如http的传输默认端口是80，这些端口信息也会包含在数据包里的。<br>
+传输层协议：最常见的两大协议是TCP协议和UDP协议，其中TCP协议与UDP最大的不同就是TCP提供可靠的传输，而UDP提供的是不可靠传输。</p>
+<h2 id="5-应用层-通常叫消息">5.应用层 通常叫消息</h2>
+<p>应用层这一层最接近我们用户。<br>
+虽然我们收到了传输层传来的数据，可是这些传过来的数据五花八门，有html格式的，有mp4格式的，各种各样。<br>
+因此我们需要指定这些数据的格式规则，收到后才好解读渲染。例如我们最常见的Http数据包中，就会指定该数据包是什么格式的文件了。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
       </tags>
   </entry>
   <entry>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C++11中的constexpr, 咸鱼">
+    <meta name="keywords" content="果子私房笔记-SSL握手过程, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>C++11中的constexpr | 咸鱼</title>
+    <title>果子私房笔记-SSL握手过程 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">C++11中的constexpr</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-SSL握手过程</h1>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">笔记</span>
+                            <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">果子私房笔记</span>
                             </a>
                         
                     </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/C/" class="post-category">
-                                C++
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                计算机网络
                             </a>
                         
                     </div>
@@ -395,147 +395,16 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>C++11中的constexpr</h1>
-<p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866" target="_blank" rel="noopener">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p>
-<h2 id="常量表达式">常量表达式</h2>
-<pre><code>值不会改变且在编译期就能得到计算结果的表达式。
-字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。
-</code></pre>
-<h2 id="constexpr-与-const">constexpr 与 const</h2>
-<p>在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br>
-但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰</p>
-<pre class=" language-language-C++"><code class="language-language-C++">// error
-void func1(constexpr int p) {
-
-}
-
-
-// ok
-void func2(const int p) {
-
-}
-
-
-void func3(const int p) {
-   int a[p];//error ,此时p并非常量表达式，只是只读参数
-}
-
-</code></pre>
-<h2 id="用constexpr修饰函数">用constexpr修饰函数</h2>
-<p>constexpr 并不能修改任意函数的返回值，时这些函数成为常量表达式函数，必须要满足以下几个条件：<br>
-（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）</p>
-<h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。">1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3>
-<pre class=" language-language-C++"><code class="language-language-C++">// error，不是常量表达式函数
-constexpr void func1()
-{
-    int a = 100;
-    cout << "a: " << a << endl;
-}
- 
-// error，不是常量表达式函数
-constexpr int func2()
-{
-    int a = 100;
-    return a;
-}
-
-// ok
-constexpr int func3()
-{
-    constexpr int a = 100;
-    return a;
-}
- 
-</code></pre>
-<p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>
-函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求</p>
-<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。">2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3>
-<pre class=" language-language-C++"><code class="language-language-C++">// error
-constexpr int func1()
-{
-    constexpr int a = 100;
-    constexpr int b = 10;
-    for (int i = 0; i < b; ++i)
-    {
-        cout << "i: " << i << endl;
-    }
-    return a + b;
-}
- 
-// ok
-constexpr int func2()
-{
-    using mytype = int;
-    constexpr mytype a = 100;
-    constexpr mytype b = 10;
-    constexpr mytype c = a * b;
-    return c - (a + b);
-}
- 
-</code></pre>
-<h2 id="修饰模板函数">修饰模板函数</h2>
-<p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p>
-<pre class=" language-language-C++"><code class="language-language-C++">
-#include< iostream >
-using namespace std;
- 
-struct Person {
-    const char* name;
-    int age;
-};
- 
-// 定义函数模板
-template< typename T >
-constexpr T dispaly(T t) {
-    return t;
-}
- 
-int main()
-{
-    struct Person p { "luffy", 19 };
-    //普通函数
-    struct Person ret = dispaly(p);
-    cout << "luffy's name: " << ret.name << ", age: " << ret.age << endl;
- 
-    //常量表达式函数
-    constexpr int ret1 = dispaly(250);
-    cout << ret1 << endl;
- 
-    constexpr struct Person p1 { "luffy", 19 };
-    constexpr struct Person p2 = dispaly(p1);
-    cout << "luffy's name: " << p2.name << ", age: " << p2.age << endl;
-    return 0;
-}
-</code></pre>
-<p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p>
-<p>struct Person ret = dispaly§; 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>
-constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>
-constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的</p>
-<h2 id="修饰构造函数">修饰构造函数</h2>
-<p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p>
-<pre class=" language-language-C++"><code class="language-language-C++">#include < iostream >
-using namespace std;
- 
-struct Person {
-    constexpr Person(const char* p, int age) :name(p), age(age)
-    {
-    }
-    const char* name;
-    int age;
-};
- 
-int main()
-{
-    constexpr struct Person p1("luffy", 19);
-    cout << "luffy's name: " << p1.name << ", age: " << p1.age << endl;
-    return 0;
-}
- 
-</code></pre>
-<h2 id="注">注:</h2>
-<h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定">1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3>
-<h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。">2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3>
-<h3 id="3-constexpr函数都是inline函数">3.constexpr函数都是inline函数</h3>
+                <h1>SSL握手过程</h1>
+<h2 id="本质">本质</h2>
+<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
+<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
+<h2 id="过程">过程</h2>
+<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
+2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
+3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
+4.服务器使用私钥对随机数字3解密。<br>
+5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
 
             </div>
             <hr/>
@@ -561,7 +430,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/">https://xucanxx.github.io/2022/12/14/Cpp11%E4%B8%AD%E7%9A%84constexpr/</a>
+                    <a href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/">https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -599,8 +468,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">笔记</span>
+                                <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">果子私房笔记</span>
                                 </a>
                             
                         </div>
@@ -771,7 +640,7 @@ int main()
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-12-14T01-42-14',
+        id: '2022-12-15T09-14-35',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -801,23 +670,24 @@ int main()
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="果子私房笔记-http与https的区别">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="果子私房笔记-TCP与UDP的区别">
                         
-                        <span class="card-title">果子私房笔记-http与https的区别</span>
+                        <span class="card-title">果子私房笔记-TCP与UDP的区别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            http与https的区别
-HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头
-HTTP是不安全的，而HTTPS是安全的
-HTTP标准端口是80 ，而HTTPS的标准端口是443
-在OSI网络模型中，HT
+                            TCP与UDP的区别
+TCP
+TCP的优点：
+可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。
+TCP的缺点：
+慢，
                         
                     </div>
                     <div class="publish-info">
@@ -854,37 +724,34 @@ HTTP标准端口是80 ，而HTTPS的标准端口是443
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">
+                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="kafka日常操作">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="果子私房笔记-http协议无状态协议以及解决方案">
                         
-                        <span class="card-title">kafka日常操作</span>
+                        <span class="card-title">果子私房笔记-http协议无状态协议以及解决方案</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            kafka日常操作
-kafka查看数据
-查看所有topic
-./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-
-查看所有group
-./kafka-consumer-gro
+                            http协议无状态协议以及解决方案
+http本身是一种无状态协议
+无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息
+也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/kafka/" class="post-category">
-                                    kafka
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    计算机网络
                                 </a>
                             
                             
@@ -894,8 +761,8 @@ kafka查看数据
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">笔记</span>
+                    <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">果子私房笔记</span>
                     </a>
                     
                 </div>

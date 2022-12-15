@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2022-12-15T08:58:50.615Z</updated>
+  <updated>2022-12-15T09:44:38.281Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -15,6 +15,115 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>果子私房笔记-TCP与UDP的区别</title>
+    <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2022-12-15T09:36:06.000Z</published>
+    <updated>2022-12-15T09:44:38.281Z</updated>
+    
+    <content type="html"><![CDATA[<h1>TCP与UDP的区别</h1><h2 id="TCP">TCP</h2><h3 id="TCP的优点：">TCP的优点：</h3><p>可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。</p><h3 id="TCP的缺点：">TCP的缺点：</h3><p>慢，效率低，占用系统资源高，易被攻击TCP在传递数据之前，要先建连接，这会消耗时间，而且在数据传递时，确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，而且要在每台设备上维护所有的传输连接，事实上，每个连接都会占用系统的CPU、内存等硬件资源。 而且，因为TCP有确认机制、三次握手机制，这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。</p><h3 id="什么时候应该使用TCP：">什么时候应该使用TCP：</h3><p>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输</p><h2 id="UDP">UDP</h2><h3 id="UDP的优点：">UDP的优点：</h3><p>快，比TCP稍安全 UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，UDP是一个无状态的传输协议，所以它在传递数据时非常快。没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。但UDP也是无法避免攻击的，比如：UDP Flood攻击。</p><h3 id="UDP的缺点：">UDP的缺点：</h3><p>不可靠，不稳定<br>因为UDP没有TCP那些可靠的机制，在数据传递时，如果网络质量不好，就会很容易丢包。</p><h3 id="什么时候应该使用UDP：">什么时候应该使用UDP：</h3><p>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP</p><h2 id="小结TCP与UDP的区别：">小结TCP与UDP的区别：</h2><p>1.基于连接与无连接；<br>2.对系统资源的要求（TCP较多，UDP少）；<br>3.UDP程序结构较简单；<br>4.流模式与数据报模式 ；<br>5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p><table><thead><tr><th style="text-align:center">tcp协议和udp协议的差别</th></tr></thead></table><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">TCP</th><th style="text-align:center">UDP</th></tr></thead><tbody><tr><td style="text-align:center">是否连接</td><td style="text-align:center">面向连接</td><td style="text-align:center">面向非连接</td></tr><tr><td style="text-align:center">传输可靠性</td><td style="text-align:center">可靠</td><td style="text-align:center">不可靠 （可靠的UDP基于应用层实现）</td></tr><tr><td style="text-align:center">应用场合</td><td style="text-align:center">少量数据</td><td style="text-align:center">传输大量数据</td></tr><tr><td style="text-align:center">速度</td><td style="text-align:center">慢</td><td style="text-align:center">快</td></tr></tbody></table><h2 id="TCP与UDP区别总结：">TCP与UDP区别总结：</h2><p>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</p><p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p><p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p><p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p><p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p><p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节，其中有2个byte用于记录包体长度因此包最大大小为64k。</p><p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p><p>问：.tcp如何可靠<br>应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;TCP与UDP的区别&lt;/h1&gt;
+&lt;h2 id=&quot;TCP&quot;&gt;TCP&lt;/h2&gt;
+&lt;h3 id=&quot;TCP的优点：&quot;&gt;TCP的优点：&lt;/h3&gt;
+&lt;p&gt;可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-SSL握手过程</title>
+    <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"/>
+    <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</id>
+    <published>2022-12-15T09:14:35.000Z</published>
+    <updated>2022-12-15T09:20:10.010Z</updated>
+    
+    <content type="html"><![CDATA[<h1>SSL握手过程</h1><h2 id="本质">本质</h2><p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p><p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p><h2 id="过程">过程</h2><p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>4.服务器使用私钥对随机数字3解密。<br>5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;SSL握手过程&lt;/h1&gt;
+&lt;h2 id=&quot;本质&quot;&gt;本质&lt;/h2&gt;
+&lt;p&gt;SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）&lt;/p&gt;
+&lt;p&gt;为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-http协议无状态协议以及解决方案</title>
+    <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
+    <published>2022-12-15T09:12:41.000Z</published>
+    <updated>2022-12-15T09:14:09.752Z</updated>
+    
+    <content type="html"><![CDATA[<h1>http协议无状态协议以及解决方案</h1><p>http本身是一种无状态协议</p><p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p><p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;http协议无状态协议以及解决方案&lt;/h1&gt;
+&lt;p&gt;http本身是一种无状态协议&lt;/p&gt;
+&lt;p&gt;无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息&lt;br&gt;
+也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-http与https的区别</title>
+    <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2022-12-15T09:06:56.000Z</published>
+    <updated>2022-12-15T09:07:30.919Z</updated>
+    
+    <content type="html"><![CDATA[<h1>http与https的区别</h1><p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>HTTP是不安全的，而HTTPS是安全的<br>HTTP标准端口是80 ，而HTTPS的标准端口是443<br>在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>HTTP无法加密，而HTTPS对传输的数据进行加密<br>HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;http与https的区别&lt;/h1&gt;
+&lt;p&gt;HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头&lt;br&gt;
+HTTP是不安全的，而HTTPS是安全的&lt;br&gt;
+HTTP标准端口是80 ，而HTTPS的标准端口是443&lt;br&gt;
+在OSI网络模型</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>C++11中的constexpr</title>
@@ -442,106 +551,6 @@ fi
     
     
     <category term="考研" scheme="https://xucanxx.github.io/tags/%E8%80%83%E7%A0%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>牛客西安邮大校赛-D最简单的一道题</title>
-    <link href="https://xucanxx.github.io/2020/05/24/%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/"/>
-    <id>https://xucanxx.github.io/2020/05/24/%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/</id>
-    <published>2020-05-24T22:33:44.000Z</published>
-    <updated>2022-02-14T16:03:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考自官方的博客：<a href="https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73" target="_blank" rel="noopener">https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73</a></p><h1>题目</h1><h2 id="题面">题面</h2><p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p><ol><li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li><li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li></ol><h2 id="Input">Input</h2><p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>第二行 n 个数字，表示建筑高度<br>后面 m 行指令：c l r k<br>或者：q x<br>数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>1≤x≤n,1≤k≤10^4</p><h2 id="Output">Output</h2><p>对于每个查询，输出答案，每个答案一行</p><h2 id="Examples">Examples</h2><h3 id="Input-2">Input</h3><pre><code>5 51 2 3 4 3q 3c 1 3 3q 2c 5 5 4q 5</code></pre><h3 id="Output-2">Output</h3><pre><code>120</code></pre><h2 id="思路">思路</h2><p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p><h2 id="代码">代码</h2><pre><code>#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;time.h&gt;using namespace std;#define mid ((l+r)&gt;&gt;1)#define MAX 200005struct node {    node() {        minn = value = add = 0;    }    void init() {        minn = value = add = 0;    }    int minn;    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）    int add;//其子节点的所有数字加add};struct Segt {    int arr[MAX];    node tree[MAX &lt;&lt; 2];    void push_down(int p) {        if (tree[p].add != 0) {            tree[(p &lt;&lt; 1)].add += tree[p].add;            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;            tree[(p &lt;&lt; 1)].minn += tree[p].add;            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;            tree[p].add = 0;        }    }    void push_up(int l, int r, int p) {//向上跟新父节点的值        //bool flag = true;        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);        int m = mid;        int val = tree[(p &lt;&lt; 1)].minn;        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));    }    void build(int l, int r, int p) {//建立线段树        tree[p].init();        if (l == r) {            tree[p].minn = arr[l];            tree[p].value = 0;            return;        }        int m = mid;        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));        push_up(l, r, p);    }    void update(int a, int b, int k, int l, int r, int p) {//区间修改        if (l &gt;= a &amp;&amp; r &lt;= b) {            tree[p].minn += k;            tree[p].add += k;            return;        }        push_down(p);        int m = mid;        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));        push_up(l, r, p);    }    int get_val(int pos, int l, int r, int p) {//取得pos点的值（单点查询）        if (l == r) return tree[p].minn;        push_down(p);        int m = mid;        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));        // push_up(p);    }    int que(int a, int&amp; val, int l, int r, int p) {//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数        int m = mid;           //cout &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; endl;        if (l != r) push_down(p);//更新子节点数值        if (l &gt;= a) {            if (tree[p].minn &lt;= val) {//只有后面数值的最小值比val小才能组成                if (l == r) {                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; ' ' &lt;&lt;  l &lt;&lt; ' ' &lt;&lt; tree[p].minn &lt;&lt; endl;                    val = tree[p].minn;//之后的数要小于val                    return 1;//minn是一个可以接在val后面的数                }                if (tree[(p &lt;&lt; 1)].minn &lt;= val) {//如果r-l的前半部分的最小值比val小                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组                    val = tree[p].minn;//更新最小值                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; ' ' &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; ' ' &lt;&lt; an &lt;&lt; ' ' &lt;&lt; tree[p].value &lt;&lt; endl;                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）                }                else {                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量                }            }            else {                return 0;            }        }        //当a不在l之前时        if (a &lt;= m) {//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组            int an = que(a, val, l, m, (p &lt;&lt; 1));            if (val == tree[(p &lt;&lt; 1)].minn) {//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）                val = tree[p].minn;                return an + tree[p].value;            }            else {                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量            }        }        else {            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分        }    }};Segt segt;void make_ans(istream&amp; in, ostream&amp; out) {//输入，输出流    int n, m;    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;    for (int i = 1; i &lt;= n; i++) {        in &gt;&gt; segt.arr[i];    }    segt.build(1, n, 1);    while (m--) {        char ch;          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; ' '; cout &lt;&lt; endl;          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;        in &gt;&gt; ch;        if (ch == 'c') {            int l, r, k;            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;            segt.update(l, r, k, 1, n, 1);        }        else {            int x;            in &gt;&gt; x;            int val = segt.get_val(x, 1, n, 1);//取得x点的值            //  cout &lt;&lt; val &lt;&lt; endl;            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列        }    }}int main(void) {    freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);    make_ans(cin, cout);    return 0;}</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;参考自官方的博客：&lt;a href=&quot;https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.nowcoder.net/</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://xucanxx.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="ACM" scheme="https://xucanxx.github.io/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>POJ 1417 True Liars</title>
-    <link href="https://xucanxx.github.io/2020/05/18/POJ-1417-True-Liars/"/>
-    <id>https://xucanxx.github.io/2020/05/18/POJ-1417-True-Liars/</id>
-    <published>2020-05-18T15:18:32.000Z</published>
-    <updated>2022-02-14T16:02:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考自大佬的博客：<a href="https://blog.csdn.net/gg_gogoing/article/details/38753567" target="_blank" rel="noopener">https://blog.csdn.net/gg_gogoing/article/details/38753567</a></p><h1>题目</h1><h2 id="题面">题面</h2><p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p><p>n,x,y</p><p>这个人问n次 ，x为神的个数，y为恶魔的个数。</p><p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes/no。注意xi,yi可能为同一个人</p><p>若最终可得出哪些是神则从小到大输出神的编号，并最终输出end</p><p>否则输出no</p><h2 id="Input">Input</h2><p>输入格式如下：</p><pre><code>n p1 p2 xl yl a1 x2 y2 a2 ... xi yi ai ... xn yn an </code></pre><p>第一行有三个非负整数 n, p1, 和 p2. n 是 Akira 问的问题数. p1 和 p2 是在传说中记载的神族和恶魔族的人口数量。下面的每 n 行包括两个整数xi, yi和一个单词 ai。 xi 和 yi 是每个人的编号，号码范围从 1 到 p1 + p2。 ai 可能是 yes 或者 no。如果居民 xi 想让你认为 yi 是神族，他会回答 yes。注意：xi 和 yi 可能相同。所以”你是神族吗？“是一个有效的问题。还要注意，Akira 十分紧张，所以相同的问题可能重复出现。<br>数据范围：<br>n ＜ 1000<br>p1,p2 &lt; 300<br>出现 0 0 0 的一行标示数据结束。 数据保证成立，没有矛盾数据。</p><h2 id="Output">Output</h2><p>对于每个数据集，如果它包含足够的信息来对所有居民进行分类，则按升序打印所有神族居民的编号，一行一个。 在输出数字后再输出end。 如果给定数据集不包括足以识别所有神族的信息，输出no。</p><h2 id="Examples">Examples</h2><h3 id="Input-2">Input</h3><pre><code>2 1 11 2 no2 1 no3 2 11 1 yes2 2 yes3 3 yes2 2 11 2 yes2 3 no5 4 31 2 yes1 3 no4 5 yes5 6 yes6 7 no0 0 0</code></pre><h3 id="Output-2">Output</h3><pre><code>nono12end3456end</code></pre><h2 id="思路">思路</h2><p>经过简单的推理可得只要说了‘yes’那么那两个就属于同一类，‘no’则相反<br>使用并查集表名它们的关系，用背包统计在不同情况下有多少种答案。<br>最后进行答案统计。</p><h2 id="代码">代码</h2><pre><code>#include&lt;iostream&gt;#include&lt;string.h&gt;#include&lt;algorithm&gt;using namespace std;int pr[1010], relation[1010];int kind[1010], cnt[2010], dp[1010][1010];//dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况int p[1010][1010];//p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类int x, y, z;int ans[1010], f;int find(int xx){if (pr[xx] == -1){return xx;}int tmp = find(pr[xx]);relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系pr[xx] = tmp;return tmp;}int solve(){memset(dp, 0, sizeof(dp));memset(p, 0, sizeof(p));memset(cnt, 0, sizeof(cnt));f = 0;int k = 0;for (int i = 1; i &lt;= x + y; i++)//压缩路径find(i);for (int i = 1; i &lt;= x + y; i++){if (pr[i] == -1)kind[k++] = i;//看看有多少头节点结点}for (int i = 0; i &lt; k; i++){cnt[i * 2] = 1;for (int j = 1; j &lt;= x + y; j++){if (pr[j] == kind[i]){if (relation[j] == 0)cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类elsecnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类}}}dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点dp[0][cnt[1]]++; p[0][cnt[1]] = 1;for (int i = 1; i &lt; k; i++)for (int j = x; j &gt;= 0; j--){if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包{dp[i][j] += dp[i - 1][j - cnt[2 * i]];p[i][j] = 0;}if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] ){dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];p[i][j] = 1;}}if (dp[k - 1][x] != 1)return 0;int m = x, t;f = 0;for (int i = k - 1; i &gt;= 0; i--){if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反{t = 0; m = m - cnt[i * 2];}else{t = 1; m = m - cnt[2 * i + 1];}for (int j = 1; j &lt;= x + y; j++){if (pr[j] == kind[i] || j == kind[i])//统计个数{if (relation[j] == t)ans[f++]=j;}}}sort(ans, ans + f);return 1;}int main(){//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y){if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)break;memset(pr, -1, sizeof(pr));memset(relation, 0, sizeof(relation));for (int i = 0; i &lt; z; i++){int a, b;char s[10];cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;if (a &lt; b){int tmp = a; a = b; b = tmp;}int aa = find(a), bb = find(b);if (aa == bb){continue;}if (s[0] == 'y'){pr[aa] = bb;relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集}else{pr[aa] = bb;relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集}}if (x == y){cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;}if (solve())//f可能为0{for (int i = 0; i &lt; f; i++){cout &lt;&lt; ans[i]&lt;&lt;endl;}cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;}elsecout &lt;&lt; &quot;no&quot; &lt;&lt; endl;}return 0;}</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;参考自大佬的博客：&lt;a href=&quot;https://blog.csdn.net/gg_gogoing/article/details/38753567&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.csdn.net/gg_gogo</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://xucanxx.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="ACM" scheme="https://xucanxx.github.io/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cf1336A/1337C</title>
-    <link href="https://xucanxx.github.io/2020/05/01/cf1336A-1337C/"/>
-    <id>https://xucanxx.github.io/2020/05/01/cf1336A-1337C/</id>
-    <published>2020-05-01T19:12:52.000Z</published>
-    <updated>2022-02-14T15:59:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考自大佬的博客：<a href="https://www.cnblogs.com/stelayuri/p/12709923.html" target="_blank" rel="noopener">https://www.cnblogs.com/stelayuri/p/12709923.html</a></p><h1>题目</h1><h2 id="题面">题面</h2><p>A. Linova and Kingdom<br>time limit per test2 seconds<br>memory limit per test256 megabytes<br>inputstandard input<br>outputstandard output<br>Writing light novels is the most important thing in Linova’s life. Last night, Linova dreamed about a fantastic kingdom. She began to write a light novel for the kingdom as soon as she woke up, and of course, she is the queen of it.</p><p>There are n cities and n−1 two-way roads connecting pairs of cities in the kingdom. From any city, you can reach any other city by walking through some roads. The cities are numbered from 1 to n, and the city 1 is the capital of the kingdom. So, the kingdom has a tree structure.</p><p>As the queen, Linova plans to choose exactly k cities developing industry, while the other cities will develop tourism. The capital also can be either industrial or tourism city.</p><p>A meeting is held in the capital once a year. To attend the meeting, each industry city sends an envoy. All envoys will follow the shortest path from the departure city to the capital (which is unique).</p><p>Traveling in tourism cities is pleasant. For each envoy, his happiness is equal to the number of tourism cities on his path.</p><p>In order to be a queen loved by people, Linova wants to choose k cities which can maximize the sum of happinesses of all envoys. Can you calculate the maximum sum for her?</p><h2 id="Input">Input</h2><p>The first line contains two integers n and k (2≤n≤2⋅105, 1≤ k &lt; n)  — the number of cities and industry cities respectively.</p><p>Each of the next n−1 lines contains two integers u and v (1≤u,v≤n), denoting there is a road connecting city u and city v.</p><p>It is guaranteed that from any city, you can reach any other city by the roads.</p><h2 id="Output">Output</h2><p>Print the only line containing a single integer  — the maximum possible sum of happinesses of all envoys.</p><h2 id="Examples">Examples</h2><h3 id="Input-2">Input</h3><pre><code>7 41 21 31 43 53 64 7</code></pre><h3 id="Output-2">Output</h3><pre><code>7</code></pre><h3 id="Input-3">Input</h3><pre><code>4 11 21 32 4</code></pre><h3 id="Output-3">Output</h3><pre><code>2</code></pre><h3 id="Input-4">Input</h3><pre><code>8 57 51 76 13 78 32 14 5</code></pre><h3 id="Output-4">Output</h3><pre><code>9</code></pre><h2 id="大意">大意</h2><p>有n座城市组成的最小无向联通图（即n-1条路线），其中有k个工业城市，其余的都是旅游城市，其中每一个工业城市都会派出一位大使前往1号城市，大使其中经过了多少旅游城市就是大使的满意度，问通过分配工业城市与旅游城市，能取得的大使满意度的和最大的值。</p><h2 id="思路">思路</h2><p>搭建以1号城市为根节点的树，并以1为中心，在1的周围选择旅游城市，这样远离1的工业城市大使就能经过更多旅游城市，而每次选择一个旅游城市它之后每个工业城市大使的满意度就会加一（首先直接默认它之后的城市都为工业城市），但是他从工业城市变成旅游城市会失去满意度（节点的深度），所以整体的贡献度为所有的子节点数-节点的深度</p><h2 id="代码">代码</h2><pre><code>#include&lt;iostream&gt;#include&lt;algorithm&gt;#include&lt;vector&gt;using namespace std;struct nod{long long d,v;}a[200010];int k, n;int pr[200010] = { 0 };vector&lt;int&gt; p[200010];//p[i]代表有那些地方与i地相连bool cmp(nod x, nod y){return x.v - x.d &gt; y.v - y.d;//对一个点的贡献值进行排序}int dfs(int t)//深搜得出每个点的深度与有多少个子节点{vector&lt;int&gt;::iterator it = p[t].begin();pr[t] = 1;long long sum = 0;for (it; it != p[t].end(); it++){if (!pr[*it]){a[*it].d = a[t].d + 1;sum += dfs(*it);}}a[t].v = sum;return sum + 1;}int main(){//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);cin &gt;&gt; n &gt;&gt; k;for (int i = 0; i &lt; n - 1; i++){int x, y;cin &gt;&gt; x &gt;&gt; y;p[x].push_back(y);p[y].push_back(x);}a[0].d = -1;dfs(1);sort(a + 1, a + 1 + n, cmp);long long ans = 0;for (int i = 1; i &lt;= n - k; i++)//由于我们选择的是多少旅游城市，所以数量为n-k{ans += (a[i].v - a[i].d);}cout &lt;&lt; ans &lt;&lt; endl;}</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;参考自大佬的博客：&lt;a href=&quot;https://www.cnblogs.com/stelayuri/p/12709923.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.cnblogs.com/stelayuri/p/1</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://xucanxx.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="ACM" scheme="https://xucanxx.github.io/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dp基础：poj1887</title>
-    <link href="https://xucanxx.github.io/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/"/>
-    <id>https://xucanxx.github.io/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</id>
-    <published>2020-04-29T17:06:47.000Z</published>
-    <updated>2022-02-14T16:00:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>题目</h1><p>最长不上升子序列</p><h2 id="Input">Input</h2><p>所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5</p><h2 id="Output">Output</h2><p>每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行</p><h2 id="Examples">Examples</h2><h3 id="Input-2">Input</h3><p>389<br>207<br>155<br>300<br>299<br>170<br>158<br>65<br>-1<br>23<br>34<br>21<br>-1<br>-1</p><h3 id="Output-2">Output</h3><p>Test #1:<br> maximum possible interceptions: 6</p><p>Test #2:<br> maximum possible interceptions: 2</p><h2 id="代码">代码</h2><pre><code>#include&lt;stdio.h&gt;int num[50000],len;/*num为dp数组，其中的数组地址的值表示长度，而其对应的值表示该长度下的序列末尾数值的最小值*/int solve(int k)/*二分，由于之前的序列都是采用的最优解，所以说长度越长末尾的数就越小，不然则反之利用这一规律用二分来减少时间复杂度*/{    int r=len,l=1,mid;    while(r&gt;l)    {       mid=(r+l)/2;       if(num[mid]&gt;=k)/*要num[mid]小于k时k才能成为长度为mid时序列的最后项*/       {           l=mid+1;       }       else       r=mid;    }    return r;}int main(){    int k,t=1;    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);    while(~scanf(&quot;%d&quot;,&amp;k)&amp;&amp;k!=-1)    {       len=1;       num[len]=k;       while(~scanf(&quot;%d&quot;,&amp;k)&amp;&amp;k!=-1)       {           if(num[len]&gt;=k)/*如果该长度下的序列末尾数值比k大，则该序列长度加一末尾数值变成成k*/           {              num[++len]=k;           }           else/*而如果小于k则用二分法更新之前序列的末尾值以便于之后容纳更多的数字且最大长度不会增加*/           {              num[solve(k)]=k;           }       }       if(t!=1)       printf(&quot;\n&quot;);       printf(&quot;Test #%d:\n&quot;,t++);       printf(&quot;  maximum possible interceptions: %d\n&quot;,len);    }    return 0; }</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;题目&lt;/h1&gt;
-&lt;p&gt;最长不上升子序列&lt;/p&gt;
-&lt;h2 id=&quot;Input&quot;&gt;Input&lt;/h2&gt;
-&lt;p&gt;所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5&lt;/p&gt;
-&lt;h2 id=&quot;Output&quot;&gt;Output&lt;/h</summary>
-      
-    
-    
-    
-    <category term="算法" scheme="https://xucanxx.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="ACM" scheme="https://xucanxx.github.io/tags/ACM/"/>
     
   </entry>
   
