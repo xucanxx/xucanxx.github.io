@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2022-12-15T09:44:38.281Z</updated>
+  <updated>2023-01-21T13:42:00.647Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>go的多进程</title>
+    <link href="https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
+    <id>https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/</id>
+    <published>2023-01-11T15:11:54.000Z</published>
+    <updated>2023-01-21T13:42:00.647Z</updated>
+    
+    <content type="html"><![CDATA[<h1>go的多进程</h1><p>虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式</p><h2 id="异步起进程">异步起进程</h2><p>主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑满制定数量</p><pre class=" language-language-golang"><code class="language-language-golang">package mainimport ("log""os""strconv")var processChan = make(chan int, 10)func processListen(process *os.Process) {p, _ := process.Wait()exitCode := p.ExitCode()log.Println("process finish ExitCode: ", exitCode)<-processChan}func main() {poolsize := 8for {for len(processChan) < poolsize {procAttr := &os.ProcAttr{Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},Sys: &syscall.SysProcAttr{//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出Setpgid:   true,Pdeathsig: syscall.SIGKILL,},}process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo processChan size: " + strconv.Itoa(len(processChan))}, procAttr)if err != nil {log.Println("StartProcess err: ", err)continue}processChan <- -1go processListen(process)}}}</code></pre><h2 id="分批同步起线程">分批同步起线程</h2><p>每次都起poolsize数量的进程，当后台的子进程全执行完之后，再起新的一批</p><pre class=" language-language-golang"><code class="language-language-golang">package mainimport ("os")func main() {poolsize := 8for {for i:= 0; i < poolsize ;i++{var processId []*os.Processvar size intprocAttr := &os.ProcAttr{Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},Sys: &syscall.SysProcAttr{//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出Setpgid:   true,Pdeathsig: syscall.SIGKILL,},}process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo process start"}, procAttr)if err != nil {log.Println("StartProcess err: ", err)ifsuccess = 0continue}size++processId = append(processId, process)}for size > 0 {p, _ := processId[size-1].Wait()exitCode := p.ExitCode()size--log.Println("exitCode: ", exitCode)}}}</code></pre><h2 id="坑">坑</h2><h3 id="exec-Commond">exec.Commond</h3><p>也可以使用exec.Commond 但是cmd结构体中的process不能外部访问，我不知道怎么用这个获取进程的exitcode，所以没用。</p><h3 id="os-ProcessState-kill">os.ProcessState.kill()</h3><p>当执行这个自带的kill函数后向子进程发送的并不是 kill 信号 而是kill -9 这将导致子进程占用的资源不会被正常释放，从而变成僵尸进程</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;go的多进程&lt;/h1&gt;
+&lt;p&gt;虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式&lt;/p&gt;
+&lt;h2 id=&quot;异步起进程&quot;&gt;异步起进程&lt;/h2&gt;
+&lt;p&gt;主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑</summary>
+      
+    
+    
+    
+    <category term="go" scheme="https://xucanxx.github.io/categories/go/"/>
+    
+    
+    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
     <title>果子私房笔记-TCP与UDP的区别</title>
     <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
     <published>2022-12-15T09:36:06.000Z</published>
-    <updated>2022-12-15T09:44:38.281Z</updated>
+    <updated>2022-12-15T09:48:42.940Z</updated>
     
     <content type="html"><![CDATA[<h1>TCP与UDP的区别</h1><h2 id="TCP">TCP</h2><h3 id="TCP的优点：">TCP的优点：</h3><p>可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。</p><h3 id="TCP的缺点：">TCP的缺点：</h3><p>慢，效率低，占用系统资源高，易被攻击TCP在传递数据之前，要先建连接，这会消耗时间，而且在数据传递时，确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，而且要在每台设备上维护所有的传输连接，事实上，每个连接都会占用系统的CPU、内存等硬件资源。 而且，因为TCP有确认机制、三次握手机制，这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。</p><h3 id="什么时候应该使用TCP：">什么时候应该使用TCP：</h3><p>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输</p><h2 id="UDP">UDP</h2><h3 id="UDP的优点：">UDP的优点：</h3><p>快，比TCP稍安全 UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，UDP是一个无状态的传输协议，所以它在传递数据时非常快。没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。但UDP也是无法避免攻击的，比如：UDP Flood攻击。</p><h3 id="UDP的缺点：">UDP的缺点：</h3><p>不可靠，不稳定<br>因为UDP没有TCP那些可靠的机制，在数据传递时，如果网络质量不好，就会很容易丢包。</p><h3 id="什么时候应该使用UDP：">什么时候应该使用UDP：</h3><p>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP</p><h2 id="小结TCP与UDP的区别：">小结TCP与UDP的区别：</h2><p>1.基于连接与无连接；<br>2.对系统资源的要求（TCP较多，UDP少）；<br>3.UDP程序结构较简单；<br>4.流模式与数据报模式 ；<br>5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p><table><thead><tr><th style="text-align:center">tcp协议和udp协议的差别</th></tr></thead></table><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">TCP</th><th style="text-align:center">UDP</th></tr></thead><tbody><tr><td style="text-align:center">是否连接</td><td style="text-align:center">面向连接</td><td style="text-align:center">面向非连接</td></tr><tr><td style="text-align:center">传输可靠性</td><td style="text-align:center">可靠</td><td style="text-align:center">不可靠 （可靠的UDP基于应用层实现）</td></tr><tr><td style="text-align:center">应用场合</td><td style="text-align:center">少量数据</td><td style="text-align:center">传输大量数据</td></tr><tr><td style="text-align:center">速度</td><td style="text-align:center">慢</td><td style="text-align:center">快</td></tr></tbody></table><h2 id="TCP与UDP区别总结：">TCP与UDP区别总结：</h2><p>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</p><p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p><p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p><p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p><p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p><p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节，其中有2个byte用于记录包体长度因此包最大大小为64k。</p><p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p><p>问：.tcp如何可靠<br>应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>]]></content>
     
@@ -48,7 +75,7 @@
     <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"/>
     <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</id>
     <published>2022-12-15T09:14:35.000Z</published>
-    <updated>2022-12-15T09:20:10.010Z</updated>
+    <updated>2022-12-15T09:45:17.797Z</updated>
     
     <content type="html"><![CDATA[<h1>SSL握手过程</h1><h2 id="本质">本质</h2><p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p><p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p><h2 id="过程">过程</h2><p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>4.服务器使用私钥对随机数字3解密。<br>5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>]]></content>
     
@@ -75,7 +102,7 @@
     <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
     <published>2022-12-15T09:12:41.000Z</published>
-    <updated>2022-12-15T09:14:09.752Z</updated>
+    <updated>2022-12-15T09:45:17.809Z</updated>
     
     <content type="html"><![CDATA[<h1>http协议无状态协议以及解决方案</h1><p>http本身是一种无状态协议</p><p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p><p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>]]></content>
     
@@ -102,7 +129,7 @@
     <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
     <published>2022-12-15T09:06:56.000Z</published>
-    <updated>2022-12-15T09:07:30.919Z</updated>
+    <updated>2022-12-15T09:45:17.805Z</updated>
     
     <content type="html"><![CDATA[<h1>http与https的区别</h1><p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>HTTP是不安全的，而HTTPS是安全的<br>HTTP标准端口是80 ，而HTTPS的标准端口是443<br>在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>HTTP无法加密，而HTTPS对传输的数据进行加密<br>HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>]]></content>
     
@@ -523,34 +550,6 @@ fi
     
     
     <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>英语考研规划</title>
-    <link href="https://xucanxx.github.io/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/"/>
-    <id>https://xucanxx.github.io/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/</id>
-    <published>2020-07-21T09:59:02.000Z</published>
-    <updated>2022-12-04T14:08:23.224Z</updated>
-    
-    <content type="html"><![CDATA[<h1>英语考研规划</h1><h2 id="题型">题型</h2><p>重点把握：阅读和作文</p><h3 id="客观题">客观题</h3><h4 id="完形填空20-0-5-10">完形填空20*0.5=10</h4><p>要求： 带入符合语境，意思</p><h4 id="阅读理解20-2-40">阅读理解20*2=40</h4><p>发力点在于逻辑关系</p><h5 id="1-正向-没有转折句-子的总体趋势相通，都在说一件事">1.正向(没有转折句):子的总体趋势相通，都在说一件事</h5><p>【2011-2】The decision to quit a senior position to look for a better one is unconventional. For years executives and headhunters have adhered to the rule that the most attractive CEO candidates are the ones who must be poached. Says Korn/Ferry senior partner Dennis Carey: “I can’t think of a single search I’ve done where a board has not instructed me to look at sitting CEOs first.”<br>28 . The word “poached” (Line 3, Paragraph 4) most probably means C（正向）<br>[A]approved of.            [B]attended to.<br>[C]hunted for.                  [D]guarded against.</p><p>【2007-1】What might account for this strange phenomenon? Here are a few guesses: a) certain astrological signs confer superior soccer skills; b) winter-born babies tend to have higher oxygen capacity, which increases soccer stamina; c) soccer-mad parents are more likely to conceive children in springtime, at the annual peak of soccer mania; d) none of the above.<br>22 .The word “mania” (Line 4, Paragraph 2) most probably means B（正向）<br>[A] fun.        [B] craze.              [C] hysteria.          [D] excitement.</p><h5 id="2-反向（存在转折）：转折前后句意直接鲜明相反">2.反向（存在转折）：转折前后句意直接鲜明相反</h5><p>【2006-1】In spite of（经管） “endless talk of difference,” American society is an amazing machine for homogenizing people. There is “the democratizing uniformity of dress and discourse, and the casualness and absence of deference” characteristic of popular culture. People are absorbed into “a culture of consumption” launched by the 19th-century department stores that offered “vast arrays of goods in an elegant atmosphere. Instead of intimate shops catering to a knowledgeable elite,” these were stores “anyone could enter, regardless of class or background. This turned shopping into a public and democratic act.” The mass media, advertising and sports are other forces for homogenization.<br>21 .The word “homogenizing” (Line 2, Paragraph 1) most probably means <em><strong>C</strong></em>__.（反向）<br>[A] identifying         [B] associating<br>[C] assimilating（同化）       [D] monopolizing</p><h4 id="新题型（七选五-排序题-小标题）5-2-10">新题型（七选五/排序题/小标题）5*2=10</h4><h3 id="主观题">主观题</h3><h4 id="翻译10">翻译10</h4><h4 id="作文30">作文30</h4><h5 id="书写工整卷面整洁">书写工整卷面整洁</h5><h5 id="高分作文三要素">高分作文三要素</h5><h6 id="语言第一位【遣词造句】">语言第一位【遣词造句】</h6><p>庸俗词汇清新化<br>抽象名词具体化</p><pre><code>1.a对b很重要a is to b what water is to fish  [比喻]2.人们（具体）年轻人：youngsters and teenagers （儿童和青少年）            young clays   [clays（泥土）]大学生：youngsters on campus父母：superiors（长者，上级）3.许多 数量极大a sea of (多如潮涌)a galaxy of （多如繁星）a train of (一火车的)数量少：a slice of4 （适度瞎编）名人名言A.金钱是善仆也是恶主（金钱一次可换成其他名词，适用与所有双刃剑文章）Money is agood servant and a bad master.B.生活没有目标就想航海没有指南针(说明一个东西对另一个东西的重要性)Living without an aim is like sailing without a compass.C.实现明天理想的障碍是今天的疑虑(消极的品质)The limit to our realization of tomorrow will be our doubts of today格式just as Alexander Dumas（大仲马） ,a French writer, once said, &quot;***&quot;.（大仲马说的话太多了，直接套话）</code></pre><h6 id="结构第二位【及其严谨-惊艳】">结构第二位【及其严谨/惊艳】</h6><h6 id="内容第三位【切题】">内容第三位【切题】</h6><h2 id="单词">单词</h2><h3 id="1）不记听写">1）不记听写</h3><h3 id="2）一词多义，熟词僻义">2）一词多义，熟词僻义</h3><h3 id="背诵">背诵</h3><h4 id="词根词缀记忆法">词根词缀记忆法</h4><p>前缀表方向，词根表本源，后缀表词性<br>元音字母a,e,i,o,u,辅音字母读音相近时可互换<br>p-b   t-d   c-k-g  x-s<br>列子：<br>professor n.教授<br>pro-向前<br>fess-说话（词根）<br>or-名词后缀 人</p><pre><code>tract（词根）表示拉扯t-d c-gdrag n.拉拽abstract  ['æbstrækt]  a.抽象的 n.摘要,文摘,梗概vt.提取；摘录要点abs-加强语气attract  [ə'trækt]  vt.引起的注意(或兴趣等),吸引；引起；激起*contract [ˈkɒntrækt] n.(承包)合同/契约 v.订合同/契约；使缩小 con-共同，一起（come）tract拉到一起distract [dis'trækt] v.分散;使分心;打扰;使心情烦乱 dis-否定前缀/四散tract-拉扯四散的拉扯分散extract   [ik‘strækt]   v./n.拔出,抽出;摘录 n.抽取物;精华;选集ex-向外celer-速度celerity [sɪ'lerɪtɪ]  n.  敏捷、快捷 ity-集合名词后缀accelerate [ək'seləreit] v.使加速，使增速，促进 vi.加快，增加ac-加强语气ate-动词后缀decelerate [ˌdi:ˈseləreɪt] v. 使…减速de-消极否定ate-动词后缀stimulate ['stimjuleit] v.刺激,使兴奋;激励,鼓舞stim--sting（v.叮咬，刺激）ul--连字符ate-动词后缀simulate [‘simjuleit] v.模仿,模拟;假装,冒充sim--same（一样）ul--连字符ate-动词后缀</code></pre><h4 id="有规律的重复每天背50-80">有规律的重复每天背50~80</h4><p>周一到周五背新单词<br>周六周日复习就单词</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;英语考研规划&lt;/h1&gt;
-&lt;h2 id=&quot;题型&quot;&gt;题型&lt;/h2&gt;
-&lt;p&gt;重点把握：阅读和作文&lt;/p&gt;
-&lt;h3 id=&quot;客观题&quot;&gt;客观题&lt;/h3&gt;
-&lt;h4 id=&quot;完形填空20-0-5-10&quot;&gt;完形填空20*0.5=10&lt;/h4&gt;
-&lt;p&gt;要求： 带入符合语境，意思&lt;/p&gt;
-&lt;</summary>
-      
-    
-    
-    
-    
-    <category term="考研" scheme="https://xucanxx.github.io/tags/%E8%80%83%E7%A0%94/"/>
     
   </entry>
   
