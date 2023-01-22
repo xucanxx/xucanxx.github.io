@@ -1147,6 +1147,51 @@ func main() {
       </tags>
   </entry>
   <entry>
+    <title>kafka日常操作</title>
+    <url>/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1>kafka日常操作</h1>
+<h2 id="kafka查看数据">kafka查看数据</h2>
+<h3 id="查看所有topic">查看所有topic</h3>
+<pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看所有group">查看所有group</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3>
+<pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
+</code></pre>
+<h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
+</code></pre>
+<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
+</code></pre>
+<h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
+</code></pre>
+<h2 id="kafka创建指令">kafka创建指令</h2>
+<h3 id="kafka创建topic">kafka创建topic</h3>
+<pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
+</code></pre>
+<h2 id="kafka启动命令">kafka启动命令</h2>
+<h3 id="前台启动">前台启动</h3>
+<pre><code>./bin/kafka-server-start.sh ./config/server.properties
+</code></pre>
+<h3 id="后台启动">后台启动</h3>
+<pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
+</code></pre>
+<h2 id="kafka关闭命令">kafka关闭命令</h2>
+<pre><code>./bin/kafka-server-stop.sh
+</code></pre>
+]]></content>
+      <categories>
+        <category>kafka</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>poj-1088</title>
     <url>/2020/04/26/poj-1088/</url>
     <content><![CDATA[<h1>题目</h1>
@@ -1235,51 +1280,6 @@ int main()
       </categories>
       <tags>
         <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kafka日常操作</title>
-    <url>/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1>kafka日常操作</h1>
-<h2 id="kafka查看数据">kafka查看数据</h2>
-<h3 id="查看所有topic">查看所有topic</h3>
-<pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看所有group">查看所有group</h3>
-<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3>
-<pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
-</code></pre>
-<h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3>
-<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
-</code></pre>
-<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3>
-<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
-</code></pre>
-<h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3>
-<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
-</code></pre>
-<h2 id="kafka创建指令">kafka创建指令</h2>
-<h3 id="kafka创建topic">kafka创建topic</h3>
-<pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
-</code></pre>
-<h2 id="kafka启动命令">kafka启动命令</h2>
-<h3 id="前台启动">前台启动</h3>
-<pre><code>./bin/kafka-server-start.sh ./config/server.properties
-</code></pre>
-<h3 id="后台启动">后台启动</h3>
-<pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
-</code></pre>
-<h2 id="kafka关闭命令">kafka关闭命令</h2>
-<pre><code>./bin/kafka-server-stop.sh
-</code></pre>
-]]></content>
-      <categories>
-        <category>kafka</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -2138,6 +2138,43 @@ E-R图由什么构成以及如何才能画一个E-R图？</p>
       </tags>
   </entry>
   <entry>
+    <title>果子私房笔记-TCP握手挥手数据传输</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
+    <content><![CDATA[<h1>TCP握手挥手数据传输</h1>
+<h2 id="三次握手过程">三次握手过程</h2>
+<h3 id="第一次握手">第一次握手</h3>
+<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
+<h3 id="第二次握手">第二次握手</h3>
+<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
+<h3 id="第三次握手">第三次握手</h3>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
+<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
+ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
+<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="传输数据过程">传输数据过程</h2>
+<h3 id="a-超时重传：">a.超时重传：</h3>
+<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
+<h3 id="b-快速重传：">b.快速重传：</h3>
+<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
+<h3 id="c-流量控制：">c.流量控制：</h3>
+<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
+<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
+<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
+<h2 id="四次挥手过程">四次挥手过程</h2>
+<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
+<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
+<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
+<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>果子私房笔记-http与https的区别</title>
     <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h1>http与https的区别</h1>
@@ -2254,6 +2291,61 @@ GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
 ]]></content>
       <categories>
         <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-time_wait</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/</url>
+    <content><![CDATA[<h1>time_wait</h1>
+<h2 id="time-wait状态如何产生？">time_wait状态如何产生？</h2>
+<p>由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包在网络中的最大生存时间。产生这种结果使得这个TCP连接在2MSL连接等待期间，定义这个连接的四元组（客户端IP地址和端口，服务端IP地址和端口号）不能被使用。</p>
+<h2 id="time-wait状态产生的原因">time_wait状态产生的原因</h2>
+<h3 id="1）为实现TCP全双工连接的可靠释放">1）为实现TCP全双工连接的可靠释放</h3>
+<p>假设发起主动关闭的一方（client）最后发送的ACK在网络中丢失，由于TCP协议的重传机制，执行被动关闭的一方（server）将会重发其FIN，在该FIN到达client之前，client必须维护这条连接状态，也就说这条TCP连接所对应的资源（client方的local_ip,local_port）不能被立即释放或重新分配，直到另一方重发的FIN达到之后，client重发ACK后，经过2MSL时间周期没有再收到另一方的FIN之后，该TCP连接才能恢复初始的CLOSED状态。如果主动关闭一方不维护这样一个TIME_WAIT状态，那么当被动关闭一方重发的FIN到达时，主动关闭一方的TCP传输层会用RST包响应对方，这会被对方认为是有错误发生，然而这事实上只是正常的关闭连接过程，并非异常。</p>
+<h3 id="2）为使旧的数据包在网络因过期而消失">2）为使旧的数据包在网络因过期而消失</h3>
+<p>为说明这个问题，我们先假设TCP协议中不存在TIME_WAIT状态的限制，再假设当前有一条TCP连接：(local_ip, local_port, remote_ip,remote_port)，因某些原因，我们先关闭，接着很快以相同的四元组建立一条新连接。本文前面介绍过，TCP连接由四元组唯一标识，因此，在我们假设的情况中，TCP协议栈是无法区分前后两条TCP连接的不同的，在它看来，这根本就是同一条连接，中间先释放再建立的过程对其来说是“感知”不到的。这样就可能发生这样的情况：前一条TCP连接由local peer发送的数据到达remote peer后，会被该remot peer的TCP传输层当做当前TCP连接的正常数据接收并向上传递至应用层（而事实上，在我们假设的场景下，这些旧数据到达remote peer前，旧连接已断开且一条由相同四元组构成的新TCP连接已建立，因此，这些旧数据是不应该被向上传递至应用层的），从而引起数据错乱进而导致各种无法预知的诡异现象。作为一种可靠的传输协议，TCP必须在协议层面考虑并避免这种情况的发生，这正是TIME_WAIT状态存在的第2个原因。</p>
+<h3 id="3）总结">3）总结</h3>
+<p>具体而言，local peer主动调用close后，此时的TCP连接进入TIME_WAIT状态，处于该状态下的TCP连接不能立即以同样的四元组建立新连接，即发起active close的那方占用的local port在TIME_WAIT期间不能再被重新分配。由于TIME_WAIT状态持续时间为2MSL，这样保证了旧TCP连接双工链路中的旧数据包均因过期（超过MSL）而消失，此后，就可以用相同的四元组建立一条新连接而不会发生前后两次连接数据错乱的情况。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-多路IO复用</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/</url>
+    <content><![CDATA[<h1>多路IO复用</h1>
+<p><a href="https://blog.csdn.net/qq_46312987/article/details/124213418" target="_blank" rel="noopener">https://blog.csdn.net/qq_46312987/article/details/124213418</a></p>
+<h2 id="零拷贝优化">零拷贝优化</h2>
+<p>传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。<br>
+磁盘文件–DMA拷贝-&gt;(内核态)缓存区–CPU拷贝-&gt;(用户态)用户缓存区–CPU拷贝-&gt;(内核态)socket缓冲区–DMA拷贝-&gt;网卡。</p>
+<h3 id="DMA拷贝：">DMA拷贝：</h3>
+<p>DMA的原理是CPU将需要迁移的数据的位置告诉给DMA，包括源地址，目的地址以及需要迁移的长度，然后启动DMA设备去完成相应的操作，最后通过中断反馈给CPU，结束。</p>
+<h3 id="Mmap优化：">Mmap优化：</h3>
+<p>mmap通过内存映射，将内存缓冲区中的数据映射到用户缓冲区，由此让用户空间共享内核空间的数据。</p>
+<h2 id="常用的IO模型">常用的IO模型</h2>
+<h3 id="阻塞IO：">阻塞IO：</h3>
+<p>假设建立一个socket连接，如果这个连接的客户端一直不发数据，那么服务端线程将会一直阻塞在read函数上不返回。</p>
+<h3 id="非阻塞IO：">非阻塞IO：</h3>
+<p>将read函数改造成：如果没有数据到达网卡时，立即返回一个错误值，而不是阻塞地等待。这样就需要用户线程循环调用read，直到返回值不为-1，再开始处理业务。注意：非阻塞的read，指的是数据还未到达网卡，当数据已经到达内核缓冲区，此时调用read函数依旧是阻塞的，需要等待数据从内核缓冲区拷贝到用户缓冲区才能返回。</p>
+<h3 id="多路复用IO">多路复用IO</h3>
+<h4 id="前导：">前导：</h4>
+<p>为每个连接创建一个线程耗费的资源较多，我们可以每连接一个客户端后，将文件描述符放到一个数组里，用一个线程不断去遍历这个数组，调用每个元素的非阻塞read方法。每次遍历到read返回-1，依然是一次浪费资源的系统调用。</p>
+<h4 id="Select：">Select：</h4>
+<p>通过select，我们把文件描述符数组传输给操作系统，让操作系统去遍历，操作系统将准备就绪的文件描述符做上标识再返回给用户，用户依旧需要遍历刚提交给操作系统的数组。相比于前导的方法，就是把循环调用rpc改成了一次调用批量的rpc。</p>
+<h4 id="Poll：">Poll：</h4>
+<p>相比select去掉了只能监听1024个文件描述符的限制。</p>
+<h5 id="Epoll：">Epoll：</h5>
+<p>针对select模型的三个缺点进行改造：1.在内核中保存一份文件描述符集合，无需用户每次重新传入，只需告诉内核修改的部分。2.内核不再以轮询的方式去找就绪的文件描述符，而是通过异步IO事件唤醒。3.内核仅会将有IO事件的文件描述符返回给用户，用户无需再遍历整个文件描述符集合。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>果子私房笔记</tag>

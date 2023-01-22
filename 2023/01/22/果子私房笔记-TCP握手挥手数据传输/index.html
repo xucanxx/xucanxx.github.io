@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="go的多进程, 咸鱼">
+    <meta name="keywords" content="果子私房笔记-TCP握手挥手数据传输, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>go的多进程 | 咸鱼</title>
+    <title>果子私房笔记-TCP握手挥手数据传输 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">go的多进程</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-TCP握手挥手数据传输</h1>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%9A%8F%E7%AC%94/">
-                                <span class="chip bg-color">随笔</span>
+                            <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">果子私房笔记</span>
                             </a>
                         
                     </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/go/" class="post-category">
-                                go
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                计算机网络
                             </a>
                         
                     </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-21
+                    2023-01-22
                 </div>
                 
 
@@ -395,99 +395,32 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>go的多进程</h1>
-<p>虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式</p>
-<h2 id="异步起进程">异步起进程</h2>
-<p>主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑满制定数量</p>
-<pre class=" language-language-golang"><code class="language-language-golang">package main
-
-import (
-	"log"
-	"os"
-	"strconv"
-)
-
-var processChan = make(chan int, 10)
-
-func processListen(process *os.Process) {
-	p, _ := process.Wait()
-	exitCode := p.ExitCode()
-	log.Println("process finish ExitCode: ", exitCode)
-	<-processChan
-}
-
-func main() {
-	poolsize := 8
-	for {
-		for len(processChan) < poolsize {
-
-			procAttr := &os.ProcAttr{
-					Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-					Sys: &syscall.SysProcAttr{
-						//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
-						Setpgid:   true,
-						Pdeathsig: syscall.SIGKILL,
-					},
-				}
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo processChan size: " + strconv.Itoa(len(processChan))}, procAttr)
-			if err != nil {
-				log.Println("StartProcess err: ", err)
-				continue
-			}
-			processChan <- -1
-			go processListen(process)
-		}
-	}
-
-}
-
-</code></pre>
-<h2 id="分批同步起线程">分批同步起线程</h2>
-<p>每次都起poolsize数量的进程，当后台的子进程全执行完之后，再起新的一批</p>
-<pre class=" language-language-golang"><code class="language-language-golang">package main
-
-import (
-	"os"
-)
-func main() {
-	poolsize := 8
-	for {
-		for i:= 0; i < poolsize ;i++{
-			var processId []*os.Process	
-			var size int
-			procAttr := &os.ProcAttr{
-						Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-						Sys: &syscall.SysProcAttr{
-							//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
-							Setpgid:   true,
-							Pdeathsig: syscall.SIGKILL,
-						},
-					}
-
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo process start"}, procAttr)
-
-			if err != nil {
-				log.Println("StartProcess err: ", err)
-				ifsuccess = 0
-				continue
-			}
-			size++
-			processId = append(processId, process)
-		}
-		for size > 0 {
-			p, _ := processId[size-1].Wait()
-			exitCode := p.ExitCode()
-			size--
-			log.Println("exitCode: ", exitCode)
-		}
-	}
-}
-</code></pre>
-<h2 id="坑">坑</h2>
-<h3 id="exec-Commond">exec.Commond</h3>
-<p>也可以使用exec.Commond 但是cmd结构体中的process不能外部访问，我不知道怎么用这个获取进程的exitcode，所以没用。</p>
-<h3 id="os-ProcessState-kill">os.ProcessState.kill()</h3>
-<p>当执行这个自带的kill函数后向子进程发送的并不是 kill 信号 而是kill -9 这将导致子进程占用的资源不会被正常释放，从而变成僵尸进程</p>
+                <h1>TCP握手挥手数据传输</h1>
+<h2 id="三次握手过程">三次握手过程</h2>
+<h3 id="第一次握手">第一次握手</h3>
+<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
+<h3 id="第二次握手">第二次握手</h3>
+<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
+<h3 id="第三次握手">第三次握手</h3>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
+<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
+ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
+<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="传输数据过程">传输数据过程</h2>
+<h3 id="a-超时重传：">a.超时重传：</h3>
+<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
+<h3 id="b-快速重传：">b.快速重传：</h3>
+<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
+<h3 id="c-流量控制：">c.流量控制：</h3>
+<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
+<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
+<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
+<h2 id="四次挥手过程">四次挥手过程</h2>
+<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
+<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
+<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
+<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
 
             </div>
             <hr/>
@@ -513,7 +446,7 @@ func main() {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/">https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/</a>
+                    <a href="https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/">https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -551,8 +484,8 @@ func main() {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%9A%8F%E7%AC%94/">
-                                    <span class="chip bg-color">随笔</span>
+                                <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">果子私房笔记</span>
                                 </a>
                             
                         </div>
@@ -723,7 +656,7 @@ func main() {
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2023-01-11T15-11-54',
+        id: '2023-01-22T06-46-23',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -753,24 +686,21 @@ func main() {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/">
+                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-TCP握手挥手数据传输">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="果子私房笔记-time_wait">
                         
-                        <span class="card-title">果子私房笔记-TCP握手挥手数据传输</span>
+                        <span class="card-title">果子私房笔记-time_wait</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            TCP握手挥手数据传输
-三次握手过程
-第一次握手
-客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认
-第二次握手
-服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个S
+                            time_wait
+time_wait状态如何产生？
+由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包
                         
                     </div>
                     <div class="publish-info">
@@ -807,36 +737,36 @@ func main() {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                <a href="/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="果子私房笔记-TCP与UDP的区别">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg" class="responsive-img" alt="go的多进程">
                         
-                        <span class="card-title">果子私房笔记-TCP与UDP的区别</span>
+                        <span class="card-title">go的多进程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            TCP与UDP的区别
-TCP
-TCP的优点：
-可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。
-TCP的缺点：
-慢，
+                            go的多进程
+虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式
+异步起进程
+主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑满制定数量
+package main
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-11
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/go/" class="post-category">
+                                    go
                                 </a>
                             
                             
@@ -846,8 +776,8 @@ TCP的缺点：
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">果子私房笔记</span>
+                    <a href="/tags/%E9%9A%8F%E7%AC%94/">
+                        <span class="chip bg-color">随笔</span>
                     </a>
                     
                 </div>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="go的多进程, 咸鱼">
+    <meta name="keywords" content="果子私房笔记-time_wait, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>go的多进程 | 咸鱼</title>
+    <title>果子私房笔记-time_wait | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">go的多进程</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-time_wait</h1>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%9A%8F%E7%AC%94/">
-                                <span class="chip bg-color">随笔</span>
+                            <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">果子私房笔记</span>
                             </a>
                         
                     </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/go/" class="post-category">
-                                go
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                计算机网络
                             </a>
                         
                     </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-21
+                    2023-01-22
                 </div>
                 
 
@@ -395,99 +395,16 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>go的多进程</h1>
-<p>虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式</p>
-<h2 id="异步起进程">异步起进程</h2>
-<p>主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑满制定数量</p>
-<pre class=" language-language-golang"><code class="language-language-golang">package main
-
-import (
-	"log"
-	"os"
-	"strconv"
-)
-
-var processChan = make(chan int, 10)
-
-func processListen(process *os.Process) {
-	p, _ := process.Wait()
-	exitCode := p.ExitCode()
-	log.Println("process finish ExitCode: ", exitCode)
-	<-processChan
-}
-
-func main() {
-	poolsize := 8
-	for {
-		for len(processChan) < poolsize {
-
-			procAttr := &os.ProcAttr{
-					Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-					Sys: &syscall.SysProcAttr{
-						//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
-						Setpgid:   true,
-						Pdeathsig: syscall.SIGKILL,
-					},
-				}
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo processChan size: " + strconv.Itoa(len(processChan))}, procAttr)
-			if err != nil {
-				log.Println("StartProcess err: ", err)
-				continue
-			}
-			processChan <- -1
-			go processListen(process)
-		}
-	}
-
-}
-
-</code></pre>
-<h2 id="分批同步起线程">分批同步起线程</h2>
-<p>每次都起poolsize数量的进程，当后台的子进程全执行完之后，再起新的一批</p>
-<pre class=" language-language-golang"><code class="language-language-golang">package main
-
-import (
-	"os"
-)
-func main() {
-	poolsize := 8
-	for {
-		for i:= 0; i < poolsize ;i++{
-			var processId []*os.Process	
-			var size int
-			procAttr := &os.ProcAttr{
-						Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-						Sys: &syscall.SysProcAttr{
-							//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
-							Setpgid:   true,
-							Pdeathsig: syscall.SIGKILL,
-						},
-					}
-
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo process start"}, procAttr)
-
-			if err != nil {
-				log.Println("StartProcess err: ", err)
-				ifsuccess = 0
-				continue
-			}
-			size++
-			processId = append(processId, process)
-		}
-		for size > 0 {
-			p, _ := processId[size-1].Wait()
-			exitCode := p.ExitCode()
-			size--
-			log.Println("exitCode: ", exitCode)
-		}
-	}
-}
-</code></pre>
-<h2 id="坑">坑</h2>
-<h3 id="exec-Commond">exec.Commond</h3>
-<p>也可以使用exec.Commond 但是cmd结构体中的process不能外部访问，我不知道怎么用这个获取进程的exitcode，所以没用。</p>
-<h3 id="os-ProcessState-kill">os.ProcessState.kill()</h3>
-<p>当执行这个自带的kill函数后向子进程发送的并不是 kill 信号 而是kill -9 这将导致子进程占用的资源不会被正常释放，从而变成僵尸进程</p>
+                <h1>time_wait</h1>
+<h2 id="time-wait状态如何产生？">time_wait状态如何产生？</h2>
+<p>由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包在网络中的最大生存时间。产生这种结果使得这个TCP连接在2MSL连接等待期间，定义这个连接的四元组（客户端IP地址和端口，服务端IP地址和端口号）不能被使用。</p>
+<h2 id="time-wait状态产生的原因">time_wait状态产生的原因</h2>
+<h3 id="1）为实现TCP全双工连接的可靠释放">1）为实现TCP全双工连接的可靠释放</h3>
+<p>假设发起主动关闭的一方（client）最后发送的ACK在网络中丢失，由于TCP协议的重传机制，执行被动关闭的一方（server）将会重发其FIN，在该FIN到达client之前，client必须维护这条连接状态，也就说这条TCP连接所对应的资源（client方的local_ip,local_port）不能被立即释放或重新分配，直到另一方重发的FIN达到之后，client重发ACK后，经过2MSL时间周期没有再收到另一方的FIN之后，该TCP连接才能恢复初始的CLOSED状态。如果主动关闭一方不维护这样一个TIME_WAIT状态，那么当被动关闭一方重发的FIN到达时，主动关闭一方的TCP传输层会用RST包响应对方，这会被对方认为是有错误发生，然而这事实上只是正常的关闭连接过程，并非异常。</p>
+<h3 id="2）为使旧的数据包在网络因过期而消失">2）为使旧的数据包在网络因过期而消失</h3>
+<p>为说明这个问题，我们先假设TCP协议中不存在TIME_WAIT状态的限制，再假设当前有一条TCP连接：(local_ip, local_port, remote_ip,remote_port)，因某些原因，我们先关闭，接着很快以相同的四元组建立一条新连接。本文前面介绍过，TCP连接由四元组唯一标识，因此，在我们假设的情况中，TCP协议栈是无法区分前后两条TCP连接的不同的，在它看来，这根本就是同一条连接，中间先释放再建立的过程对其来说是“感知”不到的。这样就可能发生这样的情况：前一条TCP连接由local peer发送的数据到达remote peer后，会被该remot peer的TCP传输层当做当前TCP连接的正常数据接收并向上传递至应用层（而事实上，在我们假设的场景下，这些旧数据到达remote peer前，旧连接已断开且一条由相同四元组构成的新TCP连接已建立，因此，这些旧数据是不应该被向上传递至应用层的），从而引起数据错乱进而导致各种无法预知的诡异现象。作为一种可靠的传输协议，TCP必须在协议层面考虑并避免这种情况的发生，这正是TIME_WAIT状态存在的第2个原因。</p>
+<h3 id="3）总结">3）总结</h3>
+<p>具体而言，local peer主动调用close后，此时的TCP连接进入TIME_WAIT状态，处于该状态下的TCP连接不能立即以同样的四元组建立新连接，即发起active close的那方占用的local port在TIME_WAIT期间不能再被重新分配。由于TIME_WAIT状态持续时间为2MSL，这样保证了旧TCP连接双工链路中的旧数据包均因过期（超过MSL）而消失，此后，就可以用相同的四元组建立一条新连接而不会发生前后两次连接数据错乱的情况。</p>
 
             </div>
             <hr/>
@@ -513,7 +430,7 @@ func main() {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/">https://xucanxx.github.io/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/</a>
+                    <a href="https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/">https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -551,8 +468,8 @@ func main() {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%9A%8F%E7%AC%94/">
-                                    <span class="chip bg-color">随笔</span>
+                                <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">果子私房笔记</span>
                                 </a>
                             
                         </div>
@@ -723,7 +640,7 @@ func main() {
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2023-01-11T15-11-54',
+        id: '2023-01-22T07-28-48',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -753,24 +670,23 @@ func main() {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/">
+                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-TCP握手挥手数据传输">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="果子私房笔记-多路IO复用">
                         
-                        <span class="card-title">果子私房笔记-TCP握手挥手数据传输</span>
+                        <span class="card-title">果子私房笔记-多路IO复用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            TCP握手挥手数据传输
-三次握手过程
-第一次握手
-客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认
-第二次握手
-服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个S
+                            多路IO复用
+https://blog.csdn.net/qq_46312987/article/details/124213418
+零拷贝优化
+传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。
+磁盘文件–DMA拷贝-
                         
                     </div>
                     <div class="publish-info">
@@ -781,8 +697,8 @@ func main() {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             
@@ -807,29 +723,29 @@ func main() {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="果子私房笔记-TCP与UDP的区别">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-TCP握手挥手数据传输">
                         
-                        <span class="card-title">果子私房笔记-TCP与UDP的区别</span>
+                        <span class="card-title">果子私房笔记-TCP握手挥手数据传输</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            TCP与UDP的区别
-TCP
-TCP的优点：
-可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。
-TCP的缺点：
-慢，
+                            TCP握手挥手数据传输
+三次握手过程
+第一次握手
+客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认
+第二次握手
+服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个S
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-22
                             </span>
                         <span class="publish-author">
                             
