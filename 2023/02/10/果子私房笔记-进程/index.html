@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="果子私房笔记-多路IO复用, 咸鱼">
+    <meta name="keywords" content="果子私房笔记-进程, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>果子私房笔记-多路IO复用 | 咸鱼</title>
+    <title>果子私房笔记-进程 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">果子私房笔记-多路IO复用</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-进程</h1>
                 </div>
             </div>
         </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-22
+                    2023-03-28
                 </div>
                 
 
@@ -395,29 +395,76 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>多路IO复用</h1>
-<p><a href="https://blog.csdn.net/qq_46312987/article/details/124213418" target="_blank" rel="noopener">https://blog.csdn.net/qq_46312987/article/details/124213418</a></p>
-<h2 id="零拷贝优化">零拷贝优化</h2>
-<p>传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。<br>
-磁盘文件–DMA拷贝-&gt;(内核态)缓存区–CPU拷贝-&gt;(用户态)用户缓存区–CPU拷贝-&gt;(内核态)socket缓冲区–DMA拷贝-&gt;网卡。</p>
-<h3 id="DMA拷贝：">DMA拷贝：</h3>
-<p>DMA的原理是CPU将需要迁移的数据的位置告诉给DMA，包括源地址，目的地址以及需要迁移的长度，然后启动DMA设备去完成相应的操作，最后通过中断反馈给CPU，结束。</p>
-<h3 id="Mmap优化：">Mmap优化：</h3>
-<p>mmap通过内存映射，将内存缓冲区中的数据映射到用户缓冲区，由此让用户空间共享内核空间的数据。</p>
-<h2 id="常用的IO模型">常用的IO模型</h2>
-<h3 id="阻塞IO：">阻塞IO：</h3>
-<p>假设建立一个socket连接，如果这个连接的客户端一直不发数据，那么服务端线程将会一直阻塞在read函数上不返回。</p>
-<h3 id="非阻塞IO：">非阻塞IO：</h3>
-<p>将read函数改造成：如果没有数据到达网卡时，立即返回一个错误值，而不是阻塞地等待。这样就需要用户线程循环调用read，直到返回值不为-1，再开始处理业务。注意：非阻塞的read，指的是数据还未到达网卡，当数据已经到达内核缓冲区，此时调用read函数依旧是阻塞的，需要等待数据从内核缓冲区拷贝到用户缓冲区才能返回。</p>
-<h3 id="多路复用IO">多路复用IO</h3>
-<h4 id="前导：">前导：</h4>
-<p>为每个连接创建一个线程耗费的资源较多，我们可以每连接一个客户端后，将文件描述符放到一个数组里，用一个线程不断去遍历这个数组，调用每个元素的非阻塞read方法。每次遍历到read返回-1，依然是一次浪费资源的系统调用。</p>
-<h4 id="Select：">Select：</h4>
-<p>通过select，我们把文件描述符数组传输给操作系统，让操作系统去遍历，操作系统将准备就绪的文件描述符做上标识再返回给用户，用户依旧需要遍历刚提交给操作系统的数组。相比于前导的方法，就是把循环调用rpc改成了一次调用批量的rpc。</p>
-<h4 id="Poll：">Poll：</h4>
-<p>相比select去掉了只能监听1024个文件描述符的限制。</p>
-<h5 id="Epoll：">Epoll：</h5>
-<p>针对select模型的三个缺点进行改造：1.在内核中保存一份文件描述符集合，无需用户每次重新传入，只需告诉内核修改的部分。2.内核不再以轮询的方式去找就绪的文件描述符，而是通过异步IO事件唤醒。3.内核仅会将有IO事件的文件描述符返回给用户，用户无需再遍历整个文件描述符集合。</p>
+                <h1>进程</h1>
+<h2 id="1-什么是进程？">1.什么是进程？</h2>
+<p>程序：程序是指令和数据的集合<br>
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的基本单位</p>
+<h2 id="2-如何操作进程？">2.如何操作进程？</h2>
+<p>设立了PCB (进程控制块），其内容如下。<br>
+标示符：描述本进程的唯一标示符，用来区别其他进程。<br>
+状态：任务状态，退出代码，退出信号等。<br>
+优先级：相对于其他进程的优先级。<br>
+程序计数器：程序中即将被执行的下一条指令的地址。<br>
+内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针<br>
+上下文数据：进程执行时处理器的寄存器中的数据。<br>
+I／O状态信息：包括显示的I/O请求,分配给进程的I／O设备和被进程使用的文件列表。<br>
+记账信息：可能包括处理器时间总和，使用的时钟数总和，时间限制，记账号等。 其他信息<br>
+CPU对进程的调度使用<br>
+CPU通过PCB中的内存指针来找到程序在内存中的地址，通过上下文数据来记录运行中程序的各种信息，通过程序计数器来找到这个程序即将执行的下一条指令的地址。</p>
+<h2 id="3-进程的状态">3.进程的状态</h2>
+<p>三种基本状态：就绪、运行、阻塞<br>
+五种状态：新建状态，就绪状态，运行状态，阻塞状态，退出状态。</p>
+<h2 id="4-子进程">4.子进程</h2>
+<p>当我们在一个已经创建的进程内通过fork创建一个新的进程时，这个新的进程就是原先进程的子进程。<br>
+在子进程创建的时候，它从父进程的PCB中复制了很多数据，如内存指针、上下文数据、程序计数器等，所以它的代码、数据以及运行的位置，都与父进程一模一样。<br>
+由于代码段是只读的，所以两者的代码都一样，不可修改，而两者虽然虚拟地址相同，但物理地址不同，所以两者的数据都各自独立。<br>
+一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。<br>
+总结一下就是：父子进程代码共享，数据各自开辟空间。(利用写时拷贝技术)<br>
+我们创建子进程，希望它和父进程执行不一样的操作，该怎么实现呢？<br>
+最简单的方法就是通过fork的返回值来进行代码分流，父进程的返回值是子进程的pid，而子进程的返回值是0，通过对返回值的判断，即可完成代码的分流。</p>
+<h2 id="5-进程的概念">5.进程的概念</h2>
+<h3 id="僵尸进程：">僵尸进程：</h3>
+<p>一个进程的子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
+子进程的进程号就会一直被占用，但是系统所能使用的进程号有限，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。<br>
+解决方法有两种分别是退出父进程和进程等待。</p>
+<h3 id="孤儿进程：">孤儿进程：</h3>
+<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
+<h3 id="守护进程">守护进程:</h3>
+<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是特殊的孤儿进程。生存期较长，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
+<h2 id="6-进程控制">6.进程控制</h2>
+<h3 id="创建进程">创建进程</h3>
+<p>fork：创建一个子进程，父子进程代码共享，数据独有。(共享是因为页表的权限，独有是不同的页表对应空间存数据)<br>
+vfork：创建一个子进程，并且阻塞父进程，直到子进程退出或者程序替换，父进程才继续运行</p>
+<h3 id="终止进程">终止进程</h3>
+<p>return：只可以在 main 函数中用，推出后刷新缓冲区<br>
+exit(statu)：库函数，退出刷新缓冲区<br>
+_exit(statu)：系统调用，status 定义了进程的终止状态，父进程通过wait来获取该值，退出不刷新缓冲区</p>
+<h3 id="进程等待">进程等待</h3>
+<p>wait：获取退出子进程的pid，并且释放子进程资源。( 阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则调用不返回一直等待。非阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则立即报错返回 )<br>
+waitpid：可以指定等待一个子进程的退出</p>
+<h3 id="程序替换">程序替换</h3>
+<p>创建的子进程如果想要做与父进程不同的事，其最好的方法就是程序替换，替换一个进程正在调度的程序信息。</p>
+<h3 id="exec">exec</h3>
+<p>l(list)：表示参数采用列表<br>
+v(vector)：参数用数组<br>
+p(path)：有p自动搜索环境变量PATH<br>
+e(env)：有e表示自己维护环境变量</p>
+<h2 id="7-进程的调度算法">7.进程的调度算法</h2>
+<p>针对批处理系统：批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
+<h3 id="1-1先来先服务-first-come-first-serverd（FCFS）">1.1先来先服务 first-come first-serverd（FCFS）</h3>
+<p>非抢占式的调度算法，按照请求的顺序进行调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
+<h3 id="1-2短作业优先-shortest-job-first（SJF）">1.2短作业优先 shortest job first（SJF）</h3>
+<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。如果一直有短作业到来，长作业可能处于一直等待短作业执行完毕的状态，导致饿死。</p>
+<h3 id="1-3最短剩余时间优先-shortest-remaining-time-next（SRTN）">1.3最短剩余时间优先 shortest remaining time next（SRTN）</h3>
+<p>最短作业优先的抢占式版本，按剩余运行时间的顺序进行调度。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较，如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。<br>
+交互式系统：交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
+<h3 id="2-1时间片轮转">2.1时间片轮转</h3>
+<p>将所有就绪进程按 FCFS 的原则排成一个队列，每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。时间片轮转算法的效率和时间片的大小有很大关系：<br>
+因为进程切换都要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间。而如果时间片过长，那么实时性就不能得到保证。</p>
+<h3 id="2-2优先级调度">2.2优先级调度</h3>
+<p>为每个进程分配一个优先级，按优先级进行调度。为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
+<h3 id="2-3-多级反馈队列">2.3 多级反馈队列</h3>
+<p>一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,…。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次。每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
 
             </div>
             <hr/>
@@ -443,7 +490,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/">https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/</a>
+                    <a href="https://xucanxx.github.io/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/">https://xucanxx.github.io/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -653,7 +700,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2023-01-22T07-33-23',
+        id: '2023-02-10T07-02-37',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -683,30 +730,29 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/">
+                <a href="/2023/03/28/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-僵尸进程和孤儿进程">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="果子私房笔记-进程和线程的通信">
                         
-                        <span class="card-title">果子私房笔记-僵尸进程和孤儿进程</span>
+                        <span class="card-title">果子私房笔记-进程和线程的通信</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            僵尸进程和孤儿进程
-1.什么是进程？
-程序：程序是指令和数据的集合
-进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位
-2.为什么需要进程？
-引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程
-3.如何操
+                            进程和线程的通信
+进程间通讯方式有:管道,信号,信号量,消息队列,共享内存,套接字(socket)共六种
+1.管道
+本质：管道的本质其实就是内核中的一块缓冲区，多个进程通过访问同一个缓冲区就可以实现进程间的通信。
+分类：匿名管道，命名管道
+
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-28
                         </span>
                         <span class="publish-author">
                             
@@ -738,33 +784,37 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/">
+                <a href="/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="果子私房笔记-time_wait">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-僵尸进程和孤儿进程">
                         
-                        <span class="card-title">果子私房笔记-time_wait</span>
+                        <span class="card-title">果子私房笔记-僵尸进程和孤儿进程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            time_wait
-time_wait状态如何产生？
-由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包
+                            僵尸进程和孤儿进程
+1.什么是进程？
+程序：程序是指令和数据的集合
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位
+2.为什么需要进程？
+引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程
+3.如何操
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             

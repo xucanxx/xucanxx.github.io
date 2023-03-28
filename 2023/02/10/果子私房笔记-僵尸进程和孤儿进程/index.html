@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="果子私房笔记-多路IO复用, 咸鱼">
+    <meta name="keywords" content="果子私房笔记-僵尸进程和孤儿进程, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>果子私房笔记-多路IO复用 | 咸鱼</title>
+    <title>果子私房笔记-僵尸进程和孤儿进程 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">果子私房笔记-多路IO复用</h1>
+                    <h1 class="description center-align post-title">果子私房笔记-僵尸进程和孤儿进程</h1>
                 </div>
             </div>
         </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-22
+                    2023-03-28
                 </div>
                 
 
@@ -395,29 +395,23 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>多路IO复用</h1>
-<p><a href="https://blog.csdn.net/qq_46312987/article/details/124213418" target="_blank" rel="noopener">https://blog.csdn.net/qq_46312987/article/details/124213418</a></p>
-<h2 id="零拷贝优化">零拷贝优化</h2>
-<p>传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。<br>
-磁盘文件–DMA拷贝-&gt;(内核态)缓存区–CPU拷贝-&gt;(用户态)用户缓存区–CPU拷贝-&gt;(内核态)socket缓冲区–DMA拷贝-&gt;网卡。</p>
-<h3 id="DMA拷贝：">DMA拷贝：</h3>
-<p>DMA的原理是CPU将需要迁移的数据的位置告诉给DMA，包括源地址，目的地址以及需要迁移的长度，然后启动DMA设备去完成相应的操作，最后通过中断反馈给CPU，结束。</p>
-<h3 id="Mmap优化：">Mmap优化：</h3>
-<p>mmap通过内存映射，将内存缓冲区中的数据映射到用户缓冲区，由此让用户空间共享内核空间的数据。</p>
-<h2 id="常用的IO模型">常用的IO模型</h2>
-<h3 id="阻塞IO：">阻塞IO：</h3>
-<p>假设建立一个socket连接，如果这个连接的客户端一直不发数据，那么服务端线程将会一直阻塞在read函数上不返回。</p>
-<h3 id="非阻塞IO：">非阻塞IO：</h3>
-<p>将read函数改造成：如果没有数据到达网卡时，立即返回一个错误值，而不是阻塞地等待。这样就需要用户线程循环调用read，直到返回值不为-1，再开始处理业务。注意：非阻塞的read，指的是数据还未到达网卡，当数据已经到达内核缓冲区，此时调用read函数依旧是阻塞的，需要等待数据从内核缓冲区拷贝到用户缓冲区才能返回。</p>
-<h3 id="多路复用IO">多路复用IO</h3>
-<h4 id="前导：">前导：</h4>
-<p>为每个连接创建一个线程耗费的资源较多，我们可以每连接一个客户端后，将文件描述符放到一个数组里，用一个线程不断去遍历这个数组，调用每个元素的非阻塞read方法。每次遍历到read返回-1，依然是一次浪费资源的系统调用。</p>
-<h4 id="Select：">Select：</h4>
-<p>通过select，我们把文件描述符数组传输给操作系统，让操作系统去遍历，操作系统将准备就绪的文件描述符做上标识再返回给用户，用户依旧需要遍历刚提交给操作系统的数组。相比于前导的方法，就是把循环调用rpc改成了一次调用批量的rpc。</p>
-<h4 id="Poll：">Poll：</h4>
-<p>相比select去掉了只能监听1024个文件描述符的限制。</p>
-<h5 id="Epoll：">Epoll：</h5>
-<p>针对select模型的三个缺点进行改造：1.在内核中保存一份文件描述符集合，无需用户每次重新传入，只需告诉内核修改的部分。2.内核不再以轮询的方式去找就绪的文件描述符，而是通过异步IO事件唤醒。3.内核仅会将有IO事件的文件描述符返回给用户，用户无需再遍历整个文件描述符集合。</p>
+                <h1>僵尸进程和孤儿进程</h1>
+<h2 id="1-什么是进程？">1.什么是进程？</h2>
+<p>程序：程序是指令和数据的集合<br>
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位</p>
+<h2 id="2-为什么需要进程？">2.为什么需要进程？</h2>
+<p>引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程</p>
+<h2 id="3-如何操作进程？">3.如何操作进程？</h2>
+<p>操作系统为了能够使每个程序能够独立运行，在操作系统中为其配置了一个数据结构，也就是我们通常所说的PCB（Process Control Block），PCB 是进程运行相关的信息集合。</p>
+<h2 id="孤儿进程：">孤儿进程：</h2>
+<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
+<h2 id="僵尸进程：">僵尸进程：</h2>
+<p>一个进程使用fork创建子进程，如果子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
+如果进程不调用wait / waitpid的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。所以僵尸进程是有危害的。</p>
+<h2 id="守护进程">守护进程:</h2>
+<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是个特殊的孤儿进程。它是一个生存期较长的进程，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
+<h2 id="父进程、子进程：">父进程、子进程：</h2>
+<p>父进程和子进程的关系是：子进程是父进程的一个副本，一个父进程能创建多个子进程，创建子进程能并发执行。一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。</p>
 
             </div>
             <hr/>
@@ -443,7 +437,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/">https://xucanxx.github.io/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/</a>
+                    <a href="https://xucanxx.github.io/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/">https://xucanxx.github.io/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -653,7 +647,7 @@
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2023-01-22T07-33-23',
+        id: '2023-02-10T06-46-50',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -683,25 +677,26 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/">
+                <a href="/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/21.jpg" class="responsive-img" alt="果子私房笔记-僵尸进程和孤儿进程">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="果子私房笔记-进程">
                         
-                        <span class="card-title">果子私房笔记-僵尸进程和孤儿进程</span>
+                        <span class="card-title">果子私房笔记-进程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            僵尸进程和孤儿进程
+                            进程
 1.什么是进程？
 程序：程序是指令和数据的集合
-进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位
-2.为什么需要进程？
-引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程
-3.如何操
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的基本单位
+2.如何操作进程？
+设立了PCB (进程控制块），其内容如下。
+标示符：描述本进程的唯一标示符，用来区别其他进程。
+
                         
                     </div>
                     <div class="publish-info">
@@ -738,21 +733,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time-wait/">
+                <a href="/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="果子私房笔记-time_wait">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="果子私房笔记-多路IO复用">
                         
-                        <span class="card-title">果子私房笔记-time_wait</span>
+                        <span class="card-title">果子私房笔记-多路IO复用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            time_wait
-time_wait状态如何产生？
-由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包
+                            多路IO复用
+https://blog.csdn.net/qq_46312987/article/details/124213418
+零拷贝优化
+传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。
+磁盘文件–DMA拷贝-
                         
                     </div>
                     <div class="publish-info">
@@ -763,8 +760,8 @@ time_wait状态如何产生？
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             
