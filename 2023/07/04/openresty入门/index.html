@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="果子私房笔记-进程和线程的通信, 咸鱼">
+    <meta name="keywords" content="openresty入门, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>果子私房笔记-进程和线程的通信 | 咸鱼</title>
+    <title>openresty入门 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">果子私房笔记-进程和线程的通信</h1>
+                    <h1 class="description center-align post-title">openresty入门</h1>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">果子私房笔记</span>
+                            <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">笔记</span>
                             </a>
                         
                     </div>
@@ -366,8 +366,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                操作系统
+                            <a href="/categories/openresty/" class="post-category">
+                                openresty
                             </a>
                         
                     </div>
@@ -381,7 +381,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-05-13
+                    2023-07-06
                 </div>
                 
 
@@ -395,78 +395,348 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>进程和线程的通信</h1>
-<p>进程间通讯方式有:管道,信号,信号量,消息队列,共享内存,套接字(socket)共六种</p>
-<h2 id="1-管道">1.管道</h2>
-<p>本质：管道的本质其实就是内核中的一块缓冲区，多个进程通过访问同一个缓冲区就可以实现进程间的通信。<br>
-分类：匿名管道，命名管道</p>
-<h3 id="1-1匿名管道">1.1匿名管道</h3>
-<p>没有具体的文件描述符，只能适用于具有亲缘关系的进程间通信，父进程在创建管道的时候操作系统会返回管道的文件描述符，然后生成子进程时，子进程会通过拷贝父进程的pcb来获取到这个管道的描述符。<br>
-读写特性：1. 没数据 read 阻塞。2. 满数据，write 阻塞。3. 所有读端pipefd[0]关闭，调用 write 导致异常退出进程。4. 所有写端pipefd[1]关闭，调用 read 读完数据，返回0。</p>
-<h3 id="1-2命名管道">1.2命名管道</h3>
-<p>命名管道也是内核中的一块缓冲区，但是它具有标识符，这个标识符是一个可见于文件系统的管道文件，能够被其他进程找到并打开管道文件来获取管道的操作句柄。<br>
-open打开命名管道的特性：1. 若文件以只读打开，则会阻塞，直到文件被以写的方式打开。2. 若文件以只写打开，则会阻塞，直到文件被以读的方式打开。</p>
-<h4 id="管道的特性：">管道的特性：</h4>
-<p>(1).半双工通信（数据只能在一个方向上流动）<br>
-(2).管道自带同步和互斥<br>
-(3).读写特性，无数据则读阻塞，满数据写阻塞，所有读关闭则写端异常，所有写端关闭则读端读完数据后不堵塞返回0。<br>
-(4).管道声明周期随进程<br>
-(5).管道提供字节流传输服务<br>
-(6).命名管道额外有一个打开特性</p>
-<h2 id="2-共享内存">2.共享内存</h2>
-<p>定义：开辟物理内存上的空间，然后在进程的页表上，将同一个物理内存映射到自己的虚拟地址空间，各进程通过自己的虚拟空间来共享访问这一块空间。<br>
-特点：<br>
-(1).共享内存是最快的进程间通信方式，因为进程是直接对内存进行存取。<br>
-(2).因为多个进程可以同时操作，所以需要使用信号量进行同步。<br>
-接口：<br>
-创建 int shmget(key_t key, size_t size, int shmflg)<br>
-映射 void *shmat(int shmid, const void *shmaddr, int shmflg)<br>
-共享内存管理 int shmctl(int shmid, int cmd, struct shmid_ds *buf)<br>
-解除映射关系 int shmdt(const void *shmaddr)<br>
-问题：<br>
-(1).超过共享内存的大小限制怎么办？修改参数<br>
-(2).同一个进程多次进行shmat会出现什么问题？<br>
-指向这块共享内存的引用计数会增加，比较消耗虚拟内存空间8</p>
-<h2 id="3-消息队列：">3.消息队列：</h2>
-<p>定义：是消息的链表，存放在内核中。一个消息队列由一个标识符（即队列ID）来标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。<br>
-特点：<br>
-(1).消息队列是面向记录的，其中的消息具有特定的格式以及特定的优先级。<br>
-(2).消息队列独立于发送与接收进程。进程终止时，消息队列及其内容并不会被删除。<br>
-(3).消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取。</p>
-<h2 id="4-信号">4.信号</h2>
-<p>定义：信号是在软件层次上对中断机制的一种模拟，在原理上，一个进程收到一个信号与处理器收到一个中断请求可以说是一样的，用于通知接收进程某个事件已经发生。如果接收进程并未处于执行状态，则该信号就由内核保存起来，知道该进程恢复执行并传递给他为止。如果一个信号可以被进程设置为阻塞，如果如此，则该信号的传递被延迟，直到其阻塞被取消时才被传递给进程。<br>
-响应：<br>
-(1).忽略信号，即对信号不做任何处理 (有 2 个例外：sigkill,sigstop)<br>
-(2).捕捉信号，定义信号处理函数，当信号发生时，执行相应的处理函数<br>
-(3).默认操作，Linux对每种信号都规定了默认操作</p>
-<h2 id="5-信号量">5.信号量</h2>
-<p>定义：它是一个临界变量。用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。<br>
-特点：<br>
-(1).信号量用于进程间同步，若要在进程间传递数据通常结合共享内存。<br>
-(2).信号量基于操作系统的 PV 操作，程序对信号量的操作都是原子操作。<br>
-(3).每次对信号量的 PV 操作不仅限于对信号量值加1或减1，而且可以加减任意正整数。<br>
-(4).支持信号量组。</p>
-<h2 id="6-套接字-socket">6.套接字( socket )</h2>
-<p>介绍：套解字也是一种进程间通信机制（传输层实现端到端的通信），与其他通信机制不同的是，它可用于不同机器间的进程通信。它可以看成是两个网络应用程序进行通信时，各自通信连接中的一个端点。通信时，其中的一个网络应用程序将要传输的一段信息写入它所在主机的Socket中，该Socket通过网络接口卡的传输介质将这段信息发送给另一台主机的Socket中，使这段信息能传送到其他程序中。因此，两个应用程序之间的数据传输要通过套接字来完成。<br>
-socket()函数：socket是一种”打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。<br>
-bind()函数：bind()函数把一个地址族中的特定地址赋给socket。（该函数只有服务器端才需要调用）<br>
-listen()函数：如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。（该函数只有服务器端才需要调用）<br>
-accept()函数：当客户端通过调用connect()函数发送链接请求后。一旦服务器监听到该请求之后，就会调用accept()函数接收请求，这样连接就建立好了，之后就可以开始网络I/O操作了，类同于普通文件的读写I/O操作。（该函数只有服务器端才需要调用）<br>
-connect()函数：客户端如果想发送链接请求，首先需要调用socket()函数，来创建socket描述符，然后就可以调用connect()函数来向服务器端发送请求。 （该函数只有客户端端才需要调用）<br>
-read()、write()等函数：既然一个套接字端点被表示为一个文件描述符，因此只要建立链接，就可以使用为本地文件设计的read和write函数。<br>
-close()函数： 在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
-<h2 id="注">注:</h2>
-<h3 id="缺点">缺点</h3>
-<p>1.无名管道：速度慢，容量有限，只有父子进程能通讯。（需要四次拷贝才能交流数据）<br>
-2.有名管道：任何进程间都能通讯，但速度慢。<br>
-3.消息队列：容量受到系统限制，且要注意第一次读的时候，要考虑上一次没有读完数据的问题<br>
-4.信号量：不能传递复杂消息，只能用来同步<br>
-5.共享内存区：能够很容易控制容量，速度快（只需要两次拷贝），但要保持同步，比如一个进程在写的时候，另一个进程要注意读写的问题，相当于线程中的线程安全，当然，共享内存区同样可以用作线程间通讯，不过没这个必要，线程间本来就已经共享了同一进程内的一块内存</p>
-<h3 id="线程">线程</h3>
-<p>1.是通过共享变量，线程之间通过该变量进行协作通信；<br>
-2.通过队列（本质上也是线程间共享同一块内存）来实现消费者和生产者的模式来进行通信；</p>
-<p>线程同步：保证线程之间协调工作，能互相配合。比如后面的线程需要用到前面线程产生的数据。（一定程度上和线程互斥有相似）（举例生产者消费者问题）<br>
-线程异步：异步可以按规定顺序去执行线程，多用于 比如一个网页信息 ，（你把他分成2个线程或者多个，先读取它的title，时间，作者等等 第二个或者其他进程用于读取数据量较大的正文内容，比如图片）。</p>
+                <h1>openresty入门</h1>
+<h2 id="搭建">搭建</h2>
+<h3 id="安装依赖">安装依赖</h3>
+<p>pcre-devel openssl-devel gcc curl</p>
+<h3 id="下载安装包">下载安装包</h3>
+<p>官网:<br>
+<a href="https://openresty.org/en/download.html" target="_blank" rel="noopener">https://openresty.org/en/download.html</a></p>
+<p>下载最新版</p>
+<pre><code>  wget https://openresty.org/download/openresty-1.19.9.1.tar.gz
+  tar -zxvf openresty-1.19.9.1.tar.gz
+  cd openresty-1.19.9.1/
+  ./configure
+  sudo make -j6
+  sudo make install
+</code></pre>
+<pre><code>要是报
+</code></pre>
+<pre><code>    gmake[1]: cc: Command not found
+</code></pre>
+<p>则是没有cc指令(其实就是gcc)<br>
+可以先看看gcc的位置,再创建软链接</p>
+<pre><code>gccPath=$(which gcc)
+ln -sf $gccPath /bin/cc
+</code></pre>
+<p>再添加环境变量，以及赋权</p>
+<pre><code>echo 'export PATH=$PATH:/usr/local/openresty/bin' &gt;&gt; ~/.bashrc
+sudo chmod +s /usr/local/openresty/bin/openresty
+source ~/.bashrc
+</code></pre>
+<h3 id="开始运行">开始运行</h3>
+<pre><code>openresty
+</code></pre>
+<h2 id="ngnix">ngnix</h2>
+<p>引用自大佬的博客：<br>
+<a href="https://www.cnblogs.com/hanease/p/15890509.html" target="_blank" rel="noopener">https://www.cnblogs.com/hanease/p/15890509.html</a></p>
+<h3 id="基本命令">基本命令</h3>
+<pre><code>nginx -t             检查配置文件是否有语法错误
+nginx -s reload       热加载，重新加载配置文件
+nginx -s stop         快速关闭
+nginx -s quit         等待工作进程处理完成后关闭
+</code></pre>
+<h3 id="默认配置">默认配置</h3>
+<pre><code># 工作进程的数量
+worker_processes  1;
+events {
+    worker_connections  1024; # 每个工作进程连接数
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    # 日志格式
+    log_format  access  '$remote_addr - $remote_user [$time_local] $host &quot;$request&quot; '
+                  '$status $body_bytes_sent &quot;$http_referer&quot; '
+                  '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot; &quot;$clientip&quot;';
+    access_log  /srv/log/nginx/access.log  access; # 日志输出目录
+    gzip  on;
+    sendfile  on;
+
+    # 链接超时时间，自动断开
+    keepalive_timeout  60;
+
+    # 虚拟主机
+    server {
+        listen       8080;
+        server_name  localhost; # 浏览器访问域名
+
+        charset utf-8;
+        access_log  logs/localhost.access.log  access;
+
+        # 路由
+        location / {
+            root   www; # 访问根目录
+            index  index.html index.htm; # 入口文件
+        }
+    }
+
+    # 引入其他的配置文件
+    include servers/*;
+}
+</code></pre>
+<h3 id="Nginx配置参数中文详细说明">Nginx配置参数中文详细说明</h3>
+<pre><code>#定义Nginx运行的用户和用户组
+user www www;
+
+#nginx进程数,建议设置为等于CPU总核心数.
+worker_processes 8;
+
+#全局错误日志定义类型,[ debug | info | notice | warn | error | crit ]
+error_log /var/log/nginx/error.log info;
+
+#进程文件
+pid /var/run/nginx.pid;
+
+#一个nginx进程打开的最多文件描述符数目,理论值应该是最多打开文件数（系统的值ulimit -n）与nginx进程数相除,但
+#是nginx分配请求并不均匀,所以建议与ulimit -n的值保持一致.
+worker_rlimit_nofile 65535;
+
+#工作模式与连接数上限
+events
+{
+  #参考事件模型,use [ kqueue | rtsig | epoll | /dev/poll | select | poll ]; epoll模型是Linux 2.6以上版本内核中的高性能网络I/O模型,如果跑在FreeBSD上面,就用kqueue模型.
+  use epoll;
+
+  #单个进程最大连接数（最大连接数=连接数*进程数）
+  worker_connections 65535;
+}
+
+#设定http服务器
+http
+{
+  include mime.types; #文件扩展名与文件类型映射表
+  default_type application/octet-stream; #默认文件类型
+  #charset utf-8; #默认编码
+  server_names_hash_bucket_size 128; #服务器名字的hash表大小
+  client_header_buffer_size 32k; #上传文件大小限制
+  large_client_header_buffers 4 64k; #设定请求缓
+  client_max_body_size 8m; #设定请求缓
+
+  # 开启目录列表访问,合适下载服务器,默认关闭.
+  autoindex on; # 显示目录
+  autoindex_exact_size on; # 显示文件大小 默认为on,显示出文件的确切大小,单位是bytes 改为off后,显示出文件的大概大小,单位是kB或者MB或者GB
+  autoindex_localtime on; # 显示文件时间 默认为off,显示的文件时间为GMT时间 改为on后,显示的文件时间为文件的服务器时间
+
+  sendfile on; # 开启高效文件传输模式,sendfile指令指定nginx是否调用sendfile函数来输出文件,对于普通应用设为 on,如果用来进行下载等应用磁盘IO重负载应用,可设置为off,以平衡磁盘与网络I/O处理速度,降低系统的负载.注意：如果图片显示不正常把这个改成off.
+  tcp_nopush on; # 防止网络阻塞
+  tcp_nodelay on; # 防止网络阻塞
+
+  keepalive_timeout 120; # (单位s)设置客户端连接保持活动的超时时间,在超过这个时间后服务器会关闭该链接
+
+  # FastCGI相关参数是为了改善网站的性能：减少资源占用,提高访问速度.下面参数看字面意思都能理解.
+  fastcgi_connect_timeout 300;
+  fastcgi_send_timeout 300;
+  fastcgi_read_timeout 300;
+  fastcgi_buffer_size 64k;
+  fastcgi_buffers 4 64k;
+  fastcgi_busy_buffers_size 128k;
+  fastcgi_temp_file_write_size 128k;
+
+  # gzip模块设置
+  gzip on; #开启gzip压缩输出
+  gzip_min_length 1k; #允许压缩的页面的最小字节数,页面字节数从header偷得content-length中获取.默认是0,不管页面多大都进行压缩.建议设置成大于1k的字节数,小于1k可能会越压越大
+  gzip_buffers 4 16k; #表示申请4个单位为16k的内存作为压缩结果流缓存,默认值是申请与原始数据大小相同的内存空间来存储gzip压缩结果
+  gzip_http_version 1.1; #压缩版本（默认1.1,目前大部分浏览器已经支持gzip解压.前端如果是squid2.5请使用1.0）
+  gzip_comp_level 2; #压缩等级.1压缩比最小,处理速度快.9压缩比最大,比较消耗cpu资源,处理速度最慢,但是因为压缩比最大,所以包最小,传输速度快
+  gzip_types text/plain application/x-javascript text/css application/xml;
+  #压缩类型,默认就已经包含text/html,所以下面就不用再写了,写上去也不会有问题,但是会有一个warn.
+  gzip_vary on;#选项可以让前端的缓存服务器缓存经过gzip压缩的页面.例如:用squid缓存经过nginx压缩的数据
+
+  #开启限制IP连接数的时候需要使用
+  #limit_zone crawler $binary_remote_addr 10m;
+
+  ##upstream的负载均衡,四种调度算法(下例主讲)##
+
+  #虚拟主机的配置
+  server
+  {
+    # 监听端口
+    listen 80;
+    # 域名可以有多个,用空格隔开
+    server_name ably.com;
+    # HTTP 自动跳转 HTTPS
+    rewrite ^(.*) https://$server_name$1 permanent;
+  }
+
+  server
+  {
+    # 监听端口 HTTPS
+    listen 443 ssl;
+    server_name ably.com;
+
+    # 配置域名证书
+    ssl_certificate C:\WebServer\Certs\certificate.crt;
+    ssl_certificate_key C:\WebServer\Certs\private.key;
+    ssl_session_cache shared:SSL:1m;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv2 SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    ssl_prefer_server_ciphers on;
+
+    index index.html index.htm index.php;
+    root /data/www/;
+    location ~ .*\.(php|php5)?$
+    {
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    include fastcgi.conf;
+    }
+
+    # 配置地址拦截转发，解决跨域验证问题
+    location /oauth/{
+    proxy_pass https://localhost:13580/oauth/;
+    proxy_set_header HOST $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    # 图片缓存时间设置
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+    expires 10d;
+    }
+
+    # JS和CSS缓存时间设置
+    location ~ .*\.(js|css)?$ {
+    expires 1h;
+    }
+
+    # 日志格式设定
+    log_format access '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '
+    '$status $body_bytes_sent &quot;$http_referer&quot; '
+    '&quot;$http_user_agent&quot; $http_x_forwarded_for';
+    # 定义本虚拟主机的访问日志
+    access_log /var/log/nginx/access.log access;
+
+    # 设定查看Nginx状态的地址.StubStatus模块能够获取Nginx自上次启动以来的工作状态，此模块非核心模块，需要在Nginx编译安装时手工指定才能使用
+    location /NginxStatus {
+      stub_status on;
+      access_log on;
+      auth_basic &quot;NginxStatus&quot;;
+      auth_basic_user_file conf/htpasswd;
+      #htpasswd文件的内容可以用apache提供的htpasswd工具来产生.
+    }
+  }
+}
+</code></pre>
+<h3 id="Nginx多台服务器实现负载均衡：">Nginx多台服务器实现负载均衡：</h3>
+<h4 id="1-Nginx负载均衡服务器：">1.Nginx负载均衡服务器：</h4>
+<p>IP：192.168.0.4（Nginx-Server）</p>
+<h4 id="2-Web服务器列表：">2.Web服务器列表：</h4>
+<p>Web1:192.168.0.5（Nginx-Node1/Nginx-Web1） ；Web2:192.168.0.7（Nginx-Node2/Nginx-Web2）</p>
+<h4 id="3-实现目的：用户访问Nginx-Server（“http-mongo-demo-com-8888”）时，通过Nginx负载均衡到Web1和Web2服务器">3.实现目的：用户访问Nginx-Server（“<a href="http://mongo.demo.com:8888" target="_blank" rel="noopener">http://mongo.demo.com:8888</a>”）时，通过Nginx负载均衡到Web1和Web2服务器</h4>
+<p>Nginx负载均衡服务器的nginx.conf配置注释如下：</p>
+<pre><code>events
+{
+  use epoll;
+  worker_connections 65535;
+}
+http
+{
+  ##upstream的负载均衡,四种调度算法##
+  #调度算法1:轮询.每个请求按时间顺序逐一分配到不同的后端服务器,如果后端某台服务器宕机,故障系统被自动剔除,
+  #使用户访问不受影响
+  upstream webhost {
+  server 192.168.0.5:6666 ;
+  server 192.168.0.7:6666 ;
+}
+#调度算法2:weight(权重).可以根据机器配置定义权重.权重越高被分配到的几率越大
+upstream webhost {
+  server 192.168.0.5:6666 weight=2;
+  server 192.168.0.7:6666 weight=3;
+}
+#调度算法3:ip_hash. 每个请求按访问IP的hash结果分配,这样来自同一个IP的访客固定访问一个后端服务器,有效解决了
+#动态网页存在的session共享问题
+upstream webhost {
+  ip_hash;
+    server 192.168.0.5:6666 ;
+    server 192.168.0.7:6666 ;
+  }
+  #调度算法4:url_hash(需安装第三方插件).此方法按访问url的hash结果来分配请求,使每个url定向到同一个后端服务器,
+  #可以进一步提高后端缓存服务器的效率.Nginx本身是不支持url_hash的,如果需要使用这种调度算法,必须安装Nginx 的
+  #hash软件包
+  upstream webhost {
+    server 192.168.0.5:6666 ;
+    server 192.168.0.7:6666 ;
+    hash $request_uri;
+  }
+  #调度算法5:fair(需安装第三方插件).这是比上面两个更加智能的负载均衡算法.此种算法可以依据页面大小和加载时间长
+  #短智能地进行负载均衡,也就是根据后端服务器的响应时间来分配请求,响应时间短的优先分配.Nginx本身是不支持fair的,
+  #如果需要使用这种调度算法,必须下载Nginx的upstream_fair模块
+
+  #虚拟主机的配置(采用调度算法3:ip_hash)
+  server
+  {
+    listen 80;
+    server_name mongo.demo.com;
+    #对 &quot;/&quot; 启用反向代理
+    location / {
+      proxy_pass http://webhost;
+      proxy_redirect off;
+      proxy_set_header X-Real-IP $remote_addr;
+      #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      #以下是一些反向代理的配置,可选.
+      proxy_set_header Host $host;
+      client_max_body_size 10m; #允许客户端请求的最大单文件字节数
+      client_body_buffer_size 128k; #缓冲区代理缓冲用户端请求的最大字节数,
+      proxy_connect_timeout 90; #nginx跟后端服务器连接超时时间(代理连接超时)
+      proxy_send_timeout 90; #后端服务器数据回传时间(代理发送超时)
+      proxy_read_timeout 90; #连接成功后,后端服务器响应时间(代理接收超时)
+      proxy_buffer_size 4k; #设置代理服务器（nginx）保存用户头信息的缓冲区大小
+      proxy_buffers 4 32k; #proxy_buffers缓冲区,网页平均在32k以下的设置
+      proxy_busy_buffers_size 64k; #高负荷下缓冲大小（proxy_buffers*2）
+      proxy_temp_file_write_size 64k;
+      #设定缓存文件夹大小,大于这个值,将从upstream服务器传
+    }
+  }
+}
+</code></pre>
+<h3 id="负载均衡操作演示如下：">负载均衡操作演示如下：</h3>
+<p>操作对象：192.168.0.4（Nginx-Server）</p>
+<h4 id="创建文件夹准备存放配置文件">创建文件夹准备存放配置文件</h4>
+<p>mkdir -p /opt/confs<br>
+vim /opt/confs/nginx.conf</p>
+<h4 id="编辑内容如下：">编辑内容如下：</h4>
+<pre><code>events
+{
+  use epoll;
+  worker_connections 65535;
+}
+
+http
+{
+  upstream webhost {
+    ip_hash;
+    server 192.168.0.5:6666 ;
+    server 192.168.0.7:6666 ;
+  }
+
+  server
+  {
+    listen 80;
+    server_name mongo.demo.com;
+    location / {
+      proxy_pass http://webhost;
+      proxy_redirect off;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $host;
+      client_max_body_size 10m;
+      client_body_buffer_size 128k;
+      proxy_connect_timeout 90;
+      proxy_send_timeout 90;
+      proxy_read_timeout 90;
+      proxy_buffer_size 4k;
+      proxy_buffers 4 32k;
+      proxy_busy_buffers_size 64k;
+      proxy_temp_file_write_size 64k;
+    }
+  }
+}
+</code></pre>
 
             </div>
             <hr/>
@@ -492,7 +762,7 @@ close()函数： 在服务器与客户端建立连接之后，会进行一些读
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2023/03/28/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/">https://xucanxx.github.io/2023/03/28/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/</a>
+                    <a href="https://xucanxx.github.io/2023/07/04/openresty%E5%85%A5%E9%97%A8/">https://xucanxx.github.io/2023/07/04/openresty%E5%85%A5%E9%97%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -530,8 +800,8 @@ close()函数： 在服务器与客户端建立连接之后，会进行一些读
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">果子私房笔记</span>
+                                <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">笔记</span>
                                 </a>
                             
                         </div>
@@ -702,7 +972,7 @@ close()函数： 在服务器与客户端建立连接之后，会进行一些读
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2023-03-28T09-12-00',
+        id: '2023-07-04T11-44-09',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -728,9 +998,10 @@ close()函数： 在服务器与客户端建立连接之后，会进行一些读
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/07/04/openresty%E5%85%A5%E9%97%A8/">
                     <div class="card-image">
@@ -756,9 +1027,9 @@ https://openresty.org/en/download.html
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -771,6 +1042,7 @@ https://openresty.org/en/download.html
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -789,31 +1061,29 @@ https://openresty.org/en/download.html
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/">
+                <a href="/2023/03/28/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="果子私房笔记-进程">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="果子私房笔记-进程和线程的通信">
                         
-                        <span class="card-title">果子私房笔记-进程</span>
+                        <span class="card-title">果子私房笔记-进程和线程的通信</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进程
-1.什么是进程？
-程序：程序是指令和数据的集合
-进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的基本单位
-2.如何操作进程？
-设立了PCB (进程控制块），其内容如下。
-标示符：描述本进程的唯一标示符，用来区别其他进程。
+                            进程和线程的通信
+进程间通讯方式有:管道,信号,信号量,消息队列,共享内存,套接字(socket)共六种
+1.管道
+本质：管道的本质其实就是内核中的一块缓冲区，多个进程通过访问同一个缓冲区就可以实现进程间的通信。
+分类：匿名管道，命名管道
 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-28
                             </span>
                         <span class="publish-author">
                             
