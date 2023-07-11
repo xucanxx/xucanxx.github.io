@@ -1249,6 +1249,51 @@ func main() {
       </tags>
   </entry>
   <entry>
+    <title>kafka日常操作</title>
+    <url>/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1>kafka日常操作</h1>
+<h2 id="kafka查看数据">kafka查看数据</h2>
+<h3 id="查看所有topic">查看所有topic</h3>
+<pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看所有group">查看所有group</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
+</code></pre>
+<h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3>
+<pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
+</code></pre>
+<h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3>
+<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
+</code></pre>
+<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
+</code></pre>
+<h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3>
+<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
+</code></pre>
+<h2 id="kafka创建指令">kafka创建指令</h2>
+<h3 id="kafka创建topic">kafka创建topic</h3>
+<pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
+</code></pre>
+<h2 id="kafka启动命令">kafka启动命令</h2>
+<h3 id="前台启动">前台启动</h3>
+<pre><code>./bin/kafka-server-start.sh ./config/server.properties
+</code></pre>
+<h3 id="后台启动">后台启动</h3>
+<pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
+</code></pre>
+<h2 id="kafka关闭命令">kafka关闭命令</h2>
+<pre><code>./bin/kafka-server-stop.sh
+</code></pre>
+]]></content>
+      <categories>
+        <category>kafka</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>openresty入门</title>
     <url>/2023/07/04/openresty%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1>openresty入门</h1>
@@ -1302,51 +1347,6 @@ ngx_http_lua_content_handler -&gt; ngx_http_lua_content_handler_file-&gt; ngx_ht
 ]]></content>
       <categories>
         <category>openresty</category>
-      </categories>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kafka日常操作</title>
-    <url>/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1>kafka日常操作</h1>
-<h2 id="kafka查看数据">kafka查看数据</h2>
-<h3 id="查看所有topic">查看所有topic</h3>
-<pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看所有group">查看所有group</h3>
-<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3>
-<pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
-</code></pre>
-<h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3>
-<pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
-</code></pre>
-<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3>
-<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
-</code></pre>
-<h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3>
-<pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
-</code></pre>
-<h2 id="kafka创建指令">kafka创建指令</h2>
-<h3 id="kafka创建topic">kafka创建topic</h3>
-<pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
-</code></pre>
-<h2 id="kafka启动命令">kafka启动命令</h2>
-<h3 id="前台启动">前台启动</h3>
-<pre><code>./bin/kafka-server-start.sh ./config/server.properties
-</code></pre>
-<h3 id="后台启动">后台启动</h3>
-<pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
-</code></pre>
-<h2 id="kafka关闭命令">kafka关闭命令</h2>
-<pre><code>./bin/kafka-server-stop.sh
-</code></pre>
-]]></content>
-      <categories>
-        <category>kafka</category>
       </categories>
       <tags>
         <tag>笔记</tag>
@@ -2597,64 +2597,6 @@ ate-动词后缀
       </tags>
   </entry>
   <entry>
-    <title>果子私房笔记-SSL握手过程</title>
-    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h1>SSL握手过程</h1>
-<h2 id="本质">本质</h2>
-<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
-<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
-<h2 id="过程">过程</h2>
-<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
-2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
-3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
-4.服务器使用私钥对随机数字3解密。<br>
-5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-TCP握手挥手数据传输</title>
-    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
-    <content><![CDATA[<h1>TCP握手挥手数据传输</h1>
-<h2 id="三次握手过程">三次握手过程</h2>
-<h3 id="第一次握手">第一次握手</h3>
-<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
-<h3 id="第二次握手">第二次握手</h3>
-<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
-<h3 id="第三次握手">第三次握手</h3>
-<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
-<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
-ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
-<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
-<h2 id="传输数据过程">传输数据过程</h2>
-<h3 id="a-超时重传：">a.超时重传：</h3>
-<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
-<h3 id="b-快速重传：">b.快速重传：</h3>
-<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
-<h3 id="c-流量控制：">c.流量控制：</h3>
-<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
-<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
-<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
-<h2 id="四次挥手过程">四次挥手过程</h2>
-<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
-<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
-<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
-<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
-<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>果子私房笔记-TCP与UDP的区别</title>
     <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h1>TCP与UDP的区别</h1>
@@ -2728,6 +2670,64 @@ ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给
 <p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
 <p>问：.tcp如何可靠<br>
 应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-SSL握手过程</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1>SSL握手过程</h1>
+<h2 id="本质">本质</h2>
+<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
+<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
+<h2 id="过程">过程</h2>
+<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
+2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
+3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
+4.服务器使用私钥对随机数字3解密。<br>
+5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-TCP握手挥手数据传输</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
+    <content><![CDATA[<h1>TCP握手挥手数据传输</h1>
+<h2 id="三次握手过程">三次握手过程</h2>
+<h3 id="第一次握手">第一次握手</h3>
+<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
+<h3 id="第二次握手">第二次握手</h3>
+<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
+<h3 id="第三次握手">第三次握手</h3>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
+<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
+ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
+<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="传输数据过程">传输数据过程</h2>
+<h3 id="a-超时重传：">a.超时重传：</h3>
+<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
+<h3 id="b-快速重传：">b.快速重传：</h3>
+<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
+<h3 id="c-流量控制：">c.流量控制：</h3>
+<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
+<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
+<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
+<h2 id="四次挥手过程">四次挥手过程</h2>
+<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
+<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
+<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
+<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
 ]]></content>
       <categories>
         <category>计算机网络</category>
