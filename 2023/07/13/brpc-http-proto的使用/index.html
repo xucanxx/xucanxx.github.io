@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C++11中的constexpr, 咸鱼">
+    <meta name="keywords" content="brpc-http:proto的使用, 咸鱼">
     <meta name="description" content="I good vegetable a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>C++11中的constexpr | 咸鱼</title>
+    <title>brpc-http:proto的使用 | 咸鱼</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/libs/awesome/css/all.css">
@@ -224,12 +224,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">C++11中的constexpr</h1>
+                    <h1 class="description center-align post-title">brpc-http:proto的使用</h1>
                 </div>
             </div>
         </div>
@@ -354,12 +354,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">笔记</span>
+                            <a href="/tags/brpc/">
+                                <span class="chip bg-color">brpc</span>
                             </a>
                         
-                            <a href="/tags/%E5%9F%BA%E7%A1%80/">
-                                <span class="chip bg-color">基础</span>
+                            <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                                <span class="chip bg-color">框架</span>
                             </a>
                         
                     </div>
@@ -370,8 +370,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/C/" class="post-category">
-                                C++
+                            <a href="/categories/c/" class="post-category">
+                                c++
                             </a>
                         
                     </div>
@@ -399,147 +399,116 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1>C++11中的constexpr</h1>
-<p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866" target="_blank" rel="noopener">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p>
-<h2 id="常量表达式">常量表达式</h2>
-<pre><code>值不会改变且在编译期就能得到计算结果的表达式。
-字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。
-</code></pre>
-<h2 id="constexpr-与-const">constexpr 与 const</h2>
-<p>在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br>
-但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰</p>
-<pre class=" language-language-C++"><code class="language-language-C++">// error
-void func1(constexpr int p) {
-
-}
-
-
-// ok
-void func2(const int p) {
-
-}
-
-
-void func3(const int p) {
-   int a[p];//error ,此时p并非常量表达式，只是只读参数
-}
-
-</code></pre>
-<h2 id="用constexpr修饰函数">用constexpr修饰函数</h2>
-<p>constexpr 并不能修改任意函数的返回值，时这些函数成为常量表达式函数，必须要满足以下几个条件：<br>
-（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）</p>
-<h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。">1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3>
-<pre class=" language-language-C++"><code class="language-language-C++">// error，不是常量表达式函数
-constexpr void func1()
-{
-    int a = 100;
-    cout << "a: " << a << endl;
-}
- 
-// error，不是常量表达式函数
-constexpr int func2()
-{
-    int a = 100;
-    return a;
-}
-
-// ok
-constexpr int func3()
-{
-    constexpr int a = 100;
-    return a;
-}
- 
-</code></pre>
-<p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>
-函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求</p>
-<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。">2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3>
-<pre class=" language-language-C++"><code class="language-language-C++">// error
-constexpr int func1()
-{
-    constexpr int a = 100;
-    constexpr int b = 10;
-    for (int i = 0; i < b; ++i)
-    {
-        cout << "i: " << i << endl;
+                <h1>brpc-http:proto的使用</h1>
+<p>官方文档:<br>
+<a href="https://brpc.apache.org/zh/docs/client/access-grpc/" target="_blank" rel="noopener">https://brpc.apache.org/zh/docs/client/access-grpc/</a><br>
+issues:<br>
+<a href="https://github.com/apache/brpc/issues/1647" target="_blank" rel="noopener">https://github.com/apache/brpc/issues/1647</a></p>
+<p>他实际上会先解析http的头部的 Content-Type 字段<br>
+当Content-Type 中的值为,application/x-protobuf,application/proto,application/grpc 时,他将以protobuf来解析http的包体<br>
+而其他情况将会 将其以其他情况解析（默认json）<br>
+源码片段</p>
+<pre class=" language-language-c++"><code class="language-language-c++"> if (ct.starts_with("grpc")) {
+        if (ct.size() == (size_t)4 || ct[4] == ';') {
+            if (is_grpc_ct) {
+                *is_grpc_ct = true;
+            }
+            // assume that the default content type for grpc is proto.
+            return HTTP_CONTENT_PROTO;
+        } else if (ct[4] == '+') {
+            ct.remove_prefix(5);
+            if (is_grpc_ct) {
+                *is_grpc_ct = true;
+            }
+        }
+        // else don't change ct. Note that "grpcfoo" is a valid but non-grpc
+        // content-type in the sense of format.
     }
-    return a + b;
-}
- 
-// ok
-constexpr int func2()
-{
-    using mytype = int;
-    constexpr mytype a = 100;
-    constexpr mytype b = 10;
-    constexpr mytype c = a * b;
-    return c - (a + b);
-}
- 
-</code></pre>
-<h2 id="修饰模板函数">修饰模板函数</h2>
-<p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p>
-<pre class=" language-language-C++"><code class="language-language-C++">
-#include< iostream >
-using namespace std;
- 
-struct Person {
-    const char* name;
-    int age;
-};
- 
-// 定义函数模板
-template< typename T >
-constexpr T dispaly(T t) {
-    return t;
-}
- 
-int main()
-{
-    struct Person p { "luffy", 19 };
-    //普通函数
-    struct Person ret = dispaly(p);
-    cout << "luffy's name: " << ret.name << ", age: " << ret.age << endl;
- 
-    //常量表达式函数
-    constexpr int ret1 = dispaly(250);
-    cout << ret1 << endl;
- 
-    constexpr struct Person p1 { "luffy", 19 };
-    constexpr struct Person p2 = dispaly(p1);
-    cout << "luffy's name: " << p2.name << ", age: " << p2.age << endl;
-    return 0;
-}
-</code></pre>
-<p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p>
-<p>struct Person ret = dispaly§; 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>
-constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>
-constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的</p>
-<h2 id="修饰构造函数">修饰构造函数</h2>
-<p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p>
-<pre class=" language-language-C++"><code class="language-language-C++">#include < iostream >
-using namespace std;
- 
-struct Person {
-    constexpr Person(const char* p, int age) :name(p), age(age)
-    {
+
+    HttpContentType type = HTTP_CONTENT_OTHERS;
+    if (ct.starts_with("json")) {
+        type = HTTP_CONTENT_JSON;
+        ct.remove_prefix(4);
+    } else if (ct.starts_with("proto-text")) {
+        type = HTTP_CONTENT_PROTO_TEXT;
+        ct.remove_prefix(10);
+    } else if (ct.starts_with("proto")) {
+        type = HTTP_CONTENT_PROTO;
+        ct.remove_prefix(5);
+    } else if (ct.starts_with("x-protobuf")) {
+        type = HTTP_CONTENT_PROTO;
+        ct.remove_prefix(10);
+    } else {
+        return HTTP_CONTENT_OTHERS;
     }
-    const char* name;
-    int age;
-};
- 
-int main()
-{
-    constexpr struct Person p1("luffy", 19);
-    cout << "luffy's name: " << p1.name << ", age: " << p1.age << endl;
-    return 0;
-}
- 
+    return (ct.empty() || ct.front() == ';') ? type : HTTP_CONTENT_OTHERS;
 </code></pre>
-<h2 id="注">注:</h2>
-<h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定">1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3>
-<h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。">2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3>
-<h3 id="3-constexpr函数都是inline函数">3.constexpr函数都是inline函数</h3>
+<h2 id="http-proto代码示例">http:proto代码示例</h2>
+<p>代码示例</p>
+<pre class=" language-language-c++"><code class="language-language-c++">    bool send(const std::string& url,const std::string& data){
+        brpc::Channel channel;
+        brpc::ChannelOptions options;
+        options.protocol = brpc::PROTOCOL_HTTP;//设置协议为http1.*
+        options.timeout_ms = FLAGS_timeout_ms/*milliseconds*/;
+        options.max_retry = 3;
+
+        if (channel.Init(url, FLAGS_load_balancer.c_str(), &options) != 0) {
+            LOG(ERROR) << "Fail to initialize channel";
+            return -1;
+        }
+
+        brpc::Controller cntl;
+        cntl.http_request().SetHeader("Content-Type","application/x-protobuf");
+        cntl.http_request().uri() = url;//这个操作只会读取到url后面的path
+        if (!data.empty()) {
+            cntl.http_request().set_method(brpc::HTTP_METHOD_POST);
+            cntl.request_attachment().append(data);
+        }
+        channel.CallMethod(NULL, &cntl, NULL, NULL, NULL);
+        if (cntl.Failed()) {
+            std::cerr << cntl.ErrorText() << std::endl;
+            return -1;
+        }
+        // If -http_verbose is on, brpc already prints the response to stderr.
+        if (!brpc::FLAGS_http_verbose) {
+            std::cout << cntl.response_attachment() << std::endl;
+        }
+        return 0;
+    }
+</code></pre>
+<h2 id="h2-proto代码示例">h2:proto代码示例</h2>
+<p>代码示例</p>
+<pre class=" language-language-c++"><code class="language-language-c++">    bool send(const std::string& url,const std::string& data){
+        brpc::Channel channel;
+        brpc::ChannelOptions options;
+        options.protocol = brpc::PROTOCOL_H2;//设置协议为http2.0
+        options.timeout_ms = FLAGS_timeout_ms/*milliseconds*/;
+        options.max_retry = 3;
+
+        if (channel.Init(url, FLAGS_load_balancer.c_str(), &options) != 0) {
+            LOG(ERROR) << "Fail to initialize channel";
+            return -1;
+        }
+
+        brpc::Controller cntl;
+        cntl.http_request().SetHeader("Content-Type","application/x-protobuf");
+        cntl.http_request().uri() = url;//这个操作只会读取到url后面的path
+        if (!data.empty()) {
+            cntl.http_request().set_method(brpc::HTTP_METHOD_POST);
+            cntl.request_attachment().append(data);
+        }
+        channel.CallMethod(NULL, &cntl, NULL, NULL, NULL);
+        if (cntl.Failed()) {
+            std::cerr << cntl.ErrorText() << std::endl;
+            return -1;
+        }
+        // If -http_verbose is on, brpc already prints the response to stderr.
+        if (!brpc::FLAGS_http_verbose) {
+            std::cout << cntl.response_attachment() << std::endl;
+        }
+        return 0;
+    }
+</code></pre>
 
             </div>
             <hr/>
@@ -565,7 +534,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xucanxx.github.io/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/">https://xucanxx.github.io/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/</a>
+                    <a href="https://xucanxx.github.io/2023/07/13/brpc-http-proto%E7%9A%84%E4%BD%BF%E7%94%A8/">https://xucanxx.github.io/2023/07/13/brpc-http-proto%E7%9A%84%E4%BD%BF%E7%94%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -603,12 +572,12 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">笔记</span>
+                                <a href="/tags/brpc/">
+                                    <span class="chip bg-color">brpc</span>
                                 </a>
                             
-                                <a href="/tags/%E5%9F%BA%E7%A1%80/">
-                                    <span class="chip bg-color">基础</span>
+                                <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                                    <span class="chip bg-color">框架</span>
                                 </a>
                             
                         </div>
@@ -779,7 +748,7 @@ int main()
         repo: 'xucanxx.github.io',
         owner: 'xucanxx',
         admin: '"xucanxx"',
-        id: '2022-12-14T01-42-14',
+        id: '2023-07-13T17-07-39',
         proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
@@ -805,50 +774,56 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                <a href="/2023/07/13/brpc-http-proto%E7%9A%84%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="果子私房笔记-http与https的区别">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/5.jpg" class="responsive-img" alt="brpc-http:proto的使用">
                         
-                        <span class="card-title">果子私房笔记-http与https的区别</span>
+                        <span class="card-title">brpc-http:proto的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            http与https的区别
-HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头
-HTTP是不安全的，而HTTPS是安全的
-HTTP标准端口是80 ，而HTTPS的标准端口是443
-在OSI网络模型中，HT
+                            brpc-http:proto的使用
+官方文档:
+https://brpc.apache.org/zh/docs/client/access-grpc/
+issues:
+https://github.com/apache/brpc/issu
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    计算机网络
+                            <a href="/categories/c/" class="post-category">
+                                    c++
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">果子私房笔记</span>
+                    <a href="/tags/brpc/">
+                        <span class="chip bg-color">brpc</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A1%86%E6%9E%B6/">
+                        <span class="chip bg-color">框架</span>
                     </a>
                     
                 </div>
@@ -862,37 +837,36 @@ HTTP标准端口是80 ，而HTTPS的标准端口是443
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/">
+                <a href="/2023/07/12/code-server%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2/">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/8.jpg" class="responsive-img" alt="kafka日常操作">
+                        <img src="https://cdn.jsdelivr.net/gh/xucanxx/xucanxx.github.io/medias/featureimages/15.jpg" class="responsive-img" alt="code-server移动端部署">
                         
-                        <span class="card-title">kafka日常操作</span>
+                        <span class="card-title">code-server移动端部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            kafka日常操作
-kafka查看数据
-查看所有topic
-./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-
-查看所有group
-./kafka-consumer-gro
+                            code-server 安卓手机termux环境搭建
+在这里是使用的termux这个app。如果手机没有root会有一些限制，比如说无法挂载磁盘，无法访问手机文件。
+但是跑一些服务是完全没有问题的。
+先把termux下载好
+安装ssh
+查看
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/kafka/" class="post-category">
-                                    kafka
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
                                 </a>
                             
                             
@@ -902,8 +876,8 @@ kafka查看数据
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">笔记</span>
+                    <a href="/tags/%E7%9E%8E%E7%8E%A9/">
+                        <span class="chip bg-color">瞎玩</span>
                     </a>
                     
                 </div>
