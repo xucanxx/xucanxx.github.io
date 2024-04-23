@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2024-04-23T09:30:43.333Z</updated>
+  <updated>2024-04-23T09:32:40.243Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://xucanxx.github.io/2024/04/16/%E6%83%B0%E6%80%A7%E8%BF%90%E7%AE%97/"/>
     <id>https://xucanxx.github.io/2024/04/16/%E6%83%B0%E6%80%A7%E8%BF%90%E7%AE%97/</id>
     <published>2024-04-16T08:33:51.000Z</published>
-    <updated>2024-04-23T09:30:43.333Z</updated>
+    <updated>2024-04-23T09:32:40.243Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/53750888" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53750888</a></p>]]></content>
     
@@ -42,7 +42,7 @@
     <link href="https://xucanxx.github.io/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>https://xucanxx.github.io/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
     <published>2024-01-18T02:24:40.000Z</published>
-    <updated>2024-01-18T02:24:40.937Z</updated>
+    <updated>2024-04-23T09:32:40.247Z</updated>
     
     
     
@@ -55,7 +55,7 @@
     <link href="https://xucanxx.github.io/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/"/>
     <id>https://xucanxx.github.io/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/</id>
     <published>2023-12-23T02:30:21.000Z</published>
-    <updated>2024-04-23T08:18:31.091Z</updated>
+    <updated>2024-04-23T09:32:40.259Z</updated>
     
     <content type="html"><![CDATA[<h1>链接调试符号</h1><p>调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令</p>]]></content>
     
@@ -81,17 +81,19 @@
     <link href="https://xucanxx.github.io/2023/12/06/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/"/>
     <id>https://xucanxx.github.io/2023/12/06/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</id>
     <published>2023-12-06T07:07:40.000Z</published>
-    <updated>2024-04-23T08:18:11.325Z</updated>
+    <updated>2024-04-23T09:45:38.106Z</updated>
     
-    <content type="html"><![CDATA[<h1>惊群效应</h1><h2 id="惊群问题">惊群问题</h2><pre><code>惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。</code></pre><h2 id="解决办法">解决办法</h2><ol><li>不希望把所有进程都唤醒，就采用定点唤醒某一个进程的做法<ul><li>比如说C++在std::condition_variable满足条件，线程唤起时，其实际上并不会唤起所有等待的线程，而是随机唤起一个正在等待的线程。这样做的达到的结果跟唤起所有线程一起争抢锁资源的结果一样，但是可以很大程度上避免系统上下报文的切换</li></ul></li><li>尽量避免进程上下文切换。<ul><li>采用合适的任务分配策略，减少正在等待线程的数量</li></ul></li></ol><h1>参考资料</h1><p><a href="https://zh.wikipedia.org/wiki/%E6%83%8A%E7%BE%A4%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/惊群问题</a></p><h1>拓展资料</h1><h2 id="nginx是如何解决惊群效应的">nginx是如何解决惊群效应的</h2><p><a href="https://segmentfault.com/a/1190000044210775" target="_blank" rel="noopener">https://segmentfault.com/a/1190000044210775</a></p>]]></content>
+    <content type="html"><![CDATA[<h1>惊群效应</h1><h2 id="惊群问题">惊群问题</h2><ul><li>惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。</li></ul><h2 id="解决办法">解决办法</h2><ol><li>不希望把所有进程都唤醒，就采用定点唤醒某一个进程的做法<ul><li>比如说C++在std::condition_variable满足条件，线程唤起时，其实际上并不会唤起所有等待的线程，而是随机唤起一个正在等待的线程。这样做的达到的结果跟唤起所有线程一起争抢锁资源的结果一样，但是可以很大程度上避免系统上下报文的切换</li></ul></li><li>尽量避免进程上下文切换。<ul><li>采用合适的任务分配策略，减少正在等待线程的数量</li></ul></li></ol><h1>参考资料</h1><p><a href="https://zh.wikipedia.org/wiki/%E6%83%8A%E7%BE%A4%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/惊群问题</a></p><h1>拓展资料</h1><h2 id="nginx是如何解决惊群效应的">nginx是如何解决惊群效应的</h2><p><a href="https://segmentfault.com/a/1190000044210775" target="_blank" rel="noopener">https://segmentfault.com/a/1190000044210775</a></p>]]></content>
     
     
       
       
     <summary type="html">&lt;h1&gt;惊群效应&lt;/h1&gt;
 &lt;h2 id=&quot;惊群问题&quot;&gt;惊群问题&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。
-&lt;/code&gt;&lt;/</summary>
+&lt;ul&gt;
+&lt;li&gt;惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。&lt;/li&gt;
+&lt;/ul&gt;
+</summary>
       
     
     
@@ -108,7 +110,7 @@
     <link href="https://xucanxx.github.io/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/"/>
     <id>https://xucanxx.github.io/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/</id>
     <published>2023-12-06T07:01:58.000Z</published>
-    <updated>2024-04-23T09:31:39.556Z</updated>
+    <updated>2024-04-23T09:32:40.255Z</updated>
     
     <content type="html"><![CDATA[<h1>虚假唤醒</h1><pre><code>https://zhuanlan.zhihu.com/p/652823880</code></pre>]]></content>
     
@@ -135,7 +137,7 @@
     <link href="https://xucanxx.github.io/2023/09/25/%E6%9E%84%E9%80%A0%E6%97%B6%E6%9C%89%E6%97%A0-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>https://xucanxx.github.io/2023/09/25/%E6%9E%84%E9%80%A0%E6%97%B6%E6%9C%89%E6%97%A0-%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
     <published>2023-09-25T02:48:50.000Z</published>
-    <updated>2024-01-09T03:21:45.632Z</updated>
+    <updated>2024-04-23T09:32:40.251Z</updated>
     
     <content type="html"><![CDATA[<h1>构造时有无()的区别</h1><p>当有()时，会将申请到的成员变量的空间初始化，没有时则不会</p><pre class=" language-language-c++"><code class="language-language-c++">#include <iostream>#include <stdio.h>using namespace std;class foo {public://foo() { cout << "foo's constructor" << endl; }//~foo() { cout << "foo's destructor" << endl; }int a;};int main() {char buf[sizeof(foo)];foo* a = new (buf) foo;//不会将申请到的int空间初始化char buf2[sizeof(foo)];foo* b = new (buf2) foo();//则会将申请到的int空间初始化为0。printf("%d %d\n", a->a, b->a);return 0;}</code></pre>]]></content>
     

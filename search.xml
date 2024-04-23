@@ -1196,90 +1196,6 @@ code-server
       </tags>
   </entry>
   <entry>
-    <title>dp基础：poj1887</title>
-    <url>/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</url>
-    <content><![CDATA[<h1>题目</h1>
-<p>最长不上升子序列</p>
-<h2 id="Input">Input</h2>
-<p>所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5</p>
-<h2 id="Output">Output</h2>
-<p>每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<p>389<br>
-207<br>
-155<br>
-300<br>
-299<br>
-170<br>
-158<br>
-65<br>
--1<br>
-23<br>
-34<br>
-21<br>
--1<br>
--1</p>
-<h3 id="Output-2">Output</h3>
-<p>Test #1:<br>
- maximum possible interceptions: 6</p>
-<p>Test #2:<br>
- maximum possible interceptions: 2</p>
-<h2 id="代码">代码</h2>
-<pre class=" language-language-c++"><code class="language-language-c++">#include<stdio.h>
-int num[50000],len;/*num为dp数组，其中的数组地址的值表示长度，而其对应的值表示该长度下的序列末尾数值的最小值*/
-int solve(int k)/*二分，由于之前的序列都是采用的最优解，所以说长度越长末尾的数就越小，不然则反之利用这一规律用二分来减少时间复杂度*/
-{
-    int r=len,l=1,mid;
-    while(r>l)
-    {
-       mid=(r+l)/2;
-       if(num[mid]>=k)/*要num[mid]小于k时k才能成为长度为mid时序列的最后项*/
-       {
-           l=mid+1;
-       }
-       else
-       r=mid;
-    }
-    return r;
-}
-int main()
-{
-    int k,t=1;
-    //freopen("F:/y.txt","r",stdin);
-    while(~scanf("%d",&k)&&k!=-1)
-    {
-       len=1;
-       num[len]=k;
-       while(~scanf("%d",&k)&&k!=-1)
-       {
-           if(num[len]>=k)/*如果该长度下的序列末尾数值比k大，则该序列长度加一末尾数值变成成k*/
-           {
-              num[++len]=k;
-           }
-           else/*而如果小于k则用二分法更新之前序列的末尾值以便于之后容纳更多的数字且最大长度不会增加*/
-           {
-              num[solve(k)]=k;
-           }
-       }
-       if(t!=1)
-       printf("\n");
-       printf("Test #%d:\n",t++);
-       printf("  maximum possible interceptions: %d\n",len);
-    }
-    return 0;
- }
-
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>go的多进程</title>
     <url>/2023/01/11/go%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B/</url>
     <content><![CDATA[<h1>go的多进程</h1>
@@ -1381,6 +1297,90 @@ func main() {
       </categories>
       <tags>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dp基础：poj1887</title>
+    <url>/2020/04/29/dp%E5%9F%BA%E7%A1%80%EF%BC%9Apoj1887/</url>
+    <content><![CDATA[<h1>题目</h1>
+<p>最长不上升子序列</p>
+<h2 id="Input">Input</h2>
+<p>所有输入数据都是非负整数，且小于等于32767。每组数据最后一个数为-1。保证每组数据数量大小不超过1e5</p>
+<h2 id="Output">Output</h2>
+<p>每个测试的输出包括一个测试编号以及答案（具体看样例）。每组样例中间有一个空行</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<p>389<br>
+207<br>
+155<br>
+300<br>
+299<br>
+170<br>
+158<br>
+65<br>
+-1<br>
+23<br>
+34<br>
+21<br>
+-1<br>
+-1</p>
+<h3 id="Output-2">Output</h3>
+<p>Test #1:<br>
+ maximum possible interceptions: 6</p>
+<p>Test #2:<br>
+ maximum possible interceptions: 2</p>
+<h2 id="代码">代码</h2>
+<pre class=" language-language-c++"><code class="language-language-c++">#include<stdio.h>
+int num[50000],len;/*num为dp数组，其中的数组地址的值表示长度，而其对应的值表示该长度下的序列末尾数值的最小值*/
+int solve(int k)/*二分，由于之前的序列都是采用的最优解，所以说长度越长末尾的数就越小，不然则反之利用这一规律用二分来减少时间复杂度*/
+{
+    int r=len,l=1,mid;
+    while(r>l)
+    {
+       mid=(r+l)/2;
+       if(num[mid]>=k)/*要num[mid]小于k时k才能成为长度为mid时序列的最后项*/
+       {
+           l=mid+1;
+       }
+       else
+       r=mid;
+    }
+    return r;
+}
+int main()
+{
+    int k,t=1;
+    //freopen("F:/y.txt","r",stdin);
+    while(~scanf("%d",&k)&&k!=-1)
+    {
+       len=1;
+       num[len]=k;
+       while(~scanf("%d",&k)&&k!=-1)
+       {
+           if(num[len]>=k)/*如果该长度下的序列末尾数值比k大，则该序列长度加一末尾数值变成成k*/
+           {
+              num[++len]=k;
+           }
+           else/*而如果小于k则用二分法更新之前序列的末尾值以便于之后容纳更多的数字且最大长度不会增加*/
+           {
+              num[solve(k)]=k;
+           }
+       }
+       if(t!=1)
+       printf("\n");
+       printf("Test #%d:\n",t++);
+       printf("  maximum possible interceptions: %d\n",len);
+    }
+    return 0;
+ }
+
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -2092,8 +2092,9 @@ select * from table1 where name like '李*
     <url>/2023/12/06/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</url>
     <content><![CDATA[<h1>惊群效应</h1>
 <h2 id="惊群问题">惊群问题</h2>
-<pre><code>惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。
-</code></pre>
+<ul>
+<li>惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。</li>
+</ul>
 <h2 id="解决办法">解决办法</h2>
 <ol>
 <li>不希望把所有进程都唤醒，就采用定点唤醒某一个进程的做法
@@ -2121,15 +2122,847 @@ select * from table1 where name like '李*
       </tags>
   </entry>
   <entry>
+    <title>果子私房笔记-SSL握手过程</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h1>SSL握手过程</h1>
+<h2 id="本质">本质</h2>
+<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
+<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
+<h2 id="过程">过程</h2>
+<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
+2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
+3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
+4.服务器使用私钥对随机数字3解密。<br>
+5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-TCP握手挥手数据传输</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
+    <content><![CDATA[<h1>TCP握手挥手数据传输</h1>
+<h2 id="三次握手过程">三次握手过程</h2>
+<h3 id="第一次握手">第一次握手</h3>
+<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
+<h3 id="第二次握手">第二次握手</h3>
+<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
+<h3 id="第三次握手">第三次握手</h3>
+<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
+<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
+ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
+<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="传输数据过程">传输数据过程</h2>
+<h3 id="a-超时重传：">a.超时重传：</h3>
+<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
+<h3 id="b-快速重传：">b.快速重传：</h3>
+<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
+<h3 id="c-流量控制：">c.流量控制：</h3>
+<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
+<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
+<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
+<h2 id="四次挥手过程">四次挥手过程</h2>
+<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
+<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
+<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
+<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http与https的区别</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1>http与https的区别</h1>
+<p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>
+HTTP是不安全的，而HTTPS是安全的<br>
+HTTP标准端口是80 ，而HTTPS的标准端口是443<br>
+在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>
+HTTP无法加密，而HTTPS对传输的数据进行加密<br>
+HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http协议无状态协议以及解决方案</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h1>http协议无状态协议以及解决方案</h1>
+<p>http本身是一种无状态协议</p>
+<p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>
+也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p>
+<p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http的URI和URL</title>
+    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/</url>
+    <content><![CDATA[<h1>URI</h1>
+<p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p>
+<p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p>
+<h2 id="URI一般由三部组成：">URI一般由三部组成：</h2>
+<h3 id="①访问资源的命名机制">①访问资源的命名机制</h3>
+<h3 id="②存放资源的主机名">②存放资源的主机名</h3>
+<h3 id="③资源自身的名称，由路径表示，着重强调于资源。">③资源自身的名称，由路径表示，着重强调于资源。</h3>
+<h1>URL</h1>
+<p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>
+URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>
+采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
+<h2 id="URL一般由三部组成：">URL一般由三部组成：</h2>
+<h3 id="①协议-或称为服务方式">①协议(或称为服务方式)</h3>
+<h3 id="②存有该资源的主机IP地址-有时也包括端口号">②存有该资源的主机IP地址(有时也包括端口号)</h3>
+<h3 id="③主机资源的具体地址。如目录和文件名等">③主机资源的具体地址。如目录和文件名等</h3>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http的作用和RPC</title>
+    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</url>
+    <content><![CDATA[<h1>http的作用和RPC</h1>
+<h2 id="HTTP">HTTP</h2>
+<p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>
+HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>
+传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p>
+<h2 id="RPC">RPC</h2>
+<p>rpc 是应用层由用户自己在制定的协议</p>
+<h2 id="HTTP和RPC区别">HTTP和RPC区别</h2>
+<p>HTTP指的是通信协议。<br>
+而RPC则是远程调用协议，其对应的是本地调用。<br>
+RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p>
+<h2 id="那为什么要有RPC？">那为什么要有RPC？</h2>
+<p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-http的常用方法</title>
+    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1>http的常用方法</h1>
+<h2 id="GET">GET</h2>
+<p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>
+只请求服务端的数据，但是没有改变数据。</p>
+<h2 id="POST">POST</h2>
+<p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>
+比如上传一篇博客用的post会改变服务器端的数据。</p>
+<h2 id="PUT">PUT</h2>
+<p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p>
+<h2 id="HEAD">HEAD</h2>
+<p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p>
+<h2 id="DELETE">DELETE</h2>
+<p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p>
+<h2 id="OPTIONS">OPTIONS</h2>
+<p>查询相应URI支持的HTTP方法。</p>
+<h1>get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html</h1>
+<p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>
+GET产生的URL地址可以被Bookmark，而POST不可以。<br>
+GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>
+GET请求只能进行url编码，而POST支持多种编码方式。<br>
+GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>
+GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>
+对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>
+GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>
+GET参数通过URL传递，POST放在Request body中。<br>
+GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>
+GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-time_wait</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time_wait/</url>
+    <content><![CDATA[<h1>time_wait</h1>
+<h2 id="time-wait状态如何产生？">time_wait状态如何产生？</h2>
+<p>由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包在网络中的最大生存时间。产生这种结果使得这个TCP连接在2MSL连接等待期间，定义这个连接的四元组（客户端IP地址和端口，服务端IP地址和端口号）不能被使用。</p>
+<h2 id="time-wait状态产生的原因">time_wait状态产生的原因</h2>
+<h3 id="1）为实现TCP全双工连接的可靠释放">1）为实现TCP全双工连接的可靠释放</h3>
+<p>假设发起主动关闭的一方（client）最后发送的ACK在网络中丢失，由于TCP协议的重传机制，执行被动关闭的一方（server）将会重发其FIN，在该FIN到达client之前，client必须维护这条连接状态，也就说这条TCP连接所对应的资源（client方的local_ip,local_port）不能被立即释放或重新分配，直到另一方重发的FIN达到之后，client重发ACK后，经过2MSL时间周期没有再收到另一方的FIN之后，该TCP连接才能恢复初始的CLOSED状态。如果主动关闭一方不维护这样一个TIME_WAIT状态，那么当被动关闭一方重发的FIN到达时，主动关闭一方的TCP传输层会用RST包响应对方，这会被对方认为是有错误发生，然而这事实上只是正常的关闭连接过程，并非异常。</p>
+<h3 id="2）为使旧的数据包在网络因过期而消失">2）为使旧的数据包在网络因过期而消失</h3>
+<p>为说明这个问题，我们先假设TCP协议中不存在TIME_WAIT状态的限制，再假设当前有一条TCP连接：(local_ip, local_port, remote_ip,remote_port)，因某些原因，我们先关闭，接着很快以相同的四元组建立一条新连接。本文前面介绍过，TCP连接由四元组唯一标识，因此，在我们假设的情况中，TCP协议栈是无法区分前后两条TCP连接的不同的，在它看来，这根本就是同一条连接，中间先释放再建立的过程对其来说是“感知”不到的。这样就可能发生这样的情况：前一条TCP连接由local peer发送的数据到达remote peer后，会被该remot peer的TCP传输层当做当前TCP连接的正常数据接收并向上传递至应用层（而事实上，在我们假设的场景下，这些旧数据到达remote peer前，旧连接已断开且一条由相同四元组构成的新TCP连接已建立，因此，这些旧数据是不应该被向上传递至应用层的），从而引起数据错乱进而导致各种无法预知的诡异现象。作为一种可靠的传输协议，TCP必须在协议层面考虑并避免这种情况的发生，这正是TIME_WAIT状态存在的第2个原因。</p>
+<h3 id="3）总结">3）总结</h3>
+<p>具体而言，local peer主动调用close后，此时的TCP连接进入TIME_WAIT状态，处于该状态下的TCP连接不能立即以同样的四元组建立新连接，即发起active close的那方占用的local port在TIME_WAIT期间不能再被重新分配。由于TIME_WAIT状态持续时间为2MSL，这样保证了旧TCP连接双工链路中的旧数据包均因过期（超过MSL）而消失，此后，就可以用相同的四元组建立一条新连接而不会发生前后两次连接数据错乱的情况。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-僵尸进程和孤儿进程</title>
+    <url>/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/</url>
+    <content><![CDATA[<h1>僵尸进程和孤儿进程</h1>
+<h2 id="1-什么是进程？">1.什么是进程？</h2>
+<p>程序：程序是指令和数据的集合<br>
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位</p>
+<h2 id="2-为什么需要进程？">2.为什么需要进程？</h2>
+<p>引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程</p>
+<h2 id="3-如何操作进程？">3.如何操作进程？</h2>
+<p>操作系统为了能够使每个程序能够独立运行，在操作系统中为其配置了一个数据结构，也就是我们通常所说的PCB（Process Control Block），PCB 是进程运行相关的信息集合。</p>
+<h2 id="孤儿进程：">孤儿进程：</h2>
+<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
+<h2 id="僵尸进程：">僵尸进程：</h2>
+<p>一个进程使用fork创建子进程，如果子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
+如果进程不调用wait / waitpid的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。所以僵尸进程是有危害的。</p>
+<h2 id="守护进程">守护进程:</h2>
+<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是个特殊的孤儿进程。它是一个生存期较长的进程，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
+<h2 id="父进程、子进程：">父进程、子进程：</h2>
+<p>父进程和子进程的关系是：子进程是父进程的一个副本，一个父进程能创建多个子进程，创建子进程能并发执行。一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-多路IO复用</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/</url>
+    <content><![CDATA[<h1>多路IO复用</h1>
+<p><a href="https://blog.csdn.net/qq_46312987/article/details/124213418" target="_blank" rel="noopener">https://blog.csdn.net/qq_46312987/article/details/124213418</a></p>
+<h2 id="零拷贝优化">零拷贝优化</h2>
+<p>传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。<br>
+磁盘文件–DMA拷贝-&gt;(内核态)缓存区–CPU拷贝-&gt;(用户态)用户缓存区–CPU拷贝-&gt;(内核态)socket缓冲区–DMA拷贝-&gt;网卡。</p>
+<h3 id="DMA拷贝：">DMA拷贝：</h3>
+<p>DMA的原理是CPU将需要迁移的数据的位置告诉给DMA，包括源地址，目的地址以及需要迁移的长度，然后启动DMA设备去完成相应的操作，最后通过中断反馈给CPU，结束。</p>
+<h3 id="Mmap优化：">Mmap优化：</h3>
+<p>mmap通过内存映射，将内存缓冲区中的数据映射到用户缓冲区，由此让用户空间共享内核空间的数据。</p>
+<h2 id="常用的IO模型">常用的IO模型</h2>
+<h3 id="阻塞IO：">阻塞IO：</h3>
+<p>假设建立一个socket连接，如果这个连接的客户端一直不发数据，那么服务端线程将会一直阻塞在read函数上不返回。</p>
+<h3 id="非阻塞IO：">非阻塞IO：</h3>
+<p>将read函数改造成：如果没有数据到达网卡时，立即返回一个错误值，而不是阻塞地等待。这样就需要用户线程循环调用read，直到返回值不为-1，再开始处理业务。注意：非阻塞的read，指的是数据还未到达网卡，当数据已经到达内核缓冲区，此时调用read函数依旧是阻塞的，需要等待数据从内核缓冲区拷贝到用户缓冲区才能返回。</p>
+<h3 id="多路复用IO">多路复用IO</h3>
+<h4 id="前导：">前导：</h4>
+<p>为每个连接创建一个线程耗费的资源较多，我们可以每连接一个客户端后，将文件描述符放到一个数组里，用一个线程不断去遍历这个数组，调用每个元素的非阻塞read方法。每次遍历到read返回-1，依然是一次浪费资源的系统调用。</p>
+<h4 id="Select：">Select：</h4>
+<p>通过select，我们把文件描述符数组传输给操作系统，让操作系统去遍历，操作系统将准备就绪的文件描述符做上标识再返回给用户，用户依旧需要遍历刚提交给操作系统的数组。相比于前导的方法，就是把循环调用rpc改成了一次调用批量的rpc。</p>
+<h4 id="Poll：">Poll：</h4>
+<p>相比select去掉了只能监听1024个文件描述符的限制。</p>
+<h5 id="Epoll：">Epoll：</h5>
+<p>针对select模型的三个缺点进行改造：1.在内核中保存一份文件描述符集合，无需用户每次重新传入，只需告诉内核修改的部分。2.内核不再以轮询的方式去找就绪的文件描述符，而是通过异步IO事件唤醒。3.内核仅会将有IO事件的文件描述符返回给用户，用户无需再遍历整个文件描述符集合。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-子网掩码</title>
+    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/</url>
+    <content><![CDATA[<h1>子网掩码</h1>
+<p>子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。</p>
+<h2 id="计算方式">计算方式</h2>
+<h3 id="根据子网数：">根据子网数：</h3>
+<p>如欲将B类IP地址168.195.0.0划分成27个子网：</p>
+<pre><code>1)27=11011  
+2)该二进制为五位数，N=5  
+3)将B类地址的子网掩码255.255.0.0的主机地址前5位置1（B类地址的主机位包括后两个字节，所以这里要把第三个字节的前5位置1），得到 255.255.248.0即为划分成27个子网的B类IP地址 168.195.0.0的子网掩码（实际上是划成了32-2=30个子网）。
+</code></pre>
+<h3 id="根据主机数">根据主机数</h3>
+<p>如欲将B类IP地址168.195.0.0划分成若干子网，每个子网内有主机700台：</p>
+<pre><code>1) 700=1010111100  
+2)该二进制为十位数，N=10  
+3)将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255  
+然后再从后向前将后10位置0，即为：11111111.11111111.11111100.00000000
+即255.255.252.0。这就是该欲划分成主机为700台的B类IP地址168.195.0.0的子网掩码。
+</code></pre>
+<h3 id="子网ID增量计算法（即计算每个子网的IP范围）">子网ID增量计算法（即计算每个子网的IP范围）</h3>
+<p>其基本计算步骤如下：</p>
+<h4 id="第1步">第1步</h4>
+<p>将所需的子网数转换为二进制，如所需划分的子网数为“4”，则转换成成二进制为00000100；</p>
+<h4 id="第2步">第2步</h4>
+<p>取子网数的二进制中有效位数，即为向缺省子网掩码中加入的位数（既向主机ID中借用的位数）。如前面的00000100，有效位为“100”，为3位（在新标准中只需要2位就可以了）；</p>
+<h4 id="第3步">第3步</h4>
+<p>决定子网掩码。如IP地址为B类129.20.0.0网络，则缺省子网掩码为：255.255.0.0，借用主机ID的3位以后变为：255.255.224（11100000）.0，即将所借的位全表示为1，用作子网掩码。</p>
+<h4 id="第4步">第4步</h4>
+<p>将所借位的主机ID的起始位段最右边的“1”转换为十进制，即为每个子网ID之间的增量，如前面的借位的主机ID起始位段为“11100000”，最右边的“1”，转换成十进制后为2^5=32（此为子网ID增量）。</p>
+<h4 id="第5步">第5步</h4>
+<p>产生的子网ID数为：2^m-2 （m为向缺省子网掩码中加入的位数），如本例向子网掩码中添加的位数为3，则可用子网ID数为：2^3-2=6个；</p>
+<h4 id="第6步">第6步</h4>
+<p>将上面产生的子网ID增量附在原网络ID之后的第一个位段，便形成第一个子网网络ID 129.20.32.0（即第一个子网的起始IP段）；</p>
+<h4 id="第7步">第7步</h4>
+<p>重复上步操作，在原子网ID基础上加上一个子网ID增量，依次类推，直到子网ID中的最后位段为缺省子网掩码位用主机ID位之后的最后一个位段值，这样就可得到所有的子网网络ID。如缺省子网掩码位用主机ID位之后的子网ID为255.255.224.0，其中的“224”为借用主机ID后子网ID的最后一位段值，所以当子网ID通过以上增加增量的方法得到129.20.224.0时便终止，不要再添加了（只能用到129.20.192.0）。</p>
+<p>我们知道当主机ID为全0时表示网络ID，全1时表示广播地址。在RFC950标准中，不建议使用全0和全1的子网ID。<br>
+例如把最后一个字节的前3位借给网络ID，用后面的5位来表示主机ID，这样就会产生2^3=8个子网，子网ID就分别为000、001、010、011、100、101、110、111这样8个，在RFC950标准中只能使用中间的6个子网ID。</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-TCP与UDP的区别</title>
+    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1>TCP与UDP的区别</h1>
+<h2 id="TCP">TCP</h2>
+<h3 id="TCP的优点：">TCP的优点：</h3>
+<p>可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。</p>
+<h3 id="TCP的缺点：">TCP的缺点：</h3>
+<p>慢，效率低，占用系统资源高，易被攻击TCP在传递数据之前，要先建连接，这会消耗时间，而且在数据传递时，确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，而且要在每台设备上维护所有的传输连接，事实上，每个连接都会占用系统的CPU、内存等硬件资源。 而且，因为TCP有确认机制、三次握手机制，这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。</p>
+<h3 id="什么时候应该使用TCP：">什么时候应该使用TCP：</h3>
+<p>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输</p>
+<h2 id="UDP">UDP</h2>
+<h3 id="UDP的优点：">UDP的优点：</h3>
+<p>快，比TCP稍安全 UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，UDP是一个无状态的传输协议，所以它在传递数据时非常快。没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。但UDP也是无法避免攻击的，比如：UDP Flood攻击。</p>
+<h3 id="UDP的缺点：">UDP的缺点：</h3>
+<p>不可靠，不稳定<br>
+因为UDP没有TCP那些可靠的机制，在数据传递时，如果网络质量不好，就会很容易丢包。</p>
+<h3 id="什么时候应该使用UDP：">什么时候应该使用UDP：</h3>
+<p>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>
+比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP</p>
+<h2 id="小结TCP与UDP的区别：">小结TCP与UDP的区别：</h2>
+<p>1.基于连接与无连接；<br>
+2.对系统资源的要求（TCP较多，UDP少）；<br>
+3.UDP程序结构较简单；<br>
+4.流模式与数据报模式 ；<br>
+5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">tcp协议和udp协议的差别</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">TCP</th>
+<th style="text-align:center">UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否连接</td>
+<td style="text-align:center">面向连接</td>
+<td style="text-align:center">面向非连接</td>
+</tr>
+<tr>
+<td style="text-align:center">传输可靠性</td>
+<td style="text-align:center">可靠</td>
+<td style="text-align:center">不可靠 （可靠的UDP基于应用层实现）</td>
+</tr>
+<tr>
+<td style="text-align:center">应用场合</td>
+<td style="text-align:center">少量数据</td>
+<td style="text-align:center">传输大量数据</td>
+</tr>
+<tr>
+<td style="text-align:center">速度</td>
+<td style="text-align:center">慢</td>
+<td style="text-align:center">快</td>
+</tr>
+</tbody>
+</table>
+<h2 id="TCP与UDP区别总结：">TCP与UDP区别总结：</h2>
+<p>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</p>
+<p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p>
+<p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p>
+<p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p>
+<p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
+<p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节，其中有2个byte用于记录包体长度因此包最大大小为64k。</p>
+<p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
+<p>问：.tcp如何可靠<br>
+应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-对称加密和非对称加密</title>
+    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</url>
+    <content><![CDATA[<h1>对称加密技术</h1>
+<p>原理：文件加密和解密使用相同的密钥<br>
+特点：使用起来简单快捷，密钥较短，加密效率高。</p>
+<h2 id="对称加密算法存在几个问题：">对称加密算法存在几个问题：</h2>
+<p>1、要求提供一条安全的渠道使通讯双方在首次通讯时协商一个共同的密钥。<br>
+2、密钥的数目难于管理。因为对于每一个合作者都需要使用不同的密钥。<br>
+3、对称加密算法一般不能提供信息完整性的鉴别。它无法验证发送者和接受者的身份。<br>
+4、对称加密是基于共同保守秘密来实现的，如果一方泄露那么加密信息也就不安全了。<br>
+常用算法：DES、3DES、TDEA、Blowfish、RC2、RC4、RC5、IDEA、SKIPJACK</p>
+<h1>非对称加密技术</h1>
+<h2 id="原理：">原理：</h2>
+<p>对称加密算法需要两个密钥，公开密钥（publickey）和私有密钥（privatekey）。如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密。</p>
+<h2 id="特点：">特点：</h2>
+<p>算法强度复杂，速度远低于对称加密，安全性高。<br>
+使用过程：甲方生成一对密钥并将其中的一把作为公用密钥向其它方公开；得到该公用密钥的乙方使用该密钥对机密信息进行加密后再发送给甲方；甲方再用自己保存的另一把专用密钥对加密后的信息进行解密。甲方只能用其专用密钥解密由其公用密钥加密后的任何信息。<br>
+非对称加密的典型应用：</p>
+<h2 id="数字签名：">数字签名：</h2>
+<p>发送报文时，发送方用一个哈希函数从报文文本中生成报文摘要，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方，接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再公钥来对报文附加的数字签名进行解密，如果这两个摘要相同，那么接收方就能确认该报文是发送方的。<br>
+常用算法：RSA，DSA，ECDSA</p>
+<h1>Hash算法（摘要算法）</h1>
+<p>原理：Hash算法特别的地方在于它是一种单向算法，用户可以通过Hash算法对目标信息生成一段特定长度的唯一hash值，却不能通过这个hash值重新获得目标信息。因此Hash算法常用在不可还原的密码存储、信息完整性校验等。<br>
+常用算法：MD2、MD4、MD5、HAVAL、SHA</p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-进程</title>
+    <url>/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/</url>
+    <content><![CDATA[<h1>进程</h1>
+<h2 id="1-什么是进程？">1.什么是进程？</h2>
+<p>程序：程序是指令和数据的集合<br>
+进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的基本单位</p>
+<h2 id="2-如何操作进程？">2.如何操作进程？</h2>
+<p>设立了PCB (进程控制块），其内容如下。<br>
+标示符：描述本进程的唯一标示符，用来区别其他进程。<br>
+状态：任务状态，退出代码，退出信号等。<br>
+优先级：相对于其他进程的优先级。<br>
+程序计数器：程序中即将被执行的下一条指令的地址。<br>
+内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针<br>
+上下文数据：进程执行时处理器的寄存器中的数据。<br>
+I／O状态信息：包括显示的I/O请求,分配给进程的I／O设备和被进程使用的文件列表。<br>
+记账信息：可能包括处理器时间总和，使用的时钟数总和，时间限制，记账号等。 其他信息<br>
+CPU对进程的调度使用<br>
+CPU通过PCB中的内存指针来找到程序在内存中的地址，通过上下文数据来记录运行中程序的各种信息，通过程序计数器来找到这个程序即将执行的下一条指令的地址。</p>
+<h2 id="3-进程的状态">3.进程的状态</h2>
+<p>三种基本状态：就绪、运行、阻塞<br>
+五种状态：新建状态，就绪状态，运行状态，阻塞状态，退出状态。</p>
+<h2 id="4-子进程">4.子进程</h2>
+<p>当我们在一个已经创建的进程内通过fork创建一个新的进程时，这个新的进程就是原先进程的子进程。<br>
+在子进程创建的时候，它从父进程的PCB中复制了很多数据，如内存指针、上下文数据、程序计数器等，所以它的代码、数据以及运行的位置，都与父进程一模一样。<br>
+由于代码段是只读的，所以两者的代码都一样，不可修改，而两者虽然虚拟地址相同，但物理地址不同，所以两者的数据都各自独立。<br>
+一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。<br>
+总结一下就是：父子进程代码共享，数据各自开辟空间。(利用写时拷贝技术)<br>
+我们创建子进程，希望它和父进程执行不一样的操作，该怎么实现呢？<br>
+最简单的方法就是通过fork的返回值来进行代码分流，父进程的返回值是子进程的pid，而子进程的返回值是0，通过对返回值的判断，即可完成代码的分流。</p>
+<h2 id="5-进程的概念">5.进程的概念</h2>
+<h3 id="僵尸进程：">僵尸进程：</h3>
+<p>一个进程的子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
+子进程的进程号就会一直被占用，但是系统所能使用的进程号有限，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。<br>
+解决方法有两种分别是退出父进程和进程等待。</p>
+<h3 id="孤儿进程：">孤儿进程：</h3>
+<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
+<h3 id="守护进程">守护进程:</h3>
+<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是特殊的孤儿进程。生存期较长，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
+<h2 id="6-进程控制">6.进程控制</h2>
+<h3 id="创建进程">创建进程</h3>
+<p>fork：创建一个子进程，父子进程代码共享，数据独有。(共享是因为页表的权限，独有是不同的页表对应空间存数据)<br>
+vfork：创建一个子进程，并且阻塞父进程，直到子进程退出或者程序替换，父进程才继续运行</p>
+<h3 id="终止进程">终止进程</h3>
+<p>return：只可以在 main 函数中用，推出后刷新缓冲区<br>
+exit(statu)：库函数，退出刷新缓冲区<br>
+_exit(statu)：系统调用，status 定义了进程的终止状态，父进程通过wait来获取该值，退出不刷新缓冲区</p>
+<h3 id="进程等待">进程等待</h3>
+<p>wait：获取退出子进程的pid，并且释放子进程资源。( 阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则调用不返回一直等待。非阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则立即报错返回 )<br>
+waitpid：可以指定等待一个子进程的退出</p>
+<h3 id="程序替换">程序替换</h3>
+<p>创建的子进程如果想要做与父进程不同的事，其最好的方法就是程序替换，替换一个进程正在调度的程序信息。</p>
+<h3 id="exec">exec</h3>
+<p>l(list)：表示参数采用列表<br>
+v(vector)：参数用数组<br>
+p(path)：有p自动搜索环境变量PATH<br>
+e(env)：有e表示自己维护环境变量</p>
+<h2 id="7-进程的调度算法">7.进程的调度算法</h2>
+<p>针对批处理系统：批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
+<h3 id="1-1先来先服务-first-come-first-serverd（FCFS）">1.1先来先服务 first-come first-serverd（FCFS）</h3>
+<p>非抢占式的调度算法，按照请求的顺序进行调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
+<h3 id="1-2短作业优先-shortest-job-first（SJF）">1.2短作业优先 shortest job first（SJF）</h3>
+<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。如果一直有短作业到来，长作业可能处于一直等待短作业执行完毕的状态，导致饿死。</p>
+<h3 id="1-3最短剩余时间优先-shortest-remaining-time-next（SRTN）">1.3最短剩余时间优先 shortest remaining time next（SRTN）</h3>
+<p>最短作业优先的抢占式版本，按剩余运行时间的顺序进行调度。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较，如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。<br>
+交互式系统：交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
+<h3 id="2-1时间片轮转">2.1时间片轮转</h3>
+<p>将所有就绪进程按 FCFS 的原则排成一个队列，每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。时间片轮转算法的效率和时间片的大小有很大关系：<br>
+因为进程切换都要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间。而如果时间片过长，那么实时性就不能得到保证。</p>
+<h3 id="2-2优先级调度">2.2优先级调度</h3>
+<p>为每个进程分配一个优先级，按优先级进行调度。为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
+<h3 id="2-3-多级反馈队列">2.3 多级反馈队列</h3>
+<p>一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,…。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次。每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>惰性运算</title>
     <url>/2024/04/16/%E6%83%B0%E6%80%A7%E8%BF%90%E7%AE%97/</url>
     <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/53750888" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53750888</a></p>
 ]]></content>
   </entry>
   <entry>
+    <title>牛客西安邮大校赛-D最简单的一道题</title>
+    <url>/2020/05/24/%E7%89%9B%E5%AE%A2%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7%E6%A0%A1%E8%B5%9B-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/</url>
+    <content><![CDATA[<p>参考自官方的博客：<a href="https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73" target="_blank" rel="noopener">https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73</a></p>
+<h1>题目</h1>
+<h2 id="题面">题面</h2>
+<p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p>
+<ol>
+<li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li>
+<li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li>
+</ol>
+<h2 id="Input">Input</h2>
+<p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>
+第二行 n 个数字，表示建筑高度<br>
+后面 m 行指令：c l r k<br>
+或者：q x<br>
+数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>
+1≤x≤n,1≤k≤10^4</p>
+<h2 id="Output">Output</h2>
+<p>对于每个查询，输出答案，每个答案一行</p>
+<h2 id="Examples">Examples</h2>
+<h3 id="Input-2">Input</h3>
+<pre><code>5 5
+1 2 3 4 3
+q 3
+c 1 3 3
+q 2
+c 5 5 4
+q 5
+</code></pre>
+<h3 id="Output-2">Output</h3>
+<pre><code>1
+2
+0
+</code></pre>
+<h2 id="思路">思路</h2>
+<p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
+<h2 id="代码">代码</h2>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;time.h&gt;
+using namespace std;
+
+#define mid ((l+r)&gt;&gt;1)
+
+#define MAX 200005
+struct node {
+    node() {
+        minn = value = add = 0;
+    }
+    void init() {
+        minn = value = add = 0;
+    }
+    int minn;
+    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）
+    int add;//其子节点的所有数字加add
+};
+
+struct Segt {
+    int arr[MAX];
+    node tree[MAX &lt;&lt; 2];
+    void push_down(int p) {
+        if (tree[p].add != 0) {
+            tree[(p &lt;&lt; 1)].add += tree[p].add;
+            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;
+            tree[(p &lt;&lt; 1)].minn += tree[p].add;
+            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;
+            tree[p].add = 0;
+        }
+
+    }
+
+    void push_up(int l, int r, int p) {//向上跟新父节点的值
+        //bool flag = true;
+        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);
+        int m = mid;
+        int val = tree[(p &lt;&lt; 1)].minn;
+        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));
+    }
+
+    void build(int l, int r, int p) {//建立线段树
+        tree[p].init();
+        if (l == r) {
+            tree[p].minn = arr[l];
+            tree[p].value = 0;
+            return;
+        }
+        int m = mid;
+        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));
+        push_up(l, r, p);
+    }
+    void update(int a, int b, int k, int l, int r, int p) {//区间修改
+        if (l &gt;= a &amp;&amp; r &lt;= b) {
+            tree[p].minn += k;
+            tree[p].add += k;
+            return;
+        }
+        push_down(p);
+        int m = mid;
+        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));
+        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));
+        push_up(l, r, p);
+    }
+    int get_val(int pos, int l, int r, int p) {//取得pos点的值（单点查询）
+        if (l == r) return tree[p].minn;
+        push_down(p);
+        int m = mid;
+        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));
+        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));
+        // push_up(p);
+    }
+    int que(int a, int&amp; val, int l, int r, int p) {//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）
+        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数
+        int m = mid;
+           //cout &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; endl;
+        if (l != r) push_down(p);//更新子节点数值
+        if (l &gt;= a) {
+            if (tree[p].minn &lt;= val) {//只有后面数值的最小值比val小才能组成
+                if (l == r) {
+                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; ' ' &lt;&lt;  l &lt;&lt; ' ' &lt;&lt; tree[p].minn &lt;&lt; endl;
+                    val = tree[p].minn;//之后的数要小于val
+                    return 1;//minn是一个可以接在val后面的数
+                }
+                if (tree[(p &lt;&lt; 1)].minn &lt;= val) {//如果r-l的前半部分的最小值比val小
+                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组
+                    val = tree[p].minn;//更新最小值
+                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; ' ' &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; ' ' &lt;&lt; an &lt;&lt; ' ' &lt;&lt; tree[p].value &lt;&lt; endl;
+                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）
+                }
+                else {
+                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量
+                }
+            }
+            else {
+                return 0;
+            }
+        }
+        //当a不在l之前时
+        if (a &lt;= m) {//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组
+            int an = que(a, val, l, m, (p &lt;&lt; 1));
+            if (val == tree[(p &lt;&lt; 1)].minn) {//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）
+                val = tree[p].minn;
+                return an + tree[p].value;
+            }
+            else {
+                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量
+            }
+        }
+        else {
+            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分
+        }
+    }
+
+
+
+};
+Segt segt;
+
+void make_ans(istream&amp; in, ostream&amp; out) {//输入，输出流
+    int n, m;
+    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;
+    for (int i = 1; i &lt;= n; i++) {
+        in &gt;&gt; segt.arr[i];
+    }
+    segt.build(1, n, 1);
+    while (m--) {
+        char ch;
+          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
+          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; ' '; cout &lt;&lt; endl;
+          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
+        in &gt;&gt; ch;
+        if (ch == 'c') {
+            int l, r, k;
+            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;
+            segt.update(l, r, k, 1, n, 1);
+        }
+        else {
+            int x;
+            in &gt;&gt; x;
+            int val = segt.get_val(x, 1, n, 1);//取得x点的值
+            //  cout &lt;&lt; val &lt;&lt; endl;
+            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列
+        }
+    }
+}
+
+int main(void) {
+    freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
+    make_ans(cin, cout);
+    return 0;
+}
+</code></pre>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>折叠表达式</title>
     <url>/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>英语考研规划</title>
+    <url>/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<h1>英语考研规划</h1>
+<h2 id="题型">题型</h2>
+<p>重点把握：阅读和作文</p>
+<h3 id="客观题">客观题</h3>
+<h4 id="完形填空20-0-5-10">完形填空20*0.5=10</h4>
+<p>要求： 带入符合语境，意思</p>
+<h4 id="阅读理解20-2-40">阅读理解20*2=40</h4>
+<p>发力点在于逻辑关系</p>
+<h5 id="1-正向-没有转折句-子的总体趋势相通，都在说一件事">1.正向(没有转折句):子的总体趋势相通，都在说一件事</h5>
+<p>【2011-2】The decision to quit a senior position to look for a better one is unconventional. For years executives and headhunters have adhered to the rule that the most attractive CEO candidates are the ones who must be poached. Says Korn/Ferry senior partner Dennis Carey: “I can’t think of a single search I’ve done where a board has not instructed me to look at sitting CEOs first.”<br>
+28 . The word “poached” (Line 3, Paragraph 4) most probably means C（正向）<br>
+[A]approved of.            		[B]attended to.<br>
+[C]hunted for.             	     	[D]guarded against.</p>
+<p>【2007-1】What might account for this strange phenomenon? Here are a few guesses: a) certain astrological signs confer superior soccer skills; b) winter-born babies tend to have higher oxygen capacity, which increases soccer stamina; c) soccer-mad parents are more likely to conceive children in springtime, at the annual peak of soccer mania; d) none of the above.<br>
+22 .	The word “mania” (Line 4, Paragraph 2) most probably means B（正向）<br>
+[A] fun.        [B] craze.              [C] hysteria.          [D] excitement.</p>
+<h5 id="2-反向（存在转折）：转折前后句意直接鲜明相反">2.反向（存在转折）：转折前后句意直接鲜明相反</h5>
+<p>【2006-1】In spite of（经管） “endless talk of difference,” American society is an amazing machine for homogenizing people. There is “the democratizing uniformity of dress and discourse, and the casualness and absence of deference” characteristic of popular culture. People are absorbed into “a culture of consumption” launched by the 19th-century department stores that offered “vast arrays of goods in an elegant atmosphere. Instead of intimate shops catering to a knowledgeable elite,” these were stores “anyone could enter, regardless of class or background. This turned shopping into a public and democratic act.” The mass media, advertising and sports are other forces for homogenization.<br>
+21 .	The word “homogenizing” (Line 2, Paragraph 1) most probably means <em><strong>C</strong></em>__.（反向）<br>
+[A] identifying         [B] associating<br>
+[C] assimilating（同化）       [D] monopolizing</p>
+<h4 id="新题型（七选五-排序题-小标题）5-2-10">新题型（七选五/排序题/小标题）5*2=10</h4>
+<h3 id="主观题">主观题</h3>
+<h4 id="翻译10">翻译10</h4>
+<h4 id="作文30">作文30</h4>
+<h5 id="书写工整卷面整洁">书写工整卷面整洁</h5>
+<h5 id="高分作文三要素">高分作文三要素</h5>
+<h6 id="语言第一位【遣词造句】">语言第一位【遣词造句】</h6>
+<p>庸俗词汇清新化<br>
+抽象名词具体化</p>
+<pre><code>1.a对b很重要
+a is to b what water is to fish  [比喻]
+
+2.人们（具体）
+年轻人：youngsters and teenagers （儿童和青少年）
+            young clays   [clays（泥土）]
+大学生：youngsters on campus
+父母：superiors（长者，上级）
+
+3.许多 数量极大
+a sea of (多如潮涌)
+a galaxy of （多如繁星）
+a train of (一火车的)
+
+数量少：a slice of
+4 （适度瞎编）名人名言
+A.金钱是善仆也是恶主（金钱一次可换成其他名词，适用与所有双刃剑文章）
+Money is agood servant and a bad master.
+B.生活没有目标就想航海没有指南针(说明一个东西对另一个东西的重要性)
+Living without an aim is like sailing without a compass.
+C.实现明天理想的障碍是今天的疑虑(消极的品质)
+The limit to our realization of tomorrow will be our doubts of today
+
+格式
+just as Alexander Dumas（大仲马） ,a French writer, once said, &quot;***&quot;.
+（大仲马说的话太多了，直接套话）
+</code></pre>
+<h6 id="结构第二位【及其严谨-惊艳】">结构第二位【及其严谨/惊艳】</h6>
+<h6 id="内容第三位【切题】">内容第三位【切题】</h6>
+<h2 id="单词">单词</h2>
+<h3 id="1）不记听写">1）不记听写</h3>
+<h3 id="2）一词多义，熟词僻义">2）一词多义，熟词僻义</h3>
+<h3 id="背诵">背诵</h3>
+<h4 id="词根词缀记忆法">词根词缀记忆法</h4>
+<p>前缀表方向，词根表本源，后缀表词性<br>
+元音字母a,e,i,o,u,辅音字母读音相近时可互换<br>
+p-b   t-d   c-k-g  x-s<br>
+列子：<br>
+professor n.教授<br>
+pro-向前<br>
+fess-说话（词根）<br>
+or-名词后缀 人</p>
+<pre><code>tract（词根）表示拉扯
+t-d c-g
+drag n.拉拽
+
+abstract  ['æbstrækt]  a.抽象的 n.摘要,文摘,梗概vt.提取；摘录要点
+abs-加强语气
+
+attract  [ə'trækt]  vt.引起的注意(或兴趣等),吸引；引起；激起
+
+*contract [ˈkɒntrækt] 	n.(承包)合同/契约 v.订合同/契约；使缩小 
+con-共同，一起（come）tract
+拉到一起
+
+distract 	[dis'trækt] v.分散;使分心;打扰;使心情烦乱 
+dis-否定前缀/四散
+tract-拉扯
+四散的拉扯
+分散
+
+extract   [ik‘strækt]   v./n.拔出,抽出;摘录 n.抽取物;精华;选集
+ex-向外
+
+celer-速度
+celerity [sɪ'lerɪtɪ]  n.  敏捷、快捷 
+ity-集合名词后缀
+
+accelerate [ək'seləreit] v.使加速，使增速，促进 vi.加快，增加
+ac-加强语气
+ate-动词后缀
+
+decelerate [ˌdi:ˈseləreɪt] v. 使…减速
+de-消极否定
+ate-动词后缀
+
+stimulate ['stimjuleit] v.刺激,使兴奋;激励,鼓舞
+stim--sting（v.叮咬，刺激）
+ul--连字符
+ate-动词后缀
+
+simulate [‘simjuleit] v.模仿,模拟;假装,冒充
+sim--same（一样）
+ul--连字符
+ate-动词后缀
+</code></pre>
+<h4 id="有规律的重复每天背50-80">有规律的重复每天背50~80</h4>
+<p>周一到周五背新单词<br>
+周六周日复习就单词</p>
+]]></content>
+      <tags>
+        <tag>考研</tag>
+      </tags>
   </entry>
   <entry>
     <title>构造时有无()的区别</title>
@@ -2157,24 +2990,30 @@ int main() {
 ]]></content>
   </entry>
   <entry>
-    <title>果子私房笔记-SSL握手过程</title>
-    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-SSL%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h1>SSL握手过程</h1>
-<h2 id="本质">本质</h2>
-<p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p>
-<p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
-<h2 id="过程">过程</h2>
-<p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>
-2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>
-3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>
-4.服务器使用私钥对随机数字3解密。<br>
-5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
+    <title>链接调试符号</title>
+    <url>/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/</url>
+    <content><![CDATA[<h1>链接调试符号</h1>
+<p>调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令</p>
 ]]></content>
       <categories>
-        <category>计算机网络</category>
+        <category>c++</category>
       </categories>
       <tags>
-        <tag>果子私房笔记</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虚假唤醒</title>
+    <url>/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/</url>
+    <content><![CDATA[<h1>虚假唤醒</h1>
+<pre><code>https://zhuanlan.zhihu.com/p/652823880
+</code></pre>
+]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -2591,844 +3430,6 @@ E-R图由什么构成以及如何才能画一个E-R图？</p>
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http协议无状态协议以及解决方案</title>
-    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E5%8D%8F%E8%AE%AE%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<h1>http协议无状态协议以及解决方案</h1>
-<p>http本身是一种无状态协议</p>
-<p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>
-也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p>
-<p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http与https的区别</title>
-    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1>http与https的区别</h1>
-<p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>
-HTTP是不安全的，而HTTPS是安全的<br>
-HTTP标准端口是80 ，而HTTPS的标准端口是443<br>
-在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>
-HTTP无法加密，而HTTPS对传输的数据进行加密<br>
-HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http的URI和URL</title>
-    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/</url>
-    <content><![CDATA[<h1>URI</h1>
-<p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p>
-<p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p>
-<h2 id="URI一般由三部组成：">URI一般由三部组成：</h2>
-<h3 id="①访问资源的命名机制">①访问资源的命名机制</h3>
-<h3 id="②存放资源的主机名">②存放资源的主机名</h3>
-<h3 id="③资源自身的名称，由路径表示，着重强调于资源。">③资源自身的名称，由路径表示，着重强调于资源。</h3>
-<h1>URL</h1>
-<p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>
-URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>
-采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
-<h2 id="URL一般由三部组成：">URL一般由三部组成：</h2>
-<h3 id="①协议-或称为服务方式">①协议(或称为服务方式)</h3>
-<h3 id="②存有该资源的主机IP地址-有时也包括端口号">②存有该资源的主机IP地址(有时也包括端口号)</h3>
-<h3 id="③主机资源的具体地址。如目录和文件名等">③主机资源的具体地址。如目录和文件名等</h3>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http的作用和RPC</title>
-    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</url>
-    <content><![CDATA[<h1>http的作用和RPC</h1>
-<h2 id="HTTP">HTTP</h2>
-<p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>
-HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>
-传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p>
-<h2 id="RPC">RPC</h2>
-<p>rpc 是应用层由用户自己在制定的协议</p>
-<h2 id="HTTP和RPC区别">HTTP和RPC区别</h2>
-<p>HTTP指的是通信协议。<br>
-而RPC则是远程调用协议，其对应的是本地调用。<br>
-RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p>
-<h2 id="那为什么要有RPC？">那为什么要有RPC？</h2>
-<p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-http的常用方法</title>
-    <url>/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h1>http的常用方法</h1>
-<h2 id="GET">GET</h2>
-<p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>
-只请求服务端的数据，但是没有改变数据。</p>
-<h2 id="POST">POST</h2>
-<p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>
-比如上传一篇博客用的post会改变服务器端的数据。</p>
-<h2 id="PUT">PUT</h2>
-<p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p>
-<h2 id="HEAD">HEAD</h2>
-<p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p>
-<h2 id="DELETE">DELETE</h2>
-<p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p>
-<h2 id="OPTIONS">OPTIONS</h2>
-<p>查询相应URI支持的HTTP方法。</p>
-<h1>get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html</h1>
-<p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>
-GET产生的URL地址可以被Bookmark，而POST不可以。<br>
-GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>
-GET请求只能进行url编码，而POST支持多种编码方式。<br>
-GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>
-GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>
-对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>
-GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>
-GET参数通过URL传递，POST放在Request body中。<br>
-GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>
-GET产生一个TCP数据包；POST产生两个TCP数据包。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-time_wait</title>
-    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-time_wait/</url>
-    <content><![CDATA[<h1>time_wait</h1>
-<h2 id="time-wait状态如何产生？">time_wait状态如何产生？</h2>
-<p>由上面的变迁图，首先调用close()发起主动关闭的一方，在发送最后一个ACK之后会进入time_wait的状态，也就说该发送方会保持2MSL时间之后才会回到初始状态。MSL值得是数据包在网络中的最大生存时间。产生这种结果使得这个TCP连接在2MSL连接等待期间，定义这个连接的四元组（客户端IP地址和端口，服务端IP地址和端口号）不能被使用。</p>
-<h2 id="time-wait状态产生的原因">time_wait状态产生的原因</h2>
-<h3 id="1）为实现TCP全双工连接的可靠释放">1）为实现TCP全双工连接的可靠释放</h3>
-<p>假设发起主动关闭的一方（client）最后发送的ACK在网络中丢失，由于TCP协议的重传机制，执行被动关闭的一方（server）将会重发其FIN，在该FIN到达client之前，client必须维护这条连接状态，也就说这条TCP连接所对应的资源（client方的local_ip,local_port）不能被立即释放或重新分配，直到另一方重发的FIN达到之后，client重发ACK后，经过2MSL时间周期没有再收到另一方的FIN之后，该TCP连接才能恢复初始的CLOSED状态。如果主动关闭一方不维护这样一个TIME_WAIT状态，那么当被动关闭一方重发的FIN到达时，主动关闭一方的TCP传输层会用RST包响应对方，这会被对方认为是有错误发生，然而这事实上只是正常的关闭连接过程，并非异常。</p>
-<h3 id="2）为使旧的数据包在网络因过期而消失">2）为使旧的数据包在网络因过期而消失</h3>
-<p>为说明这个问题，我们先假设TCP协议中不存在TIME_WAIT状态的限制，再假设当前有一条TCP连接：(local_ip, local_port, remote_ip,remote_port)，因某些原因，我们先关闭，接着很快以相同的四元组建立一条新连接。本文前面介绍过，TCP连接由四元组唯一标识，因此，在我们假设的情况中，TCP协议栈是无法区分前后两条TCP连接的不同的，在它看来，这根本就是同一条连接，中间先释放再建立的过程对其来说是“感知”不到的。这样就可能发生这样的情况：前一条TCP连接由local peer发送的数据到达remote peer后，会被该remot peer的TCP传输层当做当前TCP连接的正常数据接收并向上传递至应用层（而事实上，在我们假设的场景下，这些旧数据到达remote peer前，旧连接已断开且一条由相同四元组构成的新TCP连接已建立，因此，这些旧数据是不应该被向上传递至应用层的），从而引起数据错乱进而导致各种无法预知的诡异现象。作为一种可靠的传输协议，TCP必须在协议层面考虑并避免这种情况的发生，这正是TIME_WAIT状态存在的第2个原因。</p>
-<h3 id="3）总结">3）总结</h3>
-<p>具体而言，local peer主动调用close后，此时的TCP连接进入TIME_WAIT状态，处于该状态下的TCP连接不能立即以同样的四元组建立新连接，即发起active close的那方占用的local port在TIME_WAIT期间不能再被重新分配。由于TIME_WAIT状态持续时间为2MSL，这样保证了旧TCP连接双工链路中的旧数据包均因过期（超过MSL）而消失，此后，就可以用相同的四元组建立一条新连接而不会发生前后两次连接数据错乱的情况。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-僵尸进程和孤儿进程</title>
-    <url>/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/</url>
-    <content><![CDATA[<h1>僵尸进程和孤儿进程</h1>
-<h2 id="1-什么是进程？">1.什么是进程？</h2>
-<p>程序：程序是指令和数据的集合<br>
-进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的独立单位</p>
-<h2 id="2-为什么需要进程？">2.为什么需要进程？</h2>
-<p>引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程</p>
-<h2 id="3-如何操作进程？">3.如何操作进程？</h2>
-<p>操作系统为了能够使每个程序能够独立运行，在操作系统中为其配置了一个数据结构，也就是我们通常所说的PCB（Process Control Block），PCB 是进程运行相关的信息集合。</p>
-<h2 id="孤儿进程：">孤儿进程：</h2>
-<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
-<h2 id="僵尸进程：">僵尸进程：</h2>
-<p>一个进程使用fork创建子进程，如果子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
-如果进程不调用wait / waitpid的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。所以僵尸进程是有危害的。</p>
-<h2 id="守护进程">守护进程:</h2>
-<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是个特殊的孤儿进程。它是一个生存期较长的进程，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
-<h2 id="父进程、子进程：">父进程、子进程：</h2>
-<p>父进程和子进程的关系是：子进程是父进程的一个副本，一个父进程能创建多个子进程，创建子进程能并发执行。一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。</p>
-]]></content>
-      <categories>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-多路IO复用</title>
-    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%A4%9A%E8%B7%AFIO%E5%A4%8D%E7%94%A8/</url>
-    <content><![CDATA[<h1>多路IO复用</h1>
-<p><a href="https://blog.csdn.net/qq_46312987/article/details/124213418" target="_blank" rel="noopener">https://blog.csdn.net/qq_46312987/article/details/124213418</a></p>
-<h2 id="零拷贝优化">零拷贝优化</h2>
-<p>传统的网络编程中，将磁盘文件写入网卡需要进行四次拷贝和四次上下文切换。<br>
-磁盘文件–DMA拷贝-&gt;(内核态)缓存区–CPU拷贝-&gt;(用户态)用户缓存区–CPU拷贝-&gt;(内核态)socket缓冲区–DMA拷贝-&gt;网卡。</p>
-<h3 id="DMA拷贝：">DMA拷贝：</h3>
-<p>DMA的原理是CPU将需要迁移的数据的位置告诉给DMA，包括源地址，目的地址以及需要迁移的长度，然后启动DMA设备去完成相应的操作，最后通过中断反馈给CPU，结束。</p>
-<h3 id="Mmap优化：">Mmap优化：</h3>
-<p>mmap通过内存映射，将内存缓冲区中的数据映射到用户缓冲区，由此让用户空间共享内核空间的数据。</p>
-<h2 id="常用的IO模型">常用的IO模型</h2>
-<h3 id="阻塞IO：">阻塞IO：</h3>
-<p>假设建立一个socket连接，如果这个连接的客户端一直不发数据，那么服务端线程将会一直阻塞在read函数上不返回。</p>
-<h3 id="非阻塞IO：">非阻塞IO：</h3>
-<p>将read函数改造成：如果没有数据到达网卡时，立即返回一个错误值，而不是阻塞地等待。这样就需要用户线程循环调用read，直到返回值不为-1，再开始处理业务。注意：非阻塞的read，指的是数据还未到达网卡，当数据已经到达内核缓冲区，此时调用read函数依旧是阻塞的，需要等待数据从内核缓冲区拷贝到用户缓冲区才能返回。</p>
-<h3 id="多路复用IO">多路复用IO</h3>
-<h4 id="前导：">前导：</h4>
-<p>为每个连接创建一个线程耗费的资源较多，我们可以每连接一个客户端后，将文件描述符放到一个数组里，用一个线程不断去遍历这个数组，调用每个元素的非阻塞read方法。每次遍历到read返回-1，依然是一次浪费资源的系统调用。</p>
-<h4 id="Select：">Select：</h4>
-<p>通过select，我们把文件描述符数组传输给操作系统，让操作系统去遍历，操作系统将准备就绪的文件描述符做上标识再返回给用户，用户依旧需要遍历刚提交给操作系统的数组。相比于前导的方法，就是把循环调用rpc改成了一次调用批量的rpc。</p>
-<h4 id="Poll：">Poll：</h4>
-<p>相比select去掉了只能监听1024个文件描述符的限制。</p>
-<h5 id="Epoll：">Epoll：</h5>
-<p>针对select模型的三个缺点进行改造：1.在内核中保存一份文件描述符集合，无需用户每次重新传入，只需告诉内核修改的部分。2.内核不再以轮询的方式去找就绪的文件描述符，而是通过异步IO事件唤醒。3.内核仅会将有IO事件的文件描述符返回给用户，用户无需再遍历整个文件描述符集合。</p>
-]]></content>
-      <categories>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-子网掩码</title>
-    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81/</url>
-    <content><![CDATA[<h1>子网掩码</h1>
-<p>子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。</p>
-<h2 id="计算方式">计算方式</h2>
-<h3 id="根据子网数：">根据子网数：</h3>
-<p>如欲将B类IP地址168.195.0.0划分成27个子网：</p>
-<pre><code>1)27=11011  
-2)该二进制为五位数，N=5  
-3)将B类地址的子网掩码255.255.0.0的主机地址前5位置1（B类地址的主机位包括后两个字节，所以这里要把第三个字节的前5位置1），得到 255.255.248.0即为划分成27个子网的B类IP地址 168.195.0.0的子网掩码（实际上是划成了32-2=30个子网）。
-</code></pre>
-<h3 id="根据主机数">根据主机数</h3>
-<p>如欲将B类IP地址168.195.0.0划分成若干子网，每个子网内有主机700台：</p>
-<pre><code>1) 700=1010111100  
-2)该二进制为十位数，N=10  
-3)将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255  
-然后再从后向前将后10位置0，即为：11111111.11111111.11111100.00000000
-即255.255.252.0。这就是该欲划分成主机为700台的B类IP地址168.195.0.0的子网掩码。
-</code></pre>
-<h3 id="子网ID增量计算法（即计算每个子网的IP范围）">子网ID增量计算法（即计算每个子网的IP范围）</h3>
-<p>其基本计算步骤如下：</p>
-<h4 id="第1步">第1步</h4>
-<p>将所需的子网数转换为二进制，如所需划分的子网数为“4”，则转换成成二进制为00000100；</p>
-<h4 id="第2步">第2步</h4>
-<p>取子网数的二进制中有效位数，即为向缺省子网掩码中加入的位数（既向主机ID中借用的位数）。如前面的00000100，有效位为“100”，为3位（在新标准中只需要2位就可以了）；</p>
-<h4 id="第3步">第3步</h4>
-<p>决定子网掩码。如IP地址为B类129.20.0.0网络，则缺省子网掩码为：255.255.0.0，借用主机ID的3位以后变为：255.255.224（11100000）.0，即将所借的位全表示为1，用作子网掩码。</p>
-<h4 id="第4步">第4步</h4>
-<p>将所借位的主机ID的起始位段最右边的“1”转换为十进制，即为每个子网ID之间的增量，如前面的借位的主机ID起始位段为“11100000”，最右边的“1”，转换成十进制后为2^5=32（此为子网ID增量）。</p>
-<h4 id="第5步">第5步</h4>
-<p>产生的子网ID数为：2^m-2 （m为向缺省子网掩码中加入的位数），如本例向子网掩码中添加的位数为3，则可用子网ID数为：2^3-2=6个；</p>
-<h4 id="第6步">第6步</h4>
-<p>将上面产生的子网ID增量附在原网络ID之后的第一个位段，便形成第一个子网网络ID 129.20.32.0（即第一个子网的起始IP段）；</p>
-<h4 id="第7步">第7步</h4>
-<p>重复上步操作，在原子网ID基础上加上一个子网ID增量，依次类推，直到子网ID中的最后位段为缺省子网掩码位用主机ID位之后的最后一个位段值，这样就可得到所有的子网网络ID。如缺省子网掩码位用主机ID位之后的子网ID为255.255.224.0，其中的“224”为借用主机ID后子网ID的最后一位段值，所以当子网ID通过以上增加增量的方法得到129.20.224.0时便终止，不要再添加了（只能用到129.20.192.0）。</p>
-<p>我们知道当主机ID为全0时表示网络ID，全1时表示广播地址。在RFC950标准中，不建议使用全0和全1的子网ID。<br>
-例如把最后一个字节的前3位借给网络ID，用后面的5位来表示主机ID，这样就会产生2^3=8个子网，子网ID就分别为000、001、010、011、100、101、110、111这样8个，在RFC950标准中只能使用中间的6个子网ID。</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-对称加密和非对称加密</title>
-    <url>/2022/12/04/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/</url>
-    <content><![CDATA[<h1>对称加密技术</h1>
-<p>原理：文件加密和解密使用相同的密钥<br>
-特点：使用起来简单快捷，密钥较短，加密效率高。</p>
-<h2 id="对称加密算法存在几个问题：">对称加密算法存在几个问题：</h2>
-<p>1、要求提供一条安全的渠道使通讯双方在首次通讯时协商一个共同的密钥。<br>
-2、密钥的数目难于管理。因为对于每一个合作者都需要使用不同的密钥。<br>
-3、对称加密算法一般不能提供信息完整性的鉴别。它无法验证发送者和接受者的身份。<br>
-4、对称加密是基于共同保守秘密来实现的，如果一方泄露那么加密信息也就不安全了。<br>
-常用算法：DES、3DES、TDEA、Blowfish、RC2、RC4、RC5、IDEA、SKIPJACK</p>
-<h1>非对称加密技术</h1>
-<h2 id="原理：">原理：</h2>
-<p>对称加密算法需要两个密钥，公开密钥（publickey）和私有密钥（privatekey）。如果用公开密钥对数据进行加密，只有用对应的私有密钥才能解密；如果用私有密钥对数据进行加密，那么只有用对应的公开密钥才能解密。</p>
-<h2 id="特点：">特点：</h2>
-<p>算法强度复杂，速度远低于对称加密，安全性高。<br>
-使用过程：甲方生成一对密钥并将其中的一把作为公用密钥向其它方公开；得到该公用密钥的乙方使用该密钥对机密信息进行加密后再发送给甲方；甲方再用自己保存的另一把专用密钥对加密后的信息进行解密。甲方只能用其专用密钥解密由其公用密钥加密后的任何信息。<br>
-非对称加密的典型应用：</p>
-<h2 id="数字签名：">数字签名：</h2>
-<p>发送报文时，发送方用一个哈希函数从报文文本中生成报文摘要，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方，接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再公钥来对报文附加的数字签名进行解密，如果这两个摘要相同，那么接收方就能确认该报文是发送方的。<br>
-常用算法：RSA，DSA，ECDSA</p>
-<h1>Hash算法（摘要算法）</h1>
-<p>原理：Hash算法特别的地方在于它是一种单向算法，用户可以通过Hash算法对目标信息生成一段特定长度的唯一hash值，却不能通过这个hash值重新获得目标信息。因此Hash算法常用在不可还原的密码存储、信息完整性校验等。<br>
-常用算法：MD2、MD4、MD5、HAVAL、SHA</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-进程</title>
-    <url>/2023/02/10/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B/</url>
-    <content><![CDATA[<h1>进程</h1>
-<h2 id="1-什么是进程？">1.什么是进程？</h2>
-<p>程序：程序是指令和数据的集合<br>
-进程：进程就是程序的一次执行过程，是系统进行资源分配和调度的基本单位</p>
-<h2 id="2-如何操作进程？">2.如何操作进程？</h2>
-<p>设立了PCB (进程控制块），其内容如下。<br>
-标示符：描述本进程的唯一标示符，用来区别其他进程。<br>
-状态：任务状态，退出代码，退出信号等。<br>
-优先级：相对于其他进程的优先级。<br>
-程序计数器：程序中即将被执行的下一条指令的地址。<br>
-内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针<br>
-上下文数据：进程执行时处理器的寄存器中的数据。<br>
-I／O状态信息：包括显示的I/O请求,分配给进程的I／O设备和被进程使用的文件列表。<br>
-记账信息：可能包括处理器时间总和，使用的时钟数总和，时间限制，记账号等。 其他信息<br>
-CPU对进程的调度使用<br>
-CPU通过PCB中的内存指针来找到程序在内存中的地址，通过上下文数据来记录运行中程序的各种信息，通过程序计数器来找到这个程序即将执行的下一条指令的地址。</p>
-<h2 id="3-进程的状态">3.进程的状态</h2>
-<p>三种基本状态：就绪、运行、阻塞<br>
-五种状态：新建状态，就绪状态，运行状态，阻塞状态，退出状态。</p>
-<h2 id="4-子进程">4.子进程</h2>
-<p>当我们在一个已经创建的进程内通过fork创建一个新的进程时，这个新的进程就是原先进程的子进程。<br>
-在子进程创建的时候，它从父进程的PCB中复制了很多数据，如内存指针、上下文数据、程序计数器等，所以它的代码、数据以及运行的位置，都与父进程一模一样。<br>
-由于代码段是只读的，所以两者的代码都一样，不可修改，而两者虽然虚拟地址相同，但物理地址不同，所以两者的数据都各自独立。<br>
-一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。<br>
-总结一下就是：父子进程代码共享，数据各自开辟空间。(利用写时拷贝技术)<br>
-我们创建子进程，希望它和父进程执行不一样的操作，该怎么实现呢？<br>
-最简单的方法就是通过fork的返回值来进行代码分流，父进程的返回值是子进程的pid，而子进程的返回值是0，通过对返回值的判断，即可完成代码的分流。</p>
-<h2 id="5-进程的概念">5.进程的概念</h2>
-<h3 id="僵尸进程：">僵尸进程：</h3>
-<p>一个进程的子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>
-子进程的进程号就会一直被占用，但是系统所能使用的进程号有限，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。<br>
-解决方法有两种分别是退出父进程和进程等待。</p>
-<h3 id="孤儿进程：">孤儿进程：</h3>
-<p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
-<h3 id="守护进程">守护进程:</h3>
-<p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是特殊的孤儿进程。生存期较长，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
-<h2 id="6-进程控制">6.进程控制</h2>
-<h3 id="创建进程">创建进程</h3>
-<p>fork：创建一个子进程，父子进程代码共享，数据独有。(共享是因为页表的权限，独有是不同的页表对应空间存数据)<br>
-vfork：创建一个子进程，并且阻塞父进程，直到子进程退出或者程序替换，父进程才继续运行</p>
-<h3 id="终止进程">终止进程</h3>
-<p>return：只可以在 main 函数中用，推出后刷新缓冲区<br>
-exit(statu)：库函数，退出刷新缓冲区<br>
-_exit(statu)：系统调用，status 定义了进程的终止状态，父进程通过wait来获取该值，退出不刷新缓冲区</p>
-<h3 id="进程等待">进程等待</h3>
-<p>wait：获取退出子进程的pid，并且释放子进程资源。( 阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则调用不返回一直等待。非阻塞：为了完成某个功能发起调用，如果不具备完成功能的条件，则立即报错返回 )<br>
-waitpid：可以指定等待一个子进程的退出</p>
-<h3 id="程序替换">程序替换</h3>
-<p>创建的子进程如果想要做与父进程不同的事，其最好的方法就是程序替换，替换一个进程正在调度的程序信息。</p>
-<h3 id="exec">exec</h3>
-<p>l(list)：表示参数采用列表<br>
-v(vector)：参数用数组<br>
-p(path)：有p自动搜索环境变量PATH<br>
-e(env)：有e表示自己维护环境变量</p>
-<h2 id="7-进程的调度算法">7.进程的调度算法</h2>
-<p>针对批处理系统：批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
-<h3 id="1-1先来先服务-first-come-first-serverd（FCFS）">1.1先来先服务 first-come first-serverd（FCFS）</h3>
-<p>非抢占式的调度算法，按照请求的顺序进行调度。有利于长作业，但不利于短作业，因为短作业必须一直等待前面的长作业执行完毕才能执行，而长作业又需要执行很长时间，造成了短作业等待时间过长。</p>
-<h3 id="1-2短作业优先-shortest-job-first（SJF）">1.2短作业优先 shortest job first（SJF）</h3>
-<p>非抢占式的调度算法，按估计运行时间最短的顺序进行调度。如果一直有短作业到来，长作业可能处于一直等待短作业执行完毕的状态，导致饿死。</p>
-<h3 id="1-3最短剩余时间优先-shortest-remaining-time-next（SRTN）">1.3最短剩余时间优先 shortest remaining time next（SRTN）</h3>
-<p>最短作业优先的抢占式版本，按剩余运行时间的顺序进行调度。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较，如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。<br>
-交互式系统：交互式系统有大量的用户交互操作，在该系统中调度算法的目标是快速地进行响应。</p>
-<h3 id="2-1时间片轮转">2.1时间片轮转</h3>
-<p>将所有就绪进程按 FCFS 的原则排成一个队列，每次调度时，把 CPU 时间分配给队首进程，该进程可以执行一个时间片。当时间片用完时，由计时器发出时钟中断，调度程序便停止该进程的执行，并将它送往就绪队列的末尾，同时继续把 CPU 时间分配给队首的进程。时间片轮转算法的效率和时间片的大小有很大关系：<br>
-因为进程切换都要保存进程的信息并且载入新进程的信息，如果时间片太小，会导致进程切换得太频繁，在进程切换上就会花过多时间。而如果时间片过长，那么实时性就不能得到保证。</p>
-<h3 id="2-2优先级调度">2.2优先级调度</h3>
-<p>为每个进程分配一个优先级，按优先级进行调度。为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</p>
-<h3 id="2-3-多级反馈队列">2.3 多级反馈队列</h3>
-<p>一个进程需要执行 100 个时间片，如果采用时间片轮转调度算法，那么需要交换 100 次。多级队列是为这种需要连续执行多个时间片的进程考虑，它设置了多个队列，每个队列时间片大小都不同，例如 1,2,4,8,…。进程在第一个队列没执行完，就会被移到下一个队列。这种方式下，之前的进程只需要交换 7 次。每个队列优先权也不同，最上面的优先权最高。因此只有上一个队列没有进程在排队，才能调度当前队列上的进程。可以将这种调度算法看成是时间片轮转调度算法和优先级调度算法的结合。</p>
-]]></content>
-      <categories>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>牛客西安邮大校赛-D最简单的一道题</title>
-    <url>/2020/05/24/%E7%89%9B%E5%AE%A2%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7%E6%A0%A1%E8%B5%9B-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/</url>
-    <content><![CDATA[<p>参考自官方的博客：<a href="https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73" target="_blank" rel="noopener">https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73</a></p>
-<h1>题目</h1>
-<h2 id="题面">题面</h2>
-<p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p>
-<ol>
-<li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li>
-<li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li>
-</ol>
-<h2 id="Input">Input</h2>
-<p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>
-第二行 n 个数字，表示建筑高度<br>
-后面 m 行指令：c l r k<br>
-或者：q x<br>
-数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>
-1≤x≤n,1≤k≤10^4</p>
-<h2 id="Output">Output</h2>
-<p>对于每个查询，输出答案，每个答案一行</p>
-<h2 id="Examples">Examples</h2>
-<h3 id="Input-2">Input</h3>
-<pre><code>5 5
-1 2 3 4 3
-q 3
-c 1 3 3
-q 2
-c 5 5 4
-q 5
-</code></pre>
-<h3 id="Output-2">Output</h3>
-<pre><code>1
-2
-0
-</code></pre>
-<h2 id="思路">思路</h2>
-<p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
-<h2 id="代码">代码</h2>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;time.h&gt;
-using namespace std;
-
-#define mid ((l+r)&gt;&gt;1)
-
-#define MAX 200005
-struct node {
-    node() {
-        minn = value = add = 0;
-    }
-    void init() {
-        minn = value = add = 0;
-    }
-    int minn;
-    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）
-    int add;//其子节点的所有数字加add
-};
-
-struct Segt {
-    int arr[MAX];
-    node tree[MAX &lt;&lt; 2];
-    void push_down(int p) {
-        if (tree[p].add != 0) {
-            tree[(p &lt;&lt; 1)].add += tree[p].add;
-            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;
-            tree[(p &lt;&lt; 1)].minn += tree[p].add;
-            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;
-            tree[p].add = 0;
-        }
-
-    }
-
-    void push_up(int l, int r, int p) {//向上跟新父节点的值
-        //bool flag = true;
-        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);
-        int m = mid;
-        int val = tree[(p &lt;&lt; 1)].minn;
-        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));
-    }
-
-    void build(int l, int r, int p) {//建立线段树
-        tree[p].init();
-        if (l == r) {
-            tree[p].minn = arr[l];
-            tree[p].value = 0;
-            return;
-        }
-        int m = mid;
-        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));
-        push_up(l, r, p);
-    }
-    void update(int a, int b, int k, int l, int r, int p) {//区间修改
-        if (l &gt;= a &amp;&amp; r &lt;= b) {
-            tree[p].minn += k;
-            tree[p].add += k;
-            return;
-        }
-        push_down(p);
-        int m = mid;
-        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));
-        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));
-        push_up(l, r, p);
-    }
-    int get_val(int pos, int l, int r, int p) {//取得pos点的值（单点查询）
-        if (l == r) return tree[p].minn;
-        push_down(p);
-        int m = mid;
-        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));
-        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));
-        // push_up(p);
-    }
-    int que(int a, int&amp; val, int l, int r, int p) {//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）
-        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数
-        int m = mid;
-           //cout &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; endl;
-        if (l != r) push_down(p);//更新子节点数值
-        if (l &gt;= a) {
-            if (tree[p].minn &lt;= val) {//只有后面数值的最小值比val小才能组成
-                if (l == r) {
-                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; ' ' &lt;&lt;  l &lt;&lt; ' ' &lt;&lt; tree[p].minn &lt;&lt; endl;
-                    val = tree[p].minn;//之后的数要小于val
-                    return 1;//minn是一个可以接在val后面的数
-                }
-                if (tree[(p &lt;&lt; 1)].minn &lt;= val) {//如果r-l的前半部分的最小值比val小
-                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组
-                    val = tree[p].minn;//更新最小值
-                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; ' ' &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; ' ' &lt;&lt; an &lt;&lt; ' ' &lt;&lt; tree[p].value &lt;&lt; endl;
-                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）
-                }
-                else {
-                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量
-                }
-            }
-            else {
-                return 0;
-            }
-        }
-        //当a不在l之前时
-        if (a &lt;= m) {//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组
-            int an = que(a, val, l, m, (p &lt;&lt; 1));
-            if (val == tree[(p &lt;&lt; 1)].minn) {//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）
-                val = tree[p].minn;
-                return an + tree[p].value;
-            }
-            else {
-                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量
-            }
-        }
-        else {
-            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分
-        }
-    }
-
-
-
-};
-Segt segt;
-
-void make_ans(istream&amp; in, ostream&amp; out) {//输入，输出流
-    int n, m;
-    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;
-    for (int i = 1; i &lt;= n; i++) {
-        in &gt;&gt; segt.arr[i];
-    }
-    segt.build(1, n, 1);
-    while (m--) {
-        char ch;
-          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
-          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; ' '; cout &lt;&lt; endl;
-          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;
-        in &gt;&gt; ch;
-        if (ch == 'c') {
-            int l, r, k;
-            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;
-            segt.update(l, r, k, 1, n, 1);
-        }
-        else {
-            int x;
-            in &gt;&gt; x;
-            int val = segt.get_val(x, 1, n, 1);//取得x点的值
-            //  cout &lt;&lt; val &lt;&lt; endl;
-            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列
-        }
-    }
-}
-
-int main(void) {
-    freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);
-    make_ans(cin, cout);
-    return 0;
-}
-</code></pre>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>英语考研规划</title>
-    <url>/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<h1>英语考研规划</h1>
-<h2 id="题型">题型</h2>
-<p>重点把握：阅读和作文</p>
-<h3 id="客观题">客观题</h3>
-<h4 id="完形填空20-0-5-10">完形填空20*0.5=10</h4>
-<p>要求： 带入符合语境，意思</p>
-<h4 id="阅读理解20-2-40">阅读理解20*2=40</h4>
-<p>发力点在于逻辑关系</p>
-<h5 id="1-正向-没有转折句-子的总体趋势相通，都在说一件事">1.正向(没有转折句):子的总体趋势相通，都在说一件事</h5>
-<p>【2011-2】The decision to quit a senior position to look for a better one is unconventional. For years executives and headhunters have adhered to the rule that the most attractive CEO candidates are the ones who must be poached. Says Korn/Ferry senior partner Dennis Carey: “I can’t think of a single search I’ve done where a board has not instructed me to look at sitting CEOs first.”<br>
-28 . The word “poached” (Line 3, Paragraph 4) most probably means C（正向）<br>
-[A]approved of.            		[B]attended to.<br>
-[C]hunted for.             	     	[D]guarded against.</p>
-<p>【2007-1】What might account for this strange phenomenon? Here are a few guesses: a) certain astrological signs confer superior soccer skills; b) winter-born babies tend to have higher oxygen capacity, which increases soccer stamina; c) soccer-mad parents are more likely to conceive children in springtime, at the annual peak of soccer mania; d) none of the above.<br>
-22 .	The word “mania” (Line 4, Paragraph 2) most probably means B（正向）<br>
-[A] fun.        [B] craze.              [C] hysteria.          [D] excitement.</p>
-<h5 id="2-反向（存在转折）：转折前后句意直接鲜明相反">2.反向（存在转折）：转折前后句意直接鲜明相反</h5>
-<p>【2006-1】In spite of（经管） “endless talk of difference,” American society is an amazing machine for homogenizing people. There is “the democratizing uniformity of dress and discourse, and the casualness and absence of deference” characteristic of popular culture. People are absorbed into “a culture of consumption” launched by the 19th-century department stores that offered “vast arrays of goods in an elegant atmosphere. Instead of intimate shops catering to a knowledgeable elite,” these were stores “anyone could enter, regardless of class or background. This turned shopping into a public and democratic act.” The mass media, advertising and sports are other forces for homogenization.<br>
-21 .	The word “homogenizing” (Line 2, Paragraph 1) most probably means <em><strong>C</strong></em>__.（反向）<br>
-[A] identifying         [B] associating<br>
-[C] assimilating（同化）       [D] monopolizing</p>
-<h4 id="新题型（七选五-排序题-小标题）5-2-10">新题型（七选五/排序题/小标题）5*2=10</h4>
-<h3 id="主观题">主观题</h3>
-<h4 id="翻译10">翻译10</h4>
-<h4 id="作文30">作文30</h4>
-<h5 id="书写工整卷面整洁">书写工整卷面整洁</h5>
-<h5 id="高分作文三要素">高分作文三要素</h5>
-<h6 id="语言第一位【遣词造句】">语言第一位【遣词造句】</h6>
-<p>庸俗词汇清新化<br>
-抽象名词具体化</p>
-<pre><code>1.a对b很重要
-a is to b what water is to fish  [比喻]
-
-2.人们（具体）
-年轻人：youngsters and teenagers （儿童和青少年）
-            young clays   [clays（泥土）]
-大学生：youngsters on campus
-父母：superiors（长者，上级）
-
-3.许多 数量极大
-a sea of (多如潮涌)
-a galaxy of （多如繁星）
-a train of (一火车的)
-
-数量少：a slice of
-4 （适度瞎编）名人名言
-A.金钱是善仆也是恶主（金钱一次可换成其他名词，适用与所有双刃剑文章）
-Money is agood servant and a bad master.
-B.生活没有目标就想航海没有指南针(说明一个东西对另一个东西的重要性)
-Living without an aim is like sailing without a compass.
-C.实现明天理想的障碍是今天的疑虑(消极的品质)
-The limit to our realization of tomorrow will be our doubts of today
-
-格式
-just as Alexander Dumas（大仲马） ,a French writer, once said, &quot;***&quot;.
-（大仲马说的话太多了，直接套话）
-</code></pre>
-<h6 id="结构第二位【及其严谨-惊艳】">结构第二位【及其严谨/惊艳】</h6>
-<h6 id="内容第三位【切题】">内容第三位【切题】</h6>
-<h2 id="单词">单词</h2>
-<h3 id="1）不记听写">1）不记听写</h3>
-<h3 id="2）一词多义，熟词僻义">2）一词多义，熟词僻义</h3>
-<h3 id="背诵">背诵</h3>
-<h4 id="词根词缀记忆法">词根词缀记忆法</h4>
-<p>前缀表方向，词根表本源，后缀表词性<br>
-元音字母a,e,i,o,u,辅音字母读音相近时可互换<br>
-p-b   t-d   c-k-g  x-s<br>
-列子：<br>
-professor n.教授<br>
-pro-向前<br>
-fess-说话（词根）<br>
-or-名词后缀 人</p>
-<pre><code>tract（词根）表示拉扯
-t-d c-g
-drag n.拉拽
-
-abstract  ['æbstrækt]  a.抽象的 n.摘要,文摘,梗概vt.提取；摘录要点
-abs-加强语气
-
-attract  [ə'trækt]  vt.引起的注意(或兴趣等),吸引；引起；激起
-
-*contract [ˈkɒntrækt] 	n.(承包)合同/契约 v.订合同/契约；使缩小 
-con-共同，一起（come）tract
-拉到一起
-
-distract 	[dis'trækt] v.分散;使分心;打扰;使心情烦乱 
-dis-否定前缀/四散
-tract-拉扯
-四散的拉扯
-分散
-
-extract   [ik‘strækt]   v./n.拔出,抽出;摘录 n.抽取物;精华;选集
-ex-向外
-
-celer-速度
-celerity [sɪ'lerɪtɪ]  n.  敏捷、快捷 
-ity-集合名词后缀
-
-accelerate [ək'seləreit] v.使加速，使增速，促进 vi.加快，增加
-ac-加强语气
-ate-动词后缀
-
-decelerate [ˌdi:ˈseləreɪt] v. 使…减速
-de-消极否定
-ate-动词后缀
-
-stimulate ['stimjuleit] v.刺激,使兴奋;激励,鼓舞
-stim--sting（v.叮咬，刺激）
-ul--连字符
-ate-动词后缀
-
-simulate [‘simjuleit] v.模仿,模拟;假装,冒充
-sim--same（一样）
-ul--连字符
-ate-动词后缀
-</code></pre>
-<h4 id="有规律的重复每天背50-80">有规律的重复每天背50~80</h4>
-<p>周一到周五背新单词<br>
-周六周日复习就单词</p>
-]]></content>
-      <tags>
-        <tag>考研</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虚假唤醒</title>
-    <url>/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/</url>
-    <content><![CDATA[<h1>虚假唤醒</h1>
-<pre><code>https://zhuanlan.zhihu.com/p/652823880
-</code></pre>
-]]></content>
-      <categories>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>链接调试符号</title>
-    <url>/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/</url>
-    <content><![CDATA[<h1>链接调试符号</h1>
-<p>调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令</p>
-]]></content>
-      <categories>
-        <category>c++</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-TCP与UDP的区别</title>
-    <url>/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1>TCP与UDP的区别</h1>
-<h2 id="TCP">TCP</h2>
-<h3 id="TCP的优点：">TCP的优点：</h3>
-<p>可靠，稳定 TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源。</p>
-<h3 id="TCP的缺点：">TCP的缺点：</h3>
-<p>慢，效率低，占用系统资源高，易被攻击TCP在传递数据之前，要先建连接，这会消耗时间，而且在数据传递时，确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，而且要在每台设备上维护所有的传输连接，事实上，每个连接都会占用系统的CPU、内存等硬件资源。 而且，因为TCP有确认机制、三次握手机制，这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。</p>
-<h3 id="什么时候应该使用TCP：">什么时候应该使用TCP：</h3>
-<p>当对网络通讯质量有要求的时候，比如：整个数据要准确无误的传递给对方，这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 在日常生活中，常见使用TCP协议的应用如下： 浏览器，用的HTTP FlashFXP，用的FTP Outlook，用的POP、SMTP Putty，用的Telnet、SSH QQ文件传输</p>
-<h2 id="UDP">UDP</h2>
-<h3 id="UDP的优点：">UDP的优点：</h3>
-<p>快，比TCP稍安全 UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，UDP是一个无状态的传输协议，所以它在传递数据时非常快。没有TCP的这些机制，UDP较TCP被攻击者利用的漏洞就要少一些。但UDP也是无法避免攻击的，比如：UDP Flood攻击。</p>
-<h3 id="UDP的缺点：">UDP的缺点：</h3>
-<p>不可靠，不稳定<br>
-因为UDP没有TCP那些可靠的机制，在数据传递时，如果网络质量不好，就会很容易丢包。</p>
-<h3 id="什么时候应该使用UDP：">什么时候应该使用UDP：</h3>
-<p>当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。<br>
-比如，日常生活中，常见使用UDP协议的应用如下： QQ语音 QQ视频 TFTP</p>
-<h2 id="小结TCP与UDP的区别：">小结TCP与UDP的区别：</h2>
-<p>1.基于连接与无连接；<br>
-2.对系统资源的要求（TCP较多，UDP少）；<br>
-3.UDP程序结构较简单；<br>
-4.流模式与数据报模式 ；<br>
-5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">tcp协议和udp协议的差别</th>
-</tr>
-</thead>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">TCP</th>
-<th style="text-align:center">UDP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">是否连接</td>
-<td style="text-align:center">面向连接</td>
-<td style="text-align:center">面向非连接</td>
-</tr>
-<tr>
-<td style="text-align:center">传输可靠性</td>
-<td style="text-align:center">可靠</td>
-<td style="text-align:center">不可靠 （可靠的UDP基于应用层实现）</td>
-</tr>
-<tr>
-<td style="text-align:center">应用场合</td>
-<td style="text-align:center">少量数据</td>
-<td style="text-align:center">传输大量数据</td>
-</tr>
-<tr>
-<td style="text-align:center">速度</td>
-<td style="text-align:center">慢</td>
-<td style="text-align:center">快</td>
-</tr>
-</tbody>
-</table>
-<h2 id="TCP与UDP区别总结：">TCP与UDP区别总结：</h2>
-<p>1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</p>
-<p>2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</p>
-<p>3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的</p>
-<p>UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</p>
-<p>4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</p>
-<p>5、TCP首部开销20字节;UDP的首部开销小，只有8个字节，其中有2个byte用于记录包体长度因此包最大大小为64k。</p>
-<p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
-<p>问：.tcp如何可靠<br>
-应答机制/拥塞控制/流量控制/重复丢弃/失序重排/超时重传</p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-TCP握手挥手数据传输</title>
-    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
-    <content><![CDATA[<h1>TCP握手挥手数据传输</h1>
-<h2 id="三次握手过程">三次握手过程</h2>
-<h3 id="第一次握手">第一次握手</h3>
-<p>客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
-<h3 id="第二次握手">第二次握手</h3>
-<p>服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(seq=y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
-<h3 id="第三次握手">第三次握手</h3>
-<p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
-<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP/IP建立连接时使用的握手信号。<br>
-ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
-<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
-<h2 id="传输数据过程">传输数据过程</h2>
-<h3 id="a-超时重传：">a.超时重传：</h3>
-<p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
-<h3 id="b-快速重传：">b.快速重传：</h3>
-<p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
-<h3 id="c-流量控制：">c.流量控制：</h3>
-<p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
-<h3 id="d-拥塞控制：">d.拥塞控制：</h3>
-<p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
-<h2 id="四次挥手过程">四次挥手过程</h2>
-<p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
-<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。">（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3>
-<h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。">（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3>
-<h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。">（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3>
-<h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。">（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
       </tags>
   </entry>
   <entry>
