@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2023-07-13T09:50:13.240Z</updated>
+  <updated>2024-04-23T09:30:43.333Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -15,6 +15,142 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>惰性运算</title>
+    <link href="https://xucanxx.github.io/2024/04/16/%E6%83%B0%E6%80%A7%E8%BF%90%E7%AE%97/"/>
+    <id>https://xucanxx.github.io/2024/04/16/%E6%83%B0%E6%80%A7%E8%BF%90%E7%AE%97/</id>
+    <published>2024-04-16T08:33:51.000Z</published>
+    <updated>2024-04-23T09:30:43.333Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/53750888" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53750888</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/53750888&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhihu.com/p/53750888&lt;/a&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>折叠表达式</title>
+    <link href="https://xucanxx.github.io/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>https://xucanxx.github.io/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</id>
+    <published>2024-01-18T02:24:40.000Z</published>
+    <updated>2024-01-18T02:24:40.937Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>链接调试符号</title>
+    <link href="https://xucanxx.github.io/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/"/>
+    <id>https://xucanxx.github.io/2023/12/23/%E9%93%BE%E6%8E%A5%E8%B0%83%E8%AF%95%E7%AC%A6%E5%8F%B7/</id>
+    <published>2023-12-23T02:30:21.000Z</published>
+    <updated>2024-04-23T08:18:31.091Z</updated>
+    
+    <content type="html"><![CDATA[<h1>链接调试符号</h1><p>调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;链接调试符号&lt;/h1&gt;
+&lt;p&gt;调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="c++" scheme="https://xucanxx.github.io/categories/c/"/>
+    
+    
+    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>惊群效应</title>
+    <link href="https://xucanxx.github.io/2023/12/06/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/"/>
+    <id>https://xucanxx.github.io/2023/12/06/%E6%83%8A%E7%BE%A4%E6%95%88%E5%BA%94/</id>
+    <published>2023-12-06T07:07:40.000Z</published>
+    <updated>2024-04-23T08:18:11.325Z</updated>
+    
+    <content type="html"><![CDATA[<h1>惊群效应</h1><h2 id="惊群问题">惊群问题</h2><pre><code>惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。</code></pre><h2 id="解决办法">解决办法</h2><ol><li>不希望把所有进程都唤醒，就采用定点唤醒某一个进程的做法<ul><li>比如说C++在std::condition_variable满足条件，线程唤起时，其实际上并不会唤起所有等待的线程，而是随机唤起一个正在等待的线程。这样做的达到的结果跟唤起所有线程一起争抢锁资源的结果一样，但是可以很大程度上避免系统上下报文的切换</li></ul></li><li>尽量避免进程上下文切换。<ul><li>采用合适的任务分配策略，减少正在等待线程的数量</li></ul></li></ol><h1>参考资料</h1><p><a href="https://zh.wikipedia.org/wiki/%E6%83%8A%E7%BE%A4%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/惊群问题</a></p><h1>拓展资料</h1><h2 id="nginx是如何解决惊群效应的">nginx是如何解决惊群效应的</h2><p><a href="https://segmentfault.com/a/1190000044210775" target="_blank" rel="noopener">https://segmentfault.com/a/1190000044210775</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;惊群效应&lt;/h1&gt;
+&lt;h2 id=&quot;惊群问题&quot;&gt;惊群问题&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;惊群问题是计算机科学中，当许多进程等待一个事件，事件发生后这些进程被唤醒，但只有一个进程能获得CPU执行权，其他进程又得被阻塞，这造成了严重的系统上下文切换代价。
+&lt;/code&gt;&lt;/</summary>
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://xucanxx.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚假唤醒</title>
+    <link href="https://xucanxx.github.io/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/"/>
+    <id>https://xucanxx.github.io/2023/12/06/%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92/</id>
+    <published>2023-12-06T07:01:58.000Z</published>
+    <updated>2024-04-23T09:31:39.556Z</updated>
+    
+    <content type="html"><![CDATA[<h1>虚假唤醒</h1><pre><code>https://zhuanlan.zhihu.com/p/652823880</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;虚假唤醒&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;https://zhuanlan.zhihu.com/p/652823880
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://xucanxx.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>构造时有无()的区别</title>
+    <link href="https://xucanxx.github.io/2023/09/25/%E6%9E%84%E9%80%A0%E6%97%B6%E6%9C%89%E6%97%A0-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://xucanxx.github.io/2023/09/25/%E6%9E%84%E9%80%A0%E6%97%B6%E6%9C%89%E6%97%A0-%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2023-09-25T02:48:50.000Z</published>
+    <updated>2024-01-09T03:21:45.632Z</updated>
+    
+    <content type="html"><![CDATA[<h1>构造时有无()的区别</h1><p>当有()时，会将申请到的成员变量的空间初始化，没有时则不会</p><pre class=" language-language-c++"><code class="language-language-c++">#include <iostream>#include <stdio.h>using namespace std;class foo {public://foo() { cout << "foo's constructor" << endl; }//~foo() { cout << "foo's destructor" << endl; }int a;};int main() {char buf[sizeof(foo)];foo* a = new (buf) foo;//不会将申请到的int空间初始化char buf2[sizeof(foo)];foo* b = new (buf2) foo();//则会将申请到的int空间初始化为0。printf("%d %d\n", a->a, b->a);return 0;}</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;构造时有无()的区别&lt;/h1&gt;
+&lt;p&gt;当有()时，会将申请到的成员变量的空间初始化，没有时则不会&lt;/p&gt;
+&lt;pre class=&quot; language-language-c++&quot;&gt;&lt;code class=&quot;language-language-c++&quot;&gt;#include &lt;i</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>brpc-http:proto的使用</title>
@@ -385,169 +521,6 @@
 &lt;p&gt;http本身是一种无状态协议&lt;/p&gt;
 &lt;p&gt;无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息&lt;br&gt;
 也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道</summary>
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>果子私房笔记-http与https的区别</title>
-    <link href="https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>https://xucanxx.github.io/2022/12/15/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E4%B8%8Ehttps%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
-    <published>2022-12-15T01:06:56.000Z</published>
-    <updated>2023-05-12T17:07:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>http与https的区别</h1><p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>HTTP是不安全的，而HTTPS是安全的<br>HTTP标准端口是80 ，而HTTPS的标准端口是443<br>在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>HTTP无法加密，而HTTPS对传输的数据进行加密<br>HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;http与https的区别&lt;/h1&gt;
-&lt;p&gt;HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头&lt;br&gt;
-HTTP是不安全的，而HTTPS是安全的&lt;br&gt;
-HTTP标准端口是80 ，而HTTPS的标准端口是443&lt;br&gt;
-在OSI网络模型</summary>
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++11中的constexpr</title>
-    <link href="https://xucanxx.github.io/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/"/>
-    <id>https://xucanxx.github.io/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/</id>
-    <published>2022-12-13T17:42:14.000Z</published>
-    <updated>2023-07-13T09:12:25.881Z</updated>
-    
-    <content type="html"><![CDATA[<h1>C++11中的constexpr</h1><p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866" target="_blank" rel="noopener">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p><h2 id="常量表达式">常量表达式</h2><pre><code>值不会改变且在编译期就能得到计算结果的表达式。字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。</code></pre><h2 id="constexpr-与-const">constexpr 与 const</h2><p>在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br>但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰</p><pre class=" language-language-C++"><code class="language-language-C++">// errorvoid func1(constexpr int p) {}// okvoid func2(const int p) {}void func3(const int p) {   int a[p];//error ,此时p并非常量表达式，只是只读参数}</code></pre><h2 id="用constexpr修饰函数">用constexpr修饰函数</h2><p>constexpr 并不能修改任意函数的返回值，时这些函数成为常量表达式函数，必须要满足以下几个条件：<br>（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）</p><h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。">1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3><pre class=" language-language-C++"><code class="language-language-C++">// error，不是常量表达式函数constexpr void func1(){    int a = 100;    cout << "a: " << a << endl;} // error，不是常量表达式函数constexpr int func2(){    int a = 100;    return a;}// okconstexpr int func3(){    constexpr int a = 100;    return a;} </code></pre><p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求</p><h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。">2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class=" language-language-C++"><code class="language-language-C++">// errorconstexpr int func1(){    constexpr int a = 100;    constexpr int b = 10;    for (int i = 0; i < b; ++i)    {        cout << "i: " << i << endl;    }    return a + b;} // okconstexpr int func2(){    using mytype = int;    constexpr mytype a = 100;    constexpr mytype b = 10;    constexpr mytype c = a * b;    return c - (a + b);} </code></pre><h2 id="修饰模板函数">修饰模板函数</h2><p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p><pre class=" language-language-C++"><code class="language-language-C++">#include< iostream >using namespace std; struct Person {    const char* name;    int age;}; // 定义函数模板template< typename T >constexpr T dispaly(T t) {    return t;} int main(){    struct Person p { "luffy", 19 };    //普通函数    struct Person ret = dispaly(p);    cout << "luffy's name: " << ret.name << ", age: " << ret.age << endl;     //常量表达式函数    constexpr int ret1 = dispaly(250);    cout << ret1 << endl;     constexpr struct Person p1 { "luffy", 19 };    constexpr struct Person p2 = dispaly(p1);    cout << "luffy's name: " << p2.name << ", age: " << p2.age << endl;    return 0;}</code></pre><p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p><p>struct Person ret = dispaly§; 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的</p><h2 id="修饰构造函数">修饰构造函数</h2><p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p><pre class=" language-language-C++"><code class="language-language-C++">#include < iostream >using namespace std; struct Person {    constexpr Person(const char* p, int age) :name(p), age(age)    {    }    const char* name;    int age;}; int main(){    constexpr struct Person p1("luffy", 19);    cout << "luffy's name: " << p1.name << ", age: " << p1.age << endl;    return 0;} </code></pre><h2 id="注">注:</h2><h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定">1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3><h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。">2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3><h3 id="3-constexpr函数都是inline函数">3.constexpr函数都是inline函数</h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;C++11中的constexpr&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/m0_52902391/article/details/120308866&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://bl</summary>
-      
-    
-    
-    
-    <category term="C++" scheme="https://xucanxx.github.io/categories/C/"/>
-    
-    
-    <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-    <category term="基础" scheme="https://xucanxx.github.io/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>kafka日常操作</title>
-    <link href="https://xucanxx.github.io/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/"/>
-    <id>https://xucanxx.github.io/2022/12/13/kafka%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</id>
-    <published>2022-12-13T00:15:34.000Z</published>
-    <updated>2023-05-12T17:07:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>kafka日常操作</h1><h2 id="kafka查看数据">kafka查看数据</h2><h3 id="查看所有topic">查看所有topic</h3><pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看所有group">查看所有group</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</code></pre><h3 id="查看指定topic的订阅信息">查看指定topic的订阅信息</h3><pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX</code></pre><h3 id="消费指定group的订阅信息">消费指定group的订阅信息</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe</code></pre><h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息">查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX</code></pre><h3 id="查看所有kafka中接收到的信息">查看所有kafka中接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning</code></pre><h2 id="kafka创建指令">kafka创建指令</h2><h3 id="kafka创建topic">kafka创建topic</h3><pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX</code></pre><h2 id="kafka启动命令">kafka启动命令</h2><h3 id="前台启动">前台启动</h3><pre><code>./bin/kafka-server-start.sh ./config/server.properties</code></pre><h3 id="后台启动">后台启动</h3><pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;</code></pre><h2 id="kafka关闭命令">kafka关闭命令</h2><pre><code>./bin/kafka-server-stop.sh</code></pre>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;kafka日常操作&lt;/h1&gt;
-&lt;h2 id=&quot;kafka查看数据&quot;&gt;kafka查看数据&lt;/h2&gt;
-&lt;h3 id=&quot;查看所有topic&quot;&gt;查看所有topic&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;./kafka-topics.sh --bootstrap-server 127.0</summary>
-      
-    
-    
-    
-    <category term="kafka" scheme="https://xucanxx.github.io/categories/kafka/"/>
-    
-    
-    <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>果子私房笔记-http的URI和URL</title>
-    <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/"/>
-    <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84URI%E5%92%8CURL/</id>
-    <published>2022-12-06T03:41:42.000Z</published>
-    <updated>2023-05-12T17:07:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>URI</h1><p>URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ftp、mailto、telnet、file等。</p><p>Web上可用的每种资源如HTML文档、图像、视频片段、程序等都是一个来URI来定位的</p><h2 id="URI一般由三部组成：">URI一般由三部组成：</h2><h3 id="①访问资源的命名机制">①访问资源的命名机制</h3><h3 id="②存放资源的主机名">②存放资源的主机名</h3><h3 id="③资源自身的名称，由路径表示，着重强调于资源。">③资源自身的名称，由路径表示，着重强调于资源。</h3><h1>URL</h1><p>URL是uniform resource locator，统一资源定位器，表示资源的地点。可见 URL是 URI 的子集。<br>URL是Internet上用来描述信息资源的字符串，主要用在各种WWW客户程序和服务器程序上，特别是著名的Mosaic。<br>采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p><h2 id="URL一般由三部组成：">URL一般由三部组成：</h2><h3 id="①协议-或称为服务方式">①协议(或称为服务方式)</h3><h3 id="②存有该资源的主机IP地址-有时也包括端口号">②存有该资源的主机IP地址(有时也包括端口号)</h3><h3 id="③主机资源的具体地址。如目录和文件名等">③主机资源的具体地址。如目录和文件名等</h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;URI&lt;/h1&gt;
-&lt;p&gt;URI是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源所使用的协议类型名称。采用HTTP协议时，协议方案就是http。除此之外，还有ft</summary>
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>果子私房笔记-http的作用和RPC</title>
-    <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/"/>
-    <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8CRPC/</id>
-    <published>2022-12-06T03:38:03.000Z</published>
-    <updated>2023-05-12T17:07:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>http的作用和RPC</h1><h2 id="HTTP">HTTP</h2><p>HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。<br>HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些是TCP/IP负责。<br>传输信息需要一种格式，http规定了一种通信格式，让任何服务器和客户端之间都能顺利交流，减少交互成本。http协议的格式很像我们的信封，有个固定的格式。所以其本质上就是客户端和服务端约定好的一种通信格式。</p><h2 id="RPC">RPC</h2><p>rpc 是应用层由用户自己在制定的协议</p><h2 id="HTTP和RPC区别">HTTP和RPC区别</h2><p>HTTP指的是通信协议。<br>而RPC则是远程调用协议，其对应的是本地调用。<br>RPC的通信可以使用用HTTP协议，也可以自定义协议，是不做约束的。</p><h2 id="那为什么要有RPC？">那为什么要有RPC？</h2><p>为什么要用RPC，直接使用WebClient HTTP调用不行么。其实RPC调用是因为服务的拆分，或者本身公司内部的多个服务之间的通信。服务的拆分独立部署，那服务间的调用就必然需要网络通信，用WebClient调用当然可行，但是比较麻烦。我们想即使服务被拆分了但是使用起来还是和之前本地调用一样方便。所以就出现了RPC框架，来屏蔽这些底层调用细节，使得我们编码上还是和之前本地调用相差不多。并且HTTP协议比较的冗余，RPC都是内部调用所以不需要太考虑通用性，只要公司内部保持格式统一即可。所以可以做各种定制化的协议来使得通信更高效。所以公司内部服务的调用一般都用RPC，而HTTP的优势在于通用，大家都认可这个协议。所以三方平台提供的接口都是通过HTTP协议调用的。所以现在知道为什么我们调用第三方都是HTTP，公司内部用RPC了吧。上面这段话看起来仿佛HTTP和RPC是对等关系，不过相信大家看了之前的解析心里应该都有数。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;http的作用和RPC&lt;/h1&gt;
-&lt;h2 id=&quot;HTTP&quot;&gt;HTTP&lt;/h2&gt;
-&lt;p&gt;HTTP是一个协议，超文本传输协议，它基于TCP/IP来传输文本、图片、视频、音频等。&lt;br&gt;
-HTTP不提供数据包的传输功能，也就是数据包从浏览器到服务端再来回的传输和它没关系，这些</summary>
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>果子私房笔记-http的常用方法</title>
-    <link href="https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"/>
-    <id>https://xucanxx.github.io/2022/12/06/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-http%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/</id>
-    <published>2022-12-06T03:32:26.000Z</published>
-    <updated>2023-05-12T17:07:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1>http的常用方法</h1><h2 id="GET">GET</h2><p>用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。<br>只请求服务端的数据，但是没有改变数据。</p><h2 id="POST">POST</h2><p>用于传输信息给服务器，主要功能与GET方法类似，但一般推荐使用POST方式。<br>比如上传一篇博客用的post会改变服务器端的数据。</p><h2 id="PUT">PUT</h2><p>传输文件，报文主体中包含文件内容，保存到对应URI位置。</p><h2 id="HEAD">HEAD</h2><p>获得报文首部，与GET方法类似，只是不返回报文主体，一般用于验证URI是否有效。</p><h2 id="DELETE">DELETE</h2><p>删除文件，与PUT方法相反，删除对应URI位置的文件。</p><h2 id="OPTIONS">OPTIONS</h2><p>查询相应URI支持的HTTP方法。</p><h1>get和post的区别https://www.cnblogs.com/logsharing/p/8448446.html</h1><p>GET在浏览器回退时是无害的，而POST会再次提交请求。<br>GET产生的URL地址可以被Bookmark，而POST不可以。<br>GET请求会被浏览器主动cache，而POST不会，除非手动设置。<br>GET请求只能进行url编码，而POST支持多种编码方式。<br>GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。<br>GET请求在URL中传送的参数是有长度限制的，而POST么有。<br>对参数的数据类型，GET只接受ASCII字符，而POST没有限制。<br>GET比POST更不安全，因为参数直接暴露在URL上，所以不能用来传递敏感信息。<br>GET参数通过URL传递，POST放在Request body中。<br>GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。<br>GET产生一个TCP数据包；POST产生两个TCP数据包。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;http的常用方法&lt;/h1&gt;
-&lt;h2 id=&quot;GET&quot;&gt;GET&lt;/h2&gt;
-&lt;p&gt;用于请求访问已经被URI（统一资源标识符）识别的资源，可以通过URL传参给服务器。&lt;br&gt;
-只请求服务端的数据，但是没有改变数据。&lt;/p&gt;
-&lt;h2 id=&quot;POST&quot;&gt;POST&lt;/h2&gt;
-&lt;p</summary>
       
     
     
