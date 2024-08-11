@@ -1,0 +1,899 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="牛客西安邮大校赛-D最简单的一道题, 咸鱼">
+    <meta name="description" content="I good vegetable a">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>牛客西安邮大校赛-D最简单的一道题 | 咸鱼</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">咸鱼</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">咸鱼</div>
+        <div class="logo-desc">
+            
+            I good vegetable a
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">牛客西安邮大校赛-D最简单的一道题</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ACM/">
+                                <span class="chip bg-color">ACM</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
+                                算法
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-05-24
+                </div>
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>参考自官方的博客：<a target="_blank" rel="noopener" href="https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73">https://blog.nowcoder.net/n/699c671bf3e24676a6df403f68686d73</a></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>有一个 n 个数的数组，代表 n 栋建筑，有如下两种操作：</p>
+<ol>
+<li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li>
+<li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li>
+</ol>
+<p> </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>第二行 n 个数字，表示建筑高度<br>后面 m 行指令：c l r k<br>或者：q x<br>数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>1≤x≤n,1≤k≤10^4</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个查询，输出答案，每个答案一行</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">5 5</span><br><span class="line">1 2 3 4 3</span><br><span class="line">q 3</span><br><span class="line">c 1 3 3</span><br><span class="line">q 2</span><br><span class="line">c 5 5 4</span><br><span class="line">q 5</span><br></pre></td></tr></table></figure>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;time.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define mid ((l+r)&gt;&gt;1)</span><br><span class="line"></span><br><span class="line">#define MAX 200005</span><br><span class="line">struct node &#123;</span><br><span class="line">    node() &#123;</span><br><span class="line">        minn = value = add = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    void init() &#123;</span><br><span class="line">        minn = value = add = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    int minn;</span><br><span class="line">    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）</span><br><span class="line">    int add;//其子节点的所有数字加add</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Segt &#123;</span><br><span class="line">    int arr[MAX];</span><br><span class="line">    node tree[MAX &lt;&lt; 2];</span><br><span class="line">    void push_down(int p) &#123;</span><br><span class="line">        if (tree[p].add != 0) &#123;</span><br><span class="line">            tree[(p &lt;&lt; 1)].add += tree[p].add;</span><br><span class="line">            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;</span><br><span class="line">            tree[(p &lt;&lt; 1)].minn += tree[p].add;</span><br><span class="line">            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;</span><br><span class="line">            tree[p].add = 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void push_up(int l, int r, int p) &#123;//向上跟新父节点的值</span><br><span class="line">        //bool flag = true;</span><br><span class="line">        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);</span><br><span class="line">        int m = mid;</span><br><span class="line">        int val = tree[(p &lt;&lt; 1)].minn;</span><br><span class="line">        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void build(int l, int r, int p) &#123;//建立线段树</span><br><span class="line">        tree[p].init();</span><br><span class="line">        if (l == r) &#123;</span><br><span class="line">            tree[p].minn = arr[l];</span><br><span class="line">            tree[p].value = 0;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        int m = mid;</span><br><span class="line">        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        push_up(l, r, p);</span><br><span class="line">    &#125;</span><br><span class="line">    void update(int a, int b, int k, int l, int r, int p) &#123;//区间修改</span><br><span class="line">        if (l &gt;= a &amp;&amp; r &lt;= b) &#123;</span><br><span class="line">            tree[p].minn += k;</span><br><span class="line">            tree[p].add += k;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        push_down(p);</span><br><span class="line">        int m = mid;</span><br><span class="line">        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));</span><br><span class="line">        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        push_up(l, r, p);</span><br><span class="line">    &#125;</span><br><span class="line">    int get_val(int pos, int l, int r, int p) &#123;//取得pos点的值（单点查询）</span><br><span class="line">        if (l == r) return tree[p].minn;</span><br><span class="line">        push_down(p);</span><br><span class="line">        int m = mid;</span><br><span class="line">        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));</span><br><span class="line">        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        // push_up(p);</span><br><span class="line">    &#125;</span><br><span class="line">    int que(int a, int&amp; val, int l, int r, int p) &#123;//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）</span><br><span class="line">        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数</span><br><span class="line">        int m = mid;</span><br><span class="line">           //cout &lt;&lt; l &lt;&lt; &#x27; &#x27; &lt;&lt; r &lt;&lt; endl;</span><br><span class="line">        if (l != r) push_down(p);//更新子节点数值</span><br><span class="line">        if (l &gt;= a) &#123;</span><br><span class="line">            if (tree[p].minn &lt;= val) &#123;//只有后面数值的最小值比val小才能组成</span><br><span class="line">                if (l == r) &#123;</span><br><span class="line">                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; &#x27; &#x27; &lt;&lt;  l &lt;&lt; &#x27; &#x27; &lt;&lt; tree[p].minn &lt;&lt; endl;</span><br><span class="line">                    val = tree[p].minn;//之后的数要小于val</span><br><span class="line">                    return 1;//minn是一个可以接在val后面的数</span><br><span class="line">                &#125;</span><br><span class="line">                if (tree[(p &lt;&lt; 1)].minn &lt;= val) &#123;//如果r-l的前半部分的最小值比val小</span><br><span class="line">                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组</span><br><span class="line">                    val = tree[p].minn;//更新最小值</span><br><span class="line">                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; &#x27; &#x27; &lt;&lt; l &lt;&lt; &#x27; &#x27; &lt;&lt; r &lt;&lt; &#x27; &#x27; &lt;&lt; an &lt;&lt; &#x27; &#x27; &lt;&lt; tree[p].value &lt;&lt; endl;</span><br><span class="line">                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当a不在l之前时</span><br><span class="line">        if (a &lt;= m) &#123;//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组</span><br><span class="line">            int an = que(a, val, l, m, (p &lt;&lt; 1));</span><br><span class="line">            if (val == tree[(p &lt;&lt; 1)].minn) &#123;//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）</span><br><span class="line">                val = tree[p].minn;</span><br><span class="line">                return an + tree[p].value;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">Segt segt;</span><br><span class="line"></span><br><span class="line">void make_ans(istream&amp; in, ostream&amp; out) &#123;//输入，输出流</span><br><span class="line">    int n, m;</span><br><span class="line">    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">        in &gt;&gt; segt.arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    segt.build(1, n, 1);</span><br><span class="line">    while (m--) &#123;</span><br><span class="line">        char ch;</span><br><span class="line">          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;</span><br><span class="line">          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; &#x27; &#x27;; cout &lt;&lt; endl;</span><br><span class="line">          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;</span><br><span class="line">        in &gt;&gt; ch;</span><br><span class="line">        if (ch == &#x27;c&#x27;) &#123;</span><br><span class="line">            int l, r, k;</span><br><span class="line">            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;</span><br><span class="line">            segt.update(l, r, k, 1, n, 1);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            int x;</span><br><span class="line">            in &gt;&gt; x;</span><br><span class="line">            int val = segt.get_val(x, 1, n, 1);//取得x点的值</span><br><span class="line">            //  cout &lt;&lt; val &lt;&lt; endl;</span><br><span class="line">            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    make_ans(cin, cout);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xucanxx.cn" rel="external nofollow noreferrer">xucanxx</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xucanxx.cn/2020/05/24/%E7%89%9B%E5%AE%A2%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7%E6%A0%A1%E8%B5%9B-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/">https://xucanxx.cn/2020/05/24/%E7%89%9B%E5%AE%A2%E8%A5%BF%E5%AE%89%E9%82%AE%E5%A4%A7%E6%A0%A1%E8%B5%9B-D%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://xucanxx.cn" target="_blank">xucanxx</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ACM/">
+                                    <span class="chip bg-color">ACM</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'dae0f372bdcb04384b47',
+        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
+        repo: 'xucanxx.github.io',
+        owner: 'xucanxx',
+        admin: '"xucanxx"',
+        id: '2020-05-24T22-33-44',
+        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+    
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/07/21/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E8%A7%84%E5%88%92/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="英语考研规划">
+                        
+                        <span class="card-title">英语考研规划</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            英语考研规划题型重点把握：阅读和作文
+客观题完形填空20*0.5&#x3D;10要求： 带入符合语境，意思
+阅读理解20*2&#x3D;40发力点在于逻辑关系
+1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The d
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            xucanxx
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%80%83%E7%A0%94/">
+                        <span class="chip bg-color">考研</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/18/POJ-1417-True-Liars/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="POJ 1417 True Liars">
+                        
+                        <span class="card-title">POJ 1417 True Liars</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            参考自大佬的博客：https://blog.csdn.net/gg_gogoing/article/details/38753567
+题目题面一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
+                                    算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ACM/">
+                        <span class="chip bg-color">ACM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://xucanxx.cn" target="_blank">xucanxx</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+    <a href="mailto:540817573@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=540817573" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 540817573" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+
+
+</body>
+
+</html>
