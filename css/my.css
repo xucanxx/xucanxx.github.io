@@ -72,6 +72,9 @@
     }
 }
 
+.reprint__type.reprint-info {
+    word-wrap: break-word;
+}
 
 #artDetail .reprint-info {
     word-break: break-word;
