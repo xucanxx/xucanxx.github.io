@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HDU1003-dp（大概）</title>
+    <url>/2020/04/26/hdu1003-dp-da-gai/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
+<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.&nbsp;</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000).&nbsp;</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases.&nbsp;</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
+<p>Case 2:<br>7 1 6</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+int main()
+{
+&nbsp;&nbsp;&nbsp; long long max,n,sum;
+&nbsp;&nbsp;&nbsp; //freopen("F:/y.txt","r",stdin);
+&nbsp;&nbsp;&nbsp; int T;
+&nbsp;&nbsp;&nbsp; scanf("%d",&amp;T);
+&nbsp;&nbsp;&nbsp; for(int t=1;t&lt;=T;t++)
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%lld",&amp;n);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int l1=1,l=1,r=1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum=0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int f=1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long long x;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=1;i&lt;=n;i++)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%lld",&amp;x);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(i==1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=x;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum+=x;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(sum&gt;max)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=sum;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; l=l1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(sum&lt;0)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum=0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; l1=i+1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("Case %d:\n",t);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%lld %d %d\n",max,l,r);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(t!=T)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("\n");
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++11中的constexpr</title>
     <url>/2022/12/14/c-11-zhong-de-constexpr/</url>
     <content><![CDATA[<h1 id="C-11中的constexpr"><a href="#C-11中的constexpr" class="headerlink" title="C++11中的constexpr"></a>C++11中的constexpr</h1><p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p>
@@ -133,77 +191,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>HDU1003-dp（大概）</title>
-    <url>/2020/04/26/hdu1003-dp-da-gai/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.&nbsp;</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;=T&lt;=20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;=N&lt;=100000), then N integers followed(all the integers are between -1000 and 1000).&nbsp;</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases.&nbsp;</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
-<p>Case 2:<br>7 1 6</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
-int main()
-{
-&nbsp;&nbsp;&nbsp; long long max,n,sum;
-&nbsp;&nbsp;&nbsp; //freopen("F:/y.txt","r",stdin);
-&nbsp;&nbsp;&nbsp; int T;
-&nbsp;&nbsp;&nbsp; scanf("%d",&amp;T);
-&nbsp;&nbsp;&nbsp; for(int t=1;t&lt;=T;t++)
-&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%lld",&amp;n);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int l1=1,l=1,r=1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum=0;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=0;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int f=1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long long x;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=1;i&lt;=n;i++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%lld",&amp;x);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(i==1)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=x;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum+=x;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(sum&gt;max)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=sum;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; l=l1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=i;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(sum&lt;0)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sum=0;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; l1=i+1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("Case %d:\n",t);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%lld %d %d\n",max,l,r);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(t!=T)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("\n");
-&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
-    <url>/2022/02/15/idea-lian-jie-mysql-server-returns-invalid-timezone.go-to-advanced-tab-and-set/</url>
-    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
-<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>bug</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>List集合</title>
     <url>/2022/02/17/list-ji-he/</url>
     <content><![CDATA[<h1 id="ArrayList和linkedList"><a href="#ArrayList和linkedList" class="headerlink" title="ArrayList和linkedList"></a>ArrayList和linkedList</h1><p><a href="https://www.cnblogs.com/lingshang/p/10897912.html">https://www.cnblogs.com/lingshang/p/10897912.html</a></p>
@@ -222,6 +209,19 @@ int main()
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
+    <url>/2022/02/15/idea-lian-jie-mysql-server-returns-invalid-timezone.go-to-advanced-tab-and-set/</url>
+    <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
+<p> <a href="https://blog.csdn.net/liuqiker/article/details/102455077">https://blog.csdn.net/liuqiker/article/details/102455077</a></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
       </tags>
   </entry>
   <entry>
@@ -2163,15 +2163,15 @@ select * from table1 where name like '李*<span aria-hidden="true" class="line-n
       </tags>
   </entry>
   <entry>
+    <title>折叠表达式</title>
+    <url>/2024/01/18/zhe-die-biao-da-shi/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>惰性运算</title>
     <url>/2024/04/16/duo-xing-yun-suan/</url>
     <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/53750888">https://zhuanlan.zhihu.com/p/53750888</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>折叠表达式</title>
-    <url>/2024/01/18/zhe-die-biao-da-shi/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>数据模型</title>
