@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -514,12 +517,18 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    Ruby 入门随笔变量全局变量定义：在变量名前加&quot;$&quot;  
+                                    Ruby 入门随笔变量全局变量定义：在变量名前加"$"  
 例如：
 
-1$testString = &quot;23333&quot;
+$testString = "23333"
 
-类成员123456class test    #静态变量(类变量)    @@A 
+类成员class test
+    #静态变量(类变量)
+    @@A
+    #普通类成员
+    @B
+end
+静态变
                                 
                             </div>
                             <div class="publish-info">
@@ -578,8 +587,16 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    shell 入门随笔判断1234567if [ command1 ];then    codeelif [ command2 ];then    codeelse    codefi
-循环for循环12345678910for 变量 in 
+                                    shell 入门随笔判断if [ command1 ];then
+    code
+elif [ command2 ];then
+    code
+else
+    code
+fi
+循环for循环for 变量 in 列表
+do
+    co
                                 
                             </div>
                             <div class="publish-info">
@@ -824,7 +841,7 @@ List是一个接口，不可以实例化。List有两个重要的实现类：Arr
                             <div class="summary block-with-text">
                                 
                                     常用注解取自B站视频：https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver
-@Configuration 与 @Bean12345678910
+@Configuration 与 @Bean@Configurat
                                 
                             </div>
                             <div class="publish-info">
@@ -942,6 +959,10 @@ List是一个接口，不可以实例化。List有两个重要的实现类：Arr
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -1019,9 +1040,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

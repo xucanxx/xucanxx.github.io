@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -376,11 +379,16 @@
 
             <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-24
+                </div>
+                
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-24
+                    2024-05-16
                 </div>
                 
 
@@ -400,14 +408,174 @@
 <li>修改：区间 l 到 r 内的建筑增高 k（正整数）</li>
 <li>查询：对于某个位置 x，求 y 的数目（ y \gt xy&gt;x ，且对于位置 y ，位置 x 到位置 y 的这段区间的最小值是位置 y 的值）</li>
 </ol>
-<p> </p>
+<p>&nbsp;</p>
 <h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>第一行两个数字 n 和 m ， 表示数字个数和操作个数<br>第二行 n 个数字，表示建筑高度<br>后面 m 行指令：c l r k<br>或者：q x<br>数据范围： 1≤n,m≤2×10^5,1≤l,r≤n<br>1≤x≤n,1≤k≤10^4</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个查询，输出答案，每个答案一行</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">5 5</span><br><span class="line">1 2 3 4 3</span><br><span class="line">q 3</span><br><span class="line">c 1 3 3</span><br><span class="line">q 2</span><br><span class="line">c 5 5 4</span><br><span class="line">q 5</span><br></pre></td></tr></table></figure>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre class="line-numbers language-none"><code class="language-none">5 5
+1 2 3 4 3
+q 3
+c 1 3 3
+q 2
+c 5 5 4
+q 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre class="line-numbers language-none"><code class="language-none">1
+2
+0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>思路就是线段树，但是要对val，在l与r区间内能组成下降数列的数不断进行更新（感觉有点像dp了。。。）直接用线段树的话就会超时（还是太菜了）题目中y的数量实际上就是从x开始到最后的递减数列中数的数量（每次遇到小的数就放在后面，不能自己选择），我是看的官方的代码打的注释（把结构体当类用，看起来是真的吃力。。。。还是太菜了）</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;time.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define mid ((l+r)&gt;&gt;1)</span><br><span class="line"></span><br><span class="line">#define MAX 200005</span><br><span class="line">struct node &#123;</span><br><span class="line">    node() &#123;</span><br><span class="line">        minn = value = add = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    void init() &#123;</span><br><span class="line">        minn = value = add = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    int minn;</span><br><span class="line">    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）</span><br><span class="line">    int add;//其子节点的所有数字加add</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Segt &#123;</span><br><span class="line">    int arr[MAX];</span><br><span class="line">    node tree[MAX &lt;&lt; 2];</span><br><span class="line">    void push_down(int p) &#123;</span><br><span class="line">        if (tree[p].add != 0) &#123;</span><br><span class="line">            tree[(p &lt;&lt; 1)].add += tree[p].add;</span><br><span class="line">            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;</span><br><span class="line">            tree[(p &lt;&lt; 1)].minn += tree[p].add;</span><br><span class="line">            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;</span><br><span class="line">            tree[p].add = 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void push_up(int l, int r, int p) &#123;//向上跟新父节点的值</span><br><span class="line">        //bool flag = true;</span><br><span class="line">        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);</span><br><span class="line">        int m = mid;</span><br><span class="line">        int val = tree[(p &lt;&lt; 1)].minn;</span><br><span class="line">        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void build(int l, int r, int p) &#123;//建立线段树</span><br><span class="line">        tree[p].init();</span><br><span class="line">        if (l == r) &#123;</span><br><span class="line">            tree[p].minn = arr[l];</span><br><span class="line">            tree[p].value = 0;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        int m = mid;</span><br><span class="line">        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        push_up(l, r, p);</span><br><span class="line">    &#125;</span><br><span class="line">    void update(int a, int b, int k, int l, int r, int p) &#123;//区间修改</span><br><span class="line">        if (l &gt;= a &amp;&amp; r &lt;= b) &#123;</span><br><span class="line">            tree[p].minn += k;</span><br><span class="line">            tree[p].add += k;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        push_down(p);</span><br><span class="line">        int m = mid;</span><br><span class="line">        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));</span><br><span class="line">        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        push_up(l, r, p);</span><br><span class="line">    &#125;</span><br><span class="line">    int get_val(int pos, int l, int r, int p) &#123;//取得pos点的值（单点查询）</span><br><span class="line">        if (l == r) return tree[p].minn;</span><br><span class="line">        push_down(p);</span><br><span class="line">        int m = mid;</span><br><span class="line">        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));</span><br><span class="line">        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));</span><br><span class="line">        // push_up(p);</span><br><span class="line">    &#125;</span><br><span class="line">    int que(int a, int&amp; val, int l, int r, int p) &#123;//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）</span><br><span class="line">        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数</span><br><span class="line">        int m = mid;</span><br><span class="line">           //cout &lt;&lt; l &lt;&lt; &#x27; &#x27; &lt;&lt; r &lt;&lt; endl;</span><br><span class="line">        if (l != r) push_down(p);//更新子节点数值</span><br><span class="line">        if (l &gt;= a) &#123;</span><br><span class="line">            if (tree[p].minn &lt;= val) &#123;//只有后面数值的最小值比val小才能组成</span><br><span class="line">                if (l == r) &#123;</span><br><span class="line">                      //cout &lt;&lt; &quot;#&quot; &lt;&lt; a&lt;&lt;&quot; &quot;&lt;&lt; val &lt;&lt; &#x27; &#x27; &lt;&lt;  l &lt;&lt; &#x27; &#x27; &lt;&lt; tree[p].minn &lt;&lt; endl;</span><br><span class="line">                    val = tree[p].minn;//之后的数要小于val</span><br><span class="line">                    return 1;//minn是一个可以接在val后面的数</span><br><span class="line">                &#125;</span><br><span class="line">                if (tree[(p &lt;&lt; 1)].minn &lt;= val) &#123;//如果r-l的前半部分的最小值比val小</span><br><span class="line">                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组</span><br><span class="line">                    val = tree[p].minn;//更新最小值</span><br><span class="line">                     // cout &lt;&lt; &quot;@&quot; &lt;&lt; val &lt;&lt; &#x27; &#x27; &lt;&lt; l &lt;&lt; &#x27; &#x27; &lt;&lt; r &lt;&lt; &#x27; &#x27; &lt;&lt; an &lt;&lt; &#x27; &#x27; &lt;&lt; tree[p].value &lt;&lt; endl;</span><br><span class="line">                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当a不在l之前时</span><br><span class="line">        if (a &lt;= m) &#123;//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组</span><br><span class="line">            int an = que(a, val, l, m, (p &lt;&lt; 1));</span><br><span class="line">            if (val == tree[(p &lt;&lt; 1)].minn) &#123;//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）</span><br><span class="line">                val = tree[p].minn;</span><br><span class="line">                return an + tree[p].value;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">Segt segt;</span><br><span class="line"></span><br><span class="line">void make_ans(istream&amp; in, ostream&amp; out) &#123;//输入，输出流</span><br><span class="line">    int n, m;</span><br><span class="line">    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">        in &gt;&gt; segt.arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    segt.build(1, n, 1);</span><br><span class="line">    while (m--) &#123;</span><br><span class="line">        char ch;</span><br><span class="line">          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;</span><br><span class="line">          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; &#x27; &#x27;; cout &lt;&lt; endl;</span><br><span class="line">          //cout &lt;&lt; &quot;------&quot; &lt;&lt; endl;</span><br><span class="line">        in &gt;&gt; ch;</span><br><span class="line">        if (ch == &#x27;c&#x27;) &#123;</span><br><span class="line">            int l, r, k;</span><br><span class="line">            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;</span><br><span class="line">            segt.update(l, r, k, 1, n, 1);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            int x;</span><br><span class="line">            in &gt;&gt; x;</span><br><span class="line">            int val = segt.get_val(x, 1, n, 1);//取得x点的值</span><br><span class="line">            //  cout &lt;&lt; val &lt;&lt; endl;</span><br><span class="line">            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">    freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    make_ans(cin, cout);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;time.h&gt;
+using namespace std;
+
+#define mid ((l+r)&gt;&gt;1)
+
+#define MAX 200005
+struct node {
+    node() {
+        minn = value = add = 0;
+    }
+    void init() {
+        minn = value = add = 0;
+    }
+    int minn;
+    int value;// value为在l - r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m - r之间取最多的数与min组成递减数列）
+    int add;//其子节点的所有数字加add
+};
+
+struct Segt {
+    int arr[MAX];
+    node tree[MAX &lt;&lt; 2];
+    void push_down(int p) {
+        if (tree[p].add != 0) {
+            tree[(p &lt;&lt; 1)].add += tree[p].add;
+            tree[((p &lt;&lt; 1) | 1)].add += tree[p].add;
+            tree[(p &lt;&lt; 1)].minn += tree[p].add;
+            tree[((p &lt;&lt; 1) | 1)].minn += tree[p].add;
+            tree[p].add = 0;
+        }
+
+    }
+
+    void push_up(int l, int r, int p) {//向上跟新父节点的值
+        //bool flag = true;
+        tree[p].minn = min(tree[(p &lt;&lt; 1)].minn, tree[((p &lt;&lt; 1) | 1)].minn);
+        int m = mid;
+        int val = tree[(p &lt;&lt; 1)].minn;
+        tree[p].value = que(m + 1, val, m + 1, r, ((p &lt;&lt; 1) | 1));
+    }
+
+    void build(int l, int r, int p) {//建立线段树
+        tree[p].init();
+        if (l == r) {
+            tree[p].minn = arr[l];
+            tree[p].value = 0;
+            return;
+        }
+        int m = mid;
+        build(l, m, (p &lt;&lt; 1)); build(m + 1, r, ((p &lt;&lt; 1) | 1));
+        push_up(l, r, p);
+    }
+    void update(int a, int b, int k, int l, int r, int p) {//区间修改
+        if (l &gt;= a &amp;&amp; r &lt;= b) {
+            tree[p].minn += k;
+            tree[p].add += k;
+            return;
+        }
+        push_down(p);
+        int m = mid;
+        if (a &lt;= m) update(a, b, k, l, m, (p &lt;&lt; 1));
+        if (b &gt; m) update(a, b, k, m + 1, r, ((p &lt;&lt; 1) | 1));
+        push_up(l, r, p);
+    }
+    int get_val(int pos, int l, int r, int p) {//取得pos点的值（单点查询）
+        if (l == r) return tree[p].minn;
+        push_down(p);
+        int m = mid;
+        if (pos &lt;= m) return get_val(pos, l, m, (p &lt;&lt; 1));
+        else return get_val(pos, m + 1, r, ((p &lt;&lt; 1) | 1));
+        // push_up(p);
+    }
+    int que(int a, int&amp; val, int l, int r, int p) {//返回 在a点之前的最小值为val，在l与r区间内能组成下降数列的数（即以val为首，在l-r之间取最多的数与val组成递减数列）
+        if (a &gt; r) return 0;//如果a位置在r之后，那么在区间l-r内就没有可以没做条件的数
+        int m = mid;
+           //cout &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; endl;
+        if (l != r) push_down(p);//更新子节点数值
+        if (l &gt;= a) {
+            if (tree[p].minn &lt;= val) {//只有后面数值的最小值比val小才能组成
+                if (l == r) {
+                      //cout &lt;&lt; "#" &lt;&lt; a&lt;&lt;" "&lt;&lt; val &lt;&lt; ' ' &lt;&lt;  l &lt;&lt; ' ' &lt;&lt; tree[p].minn &lt;&lt; endl;
+                    val = tree[p].minn;//之后的数要小于val
+                    return 1;//minn是一个可以接在val后面的数
+                }
+                if (tree[(p &lt;&lt; 1)].minn &lt;= val) {//如果r-l的前半部分的最小值比val小
+                    int an = que(a, val, l, m, (p &lt;&lt; 1));//求l-mid与val构成的递减数组
+                    val = tree[p].minn;//更新最小值
+                     // cout &lt;&lt; "@" &lt;&lt; val &lt;&lt; ' ' &lt;&lt; l &lt;&lt; ' ' &lt;&lt; r &lt;&lt; ' ' &lt;&lt; an &lt;&lt; ' ' &lt;&lt; tree[p].value &lt;&lt; endl;
+                    return an + tree[p].value;//因为value为在l-r中前半部分的最小值与后半部分区间内能组成下降数列的数（即以前半部分的最小值min为首，在m-r之间取最多的数与min组成递减数列）
+                }
+                else {
+                    return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果前半部分的最小值比val大，则比较后半部分与其可以构成的数的数量
+                }
+            }
+            else {
+                return 0;
+            }
+        }
+        //当a不在l之前时
+        if (a &lt;= m) {//a在前半部分则搜索前半部分，看a在前半部分可以构成含有多少数的递减数组
+            int an = que(a, val, l, m, (p &lt;&lt; 1));
+            if (val == tree[(p &lt;&lt; 1)].minn) {//如果val等于前半部分的最小值，那么说明可以与前半部分进行组合，之后就加上value（前半部分的最小值与后半部分区间内能组成下降数列的数）
+                val = tree[p].minn;
+                return an + tree[p].value;
+            }
+            else {
+                return an + que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//不等于的话，即前半部分没有可以配对的数，则an==0，看之后的数与其配对的数量
+            }
+        }
+        else {
+            return que(a, val, m + 1, r, ((p &lt;&lt; 1) | 1));//如果m在后半部分则搜索后半部分
+        }
+    }
+
+
+
+};
+Segt segt;
+
+void make_ans(istream&amp; in, ostream&amp; out) {//输入，输出流
+    int n, m;
+    in &gt;&gt; n &gt;&gt; m;//等价于 cin&gt;&gt;
+    for (int i = 1; i &lt;= n; i++) {
+        in &gt;&gt; segt.arr[i];
+    }
+    segt.build(1, n, 1);
+    while (m--) {
+        char ch;
+          //cout &lt;&lt; "------" &lt;&lt; endl;
+          //for(int i = 1; i &lt;= n; i++) cout &lt;&lt; segt.get_val(i,1,n,1) &lt;&lt; ' '; cout &lt;&lt; endl;
+          //cout &lt;&lt; "------" &lt;&lt; endl;
+        in &gt;&gt; ch;
+        if (ch == 'c') {
+            int l, r, k;
+            in &gt;&gt; l &gt;&gt; r &gt;&gt; k;
+            segt.update(l, r, k, 1, n, 1);
+        }
+        else {
+            int x;
+            in &gt;&gt; x;
+            int val = segt.get_val(x, 1, n, 1);//取得x点的值
+            //  cout &lt;&lt; val &lt;&lt; endl;
+            out &lt;&lt; segt.que(x + 1, val, 1, n, 1) &lt;&lt; endl;//输出最小值为val时，在x+1之后有多少数字与其构成递减数列
+        }
+    }
+}
+
+int main(void) {
+    freopen("F:/y.txt","r",stdin);
+    make_ans(cin, cout);
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -494,37 +662,144 @@
                 </div>
             </div>
             
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: 'dae0f372bdcb04384b47',
-        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
-        repo: 'xucanxx.github.io',
-        owner: 'xucanxx',
-        admin: '"xucanxx"',
-        id: '2020-05-24T22-33-44',
-        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    $(function () {
+        $('.tabs').tabs();
     });
-
-    gitalk.render('gitalk-container');
-    
 </script>
+
+            
+        </div>
+    </div>
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js" repo="xucanxx/xucanxx.github.io" issue-term="pathname"
+            theme="github-light" crossorigin="anonymous" async>
+            </script>
+    </div>
+</div>
+    
 
     
 
@@ -560,9 +835,9 @@
                     <div class="summary block-with-text">
                         
                             英语考研规划题型重点把握：阅读和作文
-客观题完形填空20*0.5&#x3D;10要求： 带入符合语境，意思
-阅读理解20*2&#x3D;40发力点在于逻辑关系
-1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The d
+客观题完形填空20*0.5=10要求： 带入符合语境，意思
+阅读理解20*2=40发力点在于逻辑关系
+1.正向(没有转折句):子的总体趋势相通，都在说一件事【2011-2】The decision to
                         
                     </div>
                     <div class="publish-info">
@@ -827,6 +1102,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -904,9 +1183,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

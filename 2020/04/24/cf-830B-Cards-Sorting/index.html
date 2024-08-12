@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -376,11 +379,16 @@
 
             <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-24
+                </div>
+                
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-24
+                    2024-05-16
                 </div>
                 
 
@@ -395,12 +403,12 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Cards Sorting</p>
-<p>Vasily has a deck of cards consisting of n cards.There is an integer on each of the cards, this integer is between 1 and 100 000, inclusive .It is possible that some cards have the same integers on them.</p>
+<p>Vasily has a deck of cards consisting of&nbsp;n&nbsp;cards.There is an integer on each of the cards, this integer is between&nbsp;1&nbsp;and&nbsp;100 000, inclusive .It is possible that some cards have the same integers on them.</p>
 <p>Vasily decided to sort the cards .To do this, he repeatedly takes the top card from the deck, and if the number on it equals the minimum number written on the cards in the deck, then he places the card away.Otherwise, he puts it under the deckand takes the next card from the top, and so on.The process ends as soon as there are no cards in the deck.You can assume that Vasily always knows the minimum number written on some card in the remaining deck, but doesn’t know where this card (or these cards) is.</p>
 <p>You are to determine the total number of times Vasily takes the top card from the deck.
- </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains single integer n (1 ≤ n ≤ 100 000) — the number of cards in the deck.</p>
-<p>The second line contains a sequence of n integers a1, a2, …, an (1 ≤ ai ≤ 100 000), where ai is the number written on the i - th from top card in the deck.</p>
+&nbsp;</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains single integer&nbsp;n&nbsp;(1 ≤ n ≤ 100 000) — the number of cards in the deck.</p>
+<p>The second line contains a sequence of&nbsp;n&nbsp;integers&nbsp;a1, a2, …, an&nbsp;(1 ≤ ai ≤ 100 000), where&nbsp;ai&nbsp;is the number written on the&nbsp;i - th from top card in the deck.</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the total number of times Vasily takes the top card from the deck.</p>
 <h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>4<br>6 3 1 2</p>
 <h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
@@ -413,7 +421,96 @@
 <p>您将确定Vasily从卡片组拿走顶卡的总次数。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>开始看错题目了，还天真的以为没有重复的数。这个题的主要还是要用树状数组计算前缀和，</p>
 <p>因为每次都是吧最小值去掉，所以对于输入的数据进行排序就可以了。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">vector&lt;int&gt; ve[100010];/*建立一个vector数组，记录每一个数在数组中的位置*/</span><br><span class="line">int c[100010], n, a[100010], pr[100010];</span><br><span class="line">/*用树状数组计算前缀和（一个位置前有多少个数*/</span><br><span class="line">int lowbit(int x)</span><br><span class="line">&#123;</span><br><span class="line">	return x &amp; (-x);</span><br><span class="line">&#125;</span><br><span class="line">void add(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">	for (int i = x; i &lt;= n; i += lowbit(i))</span><br><span class="line">		c[i] += y;</span><br><span class="line">&#125;</span><br><span class="line">int find(int x)</span><br><span class="line">&#123;</span><br><span class="line">	int ans = 0;</span><br><span class="line">	for (int i = x; i &gt; 0; i -= lowbit(i))</span><br><span class="line">		ans += c[i];</span><br><span class="line">	return ans;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">	while (~scanf(&quot;%d&quot;, &amp;n))</span><br><span class="line">	&#123;</span><br><span class="line">		memset(c, 0, sizeof(c));</span><br><span class="line">		memset(pr, 0, sizeof(pr));</span><br><span class="line">		int t = 0;</span><br><span class="line">		for (int i = 1; i &lt;= n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			int x;</span><br><span class="line">			scanf(&quot;%d&quot;, &amp;x);</span><br><span class="line">			if (pr[x] == 0)</span><br><span class="line">			&#123;</span><br><span class="line">				pr[x] = 1;</span><br><span class="line">				a[t++] = x;</span><br><span class="line">			&#125;</span><br><span class="line">			ve[x].push_back(i);</span><br><span class="line">			add(i, 1);</span><br><span class="line">		&#125;</span><br><span class="line">	/*因为存入vector时是安i的顺序存的，所以在vector[]内部的元素是有序的*/</span><br><span class="line">		sort(a, a + t);/*查看每次操作后的最小值*/</span><br><span class="line">		long long ans = 0, p = 0;</span><br><span class="line">		for (int i = 0; i &lt; t; i++)//每次要保证最小的卡片全部被取走</span><br><span class="line">		&#123;</span><br><span class="line">			int s = ve[a[i]].size();</span><br><span class="line">			if (p &lt; ve[a[i]][0])/*记录p之前的数*/</span><br><span class="line">			&#123;</span><br><span class="line">				vector&lt;int&gt;::iterator it = ve[a[i]].begin();</span><br><span class="line">				int x = ve[a[i]][s - 1];</span><br><span class="line">				ans += find(x) - find(p);</span><br><span class="line">				p = x;</span><br><span class="line">				for (it; it != ve[a[i]].end(); it++)</span><br><span class="line">				&#123;</span><br><span class="line">					add(*it, -1);/* *it前面的数的数量减一*/</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			else/*记录p之后的数*/</span><br><span class="line">			&#123;</span><br><span class="line">				int temp = 0;</span><br><span class="line">				vector&lt;int&gt;::iterator it = ve[a[i]].begin();</span><br><span class="line">				int x = 0;</span><br><span class="line">				for (it; it != ve[a[i]].end(); it++)</span><br><span class="line">				&#123;</span><br><span class="line">					if (*it &lt; p)</span><br><span class="line">					&#123;</span><br><span class="line">						x = *it;</span><br><span class="line">					&#125;</span><br><span class="line">					else</span><br><span class="line">					&#123;</span><br><span class="line">						break;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				ans += find(n) - find(p) + find(x);</span><br><span class="line">				p = x;</span><br><span class="line">				it = ve[a[i]].begin();</span><br><span class="line">				for (it; it != ve[a[i]].end(); it++)</span><br><span class="line">				&#123;</span><br><span class="line">					add(*it, -1);/**it前面的数的数量减一*/</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;%lld\n&quot;, ans);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#include&lt;string.h&gt;
+using namespace std;
+vector&lt;int&gt; ve[100010];/*建立一个vector数组，记录每一个数在数组中的位置*/
+int c[100010], n, a[100010], pr[100010];
+/*用树状数组计算前缀和（一个位置前有多少个数*/
+int lowbit(int x)
+{
+	return x &amp; (-x);
+}
+void add(int x,int y)
+{
+	for (int i = x; i &lt;= n; i += lowbit(i))
+		c[i] += y;
+}
+int find(int x)
+{
+	int ans = 0;
+	for (int i = x; i &gt; 0; i -= lowbit(i))
+		ans += c[i];
+	return ans;
+}
+int main()
+{
+	//freopen("F:/y.txt", "r", stdin);
+	while (~scanf("%d", &amp;n))
+	{
+		memset(c, 0, sizeof(c));
+		memset(pr, 0, sizeof(pr));
+		int t = 0;
+		for (int i = 1; i &lt;= n; i++)
+		{
+			int x;
+			scanf("%d", &amp;x);
+			if (pr[x] == 0)
+			{
+				pr[x] = 1;
+				a[t++] = x;
+			}
+			ve[x].push_back(i);
+			add(i, 1);
+		}
+	/*因为存入vector时是安i的顺序存的，所以在vector[]内部的元素是有序的*/
+		sort(a, a + t);/*查看每次操作后的最小值*/
+		long long ans = 0, p = 0;
+		for (int i = 0; i &lt; t; i++)//每次要保证最小的卡片全部被取走
+		{
+			int s = ve[a[i]].size();
+			if (p &lt; ve[a[i]][0])/*记录p之前的数*/
+			{
+				vector&lt;int&gt;::iterator it = ve[a[i]].begin();
+				int x = ve[a[i]][s - 1];
+				ans += find(x) - find(p);
+				p = x;
+				for (it; it != ve[a[i]].end(); it++)
+				{
+					add(*it, -1);/* *it前面的数的数量减一*/
+				}
+			}
+			else/*记录p之后的数*/
+			{
+				int temp = 0;
+				vector&lt;int&gt;::iterator it = ve[a[i]].begin();
+				int x = 0;
+				for (it; it != ve[a[i]].end(); it++)
+				{
+					if (*it &lt; p)
+					{
+						x = *it;
+					}
+					else
+					{
+						break;
+					}
+				}
+				ans += find(n) - find(p) + find(x);
+				p = x;
+				it = ve[a[i]].begin();
+				for (it; it != ve[a[i]].end(); it++)
+				{
+					add(*it, -1);/**it前面的数的数量减一*/
+				}
+			}
+		}
+		printf("%lld\n", ans);
+	}
+	return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
             </div>
             <hr/>
 
@@ -499,37 +596,144 @@
                 </div>
             </div>
             
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: 'dae0f372bdcb04384b47',
-        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
-        repo: 'xucanxx.github.io',
-        owner: 'xucanxx',
-        admin: '"xucanxx"',
-        id: '2020-04-24T09-16-24',
-        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    $(function () {
+        $('.tabs').tabs();
     });
-
-    gitalk.render('gitalk-container');
-    
 </script>
+
+            
+        </div>
+    </div>
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js" repo="xucanxx/xucanxx.github.io" issue-term="pathname"
+            theme="github-light" crossorigin="anonymous" async>
+            </script>
+    </div>
+</div>
+    
 
     
 
@@ -565,7 +769,7 @@
                     <div class="summary block-with-text">
                         
                             题目题面Maximum sumTime Limit: 1000MSMemory Limit: 65536KDescription
-Given a set of n integers: A&#x3D;{a1, a2,…, an}, we de
+Given a set of n integers: A={a1, a2,…, an}, we define 
                         
                     </div>
                     <div class="publish-info">
@@ -614,9 +818,8 @@ Given a set of n integers: A&#x3D;{a1, a2,…, an}, we de
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            题目题面You are given an array a1,a2,…,an and two integers m and k.
-You can choose some subarray al,al+1,…,ar−1,ar.
-The cost
+                            题目题面You are given an array&nbsp;a1,a2,…,an&nbsp;and two integers&nbsp;m&nbsp;and&nbsp;k.
+You can choose some subarray&nb
                         
                     </div>
                     <div class="publish-info">
@@ -835,6 +1038,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -912,9 +1119,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

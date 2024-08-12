@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -376,11 +379,16 @@
 
             <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-12-04
+                </div>
+                
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-24
+                    2024-05-16
                 </div>
                 
 
@@ -394,19 +402,19 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="数据在五层网络中的传输"><a href="#数据在五层网络中的传输" class="headerlink" title="数据在五层网络中的传输"></a>数据在五层网络中的传输</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247485105&idx=1&sn=c045b7599c1637776dd89890cac5a9b5&chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect</a></p>
+                <h1 id="数据在五层网络中的传输"><a href="#数据在五层网络中的传输" class="headerlink" title="数据在五层网络中的传输"></a>数据在五层网络中的传输</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect">https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&amp;mid=2247485105&amp;idx=1&amp;sn=c045b7599c1637776dd89890cac5a9b5&amp;chksm=ce404d65f937c4736257f0795a0243a5cbe3526d88013074277fa2f44fa809e76f0330796bee&amp;scene=21#wechat_redirect</a></p>
 <p>五层网络模型中，自底向上的讲解一台计算机是如何找到另外一台计算机并且把数据发送给另一台计算机的。</p>
 <h2 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h2><p>计算机之间要进行通信，第一件事当然是通过光纤，电缆，双绞线等介质把计算机互相连接起来。<br>物理层就是负责把两台计算机连起来，然后在计算机之间通过高低电频来传送0,1这样的电信号。</p>
 <h2 id="2-数据链路层-传输的叫帧"><a href="#2-数据链路层-传输的叫帧" class="headerlink" title="2.数据链路层 传输的叫帧"></a>2.数据链路层 传输的叫帧</h2><p>物理层传输的0，1电信号如果毫无规则的话，计算机是解读不了的。因此我们需要制定一套规则来进行0，1的传送。例如多少个电信号为一组啊，每一组信号应该如何标识等等。于是，有了以太网协议。</p>
 <h3 id="1-以太网协议"><a href="#1-以太网协议" class="headerlink" title="(1).以太网协议"></a>(1).以太网协议</h3><p>以太网协议规定，一组电信号构成一个数据包，我们把这个数据包称之为帧。每一个桢由标头(Head)和数据(Data)两部分组成。<br>一个桢的长度是64~1518个字节，标头部分固定为18个字节。<br>标头部分主要是一些说明数据，例如发送者，接收者等信息。而数据部分则是这个数据包具体的，想给接收者的内容。<br>把一台计算的的数据通过物理层和链路层发送给另一台计算机，究竟是谁发给谁的，计算机与计算机之间如何区分？于是，MAC地址出现了。</p>
 <h3 id="2-MAC地址"><a href="#2-MAC地址" class="headerlink" title="(2).MAC地址"></a>(2).MAC地址</h3><p>连入网络的每一个计算机都会有网卡，每个网卡都会有一个唯一的MAC地址。计算机之间的数据传送，就是通过MAC地址来唯一寻找、传送的。MAC地址由48个字节所构成，在网卡生产时就被唯一标识了。</p>
 <h3 id="3-广播与ARP协议"><a href="#3-广播与ARP协议" class="headerlink" title="(3).广播与ARP协议"></a>(3).广播与ARP协议</h3><h4 id="1-广播"><a href="#1-广播" class="headerlink" title="1).广播"></a>1).广播</h4><p>假如计算机A知道了计算机B的MAC地址，然后想要给计算机B传送数据，可是它要怎么给它传送数据呢？计算机A不仅连着计算机B，而且还连着其他的计算机。为了解决这个问题，于是广播出现了。在同一个子网中，计算机A要向计算机B发送一个数据包，这个数据包会包含接收者的MAC地址。当发送时，计算机A是通过广播的方式发送的，这时同一个子网中的计算机C, D也会收到这个数据包的，然后收到这个数据包的计算机，会把数据包的MAC地址取出来，与自身的MAC地址对比，如果相同，则接受这个数据包，否则就丢弃。这种发送方式我们称之为广播。</p>
-<h4 id="2-ARP协议。"><a href="#2-ARP协议。" class="headerlink" title="2).ARP协议。"></a>2).ARP协议。</h4><p>通过它我们可以知道子网中其他计算机的MAC地址，是根据IP地址获取物理地址的一个TCP&#x2F;IP协议。</p>
-<h2 id="3-网络层-传输的叫分组-包"><a href="#3-网络层-传输的叫分组-包" class="headerlink" title="3.网络层 传输的叫分组&#x2F;包"></a>3.网络层 传输的叫分组&#x2F;包</h2><p>我们所处的网络，是由无数个子网络构成的。广播时，也只有同一个子网里面的计算机能够收到。<br>那么问题来了，我们如何区分哪些MAC地址是属于同一个子网的呢？假如是同一个子网，那我们就用广播的形式把数据传送给对方，如果不是同一个子网的，我们就会把数据发给网关，让网关进行转发。为了解决这个问题，于是有了IP协议。</p>
+<h4 id="2-ARP协议。"><a href="#2-ARP协议。" class="headerlink" title="2).ARP协议。"></a>2).ARP协议。</h4><p>通过它我们可以知道子网中其他计算机的MAC地址，是根据IP地址获取物理地址的一个TCP/IP协议。</p>
+<h2 id="3-网络层-传输的叫分组-包"><a href="#3-网络层-传输的叫分组-包" class="headerlink" title="3.网络层 传输的叫分组/包"></a>3.网络层 传输的叫分组/包</h2><p>我们所处的网络，是由无数个子网络构成的。广播时，也只有同一个子网里面的计算机能够收到。<br>那么问题来了，我们如何区分哪些MAC地址是属于同一个子网的呢？假如是同一个子网，那我们就用广播的形式把数据传送给对方，如果不是同一个子网的，我们就会把数据发给网关，让网关进行转发。为了解决这个问题，于是有了IP协议。</p>
 <h3 id="1-IP协议"><a href="#1-IP协议" class="headerlink" title="(1).IP协议"></a>(1).IP协议</h3><p>IP协议，它所定义的地址，我们称之为IP地址。IP协议有两种版本，一种是IPv4,另一种是IPv6。不过我们目前大多数用的还是IPv4，我们现在也只讨论IPv4这个版本的协议。<br>IP地址由32位的二进制数组成，我们一般把它分成4段的十进制表示，地址范围为0.0.0.0~255.255.255.255。<br>每一台想要联网的计算机都会有一个IP地址。这个IP地址被分为两部分，前面一部分代表网络部分，后面一部分代表主机部分。并且网络部分和主机部分所占用的二进制位数是不固定的。<br>假如两台计算机的网络部分是一模一样的，我们就说这两台计算机是处于同一个子网中。例如192.168.43.1和192.168.43.2, 假如这两个IP地址的网络部分为24位，主机部分为8位。那么他们的网络部分都为192.168.43，所以他们处于同一个子网中。<br>可是问题来了，你怎么知道网络部分和主机部分分别占几位呢？<br>这就引申出了另一个关键词————子网掩码。子网掩码和IP地址一样也是32位二进制数，不过它的网络部分规定全部为1，主机部分规定全部为0.也就是说，假如上面那两个IP地址的网络部分为24位，主机部分为8位的话，那他们的子网掩码都为 11111111.11111111.11111111.00000000，即255.255.255.0。</p>
 <h3 id="2-ARP协议"><a href="#2-ARP协议" class="headerlink" title="(2).ARP协议"></a>(2).ARP协议</h3><p>结合上面IP协议的知识，我们回来讲一下ARP协议。<br>有了两台计算机的IP地址与子网掩码，我们就可以判断出它们是否处于同一个子网之中了。<br>假如他们处于同一个子网之中，计算机A要给计算机B发送数据时。我们可以通过ARP协议来得到计算机B的MAC地址。<br>ARP协议也是通过广播的形式给同一个子网中的每台电脑发送一个数据包(当然，这个数据包会包含接收方的IP地址)。对方收到这个数据包之后，会取出IP地址与自身的对比，如果相同，则把自己的MAC地址回复给对方，否则就丢弃这个数据包。这样，计算机A就能知道计算机B的MAC地址了。<br>可能有人会问，知道了MAC地址之后，发送数据是通过广播的形式发送，询问对方的MAC地址也是通过广播的形式来发送，那其他计算机怎么知道你是要传送数据还是要询问MAC地址呢？其实在询问MAC地址的数据包中，在对方的MAC地址这一栏中，填的是一个特殊的MAC地址，其他计算机看到这个特殊的MAC地址之后，就能知道广播想干嘛了。<br>假如两台计算机的IP不是处于同一个子网之中，这个时候，我们就会把数据包发送给网关，然后让网关让我们进行转发传送</p>
 <h3 id="3-DNS服务器"><a href="#3-DNS服务器" class="headerlink" title="(3).DNS服务器"></a>(3).DNS服务器</h3><p>这里再说一个问题，我们是如何知道对方计算机的IP地址的呢？可能有人会说当然是计算机的操作者来进行输入。这没错，当我们想要访问某个网站的时候，我们可以输入IP来进行访问，但绝大多数人是输入一个网址域名。其实当我们输入这个域名时，会有一个叫做DNS服务器的家伙来帮我们解析这个域名，然后返回这个域名对应的IP给我们的。<br>因此，网络层的功能就是让我们在茫茫人海中，能够找到另一台计算机在哪里，是否属于同一个子网等。</p>
-<h2 id="4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报"><a href="#4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报" class="headerlink" title="4.传输层 传输的叫报文段&#x2F;数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)"></a>4.传输层 传输的叫报文段&#x2F;数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)</h2><p>通过物理层、数据链路层以及网络层的互相帮助，我们已经把数据成功从计算机A传送到计算机B了，可是，计算机B里面有各种各样的应用程序，计算机该如何知道这些数据是给谁的呢？<br>这个时候，端口(Port)这个家伙就上场了，也就是说，我们在从计算机A传数据给计算表B的时候，还得指定一个端口，以供特定的应用程序来接受处理。<br>也就是说，传输层的功能就是建立端口到端口的通信。相比网络层的功能是建立主机到主机的通信。<br>也就是说，只有有了IP和端口，我们才能进行准确着通信。这个时候可能有人会说，我输入IP地址的时候并没有指定一个端口啊。其实呢，对于有些传输协议，已经有设定了一些默认端口了。例如http的传输默认端口是80，这些端口信息也会包含在数据包里的。<br>传输层协议：最常见的两大协议是TCP协议和UDP协议，其中TCP协议与UDP最大的不同就是TCP提供可靠的传输，而UDP提供的是不可靠传输。</p>
+<h2 id="4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报"><a href="#4-传输层-传输的叫报文段-数据报-注：TCP叫TCP报文段，UDP叫UDP数据报" class="headerlink" title="4.传输层 传输的叫报文段/数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)"></a>4.传输层 传输的叫报文段/数据报(注：TCP叫TCP报文段，UDP叫UDP数据报)</h2><p>通过物理层、数据链路层以及网络层的互相帮助，我们已经把数据成功从计算机A传送到计算机B了，可是，计算机B里面有各种各样的应用程序，计算机该如何知道这些数据是给谁的呢？<br>这个时候，端口(Port)这个家伙就上场了，也就是说，我们在从计算机A传数据给计算表B的时候，还得指定一个端口，以供特定的应用程序来接受处理。<br>也就是说，传输层的功能就是建立端口到端口的通信。相比网络层的功能是建立主机到主机的通信。<br>也就是说，只有有了IP和端口，我们才能进行准确着通信。这个时候可能有人会说，我输入IP地址的时候并没有指定一个端口啊。其实呢，对于有些传输协议，已经有设定了一些默认端口了。例如http的传输默认端口是80，这些端口信息也会包含在数据包里的。<br>传输层协议：最常见的两大协议是TCP协议和UDP协议，其中TCP协议与UDP最大的不同就是TCP提供可靠的传输，而UDP提供的是不可靠传输。</p>
 <h2 id="5-应用层-通常叫消息"><a href="#5-应用层-通常叫消息" class="headerlink" title="5.应用层 通常叫消息"></a>5.应用层 通常叫消息</h2><p>应用层这一层最接近我们用户。<br>虽然我们收到了传输层传来的数据，可是这些传过来的数据五花八门，有html格式的，有mp4格式的，各种各样。<br>因此我们需要指定这些数据的格式规则，收到后才好解读渲染。例如我们最常见的Http数据包中，就会指定该数据包是什么格式的文件了。</p>
 
             </div>
@@ -494,37 +502,144 @@
                 </div>
             </div>
             
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: 'dae0f372bdcb04384b47',
-        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
-        repo: 'xucanxx.github.io',
-        owner: 'xucanxx',
-        admin: '"xucanxx"',
-        id: '2022-12-04T13-50-38',
-        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    $(function () {
+        $('.tabs').tabs();
     });
-
-    gitalk.render('gitalk-container');
-    
 </script>
+
+            
+        </div>
+    </div>
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js" repo="xucanxx/xucanxx.github.io" issue-term="pathname"
+            theme="github-light" crossorigin="anonymous" async>
+            </script>
+    </div>
+</div>
+    
 
     
 
@@ -829,6 +944,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -906,9 +1025,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -390,7 +393,8 @@
                             <div class="summary block-with-text">
                                 
                                     ngnix引用自大佬的博客：https://www.cnblogs.com/hanease/p/15890509.html
-基本命令1234nginx -t             检查配置文件是否有语法错误nginx -s reload 
+基本命令nginx -t             检查配置文件是否有语法错误
+nginx -s reload    
                                 
                             </div>
                             <div class="publish-info">
@@ -448,7 +452,7 @@
                                     openresty入门搭建安装依赖  pcre-devel openssl-devel gcc curl
 下载安装包  官网:  https://openresty.org/en/download.html
   下载最新版
-123456wg
+wget htt
                                 
                             </div>
                             <div class="publish-info">
@@ -823,8 +827,8 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    TCP握手挥手数据传输三次握手过程第一次握手客户端发送syn包(seq&#x3D;x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认
-第二次握手服务器收到syn包，必须确认客户的SYN(ack&#x3D;x+1)，同时自己
+                                    TCP握手挥手数据传输三次握手过程第一次握手客户端发送syn包(seq=x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认
+第二次握手服务器收到syn包，必须确认客户的SYN(ack=x+1)，同时自己也发送一个SYN包(
                                 
                             </div>
                             <div class="publish-info">
@@ -885,7 +889,9 @@
                                 
                                     go的多进程虽然说可以直接用go的协程直接起子进程，但是为了保证当起子进程时父类的结构尽可能简单，变采用主进程起子进程的形式
 异步起进程主进程起进程，起协程监听子进程的执行情况，可以使后台的子进程跑满制定数量
-123456789101112
+package main
+
+i
                                 
                             </div>
                             <div class="publish-info">
@@ -1074,6 +1080,10 @@ TCP的缺点：慢，效率低
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -1151,9 +1161,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

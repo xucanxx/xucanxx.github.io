@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -380,11 +383,16 @@
 
             <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-12-14
+                </div>
+                
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-24
+                    2024-05-25
                 </div>
                 
 
@@ -402,17 +410,120 @@
 <h2 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h2><pre><code>值不会改变且在编译期就能得到计算结果的表达式。
 字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。
 </code></pre>
-<h2 id="constexpr-与-const"><a href="#constexpr-与-const" class="headerlink" title="constexpr 与 const"></a>constexpr 与 const</h2><p> 在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br> 但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰<br> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// error</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func1</span><span class="params">(<span class="keyword">constexpr</span> <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ok</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func2</span><span class="params">(<span class="type">const</span> <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func3</span><span class="params">(<span class="type">const</span> <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a[p];<span class="comment">//error ,此时p并非常量表达式，只是只读参数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="constexpr-与-const"><a href="#constexpr-与-const" class="headerlink" title="constexpr 与 const"></a>constexpr 与 const</h2><p> 在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br> 但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰<br> </p><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++"> // error
+void func1(constexpr int p) {
+
+}
+
+
+// ok
+void func2(const int p) {
+
+}
+
+
+void func3(const int p) {
+    int a[p];//error ,此时p并非常量表达式，只是只读参数
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p></p>
 <h2 id="用constexpr修饰函数"><a href="#用constexpr修饰函数" class="headerlink" title="用constexpr修饰函数"></a>用constexpr修饰函数</h2><p>constexpr 并不能修改任意函数的返回值，这些函数成为常量表达式函数时，必须要满足以下几个条件：<br>（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）  </p>
-<h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// error，不是常量表达式函数</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">void</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// error，不是常量表达式函数</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">func2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ok</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">func3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">// error，不是常量表达式函数
+constexpr void func1()
+{
+    int a = 100;
+    cout &lt;&lt; "a: " &lt;&lt; a &lt;&lt; endl;
+}
+ 
+// error，不是常量表达式函数
+constexpr int func2()
+{
+    int a = 100;
+    return a;
+}
+
+// ok
+constexpr int func3()
+{
+    constexpr int a = 100;
+    return a;
+}
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求  </p>
-<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// error</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> a = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> b = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; b; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;i: &quot;</span> &lt;&lt; i &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// ok</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="type">int</span> <span class="title">func2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> mytype = <span class="type">int</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> mytype a = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> mytype b = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">constexpr</span> mytype c = a * b;</span><br><span class="line">    <span class="keyword">return</span> c - (a + b);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">// error
+constexpr int func1()
+{
+    constexpr int a = 100;
+    constexpr int b = 10;
+    for (int i = 0; i &lt; b; ++i)
+    {
+        cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; endl;
+    }
+    return a + b;
+}
+ 
+// ok
+constexpr int func2()
+{
+    using mytype = int;
+    constexpr mytype a = 100;
+    constexpr mytype b = 10;
+    constexpr mytype c = a * b;
+    return c - (a + b);
+}
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="修饰模板函数"><a href="#修饰模板函数" class="headerlink" title="修饰模板函数"></a>修饰模板函数</h2><p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt; iostream &gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 定义函数模板</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt;</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> T <span class="title">dispaly</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Person</span> p &#123; <span class="string">&quot;luffy&quot;</span>, <span class="number">19</span> &#125;;</span><br><span class="line">    <span class="comment">//普通函数</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Person</span> ret = <span class="built_in">dispaly</span>(p);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;luffy&#x27;s name: &quot;</span> &lt;&lt; ret.name &lt;&lt; <span class="string">&quot;, age: &quot;</span> &lt;&lt; ret.age &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//常量表达式函数</span></span><br><span class="line">    <span class="keyword">constexpr</span> <span class="type">int</span> ret1 = <span class="built_in">dispaly</span>(<span class="number">250</span>);</span><br><span class="line">    cout &lt;&lt; ret1 &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">struct</span> <span class="title class_">Person</span> p1 &#123; <span class="string">&quot;luffy&quot;</span>, <span class="number">19</span> &#125;;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">struct</span> <span class="title class_">Person</span> p2 = <span class="built_in">dispaly</span>(p1);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;luffy&#x27;s name: &quot;</span> &lt;&lt; p2.name &lt;&lt; <span class="string">&quot;, age: &quot;</span> &lt;&lt; p2.age &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">
+#include&lt; iostream &gt;
+using namespace std;
+ 
+struct Person {
+    const char* name;
+    int age;
+};
+ 
+// 定义函数模板
+template&lt; typename T &gt;
+constexpr T dispaly(T t) {
+    return t;
+}
+ 
+int main()
+{
+    struct Person p { "luffy", 19 };
+    //普通函数
+    struct Person ret = dispaly(p);
+    cout &lt;&lt; "luffy's name: " &lt;&lt; ret.name &lt;&lt; ", age: " &lt;&lt; ret.age &lt;&lt; endl;
+ 
+    //常量表达式函数
+    constexpr int ret1 = dispaly(250);
+    cout &lt;&lt; ret1 &lt;&lt; endl;
+ 
+    constexpr struct Person p1 { "luffy", 19 };
+    constexpr struct Person p2 = dispaly(p1);
+    cout &lt;&lt; "luffy's name: " &lt;&lt; p2.name &lt;&lt; ", age: " &lt;&lt; p2.age &lt;&lt; endl;
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p>
-<p>struct Person ret &#x3D; dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 &#x3D; dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 &#x3D; dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的  </p>
+<p>struct Person ret = dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的  </p>
 <h2 id="修饰构造函数"><a href="#修饰构造函数" class="headerlink" title="修饰构造函数"></a>修饰构造函数</h2><p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt; iostream &gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">constexpr</span> <span class="title">Person</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* p, <span class="type">int</span> age)</span> :name(p), age(age)</span></span><br><span class="line"><span class="function">    &#123;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">struct</span> <span class="title class_">Person</span> <span class="built_in">p1</span>(<span class="string">&quot;luffy&quot;</span>, <span class="number">19</span>);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;luffy&#x27;s name: &quot;</span> &lt;&lt; p1.name &lt;&lt; <span class="string">&quot;, age: &quot;</span> &lt;&lt; p1.age &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt; iostream &gt;
+using namespace std;
+ 
+struct Person {
+    constexpr Person(const char* p, int age) :name(p), age(age)
+    {
+    }
+    const char* name;
+    int age;
+};
+ 
+int main()
+{
+    constexpr struct Person p1("luffy", 19);
+    cout &lt;&lt; "luffy's name: " &lt;&lt; p1.name &lt;&lt; ", age: " &lt;&lt; p1.age &lt;&lt; endl;
+    return 0;
+}
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h2 id="注"><a href="#注" class="headerlink" title="注:"></a>注:</h2><h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"><a href="#1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定" class="headerlink" title="1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"></a>1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3><h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"><a href="#2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。" class="headerlink" title="2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"></a>2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3><h3 id="3-constexpr函数都是inline函数"><a href="#3-constexpr函数都是inline函数" class="headerlink" title="3.constexpr函数都是inline函数"></a>3.constexpr函数都是inline函数</h3>
@@ -505,37 +616,144 @@
                 </div>
             </div>
             
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: 'dae0f372bdcb04384b47',
-        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
-        repo: 'xucanxx.github.io',
-        owner: 'xucanxx',
-        admin: '"xucanxx"',
-        id: '2022-12-14T01-42-14',
-        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    $(function () {
+        $('.tabs').tabs();
     });
-
-    gitalk.render('gitalk-container');
-    
 </script>
+
+            
+        </div>
+    </div>
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js" repo="xucanxx/xucanxx.github.io" issue-term="pathname"
+            theme="github-light" crossorigin="anonymous" async>
+            </script>
+    </div>
+</div>
+    
 
     
 
@@ -570,7 +788,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            http与https的区别HTTP的URL以http:&#x2F;&#x2F; 开头，而HTTPS 的URL 以https:&#x2F;&#x2F;开头HTTP是不安全的，而HTTPS是安全的HTTP标准端口是80 ，而HTTPS的标准端口
+                            http与https的区别HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头HTTP是不安全的，而HTTPS是安全的HTTP标准端口是80 ，而HTTPS的标准端口是443在OSI网络模型中，HTTP工作
                         
                     </div>
                     <div class="publish-info">
@@ -840,6 +1058,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -917,9 +1139,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 

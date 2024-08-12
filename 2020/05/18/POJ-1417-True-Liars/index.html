@@ -29,7 +29,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -376,11 +379,16 @@
 
             <div class="post-info">
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-18
+                </div>
+                
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-05-24
+                    2024-08-12
                 </div>
                 
 
@@ -398,18 +406,189 @@
 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p>
 <p>n,x,y</p>
 <p>这个人问n次 ，x为神的个数，y为恶魔的个数。</p>
-<p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes&#x2F;no。注意xi,yi可能为同一个人</p>
+<p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes/no。注意xi,yi可能为同一个人</p>
 <p>若最终可得出哪些是神则从小到大输出神的编号，并最终输出end</p>
 <p>否则输出no
- </p>
+&nbsp;</p>
 <h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入格式如下： </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n p1 p2 </span><br><span class="line">xl yl a1 </span><br><span class="line">x2 y2 a2 </span><br><span class="line">... </span><br><span class="line">xi yi ai </span><br><span class="line">... </span><br><span class="line">xn yn an </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">n p1 p2 
+xl yl a1 
+x2 y2 a2 
+... 
+xi yi ai 
+... 
+xn yn an <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>第一行有三个非负整数 n, p1, 和 p2. n 是 Akira 问的问题数. p1 和 p2 是在传说中记载的神族和恶魔族的人口数量。下面的每 n 行包括两个整数xi, yi和一个单词 ai。 xi 和 yi 是每个人的编号，号码范围从 1 到 p1 + p2。 ai 可能是 yes 或者 no。如果居民 xi 想让你认为 yi 是神族，他会回答 yes。注意：xi 和 yi 可能相同。所以”你是神族吗？“是一个有效的问题。还要注意，Akira 十分紧张，所以相同的问题可能重复出现。<br>数据范围：<br>n ＜ 1000<br>p1,p2 &lt; 300<br>出现 0 0 0 的一行标示数据结束。 数据保证成立，没有矛盾数据。 </p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>对于每个数据集，如果它包含足够的信息来对所有居民进行分类，则按升序打印所有神族居民的编号，一行一个。 在输出数字后再输出end。 如果给定数据集不包括足以识别所有神族的信息，输出no。</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">2 1 1</span><br><span class="line">1 2 no</span><br><span class="line">2 1 no</span><br><span class="line">3 2 1</span><br><span class="line">1 1 yes</span><br><span class="line">2 2 yes</span><br><span class="line">3 3 yes</span><br><span class="line">2 2 1</span><br><span class="line">1 2 yes</span><br><span class="line">2 3 no</span><br><span class="line">5 4 3</span><br><span class="line">1 2 yes</span><br><span class="line">1 3 no</span><br><span class="line">4 5 yes</span><br><span class="line">5 6 yes</span><br><span class="line">6 7 no</span><br><span class="line">0 0 0</span><br></pre></td></tr></table></figure>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">no</span><br><span class="line">no</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">end</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><pre class="line-numbers language-none"><code class="language-none">2 1 1
+1 2 no
+2 1 no
+3 2 1
+1 1 yes
+2 2 yes
+3 3 yes
+2 2 1
+1 2 yes
+2 3 no
+5 4 3
+1 2 yes
+1 3 no
+4 5 yes
+5 6 yes
+6 7 no
+0 0 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><pre class="line-numbers language-none"><code class="language-none">no
+no
+1
+2
+end
+3
+4
+5
+6
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>经过简单的推理可得只要说了‘yes’那么那两个就属于同一类，‘no’则相反<br>使用并查集表名它们的关系，用背包统计在不同情况下有多少种答案。<br>最后进行答案统计。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int pr[1010], relation[1010];</span><br><span class="line">int kind[1010], cnt[2010], dp[1010][1010];//dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况</span><br><span class="line">int p[1010][1010];//p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类</span><br><span class="line">int x, y, z;</span><br><span class="line">int ans[1010], f;</span><br><span class="line">int find(int xx)</span><br><span class="line">&#123;</span><br><span class="line">	if (pr[xx] == -1)</span><br><span class="line">	&#123;</span><br><span class="line">		return xx;</span><br><span class="line">	&#125;</span><br><span class="line">	int tmp = find(pr[xx]);</span><br><span class="line">	relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系</span><br><span class="line">	pr[xx] = tmp;</span><br><span class="line">	return tmp;</span><br><span class="line">&#125;</span><br><span class="line">int solve()</span><br><span class="line">&#123;</span><br><span class="line">	memset(dp, 0, sizeof(dp));</span><br><span class="line">	memset(p, 0, sizeof(p));</span><br><span class="line">	memset(cnt, 0, sizeof(cnt));</span><br><span class="line">	f = 0;</span><br><span class="line">	int k = 0;</span><br><span class="line">	for (int i = 1; i &lt;= x + y; i++)//压缩路径</span><br><span class="line">		find(i);</span><br><span class="line">	for (int i = 1; i &lt;= x + y; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if (pr[i] == -1)</span><br><span class="line">			kind[k++] = i;//看看有多少头节点结点</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; k; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cnt[i * 2] = 1;</span><br><span class="line">		for (int j = 1; j &lt;= x + y; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (pr[j] == kind[i])</span><br><span class="line">			&#123;</span><br><span class="line">				if (relation[j] == 0)</span><br><span class="line">					cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类</span><br><span class="line">				else</span><br><span class="line">					cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点</span><br><span class="line">	dp[0][cnt[1]]++; p[0][cnt[1]] = 1;</span><br><span class="line">	for (int i = 1; i &lt; k; i++)</span><br><span class="line">		for (int j = x; j &gt;= 0; j--)</span><br><span class="line">		&#123;</span><br><span class="line">			if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包</span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j] += dp[i - 1][j - cnt[2 * i]];</span><br><span class="line">				p[i][j] = 0;</span><br><span class="line">			&#125;</span><br><span class="line">			if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )</span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];</span><br><span class="line">				p[i][j] = 1;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	if (dp[k - 1][x] != 1)</span><br><span class="line">		return 0;</span><br><span class="line">	int m = x, t;</span><br><span class="line">	f = 0;</span><br><span class="line">	for (int i = k - 1; i &gt;= 0; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反</span><br><span class="line">		&#123;</span><br><span class="line">			t = 0; m = m - cnt[i * 2];</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			t = 1; m = m - cnt[2 * i + 1];</span><br><span class="line">		&#125;</span><br><span class="line">		for (int j = 1; j &lt;= x + y; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (pr[j] == kind[i] || j == kind[i])//统计个数</span><br><span class="line">			&#123;</span><br><span class="line">				if (relation[j] == t)</span><br><span class="line">					ans[f++]=j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(ans, ans + f);</span><br><span class="line">	return 1;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	//freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">	while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)</span><br><span class="line">	&#123;</span><br><span class="line">		if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)</span><br><span class="line">			break;</span><br><span class="line">		memset(pr, -1, sizeof(pr));</span><br><span class="line">		memset(relation, 0, sizeof(relation));</span><br><span class="line">		for (int i = 0; i &lt; z; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			int a, b;</span><br><span class="line">			char s[10];</span><br><span class="line">			cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;</span><br><span class="line">			if (a &lt; b)</span><br><span class="line">			&#123;</span><br><span class="line">				int tmp = a; a = b; b = tmp;</span><br><span class="line">			&#125;</span><br><span class="line">			int aa = find(a), bb = find(b);</span><br><span class="line">			if (aa == bb)</span><br><span class="line">			&#123;</span><br><span class="line">				continue;</span><br><span class="line">			&#125;</span><br><span class="line">			if (s[0] == &#x27;y&#x27;)</span><br><span class="line">			&#123;</span><br><span class="line">				pr[aa] = bb;</span><br><span class="line">				relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集</span><br><span class="line">			&#125;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				pr[aa] = bb;</span><br><span class="line">				relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		if (x == y)</span><br><span class="line">		&#123;</span><br><span class="line">			cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;</span><br><span class="line">		&#125;</span><br><span class="line">		if (solve())//f可能为0</span><br><span class="line">		&#123;</span><br><span class="line">			for (int i = 0; i &lt; f; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				cout &lt;&lt; ans[i]&lt;&lt;endl;</span><br><span class="line">			&#125;</span><br><span class="line">			cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">			cout &lt;&lt; &quot;no&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;string.h&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int pr[1010], relation[1010];
+int kind[1010], cnt[2010], dp[1010][1010];//dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况
+int p[1010][1010];//p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类
+int x, y, z;
+int ans[1010], f;
+int find(int xx)
+{
+	if (pr[xx] == -1)
+	{
+		return xx;
+	}
+	int tmp = find(pr[xx]);
+	relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系
+	pr[xx] = tmp;
+	return tmp;
+}
+int solve()
+{
+	memset(dp, 0, sizeof(dp));
+	memset(p, 0, sizeof(p));
+	memset(cnt, 0, sizeof(cnt));
+	f = 0;
+	int k = 0;
+	for (int i = 1; i &lt;= x + y; i++)//压缩路径
+		find(i);
+	for (int i = 1; i &lt;= x + y; i++)
+	{
+		if (pr[i] == -1)
+			kind[k++] = i;//看看有多少头节点结点
+	}
+	for (int i = 0; i &lt; k; i++)
+	{
+		cnt[i * 2] = 1;
+		for (int j = 1; j &lt;= x + y; j++)
+		{
+			if (pr[j] == kind[i])
+			{
+				if (relation[j] == 0)
+					cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类
+				else
+					cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类
+			}
+		}
+	}
+	dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点
+	dp[0][cnt[1]]++; p[0][cnt[1]] = 1;
+	for (int i = 1; i &lt; k; i++)
+		for (int j = x; j &gt;= 0; j--)
+		{
+			if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包
+			{
+				dp[i][j] += dp[i - 1][j - cnt[2 * i]];
+				p[i][j] = 0;
+			}
+			if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
+			{
+				dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];
+				p[i][j] = 1;
+			}
+		}
+	if (dp[k - 1][x] != 1)
+		return 0;
+	int m = x, t;
+	f = 0;
+	for (int i = k - 1; i &gt;= 0; i--)
+	{
+		if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反
+		{
+			t = 0; m = m - cnt[i * 2];
+		}
+		else
+		{
+			t = 1; m = m - cnt[2 * i + 1];
+		}
+		for (int j = 1; j &lt;= x + y; j++)
+		{
+			if (pr[j] == kind[i] || j == kind[i])//统计个数
+			{
+				if (relation[j] == t)
+					ans[f++]=j;
+			}
+		}
+	}
+	sort(ans, ans + f);
+	return 1;
+}
+int main()
+{
+	//freopen("F:/y.txt", "r", stdin);
+	while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)
+	{
+		if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)
+			break;
+		memset(pr, -1, sizeof(pr));
+		memset(relation, 0, sizeof(relation));
+		for (int i = 0; i &lt; z; i++)
+		{
+			int a, b;
+			char s[10];
+			cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
+			if (a &lt; b)
+			{
+				int tmp = a; a = b; b = tmp;
+			}
+			int aa = find(a), bb = find(b);
+			if (aa == bb)
+			{
+				continue;
+			}
+			if (s[0] == 'y')
+			{
+				pr[aa] = bb;
+				relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集
+			}
+			else
+			{
+				pr[aa] = bb;
+				relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集
+			}
+		}
+		if (x == y)
+		{
+			cout&lt;&lt;"no"&lt;&lt;endl; continue;
+		}
+		if (solve())//f可能为0
+		{
+			for (int i = 0; i &lt; f; i++)
+			{
+				cout &lt;&lt; ans[i]&lt;&lt;endl;
+			}
+			cout &lt;&lt; "end" &lt;&lt; endl;
+		}
+		else
+			cout &lt;&lt; "no" &lt;&lt; endl;
+	}
+	return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
             </div>
             <hr/>
 
@@ -495,37 +674,144 @@
                 </div>
             </div>
             
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
 </div>
 
-<script src="/libs/gitalk/gitalk.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: 'dae0f372bdcb04384b47',
-        clientSecret: 'fa1b3c2bdeb22b071c4cb568e41915df8ac85523',
-        repo: 'xucanxx.github.io',
-        owner: 'xucanxx',
-        admin: '"xucanxx"',
-        id: '2020-05-18T15-18-32',
-        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    $(function () {
+        $('.tabs').tabs();
     });
-
-    gitalk.render('gitalk-container');
-    
 </script>
+
+            
+        </div>
+    </div>
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js" repo="xucanxx/xucanxx.github.io" issue-term="pathname"
+            theme="github-light" crossorigin="anonymous" async>
+            </script>
+    </div>
+</div>
+    
 
     
 
@@ -832,6 +1118,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
 </div>
     </div>
 </footer>
@@ -909,9 +1199,8 @@ $(function () {
     
 
     
-    <!-- <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
-
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
 
