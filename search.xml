@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HDU1003-dp（大概）</title>
-    <url>/2020/04/26/HDU1003-dp%EF%BC%88%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 &#x3D; 14. </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;&#x3D;T&lt;&#x3D;20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;&#x3D;N&lt;&#x3D;100000), then N integers followed(all the integers are between -1000 and 1000). </p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases. </p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
-<p>Case 2:<br>7 1 6</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    long long max,n,sum;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;T);</span><br><span class="line">    for(int t=1;t&lt;=T;t++)</span><br><span class="line">    &#123;</span><br><span class="line">       scanf(&quot;%lld&quot;,&amp;n);</span><br><span class="line">       int l1=1,l=1,r=1;</span><br><span class="line">       sum=0;</span><br><span class="line">       max=0;</span><br><span class="line">       int f=1;</span><br><span class="line">       long long x;</span><br><span class="line">       for(int i=1;i&lt;=n;i++)</span><br><span class="line">       &#123;</span><br><span class="line">           scanf(&quot;%lld&quot;,&amp;x);</span><br><span class="line">           if(i==1)</span><br><span class="line">           max=x;</span><br><span class="line">           sum+=x;</span><br><span class="line">           if(sum&gt;max)</span><br><span class="line">           &#123;</span><br><span class="line">              max=sum;</span><br><span class="line">              l=l1;</span><br><span class="line">              r=i;</span><br><span class="line">           &#125;</span><br><span class="line">           if(sum&lt;0)</span><br><span class="line">           &#123;</span><br><span class="line">              sum=0;</span><br><span class="line">              l1=i+1;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       printf(&quot;Case %d:\n&quot;,t);</span><br><span class="line">       printf(&quot;%lld %d %d\n&quot;,max,l,r);</span><br><span class="line">       if(t!=T)</span><br><span class="line">       printf(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++11中的constexpr</title>
     <url>/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/</url>
     <content><![CDATA[<h1 id="C-11中的constexpr"><a href="#C-11中的constexpr" class="headerlink" title="C++11中的constexpr"></a>C++11中的constexpr</h1><p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p>
@@ -49,6 +30,25 @@
       </tags>
   </entry>
   <entry>
+    <title>HDU1003-dp（大概）</title>
+    <url>/2020/04/26/HDU1003-dp%EF%BC%88%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
+<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 &#x3D; 14. </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;&#x3D;T&lt;&#x3D;20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;&#x3D;N&lt;&#x3D;100000), then N integers followed(all the integers are between -1000 and 1000). </p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases. </p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
+<p>Case 2:<br>7 1 6</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    long long max,n,sum;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;T);</span><br><span class="line">    for(int t=1;t&lt;=T;t++)</span><br><span class="line">    &#123;</span><br><span class="line">       scanf(&quot;%lld&quot;,&amp;n);</span><br><span class="line">       int l1=1,l=1,r=1;</span><br><span class="line">       sum=0;</span><br><span class="line">       max=0;</span><br><span class="line">       int f=1;</span><br><span class="line">       long long x;</span><br><span class="line">       for(int i=1;i&lt;=n;i++)</span><br><span class="line">       &#123;</span><br><span class="line">           scanf(&quot;%lld&quot;,&amp;x);</span><br><span class="line">           if(i==1)</span><br><span class="line">           max=x;</span><br><span class="line">           sum+=x;</span><br><span class="line">           if(sum&gt;max)</span><br><span class="line">           &#123;</span><br><span class="line">              max=sum;</span><br><span class="line">              l=l1;</span><br><span class="line">              r=i;</span><br><span class="line">           &#125;</span><br><span class="line">           if(sum&lt;0)</span><br><span class="line">           &#123;</span><br><span class="line">              sum=0;</span><br><span class="line">              l1=i+1;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       printf(&quot;Case %d:\n&quot;,t);</span><br><span class="line">       printf(&quot;%lld %d %d\n&quot;,max,l,r);</span><br><span class="line">       if(t!=T)</span><br><span class="line">       printf(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope</title>
     <url>/2022/02/15/IDEA%E8%BF%9E%E6%8E%A5mysql-Server%20returns%20invalid%20timezone.%20Go%20to%20Advanced%20tab%20and%20set/</url>
     <content><![CDATA[<h1 id="IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope"><a href="#IDEA连接mysql-Server-returns-invalid-timezone-Go-to-Advanced-tab-and-set-serverTimezone-prope-‘serverTimezone’-prope" class="headerlink" title="IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope"></a>IDEA连接mysql-Server returns invalid timezone. Go to Advanced tab and set serverTimezone prope ‘serverTimezone’ prope</h1><p> 没有设置时区并且没有配置mysql匹配的驱动</p>
@@ -59,6 +59,35 @@
       </categories>
       <tags>
         <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>One-Dimensional Battle Ships cf567D</title>
+    <url>/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
+<p>At the beginning of the game Alice puts k ships on the field without telling their positions to Bob. Each ship looks as a 1 × a rectangle (that is, it occupies a sequence of a consecutive squares of the field). The ships cannot intersect and even touch each other.</p>
+<p>After that Bob makes a sequence of “shots”. He names cells of the field and Alice either says that the cell is empty (“miss”), or that the cell belongs to some ship (“hit”).</p>
+<p>But here’s the problem! Alice like to cheat. May be that is why she responds to each Bob’s move with a “miss”.</p>
+<p>Help Bob catch Alice cheating — find Bob’s first move, such that after it you can be sure that Alice cheated.</p>
+<p> </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains three integers: n, k and a (1 ≤ n, k, a ≤ 2·105) — the size of the field, the number of the ships and the size of each ship. It is guaranteed that the n, k and a are such that you can put k ships of size a on the field, so that no two ships intersect or touch each other.</p>
+<p>The second line contains integer m (1 ≤ m ≤ n) — the number of Bob’s moves.</p>
+<p>The third line contains m distinct integers x1, x2, …, xm, where xi is the number of the cell where Bob made the i-th shot. The cells are numbered from left to right from 1 to n.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print a single integer — the number of such Bob’s first move, after which you can be sure that Alice lied. Bob’s moves are numbered from 1 to m in the order the were made. If the sought move doesn’t exist, then print “-1”.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>11 3 3<br>5<br>4 8 6 1 11</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>3</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>2<br>1 5</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>-1</p>
+<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>1<br>3</p>
+<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>1  </p>
+<h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有k条船，每一条船都是一个1xa的矩形放在1Xn的范围内（不能相邻），bob进行m次射击，输出第几次无论船怎么排列，bob一定会击中一艘船，如果不能确定则输出‘-1’。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这是一个二分答案，不断二分步数，当那个步骤时是否满足情况，最终得出答案</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, k, a, m;</span><br><span class="line">struct point</span><br><span class="line">&#123;</span><br><span class="line">    int id, distance;</span><br><span class="line">&#125;c[200010];</span><br><span class="line">bool cmp(point x, point y)</span><br><span class="line">&#123;</span><br><span class="line">    return x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line">int solve(int x)</span><br><span class="line">&#123;</span><br><span class="line">    int pr[200010] = &#123; 0 &#125;;</span><br><span class="line">    for (int i = 1; i &lt;= x; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pr[i] = c[i].distance;</span><br><span class="line">    &#125;</span><br><span class="line">    pr[x + 1] = n + 1;</span><br><span class="line">    sort(pr + 1, pr + x + 2);</span><br><span class="line">    int t = k;</span><br><span class="line">    for (int i = 1; i &lt;= x + 1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp = pr[i] - pr[i - 1] - 1;</span><br><span class="line">        int xx = (temp + 1) / (a + 1);</span><br><span class="line">        t -= xx;</span><br><span class="line">    &#125;</span><br><span class="line">    if (t &gt; 0)</span><br><span class="line">        return 0;</span><br><span class="line">    else</span><br><span class="line">        return 1;</span><br><span class="line">&#125;</span><br><span class="line">int dimidate(int l, int r)//第l次射击时无法击中，第R次已经击中</span><br><span class="line">&#123;</span><br><span class="line">    int mid = (l + r) / 2;</span><br><span class="line">    if (mid == l)</span><br><span class="line">    &#123;</span><br><span class="line">        int f = mid;</span><br><span class="line">        if (solve(mid) == 1)</span><br><span class="line">            f = -1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != 1 &amp;&amp; solve(mid - 1) == 0)</span><br><span class="line">            f = mid - 1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != m &amp;&amp; solve(mid + 1) == 0)</span><br><span class="line">            f = mid + 1;</span><br><span class="line">        return f;</span><br><span class="line">    &#125;</span><br><span class="line">    int f = solve(mid);</span><br><span class="line">    if (f)</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(mid + 1, r);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(l, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;k, &amp;a);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;m);</span><br><span class="line">    for (int i = 1; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;c[i].distance);</span><br><span class="line">        c[i].id = i;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;, dimidate(1, m));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -154,35 +183,6 @@
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>One-Dimensional Battle Ships cf567D</title>
-    <url>/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
-<p>At the beginning of the game Alice puts k ships on the field without telling their positions to Bob. Each ship looks as a 1 × a rectangle (that is, it occupies a sequence of a consecutive squares of the field). The ships cannot intersect and even touch each other.</p>
-<p>After that Bob makes a sequence of “shots”. He names cells of the field and Alice either says that the cell is empty (“miss”), or that the cell belongs to some ship (“hit”).</p>
-<p>But here’s the problem! Alice like to cheat. May be that is why she responds to each Bob’s move with a “miss”.</p>
-<p>Help Bob catch Alice cheating — find Bob’s first move, such that after it you can be sure that Alice cheated.</p>
-<p> </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains three integers: n, k and a (1 ≤ n, k, a ≤ 2·105) — the size of the field, the number of the ships and the size of each ship. It is guaranteed that the n, k and a are such that you can put k ships of size a on the field, so that no two ships intersect or touch each other.</p>
-<p>The second line contains integer m (1 ≤ m ≤ n) — the number of Bob’s moves.</p>
-<p>The third line contains m distinct integers x1, x2, …, xm, where xi is the number of the cell where Bob made the i-th shot. The cells are numbered from left to right from 1 to n.</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print a single integer — the number of such Bob’s first move, after which you can be sure that Alice lied. Bob’s moves are numbered from 1 to m in the order the were made. If the sought move doesn’t exist, then print “-1”.</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>11 3 3<br>5<br>4 8 6 1 11</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>3</p>
-<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>2<br>1 5</p>
-<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>-1</p>
-<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>1<br>3</p>
-<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>1  </p>
-<h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有k条船，每一条船都是一个1xa的矩形放在1Xn的范围内（不能相邻），bob进行m次射击，输出第几次无论船怎么排列，bob一定会击中一艘船，如果不能确定则输出‘-1’。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这是一个二分答案，不断二分步数，当那个步骤时是否满足情况，最终得出答案</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, k, a, m;</span><br><span class="line">struct point</span><br><span class="line">&#123;</span><br><span class="line">    int id, distance;</span><br><span class="line">&#125;c[200010];</span><br><span class="line">bool cmp(point x, point y)</span><br><span class="line">&#123;</span><br><span class="line">    return x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line">int solve(int x)</span><br><span class="line">&#123;</span><br><span class="line">    int pr[200010] = &#123; 0 &#125;;</span><br><span class="line">    for (int i = 1; i &lt;= x; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pr[i] = c[i].distance;</span><br><span class="line">    &#125;</span><br><span class="line">    pr[x + 1] = n + 1;</span><br><span class="line">    sort(pr + 1, pr + x + 2);</span><br><span class="line">    int t = k;</span><br><span class="line">    for (int i = 1; i &lt;= x + 1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp = pr[i] - pr[i - 1] - 1;</span><br><span class="line">        int xx = (temp + 1) / (a + 1);</span><br><span class="line">        t -= xx;</span><br><span class="line">    &#125;</span><br><span class="line">    if (t &gt; 0)</span><br><span class="line">        return 0;</span><br><span class="line">    else</span><br><span class="line">        return 1;</span><br><span class="line">&#125;</span><br><span class="line">int dimidate(int l, int r)//第l次射击时无法击中，第R次已经击中</span><br><span class="line">&#123;</span><br><span class="line">    int mid = (l + r) / 2;</span><br><span class="line">    if (mid == l)</span><br><span class="line">    &#123;</span><br><span class="line">        int f = mid;</span><br><span class="line">        if (solve(mid) == 1)</span><br><span class="line">            f = -1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != 1 &amp;&amp; solve(mid - 1) == 0)</span><br><span class="line">            f = mid - 1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != m &amp;&amp; solve(mid + 1) == 0)</span><br><span class="line">            f = mid + 1;</span><br><span class="line">        return f;</span><br><span class="line">    &#125;</span><br><span class="line">    int f = solve(mid);</span><br><span class="line">    if (f)</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(mid + 1, r);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(l, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;k, &amp;a);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;m);</span><br><span class="line">    for (int i = 1; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;c[i].distance);</span><br><span class="line">        c[i].id = i;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;, dimidate(1, m));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -616,6 +616,17 @@
       </tags>
   </entry>
   <entry>
+    <title>多态内存资源</title>
+    <url>/2024/01/24/%E5%A4%9A%E6%80%81%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90/</url>
+    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/527327054">https://zhuanlan.zhihu.com/p/527327054</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>幂等性原则</title>
+    <url>/2023/12/13/%E5%B9%82%E7%AD%89%E6%80%A7%E5%8E%9F%E5%88%99/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>sql常用语法</title>
     <url>/2020/04/27/sql%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<h1 id="sql基本语法"><a href="#sql基本语法" class="headerlink" title="sql基本语法"></a>sql基本语法</h1><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE database-name</span><br></pre></td></tr></table></figure>
@@ -676,17 +687,6 @@
       <tags>
         <tag>笔记</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>多态内存资源</title>
-    <url>/2024/01/24/%E5%A4%9A%E6%80%81%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90/</url>
-    <content><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/527327054">https://zhuanlan.zhihu.com/p/527327054</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>幂等性原则</title>
-    <url>/2023/12/13/%E5%B9%82%E7%AD%89%E6%80%A7%E5%8E%9F%E5%88%99/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>惊群效应</title>
