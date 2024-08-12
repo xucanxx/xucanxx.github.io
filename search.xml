@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HDU1003-dp（大概）</title>
+    <url>/2020/04/26/HDU1003-dp%EF%BC%88%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
+<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 &#x3D; 14. </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;&#x3D;T&lt;&#x3D;20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;&#x3D;N&lt;&#x3D;100000), then N integers followed(all the integers are between -1000 and 1000). </p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases. </p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
+<p>Case 2:<br>7 1 6</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    long long max,n,sum;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;T);</span><br><span class="line">    for(int t=1;t&lt;=T;t++)</span><br><span class="line">    &#123;</span><br><span class="line">       scanf(&quot;%lld&quot;,&amp;n);</span><br><span class="line">       int l1=1,l=1,r=1;</span><br><span class="line">       sum=0;</span><br><span class="line">       max=0;</span><br><span class="line">       int f=1;</span><br><span class="line">       long long x;</span><br><span class="line">       for(int i=1;i&lt;=n;i++)</span><br><span class="line">       &#123;</span><br><span class="line">           scanf(&quot;%lld&quot;,&amp;x);</span><br><span class="line">           if(i==1)</span><br><span class="line">           max=x;</span><br><span class="line">           sum+=x;</span><br><span class="line">           if(sum&gt;max)</span><br><span class="line">           &#123;</span><br><span class="line">              max=sum;</span><br><span class="line">              l=l1;</span><br><span class="line">              r=i;</span><br><span class="line">           &#125;</span><br><span class="line">           if(sum&lt;0)</span><br><span class="line">           &#123;</span><br><span class="line">              sum=0;</span><br><span class="line">              l1=i+1;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       printf(&quot;Case %d:\n&quot;,t);</span><br><span class="line">       printf(&quot;%lld %d %d\n&quot;,max,l,r);</span><br><span class="line">       if(t!=T)</span><br><span class="line">       printf(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++11中的constexpr</title>
     <url>/2022/12/14/C++11%E4%B8%AD%E7%9A%84constexpr/</url>
     <content><![CDATA[<h1 id="C-11中的constexpr"><a href="#C-11中的constexpr" class="headerlink" title="C++11中的constexpr"></a>C++11中的constexpr</h1><p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p>
@@ -27,25 +46,6 @@
       <tags>
         <tag>笔记</tag>
         <tag>基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HDU1003-dp（大概）</title>
-    <url>/2020/04/26/HDU1003-dp%EF%BC%88%E5%A4%A7%E6%A6%82%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Max Sum</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Given a sequence a[1],a[2],a[3]……a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 &#x3D; 14. </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains an integer T(1&lt;&#x3D;T&lt;&#x3D;20) which means the number of test cases. Then T lines follow, each line starts with a number N(1&lt;&#x3D;N&lt;&#x3D;100000), then N integers followed(all the integers are between -1000 and 1000). </p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, you should output two lines. The first line is “Case #:”, # means the number of the test case. The second line contains three integers, the Max Sum in the sequence, the start position of the sub-sequence, the end position of the sub-sequence. If there are more than one result, output the first one. Output a blank line between two cases. </p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>2<br>5 6 -1 5 4 -7<br>7 0 6 -1 1 -6 7 -5</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>Case 1:<br>14 1 4</p>
-<p>Case 2:<br>7 1 6</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目可以把计算过的前部分看成一个整体（一个数字），如果发现这个整体的和小于0，就从下一个数字重新开始加（因为前面的和为负数，我们要求最大和，加上的话反而和会变小），咋这个过程中，不断更新和的最大值，即可得到答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    long long max,n,sum;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;T);</span><br><span class="line">    for(int t=1;t&lt;=T;t++)</span><br><span class="line">    &#123;</span><br><span class="line">       scanf(&quot;%lld&quot;,&amp;n);</span><br><span class="line">       int l1=1,l=1,r=1;</span><br><span class="line">       sum=0;</span><br><span class="line">       max=0;</span><br><span class="line">       int f=1;</span><br><span class="line">       long long x;</span><br><span class="line">       for(int i=1;i&lt;=n;i++)</span><br><span class="line">       &#123;</span><br><span class="line">           scanf(&quot;%lld&quot;,&amp;x);</span><br><span class="line">           if(i==1)</span><br><span class="line">           max=x;</span><br><span class="line">           sum+=x;</span><br><span class="line">           if(sum&gt;max)</span><br><span class="line">           &#123;</span><br><span class="line">              max=sum;</span><br><span class="line">              l=l1;</span><br><span class="line">              r=i;</span><br><span class="line">           &#125;</span><br><span class="line">           if(sum&lt;0)</span><br><span class="line">           &#123;</span><br><span class="line">              sum=0;</span><br><span class="line">              l1=i+1;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       printf(&quot;Case %d:\n&quot;,t);</span><br><span class="line">       printf(&quot;%lld %d %d\n&quot;,max,l,r);</span><br><span class="line">       if(t!=T)</span><br><span class="line">       printf(&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -80,35 +80,6 @@
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>One-Dimensional Battle Ships cf567D</title>
-    <url>/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</url>
-    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
-<p>At the beginning of the game Alice puts k ships on the field without telling their positions to Bob. Each ship looks as a 1 × a rectangle (that is, it occupies a sequence of a consecutive squares of the field). The ships cannot intersect and even touch each other.</p>
-<p>After that Bob makes a sequence of “shots”. He names cells of the field and Alice either says that the cell is empty (“miss”), or that the cell belongs to some ship (“hit”).</p>
-<p>But here’s the problem! Alice like to cheat. May be that is why she responds to each Bob’s move with a “miss”.</p>
-<p>Help Bob catch Alice cheating — find Bob’s first move, such that after it you can be sure that Alice cheated.</p>
-<p> </p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains three integers: n, k and a (1 ≤ n, k, a ≤ 2·105) — the size of the field, the number of the ships and the size of each ship. It is guaranteed that the n, k and a are such that you can put k ships of size a on the field, so that no two ships intersect or touch each other.</p>
-<p>The second line contains integer m (1 ≤ m ≤ n) — the number of Bob’s moves.</p>
-<p>The third line contains m distinct integers x1, x2, …, xm, where xi is the number of the cell where Bob made the i-th shot. The cells are numbered from left to right from 1 to n.</p>
-<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print a single integer — the number of such Bob’s first move, after which you can be sure that Alice lied. Bob’s moves are numbered from 1 to m in the order the were made. If the sought move doesn’t exist, then print “-1”.</p>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>11 3 3<br>5<br>4 8 6 1 11</p>
-<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>3</p>
-<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>2<br>1 5</p>
-<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>-1</p>
-<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>1<br>3</p>
-<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>1  </p>
-<h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有k条船，每一条船都是一个1xa的矩形放在1Xn的范围内（不能相邻），bob进行m次射击，输出第几次无论船怎么排列，bob一定会击中一艘船，如果不能确定则输出‘-1’。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这是一个二分答案，不断二分步数，当那个步骤时是否满足情况，最终得出答案</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, k, a, m;</span><br><span class="line">struct point</span><br><span class="line">&#123;</span><br><span class="line">    int id, distance;</span><br><span class="line">&#125;c[200010];</span><br><span class="line">bool cmp(point x, point y)</span><br><span class="line">&#123;</span><br><span class="line">    return x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line">int solve(int x)</span><br><span class="line">&#123;</span><br><span class="line">    int pr[200010] = &#123; 0 &#125;;</span><br><span class="line">    for (int i = 1; i &lt;= x; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pr[i] = c[i].distance;</span><br><span class="line">    &#125;</span><br><span class="line">    pr[x + 1] = n + 1;</span><br><span class="line">    sort(pr + 1, pr + x + 2);</span><br><span class="line">    int t = k;</span><br><span class="line">    for (int i = 1; i &lt;= x + 1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp = pr[i] - pr[i - 1] - 1;</span><br><span class="line">        int xx = (temp + 1) / (a + 1);</span><br><span class="line">        t -= xx;</span><br><span class="line">    &#125;</span><br><span class="line">    if (t &gt; 0)</span><br><span class="line">        return 0;</span><br><span class="line">    else</span><br><span class="line">        return 1;</span><br><span class="line">&#125;</span><br><span class="line">int dimidate(int l, int r)//第l次射击时无法击中，第R次已经击中</span><br><span class="line">&#123;</span><br><span class="line">    int mid = (l + r) / 2;</span><br><span class="line">    if (mid == l)</span><br><span class="line">    &#123;</span><br><span class="line">        int f = mid;</span><br><span class="line">        if (solve(mid) == 1)</span><br><span class="line">            f = -1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != 1 &amp;&amp; solve(mid - 1) == 0)</span><br><span class="line">            f = mid - 1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != m &amp;&amp; solve(mid + 1) == 0)</span><br><span class="line">            f = mid + 1;</span><br><span class="line">        return f;</span><br><span class="line">    &#125;</span><br><span class="line">    int f = solve(mid);</span><br><span class="line">    if (f)</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(mid + 1, r);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(l, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;k, &amp;a);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;m);</span><br><span class="line">    for (int i = 1; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;c[i].distance);</span><br><span class="line">        c[i].id = i;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;, dimidate(1, m));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -183,6 +154,35 @@
       </categories>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>One-Dimensional Battle Ships cf567D</title>
+    <url>/2020/04/23/One-Dimensional-Battle-Ships-cf567D/</url>
+    <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Alice and Bob love playing one-dimensional battle ships. They play on the field in the form of a line consisting of n square cells (that is, on a 1 × n table).</p>
+<p>At the beginning of the game Alice puts k ships on the field without telling their positions to Bob. Each ship looks as a 1 × a rectangle (that is, it occupies a sequence of a consecutive squares of the field). The ships cannot intersect and even touch each other.</p>
+<p>After that Bob makes a sequence of “shots”. He names cells of the field and Alice either says that the cell is empty (“miss”), or that the cell belongs to some ship (“hit”).</p>
+<p>But here’s the problem! Alice like to cheat. May be that is why she responds to each Bob’s move with a “miss”.</p>
+<p>Help Bob catch Alice cheating — find Bob’s first move, such that after it you can be sure that Alice cheated.</p>
+<p> </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input contains three integers: n, k and a (1 ≤ n, k, a ≤ 2·105) — the size of the field, the number of the ships and the size of each ship. It is guaranteed that the n, k and a are such that you can put k ships of size a on the field, so that no two ships intersect or touch each other.</p>
+<p>The second line contains integer m (1 ≤ m ≤ n) — the number of Bob’s moves.</p>
+<p>The third line contains m distinct integers x1, x2, …, xm, where xi is the number of the cell where Bob made the i-th shot. The cells are numbered from left to right from 1 to n.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print a single integer — the number of such Bob’s first move, after which you can be sure that Alice lied. Bob’s moves are numbered from 1 to m in the order the were made. If the sought move doesn’t exist, then print “-1”.</p>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>11 3 3<br>5<br>4 8 6 1 11</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>3</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>2<br>1 5</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p>-1</p>
+<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>5 1 3<br>1<br>3</p>
+<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p>1  </p>
+<h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有k条船，每一条船都是一个1xa的矩形放在1Xn的范围内（不能相邻），bob进行m次射击，输出第几次无论船怎么排列，bob一定会击中一艘船，如果不能确定则输出‘-1’。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p> 这是一个二分答案，不断二分步数，当那个步骤时是否满足情况，最终得出答案</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, k, a, m;</span><br><span class="line">struct point</span><br><span class="line">&#123;</span><br><span class="line">    int id, distance;</span><br><span class="line">&#125;c[200010];</span><br><span class="line">bool cmp(point x, point y)</span><br><span class="line">&#123;</span><br><span class="line">    return x.id &lt; y.id;</span><br><span class="line">&#125;</span><br><span class="line">int solve(int x)</span><br><span class="line">&#123;</span><br><span class="line">    int pr[200010] = &#123; 0 &#125;;</span><br><span class="line">    for (int i = 1; i &lt;= x; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pr[i] = c[i].distance;</span><br><span class="line">    &#125;</span><br><span class="line">    pr[x + 1] = n + 1;</span><br><span class="line">    sort(pr + 1, pr + x + 2);</span><br><span class="line">    int t = k;</span><br><span class="line">    for (int i = 1; i &lt;= x + 1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp = pr[i] - pr[i - 1] - 1;</span><br><span class="line">        int xx = (temp + 1) / (a + 1);</span><br><span class="line">        t -= xx;</span><br><span class="line">    &#125;</span><br><span class="line">    if (t &gt; 0)</span><br><span class="line">        return 0;</span><br><span class="line">    else</span><br><span class="line">        return 1;</span><br><span class="line">&#125;</span><br><span class="line">int dimidate(int l, int r)//第l次射击时无法击中，第R次已经击中</span><br><span class="line">&#123;</span><br><span class="line">    int mid = (l + r) / 2;</span><br><span class="line">    if (mid == l)</span><br><span class="line">    &#123;</span><br><span class="line">        int f = mid;</span><br><span class="line">        if (solve(mid) == 1)</span><br><span class="line">            f = -1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != 1 &amp;&amp; solve(mid - 1) == 0)</span><br><span class="line">            f = mid - 1;</span><br><span class="line">        if (f == -1 &amp;&amp; mid != m &amp;&amp; solve(mid + 1) == 0)</span><br><span class="line">            f = mid + 1;</span><br><span class="line">        return f;</span><br><span class="line">    &#125;</span><br><span class="line">    int f = solve(mid);</span><br><span class="line">    if (f)</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(mid + 1, r);</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return dimidate(l, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //freopen(&quot;F:/y.txt&quot;, &quot;r&quot;, stdin);</span><br><span class="line">    scanf(&quot;%d %d %d&quot;, &amp;n, &amp;k, &amp;a);</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;m);</span><br><span class="line">    for (int i = 1; i &lt;= m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;c[i].distance);</span><br><span class="line">        c[i].id = i;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d&quot;, dimidate(1, m));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -721,6 +721,11 @@
 ]]></content>
   </entry>
   <entry>
+    <title>折叠表达式</title>
+    <url>/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>数据模型</title>
     <url>/2020/04/27/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h1><p>它是对现实数据特征的抽象，数据模型是数据库系统的核心和基础。</p>
@@ -775,11 +780,6 @@
       </tags>
   </entry>
   <entry>
-    <title>折叠表达式</title>
-    <url>/2024/01/18/%E6%8A%98%E5%8F%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>构造时有无()的区别</title>
     <url>/2023/09/25/%E6%9E%84%E9%80%A0%E6%97%B6%E6%9C%89%E6%97%A0-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h1 id="构造时有无-的区别"><a href="#构造时有无-的区别" class="headerlink" title="构造时有无()的区别"></a>构造时有无()的区别</h1><p>  当有()时，会将申请到的成员变量的空间初始化，没有时则不会</p>
@@ -795,27 +795,6 @@
 <p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p>
 <h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>4.服务器使用私钥对随机数字3解密。<br>5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>
 ]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>果子私房笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>果子私房笔记-TCP握手挥手数据传输</title>
-    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
-    <content><![CDATA[<h1 id="TCP握手挥手数据传输"><a href="#TCP握手挥手数据传输" class="headerlink" title="TCP握手挥手数据传输"></a>TCP握手挥手数据传输</h1><h2 id="三次握手过程"><a href="#三次握手过程" class="headerlink" title="三次握手过程"></a>三次握手过程</h2><h3 id="第一次握手"><a href="#第一次握手" class="headerlink" title="第一次握手"></a>第一次握手</h3><p>客户端发送syn包(seq&#x3D;x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
-<h3 id="第二次握手"><a href="#第二次握手" class="headerlink" title="第二次握手"></a>第二次握手</h3><p>服务器收到syn包，必须确认客户的SYN(ack&#x3D;x+1)，同时自己也发送一个SYN包(seq&#x3D;y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
-<h3 id="第三次握手"><a href="#第三次握手" class="headerlink" title="第三次握手"></a>第三次握手</h3><p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack&#x3D;y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
-<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP&#x2F;IP建立连接时使用的握手信号。<br>ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
-<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
-<h2 id="传输数据过程"><a href="#传输数据过程" class="headerlink" title="传输数据过程"></a>传输数据过程</h2><h3 id="a-超时重传："><a href="#a-超时重传：" class="headerlink" title="a.超时重传："></a>a.超时重传：</h3><p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
-<h3 id="b-快速重传："><a href="#b-快速重传：" class="headerlink" title="b.快速重传："></a>b.快速重传：</h3><p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
-<h3 id="c-流量控制："><a href="#c-流量控制：" class="headerlink" title="c.流量控制："></a>c.流量控制：</h3><p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
-<h3 id="d-拥塞控制："><a href="#d-拥塞控制：" class="headerlink" title="d.拥塞控制："></a>d.拥塞控制：</h3><p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
-<h2 id="四次挥手过程"><a href="#四次挥手过程" class="headerlink" title="四次挥手过程"></a>四次挥手过程</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
-<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。"><a href="#（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。" class="headerlink" title="（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。"></a>（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3><h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。"><a href="#（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。" class="headerlink" title="（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。"></a>（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3><h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。"><a href="#（3）-服务器关闭客户端的连接，发送一个FIN给客户端。" class="headerlink" title="（3） 服务器关闭客户端的连接，发送一个FIN给客户端。"></a>（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3><h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。"><a href="#（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。" class="headerlink" title="（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。"></a>（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>]]></content>
       <categories>
         <category>计算机网络</category>
       </categories>
@@ -878,6 +857,27 @@
 <p>6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</p>
 <p>问：.tcp如何可靠<br>    应答机制&#x2F;拥塞控制&#x2F;流量控制&#x2F;重复丢弃&#x2F;失序重排&#x2F;超时重传</p>
 ]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>果子私房笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>果子私房笔记-TCP握手挥手数据传输</title>
+    <url>/2023/01/22/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0-TCP%E6%8F%A1%E6%89%8B%E6%8C%A5%E6%89%8B%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
+    <content><![CDATA[<h1 id="TCP握手挥手数据传输"><a href="#TCP握手挥手数据传输" class="headerlink" title="TCP握手挥手数据传输"></a>TCP握手挥手数据传输</h1><h2 id="三次握手过程"><a href="#三次握手过程" class="headerlink" title="三次握手过程"></a>三次握手过程</h2><h3 id="第一次握手"><a href="#第一次握手" class="headerlink" title="第一次握手"></a>第一次握手</h3><p>客户端发送syn包(seq&#x3D;x)到服务器，并进入SYN_SEND状态(请求连接)，等待服务器确认</p>
+<h3 id="第二次握手"><a href="#第二次握手" class="headerlink" title="第二次握手"></a>第二次握手</h3><p>服务器收到syn包，必须确认客户的SYN(ack&#x3D;x+1)，同时自己也发送一个SYN包(seq&#x3D;y)，即SYN+ACK包，此时服务器进入SYN_RECV状态(接收到SYN的状态，连接套接字状态);</p>
+<h3 id="第三次握手"><a href="#第三次握手" class="headerlink" title="第三次握手"></a>第三次握手</h3><p>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack&#x3D;y+1)，此包发送完毕并完成接收后，客户端和服务器进入ESTABLISHED状态(已经建立了连接状态)，完成三次握手。</p>
+<p>SYN：同步序列编号(Synchronize Sequence Numbers)，是TCP&#x2F;IP建立连接时使用的握手信号。<br>ACK：确认字符(Acknowledge character)，在数据通信中，接收站发给发送站的一种传输类控制字符，表示发来的数据已确认接收无误。</p>
+<p>第三次握手就是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。</p>
+<h2 id="传输数据过程"><a href="#传输数据过程" class="headerlink" title="传输数据过程"></a>传输数据过程</h2><h3 id="a-超时重传："><a href="#a-超时重传：" class="headerlink" title="a.超时重传："></a>a.超时重传：</h3><p>超时重传机制用来保证TCP传输的可靠性。每次发送数据包时，发送的数据报都有seq号，接收端收到数据后，会回复ack进行确认，表示某一seq号数据已经收到。发送方在发送了某个seq包后，等待一段时间，如果没有收到对应的ack回复，就会认为报文丢失，会重传这个数据包。</p>
+<h3 id="b-快速重传："><a href="#b-快速重传：" class="headerlink" title="b.快速重传："></a>b.快速重传：</h3><p>接受数据一方发现有数据包丢掉了。就会发送ack报文告诉发送端重传丢失的报文。如果发送端连续收到标号相同的ack包，则会触发客户端的快速重传。比较超时重传和快速重传，可以发现超时重传是发送端在傻等超时，然后触发重传;而快速重传则是接收端主动告诉发送端数据没收到，然后触发发送端重传。</p>
+<h3 id="c-流量控制："><a href="#c-流量控制：" class="headerlink" title="c.流量控制："></a>c.流量控制：</h3><p>这里主要说TCP滑动窗流量控制。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己 还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。 滑动窗可以是提高TCP传输效率的一种机制。</p>
+<h3 id="d-拥塞控制："><a href="#d-拥塞控制：" class="headerlink" title="d.拥塞控制："></a>d.拥塞控制：</h3><p>滑动窗用来做流量控制。流量控制只关注发送端和接受端自身的状况，而没有考虑整个网络的通信情况。拥塞控制，则是基于整个网络来考虑的。考虑一下这 样的场景：某一时刻网络上的延时突然增加，那么，TCP对这个事做出的应对只有重传数据，但是，重传会导致网络的负担更重，于是会导致更大的延迟以及更多 的丢包，于是，这个情况就会进入恶性循环被不断地放大。试想一下，如果一个网络内有成千上万的TCP连接都这么行事，那么马上就会形成“网络风暴”，TCP这个协议就会拖垮整个网络。为此，TCP引入了拥塞控制策略。拥塞策略算法主要包括：慢启动，拥塞避免，拥塞发生，快速恢复。</p>
+<h2 id="四次挥手过程"><a href="#四次挥手过程" class="headerlink" title="四次挥手过程"></a>四次挥手过程</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<h3 id="（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。"><a href="#（1）-TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。" class="headerlink" title="（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。"></a>（1） TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</h3><h3 id="（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。"><a href="#（2）-服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。" class="headerlink" title="（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。"></a>（2） 服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</h3><h3 id="（3）-服务器关闭客户端的连接，发送一个FIN给客户端。"><a href="#（3）-服务器关闭客户端的连接，发送一个FIN给客户端。" class="headerlink" title="（3） 服务器关闭客户端的连接，发送一个FIN给客户端。"></a>（3） 服务器关闭客户端的连接，发送一个FIN给客户端。</h3><h3 id="（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。"><a href="#（4）-客户端发回ACK报文确认，并将确认序号设置为收到序号加1。" class="headerlink" title="（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。"></a>（4） 客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</h3>]]></content>
       <categories>
         <category>计算机网络</category>
       </categories>
