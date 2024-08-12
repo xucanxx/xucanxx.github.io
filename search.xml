@@ -2002,6 +2002,50 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
       </tags>
   </entry>
   <entry>
+    <title>shell 入门随笔</title>
+    <url>/2022/11/19/shell/</url>
+    <content><![CDATA[<h1 id="shell-入门随笔"><a href="#shell-入门随笔" class="headerlink" title="shell 入门随笔"></a>shell 入门随笔</h1><h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><pre class="line-numbers language-none"><code class="language-none">if [ command1 ];then
+    code
+elif [ command2 ];then
+    code
+else
+    code
+fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><pre class="line-numbers language-none"><code class="language-none">for 变量 in 列表
+do
+    code
+done
+
+
+for ((i=0;i&lt;n;i++))
+do 
+    code
+done <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><pre class="line-numbers language-none"><code class="language-none">while [ command ]
+do
+    code
+done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre class="line-numbers language-none"><code class="language-none">cat 文件path | while read -r line
+do
+#在这里line的最后一行有/r换行符，需要用sed过滤掉
+    newline = $(echo $line | sed 's/\r//')
+done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格
+
+不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/
+</code></pre>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sql常用语法</title>
     <url>/2020/04/27/sql-chang-yong-yu-fa/</url>
     <content><![CDATA[<h1 id="sql基本语法"><a href="#sql基本语法" class="headerlink" title="sql基本语法"></a>sql基本语法</h1><h2 id="增"><a href="#增" class="headerlink" title="增"></a>增</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre class="line-numbers language-none"><code class="language-none">CREATE DATABASE database-name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -2079,50 +2123,6 @@ select * from table1 where name like '李*<span aria-hidden="true" class="line-n
       </categories>
       <tags>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shell 入门随笔</title>
-    <url>/2022/11/19/shell/</url>
-    <content><![CDATA[<h1 id="shell-入门随笔"><a href="#shell-入门随笔" class="headerlink" title="shell 入门随笔"></a>shell 入门随笔</h1><h2 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h2><pre class="line-numbers language-none"><code class="language-none">if [ command1 ];then
-    code
-elif [ command2 ];then
-    code
-else
-    code
-fi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><pre class="line-numbers language-none"><code class="language-none">for 变量 in 列表
-do
-    code
-done
-
-
-for ((i=0;i&lt;n;i++))
-do 
-    code
-done <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><pre class="line-numbers language-none"><code class="language-none">while [ command ]
-do
-    code
-done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre class="line-numbers language-none"><code class="language-none">cat 文件path | while read -r line
-do
-#在这里line的最后一行有/r换行符，需要用sed过滤掉
-    newline = $(echo $line | sed 's/\r//')
-done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格
-
-不要使用rm -rf ./* 这种指令，如果目录不对非常危险，可以先cd..退出目录 ,再rm -rf ./文件夹名/
-</code></pre>
-]]></content>
-      <categories>
-        <category>shell</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
