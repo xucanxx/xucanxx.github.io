@@ -55,8 +55,7 @@
 <meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -397,42 +396,42 @@
                 <h1 id="code-server-安卓手机termux环境搭建"><a href="#code-server-安卓手机termux环境搭建" class="headerlink" title="code-server 安卓手机termux环境搭建"></a>code-server 安卓手机termux环境搭建</h1><p>在这里是使用的termux这个app。如果手机没有root会有一些限制，比如说无法挂载磁盘，无法访问手机文件。<br>但是跑一些服务是完全没有问题的。 </p>
 <p>先把termux下载好</p>
 <h2 id="安装ssh"><a href="#安装ssh" class="headerlink" title="安装ssh"></a>安装ssh</h2><p>查看ip</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 安装ssh相关依赖 
-pkg install openssl
-pkg install openssh
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装ssh相关依赖 </span>
+pkg <span class="token function">install</span> openssl
+pkg <span class="token function">install</span> openssh
 
-# 创建ssh密钥
-ssh-keygen -A
+<span class="token comment"># 创建ssh密钥</span>
+ssh-keygen <span class="token parameter variable">-A</span>
 ssh-keygen
 
-# 设置密码
-passwd
+<span class="token comment"># 设置密码</span>
+<span class="token function">passwd</span>
 
-# 查看用户名和ip
-whoami
-ifconfig
-# 开启ssh服务
+<span class="token comment"># 查看用户名和ip</span>
+<span class="token function">whoami</span>
+<span class="token function">ifconfig</span>
+<span class="token comment"># 开启ssh服务</span>
 sshd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="code-server安装"><a href="#code-server安装" class="headerlink" title="code-server安装"></a>code-server安装</h2><p>官方文档<br><a target="_blank" rel="noopener" href="https://coder.com/docs/code-server/latest/termux">https://coder.com/docs/code-server/latest/termux</a></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 先在电脑上用 ssh连接上手机 （在电脑端链接手机敲太难受了）
-ssh username@ip -p 8022
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 先在电脑上用 ssh连接上手机 （在电脑端链接手机敲太难受了）</span>
+<span class="token function">ssh</span> username@ip <span class="token parameter variable">-p</span> <span class="token number">8022</span>
 
-# 安装相关依赖
-pkg install -y tur-repo python python3
-pkg install -y code-server
+<span class="token comment"># 安装相关依赖</span>
+pkg <span class="token function">install</span> <span class="token parameter variable">-y</span> tur-repo python python3
+pkg <span class="token function">install</span> <span class="token parameter variable">-y</span> code-server
 termux-change-repo
-pkg update -y
-pkg upgrade -y
-pkg install -y \
-  build-essential \
-  binutils \
-  pkg-config \
-  python3 \
+pkg update <span class="token parameter variable">-y</span>
+pkg upgrade <span class="token parameter variable">-y</span>
+pkg <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token punctuation">\</span>
+  build-essential <span class="token punctuation">\</span>
+  binutils <span class="token punctuation">\</span>
+  pkg-config <span class="token punctuation">\</span>
+  python3 <span class="token punctuation">\</span>
   nodejs-lts
-npm config set python python3
-node -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> python python3
+<span class="token function">node</span> <span class="token parameter variable">-v</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>在 ～/.conf/code-server/config.yaml 可以进行相关的配置</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># code启动！
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># code启动！</span>
 code-server<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
                 
             </div>

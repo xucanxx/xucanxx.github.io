@@ -54,8 +54,7 @@
 <meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -394,18 +393,18 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><p>取自B站视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver">https://www.bilibili.com/video/BV19K4y1L7MT?p=12&amp;spm_id_from=pageDriver</a></p>
-<h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java">@Configuration
-public class test{
-    @Bean
-    public User user1(){
-        return new User("滑稽","18");
-    }
+<h2 id="Configuration-与-Bean"><a href="#Configuration-与-Bean" class="headerlink" title="@Configuration 与 @Bean"></a>@Configuration 与 @Bean</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> test<span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Bean("tom")
-    public Pet cat(){
-        return new Pet("tomcat");
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token annotation punctuation">@Bean</span><span class="token punctuation">(</span><span class="token string">"tom"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Pet</span> <span class="token function">cat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pet</span><span class="token punctuation">(</span><span class="token string">"tomcat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h3><pre><code>告诉Springboot这是一个配置类，其作用相当于配置文件
 
 @Configuration(proxyBeanMethods = true)
@@ -420,47 +419,47 @@ public class test{
 </code></pre>
 <h2 id="import"><a href="#import" class="headerlink" title="@import()"></a>@import()</h2><pre><code>给容器自动创建组件
 </code></pre>
- <pre class="line-numbers language-java" data-language="java"><code class="language-java">@Import({User.class,DBHelper.class})
-//给容器自动创建了这两个组件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+ <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">User</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token class-name">DBHelper</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">//给容器自动创建了这两个组件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h2 id="Conditional"><a href="#Conditional" class="headerlink" title="@Conditional"></a>@Conditional</h2><p>条件装配：满足Conditional指定条件，则进行组件注入</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">@Configuration
-public class test{
-    @ConditionalOnBean(name = "tom")
-    //当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）
-    @Bean
-    public User user1(){
-        return new User("滑稽","18");
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">@ConditionalOnBean(name = "tom")
- //当bean中存在id为tom的实体类时下面的配置才生效
-@Configuration
-public class test{
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> test<span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+    <span class="token comment">//当bean中存在id为tom的实体类时才创建user1（下面的配置才生效）</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@ConditionalOnBean</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+ <span class="token comment">//当bean中存在id为tom的实体类时下面的配置才生效</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> test<span class="token punctuation">{</span>
     
-    @Bean
-    public User user1(){
-        return new User("滑稽","18");
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">user1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">"滑稽"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="ImportResource"><a href="#ImportResource" class="headerlink" title="@ImportResource"></a>@ImportResource</h2><p>导入原生配置文件</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">@ImportResource("xxx.xml")<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@ImportResource</span><span class="token punctuation">(</span><span class="token string">"xxx.xml"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="配置绑定"><a href="#配置绑定" class="headerlink" title="配置绑定"></a>配置绑定</h2><h3 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h3><pre><code>前缀定义了哪些外部属性将绑定到类的字段上  
 根据 Spring Boot 宽松的绑定规则，类的属性名称必须与外部属性的名称匹配  
 我们可以简单地用一个值初始化一个字段来定义一个默认值  
 类本身可以是包私有的  
 类的字段必须有公共 setter 方法  
 </code></pre>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">@component
-@ConfigurationProperties(prefix = "mycar")
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@component</span>
+<span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"mycar"</span><span class="token punctuation">)</span>
 
-public class Car{
-    private String brand;
-    private String Integer price;
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Car</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> brand<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> <span class="token class-name">Integer</span> price<span class="token punctuation">;</span>
 
-    ...//setter方法
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token comment">//setter方法</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>@ConfigurationProperties括号中的值为前缀在application.Properties文件中的配置如下  </p>
-<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties">mycar.brand=BYD
-mycar.price=100000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token key attr-name">mycar.brand</span><span class="token punctuation">=</span><span class="token value attr-value">BYD</span>
+<span class="token key attr-name">mycar.price</span><span class="token punctuation">=</span><span class="token value attr-value">100000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h3 id="EnableConfigurationProperties"><a href="#EnableConfigurationProperties" class="headerlink" title="@EnableConfigurationProperties"></a>@EnableConfigurationProperties</h3><pre><code>@EnableConfigurationProperties(xxx.class)  
 开启xxx.class的属性配置功能   

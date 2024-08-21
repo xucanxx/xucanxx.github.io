@@ -56,8 +56,7 @@ wget htt">
 <meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -398,12 +397,12 @@ wget htt">
                 <h1 id="openresty入门"><a href="#openresty入门" class="headerlink" title="openresty入门"></a>openresty入门</h1><h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>  pcre-devel openssl-devel gcc curl</p>
 <h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><p>  官网:<br>  <a target="_blank" rel="noopener" href="https://openresty.org/en/download.html">https://openresty.org/en/download.html</a></p>
 <p>  下载最新版</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">wget https://openresty.org/download/openresty-1.19.9.1.tar.gz
-tar -zxvf openresty-1.19.9.1.tar.gz
-cd openresty-1.19.9.1/
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://openresty.org/download/openresty-1.19.9.1.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> openresty-1.19.9.1.tar.gz
+<span class="token builtin class-name">cd</span> openresty-1.19.9.1/
 ./configure
-sudo make -j6
-sudo make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">sudo</span> <span class="token function">make</span> <span class="token parameter variable">-j6</span>
+<span class="token function">sudo</span> <span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>要是报  </p>
 <pre class="line-numbers language-none"><code class="language-none">gmake[1]: cc: Command not found<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -418,10 +417,10 @@ source ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span>
 
 <h2 id="nginx-与-lua"><a href="#nginx-与-lua" class="headerlink" title="nginx 与 lua"></a>nginx 与 lua</h2><p>参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1037840">https://cloud.tencent.com/developer/article/1037840</a><br><a target="_blank" rel="noopener" href="https://blog.openresty.com.cn/cn/or-lua-module/">https://blog.openresty.com.cn/cn/or-lua-module/</a></p>
 <h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><p>假设Nginx相关的配置如下所示</p>
-<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx">lua_code_cache off;
-location ~ ^/api/([-_a-zA-Z0-9/]+) {
-    content_by_lua_file lua/$1.lua;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-nginx" data-language="nginx"><code class="language-nginx"><span class="token directive"><span class="token keyword">lua_code_cache</span> <span class="token boolean">off</span></span><span class="token punctuation">;</span>
+<span class="token directive"><span class="token keyword">location</span> ~ ^/api/([-_a-zA-Z0-9/]+)</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">content_by_lua_file</span> lua/<span class="token variable">$1</span>.lua</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>当来到的请求符合   ^/api/([-_a-zA-Z0-9/]+)  时，会在NGX_HTTP_CONTENT_PHASE HTTP请求内容阶段交给 lua/$1.lua来处理  </p>
 <p>比如<br>/api/addition           交给 lua/addition.lua 处理<br>/api/substraction       交给 lua/substraction.lua 处理  </p>
 <h3 id="请求的处理"><a href="#请求的处理" class="headerlink" title="请求的处理"></a>请求的处理</h3><p>content_by_lua_file对应的请求来临时，执行流程为<br>ngx_http_lua_content_handler -&gt; ngx_http_lua_content_handler_file-&gt; ngx_http_lua_content_by_chunk  </p>
