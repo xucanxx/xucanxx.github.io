@@ -401,7 +401,7 @@ Given a set of n integers: A={a1, a2,…, an}, we define ">
 <h3 id="Hint"><a href="#Hint" class="headerlink" title="Hint"></a>Hint</h3><p>In the sample, we choose {2,2,3,-3,4} and {5}, then we can get the answer.   </p>
 <p>Huge input,scanf is recommended</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目也是一个最大和问题但是又不太一样，这个是从两边开始的，求的是两边最大和的最大值，所以说要在中间找一个点作为分割点（一个个试），再求两边的最大和，但是用之前的那个方法一个个算会超时，所以说我们建立两个数组，来记录每个点两边的最大和，即可一步完成</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;stdio.h&gt;
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
 using namespace std;
 #define MIN -0x3f3f3f3f

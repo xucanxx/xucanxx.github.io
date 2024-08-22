@@ -358,8 +358,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/c/" class="post-category">
-                                c++
+                            <a href="/categories/C/" class="post-category">
+                                C++
                             </a>
                         
                     </div>
@@ -397,7 +397,7 @@
             <div id="articleContent">
                 <h1 id="brpc-http-proto的使用"><a href="#brpc-http-proto的使用" class="headerlink" title="brpc-http:proto的使用"></a>brpc-http:proto的使用</h1><p>官方文档:<br><a target="_blank" rel="noopener" href="https://brpc.apache.org/zh/docs/client/access-grpc/">https://brpc.apache.org/zh/docs/client/access-grpc/</a><br>issues:<br><a target="_blank" rel="noopener" href="https://github.com/apache/brpc/issues/1647">https://github.com/apache/brpc/issues/1647</a></p>
 <p>他实际上会先解析http的头部的 Content-Type 字段<br>当Content-Type 中的值为,application/x-protobuf,application/proto,application/grpc 时,他将以protobuf来解析http的包体<br>而其他情况将会 将其以其他情况解析（默认json）<br>源码片段</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">if (ct.starts_with("grpc")) {
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">if (ct.starts_with("grpc")) {
        if (ct.size() == (size_t)4 || ct[4] == ';') {
            if (is_grpc_ct) {
                *is_grpc_ct = true;
@@ -433,7 +433,7 @@
    return (ct.empty() || ct.front() == ';') ? type : HTTP_CONTENT_OTHERS;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="http-proto代码示例"><a href="#http-proto代码示例" class="headerlink" title="http:proto代码示例"></a>http:proto代码示例</h2><p>代码示例</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool send(const std::string&amp; url,const std::string&amp; data){
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">bool send(const std::string&amp; url,const std::string&amp; data){
     brpc::Channel channel;
     brpc::ChannelOptions options;
     options.protocol = brpc::PROTOCOL_HTTP;//设置协议为http1.*
@@ -465,7 +465,7 @@
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="h2-proto代码示例"><a href="#h2-proto代码示例" class="headerlink" title="h2:proto代码示例"></a>h2:proto代码示例</h2><p>代码示例</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool send(const std::string&amp; url,const std::string&amp; data){
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">bool send(const std::string&amp; url,const std::string&amp; data){
     brpc::Channel channel;
     brpc::ChannelOptions options;
     options.protocol = brpc::PROTOCOL_H2;//设置协议为http2.0

@@ -428,7 +428,7 @@
 <h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><pre class="line-numbers language-none"><code class="language-none">9<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="大意"><a href="#大意" class="headerlink" title="大意"></a>大意</h2><p> 有n座城市组成的最小无向联通图（即n-1条路线），其中有k个工业城市，其余的都是旅游城市，其中每一个工业城市都会派出一位大使前往1号城市，大使其中经过了多少旅游城市就是大使的满意度，问通过分配工业城市与旅游城市，能取得的大使满意度的和最大的值。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>搭建以1号城市为根节点的树，并以1为中心，在1的周围选择旅游城市，这样远离1的工业城市大使就能经过更多旅游城市，而每次选择一个旅游城市它之后每个工业城市大使的满意度就会加一（首先直接默认它之后的城市都为工业城市），但是他从工业城市变成旅游城市会失去满意度（节点的深度），所以整体的贡献度为所有的子节点数-节点的深度</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-none"><code class="language-none">#include&lt;iostream&gt;
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;vector&gt;
 using namespace std;

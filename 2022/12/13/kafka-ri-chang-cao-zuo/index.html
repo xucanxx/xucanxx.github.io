@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="kafka日常操作, 咸鱼">
     <meta name="description" content="kafka日常操作kafka查看数据查看所有topic./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-
-查看所有group./kafka-consumer-groups.">
+查看所有group./kafka-consumer-groups.s">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -393,27 +392,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre><code>./kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list
-</code></pre>
-<h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre><code>./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX
-</code></pre>
-<h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre><code>./kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --group XXXXX --describe
-</code></pre>
-<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX
-</code></pre>
-<h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre><code>./kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic XXXXX --from-beginning
-</code></pre>
-<h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre><code>./kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic XXXXX
-</code></pre>
-<h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre><code>./bin/kafka-server-start.sh ./config/server.properties
-</code></pre>
-<h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre><code>nohup ./bin/kafka-server-start.sh ./config/server.properties &gt;&gt; ./kafka-server.log 2&gt;&amp;1 &amp;
-</code></pre>
-<h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre><code>./bin/kafka-server-stop.sh
-</code></pre>
-
+                <h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre class="line-numbers language-none"><code class="language-none">./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--group</span> XXXXX <span class="token parameter variable">--describe</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX --from-beginning<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh <span class="token parameter variable">--create</span> <span class="token parameter variable">--zookeeper</span> <span class="token number">127.0</span>.0.1:2181 --replication-factor <span class="token number">1</span> <span class="token parameter variable">--partitions</span> <span class="token number">1</span> <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-start.sh ./config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> ./bin/kafka-server-start.sh ./config/server.properties <span class="token operator">&gt;&gt;</span> ./kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -565,8 +553,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/c/" class="post-category">
-                                    c++
+                            <a href="/categories/C/" class="post-category">
+                                    C++
                                 </a>
                             
                             
