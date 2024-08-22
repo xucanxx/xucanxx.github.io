@@ -542,6 +542,13 @@ int main()
 </tr>
 </tbody></table>
 <h3 id="null-memory-resource"><a href="#null-memory-resource" class="headerlink" title="null_memory_resource"></a>null_memory_resource</h3><p>上方的代码，当buf中的内存空间调用不足后会向传入的标准内存资源对象申请资源。即向null_memory_resource申请新资源，而null_memory_resource申请失败后buf会抛出异常。</p>
+<h3 id="synchronized-pool-resource和unsynchronized-pool-resource"><a href="#synchronized-pool-resource和unsynchronized-pool-resource" class="headerlink" title="synchronized_pool_resource和unsynchronized_pool_resource"></a>synchronized_pool_resource和unsynchronized_pool_resource</h3><p>synchronized_pool_resource和unsynchronized_pool_resource是 尝试在相邻位置分配所有内存的内存资源类。因此，使用它们可以尽可能的减小内存碎片。</p>
+<p>它们的不同在于synchronized_pool_resource是线程安全的（性能会差一些）， 而unsynchronized_pool_resource不是。 因此，如果你知道这个池里的内存只会 被单个线程访问（或者分配和释放操作都是同步的），那么使用unsynchronized_pool_resource 将是更好的选择。</p>
+<p>这两个类都使用底层的内存资源来进行实际的分配和释放操作。它们只是保证内存分配更加密集的包装。因此，</p>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>等价于</p>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool{std::pmr::get_default_resource()};<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="monotonic-buffer-resource"><a href="#monotonic-buffer-resource" class="headerlink" title="monotonic_buffer_resource"></a>monotonic_buffer_resource</h3><p>monotonic_buffer_resource这个就很有意思,它在每次申请资源时会直接在已分配的内存空间末尾追加，而不会处理之前已经分配了的空间</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;memory_resource&gt;
 #include &lt;vector&gt;
@@ -604,7 +611,7 @@ std::pmr::set_default_resource(old);<span aria-hidden="true" class="line-numbers
 std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 将不会发生move（直接把s分配的内存转让给ps），而是把s的内存拷贝到ps内部用new分配的新的内存中。（只要是不同类型的多态分配器在std::move时都会进行值拷贝）</li>
 </ul>
-<h4 id="设置默认资源"><a href="#设置默认资源" class="headerlink" title="设置默认资源"></a>设置默认资源</h4><p>如果你在程序中设置了自定义内存资源并且把它用作默认资源， 那么直接在main()中首先将它创建为static对象将是一个好方法：</p>
+<h3 id="设置默认资源"><a href="#设置默认资源" class="headerlink" title="设置默认资源"></a>设置默认资源</h3><p>如果你在程序中设置了自定义内存资源并且把它用作默认资源， 那么直接在main()中首先将它创建为static对象将是一个好方法：</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">int main()
 {
     static std::pmr::synchronized_pool_resource myPool;
@@ -618,6 +625,100 @@ std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<sp
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>返回类型memory_resource是任何内存资源的基类。</p>
 <p><strong>注意之前的默认内存资源可能仍然会被使用，即使它已经被替换掉。 除非你知道（并且确信）不会发生这种情况，也就是没有使用该内存资源创建静态对象， 否则你应该确保你的资源的生命周期尽可能的长 （再提醒一次，可以在main()开始处创建它，这样它会在程序的最后才会被销毁）。</strong></p>
+<h2 id="定义自定义内存资源"><a href="#定义自定义内存资源" class="headerlink" title="定义自定义内存资源"></a>定义自定义内存资源</h2><p>你现在可以提供自定义内存资源。要想这么做，你需要：</p>
+<ul>
+<li>从<code>std::pmr::memory_resource</code>派生</li>
+<li>实现下列私有函数<ul>
+<li><code>do_allocate()</code>来分配内存</li>
+<li><code>do_deallocate()</code>来释放内存</li>
+<li><code>do_is_equal()</code>来定义什么情况下何时你的类型可以和其他内存资源对象交换分配的内存</li>
+</ul>
+</li>
+</ul>
+<p>(居然是继承的方式，我还以为会用SFINAE那一套去搞呢,concept 是C++20出的啊，那没事了)  </p>
+<p>这里有一个让我们可以追踪所有内存资源的分配和释放操作的完整示例：</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory_resource&gt;</span></span>
+
+<span class="token keyword">class</span> <span class="token class-name">Tracker</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token class-name">memory_resource</span></span>
+<span class="token punctuation">{</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>upstream<span class="token punctuation">;</span>    <span class="token comment">// 被包装的内存资源</span>
+    std<span class="token double-colon punctuation">::</span>string prefix<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token comment">// 包装传入的或者默认的资源：</span>
+    <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us
+            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>string p<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us
+            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span><span class="token punctuation">,</span> prefix<span class="token punctuation">{</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">do_allocate</span><span class="token punctuation">(</span>size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"allocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span><span class="token operator">*</span> ret <span class="token operator">=</span> upstream<span class="token operator">-&gt;</span><span class="token function">allocate</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">void</span> <span class="token function">do_deallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> ptr<span class="token punctuation">,</span> size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"deallocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>
+        upstream<span class="token operator">-&gt;</span><span class="token function">deallocate</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">bool</span> <span class="token function">do_is_equal</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是同一个对象？</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>other<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token comment">// 是相同的类型并且prefix和upstream都相等？</span>
+        <span class="token keyword">auto</span> op <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dynamic_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">const</span> Tracker<span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token operator">&amp;</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> op <span class="token operator">!=</span> <span class="token keyword">nullptr</span> <span class="token operator">&amp;&amp;</span> op<span class="token operator">-&gt;</span>prefix <span class="token operator">==</span> prefix <span class="token operator">&amp;&amp;</span> upstream<span class="token operator">-&gt;</span><span class="token function">is_equal</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>就像通常的智能内存资源一样，我们支持传递另一个内存资源（通常叫做upstream） 来包装它或者将它用作备选项。另外，我们可以传递一个可选的前缀。 每一次输出分配或释放操作信息时都会先输出这个可选的前缀。</p>
+<p>我们唯一需要实现的其他函数是do_is_equal()，它定义了何时两个内存资源可以交换 （即一个多态内存资源对象是否以及何时可以释放另一个多态内存资源对象分配的内存）。 在这里，我们简单的认为,只要前缀相同，这种类型的对象都可以释放另一个该类型对象分配的内存：</p>
+<h2 id="支持多态分配器"><a href="#支持多态分配器" class="headerlink" title="支持多态分配器"></a>支持多态分配器</h2><p>想要支持多态分配器出乎意料的简单， 你只需要：</p>
+<ul>
+<li>定义一个public成员allocator_type作为一个多态分配器</li>
+<li>为所有构造函数添加一个接受分配器作为额外参数的重载（包括拷贝和移动构造函数）</li>
+<li>给初始化用的构造函数的分配器参数添加一个默认的allocator_type类型的值 （ 不 包括拷贝和移动构造函数）</li>
+</ul>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;string&gt;
+#include &lt;memeory_resource&gt;
+
+// 支持多态分配器的顾客类型
+// 分配器存储在字符串成员中
+class PmrCustomer
+{
+private:
+    std::pmr::string name;  // 也可以用来存储分配器
+public:
+    using allocator_type = std::pmr::polymorphic_allocator&lt;char&gt;;
+
+    // 初始化构造函数：
+    PmrCustomer(std::pmr::string n, allocator_type alloc = {}) : name{std::move(n), alloc} {
+    }
+
+    // 带有分配器的移动，构造函数：
+    PmrCustomer(const PmrCustomer&amp; c, allocator_type alloc) : name{c.name, alloc} {
+    }
+
+    PmrCustomer(PmrCustomer&amp;&amp; c, allocator_type alloc) : name{std::move(c.name), alloc} {
+    }
+
+    // setter/getter：
+    void setName(std::pmr::string s) {
+        name = std::move(s);
+    }
+    std::pmr::string getName() const {
+        return name;
+    }
+    std::string getNameAsString() const {
+        return std::string{name};
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 
                 
             </div>
