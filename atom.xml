@@ -6,7 +6,7 @@
   <link href="https://xucanxx.github.io/atom.xml" rel="self"/>
   
   <link href="https://xucanxx.github.io/"/>
-  <updated>2024-05-25T10:44:43.929Z</updated>
+  <updated>2024-08-22T07:35:19.453Z</updated>
   <id>https://xucanxx.github.io/</id>
   
   <author>
@@ -17,32 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>惰性运算</title>
-    <link href="https://xucanxx.github.io/2024/04/16/duo-xing-yun-suan/"/>
-    <id>https://xucanxx.github.io/2024/04/16/duo-xing-yun-suan/</id>
-    <published>2024-04-16T16:33:51.000Z</published>
-    <updated>2024-05-25T10:44:43.929Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/53750888">https://zhuanlan.zhihu.com/p/53750888</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/53750888&quot;&gt;https://zhuanlan.zhihu.com/p/53750888&lt;/a&gt;&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>多态内存资源</title>
-    <link href="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/"/>
-    <id>https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/</id>
-    <published>2024-01-24T14:25:27.000Z</published>
-    <updated>2024-08-22T07:32:51.181Z</updated>
+    <link href="https://xucanxx.github.io/2024/08/22/duo-tai-nei-cun-zi-yuan/"/>
+    <id>https://xucanxx.github.io/2024/08/22/duo-tai-nei-cun-zi-yuan/</id>
+    <published>2024-08-22T14:25:27.000Z</published>
+    <updated>2024-08-22T07:35:19.453Z</updated>
     
     <content type="html"><![CDATA[<h1 id="多态内存资源"><a href="#多态内存资源" class="headerlink" title="多态内存资源"></a>多态内存资源</h1><p>文章说得很详细（虽然我还是不怎么懂，做个笔记吧）<br><a href="https://github.com/MeouSker77/Cpp17/blob/master/markdown/src/ch29.md">https://github.com/MeouSker77/Cpp17/blob/master/markdown/src/ch29.md</a></p><h2 id="多态分配器"><a href="#多态分配器" class="headerlink" title="多态分配器"></a>多态分配器</h2><p>这玩意最直接的用法就是控制容器的内存，打个比方在我使用vector容器时一般情况下会这么用</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt;iostream&gt;#include &lt;vector&gt;using namespace std;class node{public:    node(){        cout &lt;&lt; "build node!" &lt;&lt;endl;    }};int main(){    vector&lt;node&gt; arr;    arr.resize(10);    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>不难发现这个这个类构造了10个对象，但是众所周知vector 存储元素的实际位置是在堆上，并且vector在资源不足时会自动进行扩容以及值拷贝操作。频繁的内存会导致内存碎片的产生，值拷贝也会拖慢性能。那我们有什么办法去控制vector构建对象时的行为呢？</p><h3 id="控制数据位置"><a href="#控制数据位置" class="headerlink" title="控制数据位置"></a>控制数据位置</h3><p>按照传统的方法，就是我们要自己实现一个内存分配器。作为vector的模版参数传入。（gpt真好用）</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;memory&gt;   // 包含 std::allocator// 自定义分配器类template &lt;typename T&gt;class MyAllocator {public:    // 类型定义    using value_type = T;    // 分配内存    T* allocate(std::size_t n) {}    // 释放内存    void deallocate(T* p, std::size_t n) {}    // 构造对象    template &lt;typename... Args&gt;    void construct(T* p, Args&amp;&amp;... args) {}    // 销毁对象    void destroy(T* p) {}};int main() {    // 使用自定义分配器创建 vector    std::vector&lt;int, MyAllocator&lt;int&gt;&gt; myVector;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>这个时候果子哥就要说了，这玩意写起来太麻烦了，有没有什么简单的方法呢？<br>诶 <del>铁牛牛肉面</del> ,pmr就出现了</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;#include &lt;array&gt;#include &lt;cstdlib&gt;  // for byte#include &lt;memory_resource&gt;using namespace std;int main(){    // 在栈上分配一些内存：    array&lt;byte, 200000&gt; buf;    // 将它用作vector的初始内存池：    pmr::monotonic_buffer_resource pool{buf.data(), buf.size()};    pmr::vector&lt;string&gt; coll{&amp;pool};    for (int i = 0; i &lt; 1000; ++i) {        coll.emplace_back("just a non-SSO string");    }    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>程序的输出可以看到，coll的data位于buf中</p><pre class="line-numbers language-none"><code class="language-none">0x7ffd6d151210 0x7ffd6d181f500x7ffd6d1591f0 0x7ffd6d160ef0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>通过这种方式，我们就可以控制vector的数据存放地址了。</p><h3 id="控制内存资源的一些行为"><a href="#控制内存资源的一些行为" class="headerlink" title="控制内存资源的一些行为"></a>控制内存资源的一些行为</h3><p>这个时候果子哥又要问了要是vector在重新分配内存时，超出了缓存区的大小，它会怎么处理呢？<br>欸 <del>我不吃牛肉</del> ,看代码</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;#include &lt;array&gt;#include &lt;cstdlib&gt;  // for byte#include &lt;memory_resource&gt;using namespace std;int main(){    // 在栈上分配一些内存：    array&lt;byte, 20&gt; buf;    // 将它用作vector的初始内存池：    pmr::monotonic_buffer_resource pool{buf.data(), buf.size()};    pmr::vector&lt;string&gt; coll{&amp;pool};    for (int i = 0; i &lt; 1000; ++i) {        coll.emplace_back("just a non-SSO string");    }    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>他还是会重新在堆上分配内存，以保证容器的正常功能。但是我们都已经使用内存池了，自然就可以在内存不够时进行一些操作。比如说在内存资源不够时抛出异常</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;#include &lt;array&gt;#include &lt;cstdlib&gt;  // for byte#include &lt;memory_resource&gt;using namespace std;int main(){    // 在栈上分配一些内存：    array&lt;byte, 20&gt; buf;    // 将它用作vector的初始内存池：    pmr::monotonic_buffer_resource pool{buf.data(), buf.size(),pmr::null_memory_resource()};    pmr::vector&lt;string&gt; coll{&amp;pool};    for (int i = 0; i &lt; 1000; ++i) {        coll.emplace_back("just a non-SSO string");    }    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="标准内存资源"><a href="#标准内存资源" class="headerlink" title="标准内存资源"></a>标准内存资源</h2><p>刚刚在上面提到的 null_memory_resource()就是标准内存资源中的一种</p><table><thead><tr><th>标准内存资源</th><th>行为</th></tr></thead><tbody><tr><td>new_delete_resource()</td><td>返回一个调用new和delete的内存资源的指针</td></tr><tr><td>synchronized_pool_resource</td><td>创建更少碎片化的、线程安全的内存资源的类</td></tr><tr><td>unsynchronized_pool_resource</td><td>创建更少碎片化的、线程不安全的内存资源的类</td></tr><tr><td>monotonic_buffer_resource</td><td>创建从不释放、可以传递一个可选的缓冲区、线程不安全的类</td></tr><tr><td>null_memory_resource()</td><td>返回一个每次分配都会失败的内存资源的指针</td></tr></tbody></table><h3 id="null-memory-resource"><a href="#null-memory-resource" class="headerlink" title="null_memory_resource"></a>null_memory_resource</h3><p>上方的代码，当buf中的内存空间调用不足后会向传入的标准内存资源对象申请资源。即向null_memory_resource申请新资源，而null_memory_resource申请失败后buf会抛出异常。</p><h3 id="synchronized-pool-resource和unsynchronized-pool-resource"><a href="#synchronized-pool-resource和unsynchronized-pool-resource" class="headerlink" title="synchronized_pool_resource和unsynchronized_pool_resource"></a>synchronized_pool_resource和unsynchronized_pool_resource</h3><p>synchronized_pool_resource和unsynchronized_pool_resource是 尝试在相邻位置分配所有内存的内存资源类。因此，使用它们可以尽可能的减小内存碎片。</p><p>它们的不同在于synchronized_pool_resource是线程安全的（性能会差一些）， 而unsynchronized_pool_resource不是。 因此，如果你知道这个池里的内存只会 被单个线程访问（或者分配和释放操作都是同步的），那么使用unsynchronized_pool_resource 将是更好的选择。</p><p>这两个类都使用底层的内存资源来进行实际的分配和释放操作。它们只是保证内存分配更加密集的包装。因此，</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>等价于</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool{std::pmr::get_default_resource()};<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="monotonic-buffer-resource"><a href="#monotonic-buffer-resource" class="headerlink" title="monotonic_buffer_resource"></a>monotonic_buffer_resource</h3><p>monotonic_buffer_resource这个就很有意思,它在每次申请资源时会直接在已分配的内存空间末尾追加，而不会处理之前已经分配了的空间</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;memory_resource&gt;#include &lt;vector&gt;#include &lt;iostream&gt;using namespace std;int main() {    // 创建一个静态缓冲区    int buf[1024] = {0};    // 创建一个 monotonic_buffer_resource，并使用静态缓冲区    pmr::monotonic_buffer_resource resource(buf, sizeof(buf));    // 创建一个使用该内存资源的 vector    pmr::vector&lt;int&gt; vec(&amp;resource);    vec.push_back(0);    cout&lt;&lt; (unsigned long long)vec.data() - (unsigned long long )buf &lt;&lt; endl;    // 向 vector 添加数据    for (int i = 1; i &lt; 10; ++i) {        vec.push_back(i);    }    unsigned long long off = (unsigned long long)vec.data() - (unsigned long long )buf;    cout&lt;&lt; off &lt;&lt; endl;    for(int i=0;i&lt; off/sizeof(int) + vec.size();i++){        cout&lt;&lt; buf[i] &lt;&lt; " ";    }    cout &lt;&lt; endl;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-none"><code class="language-none">0600 0 1 0 1 2 3 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 8 9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>通过这段代码可以发现，vector在变更容量大小时，计划释放的内存没有做任何处理，而是直接在已分配的内存资源的最后追加了一段资源分给vector。</p><p>通过这种方式虽然会造成内存资源的浪费，但是以此换来的是简单的处理逻辑与极快的速度。</p><h2 id="默认内存资源"><a href="#默认内存资源" class="headerlink" title="默认内存资源"></a>默认内存资源</h2><table><thead><tr><th>内存资源</th><th>行为</th></tr></thead><tbody><tr><td>get_default_resource()</td><td>返回一个指向当前默认内存资源的指针</td></tr><tr><td>set_default_resource(memresPtr)</td><td>设置默认内存资源（传递一个指针）并返回之前的内存资源的指针</td></tr></tbody></table><p>我们可以用std::pmr::get_default_resource()获取当前的默认资源,然后传递它来初始化一个多态分配器。也可以使用std::set_default_resource() 来全局地设置一个不同的默认内存资源。这个资源将在任何作用域中用作默认资源，直到下一次调用</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">static std::pmr::synchronized_pool_resource myPool;// 设置myPool为新的默认内存资源：std::pmr::memory_resource* old = std::pmr::set_default_resource(&amp;myPool);...// 恢复旧的默认内存资源：std::pmr::set_default_resource(old);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h3 id="默认资源"><a href="#默认资源" class="headerlink" title="默认资源"></a>默认资源</h3><p>当set_default_resource没有被调用时会默认使用new_delete_resource()这个内存资源，他的行为跟正常的new，delete操作一样。</p><ul><li>每次向其申请内存时会调用new</li><li>每次释放内存时会调用delete<br>然而，注意持有这种内存资源的多态分配器不能和默认的分配器互换，因为它们的类型不同。因此：<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::string s{"my string with some value"};std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>将不会发生move（直接把s分配的内存转让给ps），而是把s的内存拷贝到ps内部用new分配的新的内存中。（只要是不同类型的多态分配器在std::move时都会进行值拷贝）</li></ul><h3 id="设置默认资源"><a href="#设置默认资源" class="headerlink" title="设置默认资源"></a>设置默认资源</h3><p>如果你在程序中设置了自定义内存资源并且把它用作默认资源， 那么直接在main()中首先将它创建为static对象将是一个好方法：</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">int main(){    static std::pmr::synchronized_pool_resource myPool;    ...}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>或者，提供一个返回静态资源的全局函数：</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">memory_resource* myResource(){    static std::pmr::synchronized_pool_resource myPool;    return &amp;myPool;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>返回类型memory_resource是任何内存资源的基类。</p><p><strong>注意之前的默认内存资源可能仍然会被使用，即使它已经被替换掉。 除非你知道（并且确信）不会发生这种情况，也就是没有使用该内存资源创建静态对象， 否则你应该确保你的资源的生命周期尽可能的长 （再提醒一次，可以在main()开始处创建它，这样它会在程序的最后才会被销毁）。</strong></p><h2 id="定义自定义内存资源"><a href="#定义自定义内存资源" class="headerlink" title="定义自定义内存资源"></a>定义自定义内存资源</h2><p>你现在可以提供自定义内存资源。要想这么做，你需要：</p><ul><li>从<code>std::pmr::memory_resource</code>派生</li><li>实现下列私有函数<ul><li><code>do_allocate()</code>来分配内存</li><li><code>do_deallocate()</code>来释放内存</li><li><code>do_is_equal()</code>来定义什么情况下何时你的类型可以和其他内存资源对象交换分配的内存</li></ul></li></ul><p>(居然是继承的方式，我还以为会用SFINAE那一套去搞呢,concept 是C++20出的啊，那没事了)  </p><p>这里有一个让我们可以追踪所有内存资源的分配和释放操作的完整示例：</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory_resource&gt;</span></span><span class="token keyword">class</span> <span class="token class-name">Tracker</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token class-name">memory_resource</span></span><span class="token punctuation">{</span><span class="token keyword">private</span><span class="token operator">:</span>    std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>upstream<span class="token punctuation">;</span>    <span class="token comment">// 被包装的内存资源</span>    std<span class="token double-colon punctuation">::</span>string prefix<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token keyword">public</span><span class="token operator">:</span>    <span class="token comment">// 包装传入的或者默认的资源：</span>    <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span> <span class="token punctuation">{</span>    <span class="token punctuation">}</span>    <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>string p<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span><span class="token punctuation">,</span> prefix<span class="token punctuation">{</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>    <span class="token punctuation">}</span><span class="token keyword">private</span><span class="token operator">:</span>    <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">do_allocate</span><span class="token punctuation">(</span>size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"allocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>        <span class="token keyword">void</span><span class="token operator">*</span> ret <span class="token operator">=</span> upstream<span class="token operator">-&gt;</span><span class="token function">allocate</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token keyword">void</span> <span class="token function">do_deallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> ptr<span class="token punctuation">,</span> size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>        std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"deallocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>        upstream<span class="token operator">-&gt;</span><span class="token function">deallocate</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token keyword">bool</span> <span class="token function">do_is_equal</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>        <span class="token comment">// 是同一个对象？</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>other<span class="token punctuation">)</span>            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>        <span class="token comment">// 是相同的类型并且prefix和upstream都相等？</span>        <span class="token keyword">auto</span> op <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dynamic_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">const</span> Tracker<span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token operator">&amp;</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token keyword">return</span> op <span class="token operator">!=</span> <span class="token keyword">nullptr</span> <span class="token operator">&amp;&amp;</span> op<span class="token operator">-&gt;</span>prefix <span class="token operator">==</span> prefix <span class="token operator">&amp;&amp;</span> upstream<span class="token operator">-&gt;</span><span class="token function">is_equal</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>就像通常的智能内存资源一样，我们支持传递另一个内存资源（通常叫做upstream） 来包装它或者将它用作备选项。另外，我们可以传递一个可选的前缀。 每一次输出分配或释放操作信息时都会先输出这个可选的前缀。</p><p>我们唯一需要实现的其他函数是do_is_equal()，它定义了何时两个内存资源可以交换 （即一个多态内存资源对象是否以及何时可以释放另一个多态内存资源对象分配的内存）。 在这里，我们简单的认为,只要前缀相同，这种类型的对象都可以释放另一个该类型对象分配的内存：</p><h2 id="支持多态分配器"><a href="#支持多态分配器" class="headerlink" title="支持多态分配器"></a>支持多态分配器</h2><p>想要支持多态分配器出乎意料的简单， 你只需要：</p><ul><li>定义一个public成员allocator_type作为一个多态分配器</li><li>为所有构造函数添加一个接受分配器作为额外参数的重载（包括拷贝和移动构造函数）</li><li>给初始化用的构造函数的分配器参数添加一个默认的allocator_type类型的值 （ 不 包括拷贝和移动构造函数）</li></ul><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;string&gt;#include &lt;memeory_resource&gt;// 支持多态分配器的顾客类型// 分配器存储在字符串成员中class PmrCustomer{private:    std::pmr::string name;  // 也可以用来存储分配器public:    using allocator_type = std::pmr::polymorphic_allocator&lt;char&gt;;    // 初始化构造函数：    PmrCustomer(std::pmr::string n, allocator_type alloc = {}) : name{std::move(n), alloc} {    }    // 带有分配器的移动，构造函数：    PmrCustomer(const PmrCustomer&amp; c, allocator_type alloc) : name{c.name, alloc} {    }    PmrCustomer(PmrCustomer&amp;&amp; c, allocator_type alloc) : name{std::move(c.name), alloc} {    }    // setter/getter：    void setName(std::pmr::string s) {        name = std::move(s);    }    std::pmr::string getName() const {        return name;    }    std::string getNameAsString() const {        return std::string{name};    }};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
     
@@ -60,57 +39,6 @@
     <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
     <category term="Cpp17" scheme="https://xucanxx.github.io/tags/Cpp17/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>折叠表达式</title>
-    <link href="https://xucanxx.github.io/2024/01/18/zhe-die-biao-da-shi/"/>
-    <id>https://xucanxx.github.io/2024/01/18/zhe-die-biao-da-shi/</id>
-    <published>2024-01-18T10:24:40.000Z</published>
-    <updated>2024-05-16T06:39:18.106Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>链接调试符号</title>
-    <link href="https://xucanxx.github.io/2023/12/23/lian-jie-diao-shi-fu-hao/"/>
-    <id>https://xucanxx.github.io/2023/12/23/lian-jie-diao-shi-fu-hao/</id>
-    <published>2023-12-23T10:30:21.000Z</published>
-    <updated>2024-08-22T02:19:56.876Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="链接调试符号"><a href="#链接调试符号" class="headerlink" title="链接调试符号"></a>链接调试符号</h1><p>调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;链接调试符号&quot;&gt;&lt;a href=&quot;#链接调试符号&quot; class=&quot;headerlink&quot; title=&quot;链接调试符号&quot;&gt;&lt;/a&gt;链接调试符号&lt;/h1&gt;&lt;p&gt;调试符号-g 会使inline 函数不再内联并且 让编译器不再优化相关指令&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="C++" scheme="https://xucanxx.github.io/categories/C/"/>
-    
-    
-    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>幂等性原则</title>
-    <link href="https://xucanxx.github.io/2023/12/13/mi-deng-xing-yuan-ze/"/>
-    <id>https://xucanxx.github.io/2023/12/13/mi-deng-xing-yuan-ze/</id>
-    <published>2023-12-13T17:05:34.000Z</published>
-    <updated>2024-05-25T10:44:43.907Z</updated>
-    
-    
-    
-    
     
   </entry>
   
@@ -139,35 +67,11 @@
   </entry>
   
   <entry>
-    <title>虚假唤醒</title>
-    <link href="https://xucanxx.github.io/2023/12/06/xu-jia-huan-xing/"/>
-    <id>https://xucanxx.github.io/2023/12/06/xu-jia-huan-xing/</id>
-    <published>2023-12-06T15:01:58.000Z</published>
-    <updated>2024-08-14T08:01:21.673Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="虚假唤醒"><a href="#虚假唤醒" class="headerlink" title="虚假唤醒"></a>虚假唤醒</h1><p><a href="https://zhuanlan.zhihu.com/p/652823880">https://zhuanlan.zhihu.com/p/652823880</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;虚假唤醒&quot;&gt;&lt;a href=&quot;#虚假唤醒&quot; class=&quot;headerlink&quot; title=&quot;虚假唤醒&quot;&gt;&lt;/a&gt;虚假唤醒&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/652823880&quot;&gt;https://zhuan</summary>
-      
-    
-    
-    
-    <category term="操作系统" scheme="https://xucanxx.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="随笔" scheme="https://xucanxx.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
     <title>构造时有无()的区别</title>
     <link href="https://xucanxx.github.io/2023/09/25/gou-zao-shi-you-wu-de-qu-bie/"/>
     <id>https://xucanxx.github.io/2023/09/25/gou-zao-shi-you-wu-de-qu-bie/</id>
     <published>2023-09-25T10:48:50.000Z</published>
-    <updated>2024-08-14T09:05:24.011Z</updated>
+    <updated>2024-08-22T07:34:28.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="构造时有无-的区别"><a href="#构造时有无-的区别" class="headerlink" title="构造时有无()的区别"></a>构造时有无()的区别</h1><p>  当有()时，会将申请到的成员变量的空间初始化，没有时则不会</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;#include &lt;stdio.h&gt;using namespace std;class foo {public://foo() { cout &lt;&lt; "foo's constructor" &lt;&lt; endl; }//~foo() { cout &lt;&lt; "foo's destructor" &lt;&lt; endl; }int a;};int main() {char buf[sizeof(foo)];foo* a = new (buf) foo;//不会将申请到的int空间初始化char buf2[sizeof(foo)];foo* b = new (buf2) foo();//则会将申请到的int空间初始化为0。printf("%d %d\n", a-&gt;a, b-&gt;a);return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
     
@@ -179,6 +83,8 @@
       
     
     
+    
+    <category term="C++" scheme="https://xucanxx.github.io/categories/C/"/>
     
     
     <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
@@ -470,6 +376,128 @@
     
     
     <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-SSL握手过程</title>
+    <link href="https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-ssl-wo-shou-guo-cheng/"/>
+    <id>https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-ssl-wo-shou-guo-cheng/</id>
+    <published>2022-12-15T09:14:35.000Z</published>
+    <updated>2024-05-16T06:39:17.996Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SSL握手过程"><a href="#SSL握手过程" class="headerlink" title="SSL握手过程"></a>SSL握手过程</h1><h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p>SSL握手过程的本质是在协商对称加密的秘钥。HTTPS协议的安全机制是靠SSL来实现的（SSL位于应用层和传输层之间）</p><p>为了保证数据的安全性，在数据发送前需要对数据进行加密。传统的对称加密，协商秘钥过程如果被窃听导致秘钥泄露，加密的数据也就变得“公开透明”了，而使用非对称加密的方式效率较低。因此，在SSL中采用“对称加密个非对称加密结合”的方法保证数据的安全性，即非对称加密进行对称加密秘钥的协商，而这个协商过程就可以认为是SSL握手。</p><h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>1.客户端给服务器端发送协议版本、客户端支持的加密算法、一个随机数1。<br>2.服务器端选择加密算法，并向客户端发送一个服务器数字证书和一个随机数2。<br>3.客户端使用数字证书中的公钥，将随机数3加密发送给服务器。<br>4.服务器使用私钥对随机数字3解密。<br>5.服务器端和客户端通过事先协商好的加密算法，对这三个随机数进行加密生成“对话秘钥”（session key）即对称加密的秘钥，用于接下来整个对话过程的加密。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;SSL握手过程&quot;&gt;&lt;a href=&quot;#SSL握手过程&quot; class=&quot;headerlink&quot; title=&quot;SSL握手过程&quot;&gt;&lt;/a&gt;SSL握手过程&lt;/h1&gt;&lt;h2 id=&quot;本质&quot;&gt;&lt;a href=&quot;#本质&quot; class=&quot;headerlink&quot; title=&quot;本</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-http协议无状态协议以及解决方案</title>
+    <link href="https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-http-xie-yi-wu-zhuang-tai-xie-yi-yi-ji-jie-jue-fang-an/"/>
+    <id>https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-http-xie-yi-wu-zhuang-tai-xie-yi-yi-ji-jie-jue-fang-an/</id>
+    <published>2022-12-15T09:12:41.000Z</published>
+    <updated>2024-05-16T06:39:17.957Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="http协议无状态协议以及解决方案"><a href="#http协议无状态协议以及解决方案" class="headerlink" title="http协议无状态协议以及解决方案"></a>http协议无状态协议以及解决方案</h1><p>http本身是一种无状态协议</p><p>无状态协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息<br>也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个”老用户“。</p><p>可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是”老用户“。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;http协议无状态协议以及解决方案&quot;&gt;&lt;a href=&quot;#http协议无状态协议以及解决方案&quot; class=&quot;headerlink&quot; title=&quot;http协议无状态协议以及解决方案&quot;&gt;&lt;/a&gt;http协议无状态协议以及解决方案&lt;/h1&gt;&lt;p&gt;http本身是一种无</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>果子私房笔记-http与https的区别</title>
+    <link href="https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-http-yu-https-de-qu-bie/"/>
+    <id>https://xucanxx.github.io/2022/12/15/guo-zi-si-fang-bi-ji-http-yu-https-de-qu-bie/</id>
+    <published>2022-12-15T09:06:56.000Z</published>
+    <updated>2024-05-16T06:39:17.946Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="http与https的区别"><a href="#http与https的区别" class="headerlink" title="http与https的区别"></a>http与https的区别</h1><p>HTTP的URL以http:// 开头，而HTTPS 的URL 以https://开头<br>HTTP是不安全的，而HTTPS是安全的<br>HTTP标准端口是80 ，而HTTPS的标准端口是443<br>在OSI网络模型中，HTTP工作于应用层，而HTTPS的安全传输机制工作在传输层<br>HTTP无法加密，而HTTPS对传输的数据进行加密<br>HTTP无需证书，而HTTPS需要CA机构wosign的颁发的SSL证书</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;http与https的区别&quot;&gt;&lt;a href=&quot;#http与https的区别&quot; class=&quot;headerlink&quot; title=&quot;http与https的区别&quot;&gt;&lt;/a&gt;http与https的区别&lt;/h1&gt;&lt;p&gt;HTTP的URL以http:// 开头，而HTTPS</summary>
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://xucanxx.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="果子私房笔记" scheme="https://xucanxx.github.io/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C++11中的constexpr</title>
+    <link href="https://xucanxx.github.io/2022/12/14/c-11-zhong-de-constexpr/"/>
+    <id>https://xucanxx.github.io/2022/12/14/c-11-zhong-de-constexpr/</id>
+    <published>2022-12-14T01:42:14.000Z</published>
+    <updated>2024-08-22T02:34:23.323Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-11中的constexpr"><a href="#C-11中的constexpr" class="headerlink" title="C++11中的constexpr"></a>C++11中的constexpr</h1><p><a href="https://blog.csdn.net/m0_52902391/article/details/120308866">https://blog.csdn.net/m0_52902391/article/details/120308866</a></p><h2 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h2><pre><code>值不会改变且在编译期就能得到计算结果的表达式。字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。</code></pre><h2 id="constexpr-与-const"><a href="#constexpr-与-const" class="headerlink" title="constexpr 与 const"></a>constexpr 与 const</h2><p> 在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br> 但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰<br> </p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp"> // errorvoid func1(constexpr int p) {}// okvoid func2(const int p) {}void func3(const int p) {    int a[p];//error ,此时p并非常量表达式，只是只读参数}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p></p><h2 id="用constexpr修饰函数"><a href="#用constexpr修饰函数" class="headerlink" title="用constexpr修饰函数"></a>用constexpr修饰函数</h2><p>constexpr 并不能修改任意函数的返回值，这些函数成为常量表达式函数时，必须要满足以下几个条件：<br>（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）  </p><h3 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h3><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">// error，不是常量表达式函数constexpr void func1(){    int a = 100;    cout &lt;&lt; "a: " &lt;&lt; a &lt;&lt; endl;} // error，不是常量表达式函数constexpr int func2(){    int a = 100;    return a;}// okconstexpr int func3(){    constexpr int a = 100;    return a;} <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求  </p><h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">// errorconstexpr int func1(){    constexpr int a = 100;    constexpr int b = 10;    for (int i = 0; i &lt; b; ++i)    {        cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; endl;    }    return a + b;} // okconstexpr int func2(){    using mytype = int;    constexpr mytype a = 100;    constexpr mytype b = 10;    constexpr mytype c = a * b;    return c - (a + b);} <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="修饰模板函数"><a href="#修饰模板函数" class="headerlink" title="修饰模板函数"></a>修饰模板函数</h2><p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt; iostream &gt;using namespace std; struct Person {    const char* name;    int age;}; // 定义函数模板template&lt; typename T &gt;constexpr T dispaly(T t) {    return t;} int main(){    struct Person p { "luffy", 19 };    //普通函数    struct Person ret = dispaly(p);    cout &lt;&lt; "luffy's name: " &lt;&lt; ret.name &lt;&lt; ", age: " &lt;&lt; ret.age &lt;&lt; endl;     //常量表达式函数    constexpr int ret1 = dispaly(250);    cout &lt;&lt; ret1 &lt;&lt; endl;     constexpr struct Person p1 { "luffy", 19 };    constexpr struct Person p2 = dispaly(p1);    cout &lt;&lt; "luffy's name: " &lt;&lt; p2.name &lt;&lt; ", age: " &lt;&lt; p2.age &lt;&lt; endl;    return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p><p>struct Person ret = dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的  </p><h2 id="修饰构造函数"><a href="#修饰构造函数" class="headerlink" title="修饰构造函数"></a>修饰构造函数</h2><p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;using namespace std; struct Person {    constexpr Person(const char* p, int age) :name(p), age(age)    {    }    const char* name;    int age;}; int main(){    constexpr struct Person p1("luffy", 19);    cout &lt;&lt; "luffy's name: " &lt;&lt; p1.name &lt;&lt; ", age: " &lt;&lt; p1.age &lt;&lt; endl;    return 0;} <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="注"><a href="#注" class="headerlink" title="注:"></a>注:</h2><h3 id="1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"><a href="#1-const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定" class="headerlink" title="1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定"></a>1.const用于修饰不能被修改的对象，但const对象的值通常在程序运行期间才能确定</h3><h3 id="2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"><a href="#2-constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。" class="headerlink" title="2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。"></a>2.constexpr用于修饰常量表达式或可返回常量表达式的constexpr函数，在编译时能确定值。</h3><h3 id="3-constexpr函数都是inline函数"><a href="#3-constexpr函数都是inline函数" class="headerlink" title="3.constexpr函数都是inline函数"></a>3.constexpr函数都是inline函数</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;C-11中的constexpr&quot;&gt;&lt;a href=&quot;#C-11中的constexpr&quot; class=&quot;headerlink&quot; title=&quot;C++11中的constexpr&quot;&gt;&lt;/a&gt;C++11中的constexpr&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https:/</summary>
+      
+    
+    
+    
+    <category term="C++" scheme="https://xucanxx.github.io/categories/C/"/>
+    
+    
+    <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="基础" scheme="https://xucanxx.github.io/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kafka日常操作</title>
+    <link href="https://xucanxx.github.io/2022/12/13/kafka-ri-chang-cao-zuo/"/>
+    <id>https://xucanxx.github.io/2022/12/13/kafka-ri-chang-cao-zuo/</id>
+    <published>2022-12-13T08:15:34.000Z</published>
+    <updated>2024-08-22T02:47:17.669Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre class="line-numbers language-none"><code class="language-none">./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--group</span> XXXXX <span class="token parameter variable">--describe</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX --from-beginning<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh <span class="token parameter variable">--create</span> <span class="token parameter variable">--zookeeper</span> <span class="token number">127.0</span>.0.1:2181 --replication-factor <span class="token number">1</span> <span class="token parameter variable">--partitions</span> <span class="token number">1</span> <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-start.sh ./config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> ./bin/kafka-server-start.sh ./config/server.properties <span class="token operator">&gt;&gt;</span> ./kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;kafka日常操作&quot;&gt;&lt;a href=&quot;#kafka日常操作&quot; class=&quot;headerlink&quot; title=&quot;kafka日常操作&quot;&gt;&lt;/a&gt;kafka日常操作&lt;/h1&gt;&lt;h2 id=&quot;kafka查看数据&quot;&gt;&lt;a href=&quot;#kafka查看数据&quot; class</summary>
+      
+    
+    
+    
+    <category term="kafka" scheme="https://xucanxx.github.io/categories/kafka/"/>
+    
+    
+    <category term="笔记" scheme="https://xucanxx.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
