@@ -452,7 +452,7 @@ int main()
     consumer3.join();
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在这个例子中，有一个生产者线程与3个消费者线程，生产者线程一次会生产2个message，但是notify_all在唤起所有3个消费者后，会有一个消费者获取不到message（最后获取锁的所有权的那个），这样就导致了那个线程被唤起后却无法获取元素导致中断。</p>
+<p>在这个例子中，有一个生产者线程与3个消费者线程，生产者线程第一次会生产2个message，但是notify_all在唤起所有3个消费者后，会有一个消费者获取不到message（最后获取锁的所有权的那个），这样就导致了那个线程被唤起后却无法获取元素。</p>
 <pre class="line-numbers language-none"><code class="language-none">Wait for notification.
 Wait for notification.
 Wait for notification.
