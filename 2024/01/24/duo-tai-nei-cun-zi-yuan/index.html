@@ -412,7 +412,7 @@ int main(){
     arr.resize(10);
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>不难发现这个这个类构造了10个对象，但是众所周知vector 存储元素的实际位置是在堆上，并且vector在资源不足时会自动进行扩容以及值拷贝操作。频繁的内存会导致内存碎片的产生，值拷贝也会拖慢性能。那我们有什么办法去控制vector构建对象时的行为呢？</p>
+<p>不难发现这个这个类构造了10个对象，但是众所周知vector 存储元素的实际位置是在堆上，并且vector在资源不足时会自动进行扩容以及值拷贝操作。频繁的申请与释放内存会导致内存碎片的产生。那我们有什么办法去控制vector构建对象时的行为呢？</p>
 <h3 id="控制数据位置"><a href="#控制数据位置" class="headerlink" title="控制数据位置"></a>控制数据位置</h3><p>按照传统的方法，就是我们要自己实现一个内存分配器。作为vector的模版参数传入。（gpt真好用）</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
