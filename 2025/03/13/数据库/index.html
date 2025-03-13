@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据库 | 咸鱼</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库MySQL常用的存储引擎，如何根据应用场景选择 InnoDB：支持事务、外键，适用于高可靠性需求的应用。 特点：支持ACID事务、行级锁、外键约束。 ACID是衡量事务的四个特性 原子性（Atomicity） 一致性（Consistency） 隔离性（Isolation） 持久性（Durability）     适用场景：需要高并发、数据一致性的应用，如金融系统。   MyISAM：不支持事">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="https://xucanxx.github.io/2025/03/13/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="咸鱼">
+<meta property="og:description" content="数据库MySQL常用的存储引擎，如何根据应用场景选择 InnoDB：支持事务、外键，适用于高可靠性需求的应用。 特点：支持ACID事务、行级锁、外键约束。 ACID是衡量事务的四个特性 原子性（Atomicity） 一致性（Consistency） 隔离性（Isolation） 持久性（Durability）     适用场景：需要高并发、数据一致性的应用，如金融系统。   MyISAM：不支持事">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-13T07:45:59.000Z">
+<meta property="article:modified_time" content="2025-03-13T09:19:54.602Z">
+<meta property="article:author" content="xucanxx">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">咸鱼</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://xucanxx.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2025/03/13/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="article-date">
+  <time datetime="2025-03-13T07:45:59.000Z" itemprop="datePublished">2025-03-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="MySQL常用的存储引擎，如何根据应用场景选择"><a href="#MySQL常用的存储引擎，如何根据应用场景选择" class="headerlink" title="MySQL常用的存储引擎，如何根据应用场景选择"></a>MySQL常用的存储引擎，如何根据应用场景选择</h2><ul>
+<li><strong>InnoDB</strong>：支持事务、外键，适用于高可靠性需求的应用。<ul>
+<li>特点：支持ACID事务、行级锁、外键约束。<ul>
+<li>ACID是衡量事务的四个特性<ul>
+<li>原子性（Atomicity）</li>
+<li>一致性（Consistency）</li>
+<li>隔离性（Isolation）</li>
+<li>持久性（Durability）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>适用场景：需要高并发、数据一致性的应用，如金融系统。</li>
+</ul>
+</li>
+<li><strong>MyISAM</strong>：不支持事务，适用于读多写少的应用。<ul>
+<li>特点：不支持事务、表级锁、存储空间小。</li>
+<li>适用场景：读操作多于写操作的应用，如数据仓库。</li>
+</ul>
+</li>
+<li><strong>Memory</strong>：数据存储在内存中，适用于需要快速访问的数据。<ul>
+<li>特点：数据存储在内存中，访问速度快，断电数据丢失。</li>
+<li>适用场景：需要快速访问的数据，如缓存表、临时数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h2><p><strong>乐观锁</strong>：假设不会发生冲突，提交时检查冲突。  </p>
+<ul>
+<li>实现方式：版本号机制、时间戳机制。</li>
+<li>适用场景：读多写少的场景，冲突概率低。</li>
+</ul>
+<p><strong>悲观锁</strong>：假设会发生冲突，操作前加锁。  </p>
+<ul>
+<li>实现方式：数据库锁机制（行锁、表锁）。</li>
+<li>适用场景：写操作多的场景，冲突概率高。</li>
+</ul>
+<h2 id="MySQL多版本控制-MVCC"><a href="#MySQL多版本控制-MVCC" class="headerlink" title="MySQL多版本控制(MVCC)"></a>MySQL多版本控制(MVCC)</h2><p>通过保存数据的多个版本，实现并发控制，常用的是InnoDB的MVCC。  </p>
+<ul>
+<li><strong>实现方式</strong>：<ul>
+<li>每行数据有两个隐藏列，分别存储创建时间和删除时间。</li>
+<li>使用Undo日志保存数据的旧版本。</li>
+<li>读取数据时，通过比较当前事务的版本号与数据版本号，决定读取哪个版本的数据。</li>
+</ul>
+</li>
+<li><strong>优点</strong>：<ul>
+<li>提高并发性能：读操作不加锁，写操作只锁定必要的行。</li>
+<li>避免读写冲突：读操作可以读取旧版本数据，写操作可以并发进行。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>占用更多存储空间：需要保存多个版本的数据。</li>
+<li>版本管理复杂：需要维护多个版本的数据和Undo日志。</li>
+</ul>
+</li>
+<li><strong>适用场景</strong>：高并发读写操作，保证数据一致性。</li>
+</ul>
+<h2 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h2><p>将数据分散到多个数据库或表中，提高性能和可扩展性。  </p>
+<ul>
+<li>分库：将数据分散到多个数据库实例中，减轻单个数据库的压力。</li>
+<li>分表：将数据分散到多个表中，减轻单个表的压力。</li>
+<li>适用场景：数据量大、并发高的应用，如电商系统。</li>
+</ul>
+<h2 id="InnoDB的事务等级"><a href="#InnoDB的事务等级" class="headerlink" title="InnoDB的事务等级"></a>InnoDB的事务等级</h2><ul>
+<li><strong>READ UNCOMMITTED</strong>：最低级别，允许读取未提交的数据，可能导致脏读。</li>
+<li><strong>READ COMMITTED</strong>：允许读取已提交的数据，防止脏读，但可能导致不可重复读。</li>
+<li><strong>REPEATABLE READ</strong>：默认级别，保证同一事务内多次读取结果一致，防止不可重复读，但可能导致幻读。</li>
+<li><strong>SERIALIZABLE</strong>：最高级别，完全串行化执行事务，防止幻读，但性能较低。</li>
+</ul>
+<h2 id="Redis的数据结构类型"><a href="#Redis的数据结构类型" class="headerlink" title="Redis的数据结构类型"></a>Redis的数据结构类型</h2><ul>
+<li><strong>字符串</strong>：最基本的数据类型，可以存储字符串、整数、浮点数。</li>
+<li><strong>哈希</strong>：键值对集合，适用于存储对象。</li>
+<li><strong>列表</strong>：有序字符串集合，适用于消息队列。</li>
+<li><strong>集合</strong>：无序字符串集合，适用于去重。</li>
+<li><strong>有序集合</strong>：带有分数的有序字符串集合，适用于排行榜。</li>
+<li><strong>位图</strong>：位数组，适用于高效存储二进制数据。</li>
+<li><strong>HyperLogLog</strong>：基数估计算法，适用于统计独立元素数量。</li>
+<li><strong>地理空间索引</strong>：存储地理位置信息，支持半径查询。</li>
+<li><strong>流</strong>：日志数据结构，适用于消息队列。</li>
+</ul>
+<h2 id="如何使用Redis实现事务"><a href="#如何使用Redis实现事务" class="headerlink" title="如何使用Redis实现事务"></a>如何使用Redis实现事务</h2><p>使用MULTI、EXEC、WATCH命令实现事务。  </p>
+<ul>
+<li>MULTI：开启事务。</li>
+<li>EXEC：提交事务。</li>
+<li>WATCH：监视键，防止并发修改。</li>
+</ul>
+<h3 id="详细介绍"><a href="#详细介绍" class="headerlink" title="详细介绍"></a>详细介绍</h3><ol>
+<li><p><strong>MULTI</strong>：开启一个事务块，之后的命令会被放入队列中，而不会立即执行。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">MULTI<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>命令队列</strong>：在MULTI之后，可以添加多个命令，这些命令会被放入队列中。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">SET key1 value1
+SET key2 value2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>WATCH</strong>：在执行MULTI之前，可以使用WATCH命令监视一个或多个键。如果在事务执行之前这些键被修改，事务将被取消。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">WATCH key1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>EXEC</strong>：提交事务，执行所有在MULTI之后添加的命令。如果WATCH监视的键在事务执行之前被修改，EXEC将返回空回复，表示事务失败。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">EXEC<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>DISCARD</strong>：如果在MULTI之后决定不执行事务，可以使用DISCARD命令取消事务。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">DISCARD<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>以下是一个使用Redis事务的示例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">WATCH mykey
+MULTI
+INCR mykey
+INCR mykey
+EXEC<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个示例中，首先监视<code>mykey</code>，然后在事务块中将<code>mykey</code>的值增加两次，最后提交事务。如果在事务执行之前<code>mykey</code>被修改，事务将失败。</p>
+<h2 id="缓存击穿，以及如何防止"><a href="#缓存击穿，以及如何防止" class="headerlink" title="缓存击穿，以及如何防止"></a>缓存击穿，以及如何防止</h2><p><strong>缓存击穿</strong>：热点数据失效导致大量请求打到数据库。<br><strong>防止方法</strong>：设置热点数据永不过期、使用互斥锁。</p>
+<h2 id="LSM-Tree"><a href="#LSM-Tree" class="headerlink" title="LSM Tree"></a>LSM Tree</h2><p>日志结构合并树，适用于写密集型应用。  </p>
+<ul>
+<li>特点：写操作先写入内存，再批量写入磁盘，减少磁盘I&#x2F;O。</li>
+<li>适用场景：写操作频繁的应用，如日志系统。</li>
+</ul>
+<h2 id="MySQL-数据的同步与复制"><a href="#MySQL-数据的同步与复制" class="headerlink" title="MySQL 数据的同步与复制"></a>MySQL 数据的同步与复制</h2><ul>
+<li><strong>主从复制</strong>：主库写操作，从库读操作，提高读写性能。</li>
+<li><strong>半同步复制</strong>：主库写操作等待至少一个从库确认，提高数据一致性。</li>
+<li><strong>组复制</strong>：多主复制，所有节点都可以读写，提高可用性。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xucanxx.github.io/2025/03/13/%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="cm8754r4y003n6q7kf4yy5ksx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/13/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E6%88%96%E7%BB%84%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          开源框架或组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/03/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">开源框架或组件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ruby/">Ruby</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/openresty/">openresty</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9E%B6%E6%9E%84/">架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ACM/" rel="tag">ACM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/brpc/" rel="tag">brpc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/" rel="tag">果子私房笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9E%8E%E7%8E%A9/" rel="tag">瞎玩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%80%83%E7%A0%94/" rel="tag">考研</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ACM/" style="font-size: 18.33px;">ACM</a> <a href="/tags/brpc/" style="font-size: 10px;">brpc</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 15px;">基础</a> <a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/" style="font-size: 20px;">果子私房笔记</a> <a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 10px;">框架</a> <a href="/tags/%E7%9E%8E%E7%8E%A9/" style="font-size: 10px;">瞎玩</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 16.67px;">笔记</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 11.67px;">随笔</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 13.33px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">十二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/02/">二月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/03/13/Linux/">Linux要点</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/13/c++/">C++要点</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/13/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/13/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/13/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6%E6%88%96%E7%BB%84%E4%BB%B6/">开源框架或组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 xucanxx<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
