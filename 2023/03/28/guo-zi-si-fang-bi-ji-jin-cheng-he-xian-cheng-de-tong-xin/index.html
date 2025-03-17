@@ -52,10 +52,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -385,9 +382,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -402,7 +396,7 @@
 <h2 id="3-消息队列："><a href="#3-消息队列：" class="headerlink" title="3.消息队列："></a>3.消息队列：</h2><p>定义：是消息的链表，存放在内核中。一个消息队列由一个标识符（即队列ID）来标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。<br>特点：<br>(1).消息队列是面向记录的，其中的消息具有特定的格式以及特定的优先级。<br>(2).消息队列独立于发送与接收进程。进程终止时，消息队列及其内容并不会被删除。<br>(3).消息队列可以实现消息的随机查询,消息不一定要以先进先出的次序读取,也可以按消息的类型读取。</p>
 <h2 id="4-信号"><a href="#4-信号" class="headerlink" title="4.信号"></a>4.信号</h2><p>定义：信号是在软件层次上对中断机制的一种模拟，在原理上，一个进程收到一个信号与处理器收到一个中断请求可以说是一样的，用于通知接收进程某个事件已经发生。如果接收进程并未处于执行状态，则该信号就由内核保存起来，知道该进程恢复执行并传递给他为止。如果一个信号可以被进程设置为阻塞，如果如此，则该信号的传递被延迟，直到其阻塞被取消时才被传递给进程。<br>响应：<br>(1).忽略信号，即对信号不做任何处理 (有 2 个例外：sigkill,sigstop)<br>(2).捕捉信号，定义信号处理函数，当信号发生时，执行相应的处理函数<br>(3).默认操作，Linux对每种信号都规定了默认操作</p>
 <h2 id="5-信号量"><a href="#5-信号量" class="headerlink" title="5.信号量"></a>5.信号量</h2><p>定义：它是一个临界变量。用于实现进程间的互斥与同步，而不是用于存储进程间通信数据。<br>特点：<br>(1).信号量用于进程间同步，若要在进程间传递数据通常结合共享内存。<br>(2).信号量基于操作系统的 PV 操作，程序对信号量的操作都是原子操作。<br>(3).每次对信号量的 PV 操作不仅限于对信号量值加1或减1，而且可以加减任意正整数。<br>(4).支持信号量组。</p>
-<h2 id="6-套接字-socket"><a href="#6-套接字-socket" class="headerlink" title="6.套接字( socket )"></a>6.套接字( socket )</h2><p>介绍：套解字也是一种进程间通信机制（传输层实现端到端的通信），与其他通信机制不同的是，它可用于不同机器间的进程通信。它可以看成是两个网络应用程序进行通信时，各自通信连接中的一个端点。通信时，其中的一个网络应用程序将要传输的一段信息写入它所在主机的Socket中，该Socket通过网络接口卡的传输介质将这段信息发送给另一台主机的Socket中，使这段信息能传送到其他程序中。因此，两个应用程序之间的数据传输要通过套接字来完成。<br>socket()函数：socket是一种”打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。<br>bind()函数：bind()函数把一个地址族中的特定地址赋给socket。（该函数只有服务器端才需要调用）<br>listen()函数：如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。（该函数只有服务器端才需要调用）<br>accept()函数：当客户端通过调用connect()函数发送链接请求后。一旦服务器监听到该请求之后，就会调用accept()函数接收请求，这样连接就建立好了，之后就可以开始网络I/O操作了，类同于普通文件的读写I/O操作。（该函数只有服务器端才需要调用）<br>connect()函数：客户端如果想发送链接请求，首先需要调用socket()函数，来创建socket描述符，然后就可以调用connect()函数来向服务器端发送请求。 （该函数只有客户端端才需要调用）<br>read()、write()等函数：既然一个套接字端点被表示为一个文件描述符，因此只要建立链接，就可以使用为本地文件设计的read和write函数。<br>close()函数： 在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
+<h2 id="6-套接字-socket"><a href="#6-套接字-socket" class="headerlink" title="6.套接字( socket )"></a>6.套接字( socket )</h2><p>介绍：套解字也是一种进程间通信机制（传输层实现端到端的通信），与其他通信机制不同的是，它可用于不同机器间的进程通信。它可以看成是两个网络应用程序进行通信时，各自通信连接中的一个端点。通信时，其中的一个网络应用程序将要传输的一段信息写入它所在主机的Socket中，该Socket通过网络接口卡的传输介质将这段信息发送给另一台主机的Socket中，使这段信息能传送到其他程序中。因此，两个应用程序之间的数据传输要通过套接字来完成。<br>socket()函数：socket是一种”打开—读&#x2F;写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。<br>bind()函数：bind()函数把一个地址族中的特定地址赋给socket。（该函数只有服务器端才需要调用）<br>listen()函数：如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。（该函数只有服务器端才需要调用）<br>accept()函数：当客户端通过调用connect()函数发送链接请求后。一旦服务器监听到该请求之后，就会调用accept()函数接收请求，这样连接就建立好了，之后就可以开始网络I&#x2F;O操作了，类同于普通文件的读写I&#x2F;O操作。（该函数只有服务器端才需要调用）<br>connect()函数：客户端如果想发送链接请求，首先需要调用socket()函数，来创建socket描述符，然后就可以调用connect()函数来向服务器端发送请求。 （该函数只有客户端端才需要调用）<br>read()、write()等函数：既然一个套接字端点被表示为一个文件描述符，因此只要建立链接，就可以使用为本地文件设计的read和write函数。<br>close()函数： 在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
 <h2 id="注"><a href="#注" class="headerlink" title="注:"></a>注:</h2><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.无名管道：速度慢，容量有限，只有父子进程能通讯。（需要四次拷贝才能交流数据）<br>2.有名管道：任何进程间都能通讯，但速度慢。<br>3.消息队列：容量受到系统限制，且要注意第一次读的时候，要考虑上一次没有读完数据的问题<br>4.信号量：不能传递复杂消息，只能用来同步<br>5.共享内存区：能够很容易控制容量，速度快（只需要两次拷贝），但要保持同步，比如一个进程在写的时候，另一个进程要注意读写的问题，相当于线程中的线程安全，当然，共享内存区同样可以用作线程间通讯，不过没这个必要，线程间本来就已经共享了同一进程内的一块内存</p>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>1.是通过共享变量，线程之间通过该变量进行协作通信；<br>2.通过队列（本质上也是线程间共享同一块内存）来实现消费者和生产者的模式来进行通信；</p>
 <p>线程同步：保证线程之间协调工作，能互相配合。比如后面的线程需要用到前面线程产生的数据。（一定程度上和线程互斥有相似）（举例生产者消费者问题）<br>线程异步：异步可以按规定顺序去执行线程，多用于 比如一个网页信息 ，（你把他分成2个线程或者多个，先读取它的title，时间，作者等等 第二个或者其他进程用于读取数据量较大的正文内容，比如图片）。</p>
@@ -638,9 +632,6 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -754,7 +745,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

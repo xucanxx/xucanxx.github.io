@@ -51,10 +51,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -384,9 +381,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -394,13 +388,13 @@
             <div id="articleContent">
                 <h1 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h1><p>子网掩码它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。</p>
 <h2 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h2><h3 id="根据子网数："><a href="#根据子网数：" class="headerlink" title="根据子网数："></a>根据子网数：</h3><p>如欲将B类IP地址168.195.0.0划分成27个子网：</p>
-<pre class="line-numbers language-none"><code class="language-none">1)27=11011  
-2)该二进制为五位数，N=5  
-3)将B类地址的子网掩码255.255.0.0的主机地址前5位置1（B类地址的主机位包括后两个字节，所以这里要把第三个字节的前5位置1），得到 255.255.248.0即为划分成27个子网的B类IP地址 168.195.0.0的子网掩码（实际上是划成了32-2=30个子网）。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">1)27&#x3D;11011  
+2)该二进制为五位数，N&#x3D;5  
+3)将B类地址的子网掩码255.255.0.0的主机地址前5位置1（B类地址的主机位包括后两个字节，所以这里要把第三个字节的前5位置1），得到 255.255.248.0即为划分成27个子网的B类IP地址 168.195.0.0的子网掩码（实际上是划成了32-2&#x3D;30个子网）。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="根据主机数"><a href="#根据主机数" class="headerlink" title="根据主机数"></a>根据主机数</h3><p>如欲将B类IP地址168.195.0.0划分成若干子网，每个子网内有主机700台：</p>
-<pre class="line-numbers language-none"><code class="language-none">1) 700=1010111100  
-2)该二进制为十位数，N=10  
+<pre class="line-numbers language-none"><code class="language-none">1) 700&#x3D;1010111100  
+2)该二进制为十位数，N&#x3D;10  
 3)将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255  
 然后再从后向前将后10位置0，即为：11111111.11111111.11111100.00000000
 即255.255.252.0。这就是该欲划分成主机为700台的B类IP地址168.195.0.0的子网掩码。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -409,11 +403,11 @@
 <h4 id="第1步"><a href="#第1步" class="headerlink" title="第1步"></a>第1步</h4><p>将所需的子网数转换为二进制，如所需划分的子网数为“4”，则转换成成二进制为00000100；</p>
 <h4 id="第2步"><a href="#第2步" class="headerlink" title="第2步"></a>第2步</h4><p>取子网数的二进制中有效位数，即为向缺省子网掩码中加入的位数（既向主机ID中借用的位数）。如前面的00000100，有效位为“100”，为3位（在新标准中只需要2位就可以了）；</p>
 <h4 id="第3步"><a href="#第3步" class="headerlink" title="第3步"></a>第3步</h4><p>决定子网掩码。如IP地址为B类129.20.0.0网络，则缺省子网掩码为：255.255.0.0，借用主机ID的3位以后变为：255.255.224（11100000）.0，即将所借的位全表示为1，用作子网掩码。</p>
-<h4 id="第4步"><a href="#第4步" class="headerlink" title="第4步"></a>第4步</h4><p>将所借位的主机ID的起始位段最右边的“1”转换为十进制，即为每个子网ID之间的增量，如前面的借位的主机ID起始位段为“11100000”，最右边的“1”，转换成十进制后为2^5=32（此为子网ID增量）。</p>
-<h4 id="第5步"><a href="#第5步" class="headerlink" title="第5步"></a>第5步</h4><p>产生的子网ID数为：2^m-2 （m为向缺省子网掩码中加入的位数），如本例向子网掩码中添加的位数为3，则可用子网ID数为：2^3-2=6个；</p>
+<h4 id="第4步"><a href="#第4步" class="headerlink" title="第4步"></a>第4步</h4><p>将所借位的主机ID的起始位段最右边的“1”转换为十进制，即为每个子网ID之间的增量，如前面的借位的主机ID起始位段为“11100000”，最右边的“1”，转换成十进制后为2^5&#x3D;32（此为子网ID增量）。</p>
+<h4 id="第5步"><a href="#第5步" class="headerlink" title="第5步"></a>第5步</h4><p>产生的子网ID数为：2^m-2 （m为向缺省子网掩码中加入的位数），如本例向子网掩码中添加的位数为3，则可用子网ID数为：2^3-2&#x3D;6个；</p>
 <h4 id="第6步"><a href="#第6步" class="headerlink" title="第6步"></a>第6步</h4><p>将上面产生的子网ID增量附在原网络ID之后的第一个位段，便形成第一个子网网络ID 129.20.32.0（即第一个子网的起始IP段）；</p>
 <h4 id="第7步"><a href="#第7步" class="headerlink" title="第7步"></a>第7步</h4><p>重复上步操作，在原子网ID基础上加上一个子网ID增量，依次类推，直到子网ID中的最后位段为缺省子网掩码位用主机ID位之后的最后一个位段值，这样就可得到所有的子网网络ID。如缺省子网掩码位用主机ID位之后的子网ID为255.255.224.0，其中的“224”为借用主机ID后子网ID的最后一位段值，所以当子网ID通过以上增加增量的方法得到129.20.224.0时便终止，不要再添加了（只能用到129.20.192.0）。  </p>
-<p>我们知道当主机ID为全0时表示网络ID，全1时表示广播地址。在RFC950标准中，不建议使用全0和全1的子网ID。<br>例如把最后一个字节的前3位借给网络ID，用后面的5位来表示主机ID，这样就会产生2^3=8个子网，子网ID就分别为000、001、010、011、100、101、110、111这样8个，在RFC950标准中只能使用中间的6个子网ID。</p>
+<p>我们知道当主机ID为全0时表示网络ID，全1时表示广播地址。在RFC950标准中，不建议使用全0和全1的子网ID。<br>例如把最后一个字节的前3位借给网络ID，用后面的5位来表示主机ID，这样就会产生2^3&#x3D;8个子网，子网ID就分别为000、001、010、011、100、101、110、111这样8个，在RFC950标准中只能使用中间的6个子网ID。</p>
 
                 
             </div>
@@ -646,9 +640,6 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -762,7 +753,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

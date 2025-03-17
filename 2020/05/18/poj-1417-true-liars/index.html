@@ -51,10 +51,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -384,9 +381,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -396,10 +390,10 @@
 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>一个岛上有神与恶魔两个种族，神会说真话，恶魔会说假话。已知神与恶魔的个数，但不知道具体个人是属于哪个。</p>
 <p>n,x,y</p>
 <p>这个人问n次 ，x为神的个数，y为恶魔的个数。</p>
-<p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes/no。注意xi,yi可能为同一个人</p>
+<p>每次的问题为 xi,yi,a 问xi ,yi是否为神？ a为yes&#x2F;no。注意xi,yi可能为同一个人</p>
 <p>若最终可得出哪些是神则从小到大输出神的编号，并最终输出end</p>
 <p>否则输出no
-&nbsp;</p>
+ </p>
 <h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入格式如下： </p>
 <pre class="line-numbers language-none"><code class="language-none">n p1 p2 
 xl yl a1 
@@ -443,142 +437,142 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 #include&lt;algorithm&gt;
 using namespace std;
 int pr[1010], relation[1010];
-int kind[1010], cnt[2010], dp[1010][1010];//dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况
-int p[1010][1010];//p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类
+int kind[1010], cnt[2010], dp[1010][1010];&#x2F;&#x2F;dp[i][j],代表一共i个头节点剩余容量为j时，一共有多少情况
+int p[1010][1010];&#x2F;&#x2F;p[i][j]代表一共i个头节点剩余容量为j时,在背包中的元素是不是与第i个头节点处于同一类
 int x, y, z;
 int ans[1010], f;
 int find(int xx)
-{
-	if (pr[xx] == -1)
-	{
+&#123;
+	if (pr[xx] &#x3D;&#x3D; -1)
+	&#123;
 		return xx;
-	}
-	int tmp = find(pr[xx]);
-	relation[xx] = (relation[xx] + relation[pr[xx]]) % 2;//带权并查集，推导出与头节点的关系
-	pr[xx] = tmp;
+	&#125;
+	int tmp &#x3D; find(pr[xx]);
+	relation[xx] &#x3D; (relation[xx] + relation[pr[xx]]) % 2;&#x2F;&#x2F;带权并查集，推导出与头节点的关系
+	pr[xx] &#x3D; tmp;
 	return tmp;
-}
+&#125;
 int solve()
-{
+&#123;
 	memset(dp, 0, sizeof(dp));
 	memset(p, 0, sizeof(p));
 	memset(cnt, 0, sizeof(cnt));
-	f = 0;
-	int k = 0;
-	for (int i = 1; i &lt;= x + y; i++)//压缩路径
+	f &#x3D; 0;
+	int k &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; x + y; i++)&#x2F;&#x2F;压缩路径
 		find(i);
-	for (int i = 1; i &lt;= x + y; i++)
-	{
-		if (pr[i] == -1)
-			kind[k++] = i;//看看有多少头节点结点
-	}
-	for (int i = 0; i &lt; k; i++)
-	{
-		cnt[i * 2] = 1;
-		for (int j = 1; j &lt;= x + y; j++)
-		{
-			if (pr[j] == kind[i])
-			{
-				if (relation[j] == 0)
-					cnt[i * 2]++;//记录与kind[i]的头节点有多少节点与它处于同一类
+	for (int i &#x3D; 1; i &lt;&#x3D; x + y; i++)
+	&#123;
+		if (pr[i] &#x3D;&#x3D; -1)
+			kind[k++] &#x3D; i;&#x2F;&#x2F;看看有多少头节点结点
+	&#125;
+	for (int i &#x3D; 0; i &lt; k; i++)
+	&#123;
+		cnt[i * 2] &#x3D; 1;
+		for (int j &#x3D; 1; j &lt;&#x3D; x + y; j++)
+		&#123;
+			if (pr[j] &#x3D;&#x3D; kind[i])
+			&#123;
+				if (relation[j] &#x3D;&#x3D; 0)
+					cnt[i * 2]++;&#x2F;&#x2F;记录与kind[i]的头节点有多少节点与它处于同一类
 				else
-					cnt[i * 2 + 1]++;//记录与kind[i]的头节点有多少节点不与它处于同一类
-			}
-		}
-	}
-	dp[0][cnt[0]]++; p[0][cnt[0]] = 0;//初始化第0个头节点
-	dp[0][cnt[1]]++; p[0][cnt[1]] = 1;
-	for (int i = 1; i &lt; k; i++)
-		for (int j = x; j &gt;= 0; j--)
-		{
-			if (j &gt;= cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )//01背包
-			{
-				dp[i][j] += dp[i - 1][j - cnt[2 * i]];
-				p[i][j] = 0;
-			}
-			if (j &gt;= cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
-			{
-				dp[i][j] += dp[i - 1][j - cnt[2 * i + 1]];
-				p[i][j] = 1;
-			}
-		}
-	if (dp[k - 1][x] != 1)
+					cnt[i * 2 + 1]++;&#x2F;&#x2F;记录与kind[i]的头节点有多少节点不与它处于同一类
+			&#125;
+		&#125;
+	&#125;
+	dp[0][cnt[0]]++; p[0][cnt[0]] &#x3D; 0;&#x2F;&#x2F;初始化第0个头节点
+	dp[0][cnt[1]]++; p[0][cnt[1]] &#x3D; 1;
+	for (int i &#x3D; 1; i &lt; k; i++)
+		for (int j &#x3D; x; j &gt;&#x3D; 0; j--)
+		&#123;
+			if (j &gt;&#x3D; cnt[2 * i] &amp;&amp; dp[i - 1][j - cnt[2 * i]] )&#x2F;&#x2F;01背包
+			&#123;
+				dp[i][j] +&#x3D; dp[i - 1][j - cnt[2 * i]];
+				p[i][j] &#x3D; 0;
+			&#125;
+			if (j &gt;&#x3D; cnt[2 * i + 1] &amp;&amp; dp[i - 1][j - cnt[2 * i + 1]] )
+			&#123;
+				dp[i][j] +&#x3D; dp[i - 1][j - cnt[2 * i + 1]];
+				p[i][j] &#x3D; 1;
+			&#125;
+		&#125;
+	if (dp[k - 1][x] !&#x3D; 1)
 		return 0;
-	int m = x, t;
-	f = 0;
-	for (int i = k - 1; i &gt;= 0; i--)
-	{
-		if (p[i][m] == 0)//看背包中的元素与第i个头节点同类还是相反
-		{
-			t = 0; m = m - cnt[i * 2];
-		}
+	int m &#x3D; x, t;
+	f &#x3D; 0;
+	for (int i &#x3D; k - 1; i &gt;&#x3D; 0; i--)
+	&#123;
+		if (p[i][m] &#x3D;&#x3D; 0)&#x2F;&#x2F;看背包中的元素与第i个头节点同类还是相反
+		&#123;
+			t &#x3D; 0; m &#x3D; m - cnt[i * 2];
+		&#125;
 		else
-		{
-			t = 1; m = m - cnt[2 * i + 1];
-		}
-		for (int j = 1; j &lt;= x + y; j++)
-		{
-			if (pr[j] == kind[i] || j == kind[i])//统计个数
-			{
-				if (relation[j] == t)
-					ans[f++]=j;
-			}
-		}
-	}
+		&#123;
+			t &#x3D; 1; m &#x3D; m - cnt[2 * i + 1];
+		&#125;
+		for (int j &#x3D; 1; j &lt;&#x3D; x + y; j++)
+		&#123;
+			if (pr[j] &#x3D;&#x3D; kind[i] || j &#x3D;&#x3D; kind[i])&#x2F;&#x2F;统计个数
+			&#123;
+				if (relation[j] &#x3D;&#x3D; t)
+					ans[f++]&#x3D;j;
+			&#125;
+		&#125;
+	&#125;
 	sort(ans, ans + f);
 	return 1;
-}
+&#125;
 int main()
-{
-	//freopen("F:/y.txt", "r", stdin);
+&#123;
+	&#x2F;&#x2F;freopen(&quot;F:&#x2F;y.txt&quot;, &quot;r&quot;, stdin);
 	while (cin &gt;&gt; z &gt;&gt; x &gt;&gt; y)
-	{
-		if (x == 0 &amp;&amp; y == 0 &amp;&amp; z == 0)
+	&#123;
+		if (x &#x3D;&#x3D; 0 &amp;&amp; y &#x3D;&#x3D; 0 &amp;&amp; z &#x3D;&#x3D; 0)
 			break;
 		memset(pr, -1, sizeof(pr));
 		memset(relation, 0, sizeof(relation));
-		for (int i = 0; i &lt; z; i++)
-		{
+		for (int i &#x3D; 0; i &lt; z; i++)
+		&#123;
 			int a, b;
 			char s[10];
 			cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
 			if (a &lt; b)
-			{
-				int tmp = a; a = b; b = tmp;
-			}
-			int aa = find(a), bb = find(b);
-			if (aa == bb)
-			{
+			&#123;
+				int tmp &#x3D; a; a &#x3D; b; b &#x3D; tmp;
+			&#125;
+			int aa &#x3D; find(a), bb &#x3D; find(b);
+			if (aa &#x3D;&#x3D; bb)
+			&#123;
 				continue;
-			}
-			if (s[0] == 'y')
-			{
-				pr[aa] = bb;
-				relation[aa] = (relation[a] + relation[b]) % 2;//带权并查集
-			}
+			&#125;
+			if (s[0] &#x3D;&#x3D; &#39;y&#39;)
+			&#123;
+				pr[aa] &#x3D; bb;
+				relation[aa] &#x3D; (relation[a] + relation[b]) % 2;&#x2F;&#x2F;带权并查集
+			&#125;
 			else
-			{
-				pr[aa] = bb;
-				relation[aa] = (relation[a] + relation[b] + 1) % 2;//带权并查集
-			}
-		}
-		if (x == y)
-		{
-			cout&lt;&lt;"no"&lt;&lt;endl; continue;
-		}
-		if (solve())//f可能为0
-		{
-			for (int i = 0; i &lt; f; i++)
-			{
+			&#123;
+				pr[aa] &#x3D; bb;
+				relation[aa] &#x3D; (relation[a] + relation[b] + 1) % 2;&#x2F;&#x2F;带权并查集
+			&#125;
+		&#125;
+		if (x &#x3D;&#x3D; y)
+		&#123;
+			cout&lt;&lt;&quot;no&quot;&lt;&lt;endl; continue;
+		&#125;
+		if (solve())&#x2F;&#x2F;f可能为0
+		&#123;
+			for (int i &#x3D; 0; i &lt; f; i++)
+			&#123;
 				cout &lt;&lt; ans[i]&lt;&lt;endl;
-			}
-			cout &lt;&lt; "end" &lt;&lt; endl;
-		}
+			&#125;
+			cout &lt;&lt; &quot;end&quot; &lt;&lt; endl;
+		&#125;
 		else
-			cout &lt;&lt; "no" &lt;&lt; endl;
-	}
+			cout &lt;&lt; &quot;no&quot; &lt;&lt; endl;
+	&#125;
 	return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -810,9 +804,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -926,7 +917,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

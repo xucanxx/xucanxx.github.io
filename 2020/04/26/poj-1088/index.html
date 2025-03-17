@@ -50,10 +50,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -383,18 +380,15 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Michael喜欢滑雪百这并不奇怪， 因为滑雪的确很刺激。可是为了获得速度，滑的区域必须向下倾斜，而且当你滑到坡底，你不得不再次走上坡或者等待升降机来载你。Michael想知道载一个区域中最长底滑坡。区域由一个二维数组给出。数组的每个数字代表点的高度。下面是一个例子</p>
-<p>1 &nbsp;2 &nbsp;3 &nbsp;4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9 </p>
+<p>1  2  3  4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9 </p>
 <p>一个人可以从某个点滑向上下左右相邻四个点之一，当且仅当高度减小。在上面的例子中，一条可滑行的滑坡为24-17-16-1。当然25-24-23-…-3-2-1更长。事实上，这是最长的一条。</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行表示区域的行数R和列数C(1 &lt;= R,C &lt;= 100)。下面是R行，每行有C个整数，代表高度h，0&lt;=h&lt;=10000。</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行表示区域的行数R和列数C(1 &lt;&#x3D; R,C &lt;&#x3D; 100)。下面是R行，每行有C个整数，代表高度h，0&lt;&#x3D;h&lt;&#x3D;10000。</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>输出最长区域的长度。</p>
 <h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5 5<br>1 2 3 4 5<br>16 17 18 19 6<br>15 24 25 20 7<br>14 23 22 21 8<br>13 12 11 10 9</p>
 <h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>25</p>
@@ -403,55 +397,55 @@
 #include&lt;string.h&gt;
 int a[110][110],map[110][110],ans;
 int m,n;
-int kk[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+int kk[4][2]&#x3D;&#123;&#123;1,0&#125;,&#123;-1,0&#125;,&#123;0,1&#125;,&#123;0,-1&#125;&#125;;
 int dp(int x,int y)
-{
-&nbsp;&nbsp;&nbsp; int max=0;
-&nbsp;&nbsp;&nbsp; if(x&lt;0||x&gt;=n||y&lt;0||y&gt;=m)
-&nbsp;&nbsp;&nbsp; return 0;
-&nbsp;&nbsp;&nbsp; if(map[y][x]!=-1)
-&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(ans&lt;map[y][x])
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ans=map[y][x];
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return map[y][x];
-&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; for(int i=0;i&lt;4;i++)
-&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(a[y][x]&lt;a[y+kk[i][1]][x+kk[i][0]])
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int k=dp(x+kk[i][0],y+kk[i][1]);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(max&lt;k)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; max=k;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; map[y][x]=max+1;
-&nbsp;&nbsp;&nbsp; if(ans&lt;map[y][x])
-&nbsp;&nbsp;&nbsp; ans=map[y][x];
-&nbsp;&nbsp;&nbsp; return map[y][x];
-}
+&#123;
+    int max&#x3D;0;
+    if(x&lt;0||x&gt;&#x3D;n||y&lt;0||y&gt;&#x3D;m)
+    return 0;
+    if(map[y][x]!&#x3D;-1)
+    &#123;
+       if(ans&lt;map[y][x])
+       ans&#x3D;map[y][x];
+       return map[y][x];
+    &#125;
+    for(int i&#x3D;0;i&lt;4;i++)
+    &#123;
+       if(a[y][x]&lt;a[y+kk[i][1]][x+kk[i][0]])
+       &#123;
+          int k&#x3D;dp(x+kk[i][0],y+kk[i][1]);
+           if(max&lt;k)
+           max&#x3D;k;
+       &#125;
+    &#125;
+    map[y][x]&#x3D;max+1;
+    if(ans&lt;map[y][x])
+    ans&#x3D;map[y][x];
+    return map[y][x];
+&#125;
 int main()
-{
-&nbsp;&nbsp;&nbsp; //freopen("F:/y.txt","r",stdin);
-&nbsp;&nbsp;&nbsp; while(~scanf("%d %d",&amp;m,&amp;n))
-&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(map,0,sizeof(map));
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ans=1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=0;i&lt;m;i++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int j=0;j&lt;n;j++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%d",&amp;a[i][j]);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map[i][j]=-1;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=0;i&lt;m;i++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int j=0;j&lt;n;j++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(map[i][j]==-1)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dp(j,i);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%d\n",ans);
-&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#123;
+    &#x2F;&#x2F;freopen(&quot;F:&#x2F;y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d %d&quot;,&amp;m,&amp;n))
+    &#123;
+       memset(map,0,sizeof(map));
+       ans&#x3D;1;
+       for(int i&#x3D;0;i&lt;m;i++)
+       &#123;
+           for(int j&#x3D;0;j&lt;n;j++)
+           &#123;
+              scanf(&quot;%d&quot;,&amp;a[i][j]);
+              map[i][j]&#x3D;-1;
+           &#125;
+       &#125;
+       for(int i&#x3D;0;i&lt;m;i++)
+       for(int j&#x3D;0;j&lt;n;j++)
+       if(map[i][j]&#x3D;&#x3D;-1)
+       dp(j,i);
+       printf(&quot;%d\n&quot;,ans);
+    &#125;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -683,9 +677,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -799,7 +790,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

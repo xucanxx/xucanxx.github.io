@@ -52,10 +52,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -385,9 +382,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -412,7 +406,7 @@
 
 <h3 id="添加主键"><a href="#添加主键" class="headerlink" title="添加主键"></a>添加主键</h3><pre class="line-numbers language-none"><code class="language-none">Alter table tabname add primary key(col)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="在表中增加一列"><a href="#在表中增加一列" class="headerlink" title="在表中增加一列"></a>在表中增加一列</h3><pre class="line-numbers language-none"><code class="language-none">Alter table 表名 add column 列名 数据类型<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="元素更新"><a href="#元素更新" class="headerlink" title="元素更新"></a>元素更新</h3><pre class="line-numbers language-none"><code class="language-none">update table1 set field1=value1 where<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="元素更新"><a href="#元素更新" class="headerlink" title="元素更新"></a>元素更新</h3><pre class="line-numbers language-none"><code class="language-none">update table1 set field1&#x3D;value1 where<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="查"><a href="#查" class="headerlink" title="查"></a>查</h2><pre class="line-numbers language-none"><code class="language-none">select * from table1 where field1 like ’%value1%’<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="查询前n项数据"><a href="#查询前n项数据" class="headerlink" title="查询前n项数据"></a>查询前n项数据</h3><pre class="line-numbers language-none"><code class="language-none">SELECT TOP n  table_name FROM table<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h3><p>distinct去重，放在列的前面使用。</p>
@@ -433,30 +427,30 @@ SELECT * FROM table LIMIT 5
 <h3 id="in"><a href="#in" class="headerlink" title="in"></a>in</h3><pre class="line-numbers language-none"><code class="language-none">SELECT * FROM table1 WHERE age1 IN(value1,value2,...);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="Group-by"><a href="#Group-by" class="headerlink" title="Group by"></a>Group by</h3><p>一张表，一旦分组 完成后，查询后只能得到组相关的信息。<br>组相关的信息：(统计信息) count,sum,max,min,avg 分组的标准)<br>在SQLServer中分组时：不能以text,ntext,image类型的字段作为分组依据 在selecte统计函数中的字段，不能和普通的字段放在一起;</p>
 <pre class="line-numbers language-none"><code class="language-none">select 类别, sum(数量) as 数量之和 from A group by 类别<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><h4 id="inner-join"><a href="#inner-join" class="headerlink" title="inner join"></a>inner join</h4><p>产生的结果是A和B的交集（相同列里面的相同值）。内连接是最常见的一种连接，它也被称为普通连接，只连接匹配的行（仅对满足连接条件的CROSS中的列）。它又分为等值连接（连接条件运算符为”=”）和不等值连接（连接条件运算符不为”=”，例如between…and）。</p>
-<pre class="line-numbers language-none"><code class="language-none">SELECT *FROM b INNER JOIN A on b.name=A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><h4 id="inner-join"><a href="#inner-join" class="headerlink" title="inner join"></a>inner join</h4><p>产生的结果是A和B的交集（相同列里面的相同值）。内连接是最常见的一种连接，它也被称为普通连接，只连接匹配的行（仅对满足连接条件的CROSS中的列）。它又分为等值连接（连接条件运算符为”&#x3D;”）和不等值连接（连接条件运算符不为”&#x3D;”，例如between…and）。</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT *FROM b INNER JOIN A on b.name&#x3D;A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="full-outer-join"><a href="#full-outer-join" class="headerlink" title="full (outer) join"></a>full (outer) join</h4><p>产生的结果是A和B的并集（如果没有相同的值会用null作为值）。FULL JOIN 会从左表和右表那里返回所有的行。如果其中一个表的数据行在另一个表中没有匹配的行，那么对面的数据用NULL代替</p>
-<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM b FULL OUTER JOIN A on b.name=A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM b FULL OUTER JOIN A on b.name&#x3D;A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="left-outer-join"><a href="#left-outer-join" class="headerlink" title="left (outer) join"></a>left (outer) join</h4><p>产生表B的完全集，而A表中匹配的则有值（没有匹配的则以null值取代）。LEFT JOIN返回左表的全部行和右表满足ON条件的行，如果左表的行在右表中没有匹配，那么这一行右表中对应数据用NULL代替。</p>
-<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM b Left outer join A on b.name=A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">SELECT * FROM b Left outer join A on b.name&#x3D;A.name<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="right-outer-join"><a href="#right-outer-join" class="headerlink" title="right (outer) join"></a>right (outer) join</h4><p>参考Left (outer) join</p>
 <h4 id="cross-outer-join"><a href="#cross-outer-join" class="headerlink" title="cross (outer) join"></a>cross (outer) join</h4><p>cross对两个表执行笛卡尔乘积。它为左表行和右表行的每种可能的组合返回一行。返回（左表行数*右表行数）行的表。ps：很少用到这个语法。注意如果不是使用嵌套的select语句，一般系统都会产生笛卡尔乘积然再做过滤。这是对于性能来说是非常危险的，尤其是表很大的时候。</p>
 <pre class="line-numbers language-none"><code class="language-none">SELECT * FROM b  cross join A<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h4><p>自然连接是一种特殊的等值连接,在连接条件中使用等于(=)运算符比较被连接列的列值，但它使用选择列表指出查询结果集合中所包括的列，并删除连接表中的重复列。</p>
+<h4 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h4><p>自然连接是一种特殊的等值连接,在连接条件中使用等于(&#x3D;)运算符比较被连接列的列值，但它使用选择列表指出查询结果集合中所包括的列，并删除连接表中的重复列。</p>
 <h3 id="模糊查询-like"><a href="#模糊查询-like" class="headerlink" title="模糊查询 like"></a>模糊查询 like</h3><p>like语句的语法格式是：select * from 表名 where 字段名 like 对应值（子串），它主要是针对字符型字段的，它的作用是在一个字符型字段列中检索包含对应子串的</p>
 <h4 id="包含零个或多个字符的任意字符串"><a href="#包含零个或多个字符的任意字符串" class="headerlink" title="% 包含零个或多个字符的任意字符串"></a>% 包含零个或多个字符的任意字符串</h4><pre class="line-numbers language-none"><code class="language-none">例，查询name字段中包含有“明”字的。
-select * from table1 where name like '%明%'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h4 id="（下划线）-任何单个字符："><a href="#（下划线）-任何单个字符：" class="headerlink" title="_（下划线） 任何单个字符："></a>_（下划线） 任何单个字符：</h4><pre class="line-numbers language-none"><code class="language-none">like'_heryl' 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+select * from table1 where name like &#39;%明%&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="（下划线）-任何单个字符："><a href="#（下划线）-任何单个字符：" class="headerlink" title="_（下划线） 任何单个字符："></a>_（下划线） 任何单个字符：</h4><pre class="line-numbers language-none"><code class="language-none">like&#39;_heryl&#39; 将搜索以字母 heryl 结尾的所有六个字母的名称（如 Cheryl、Sheryl）<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="指定范围-a-f-或集合-abcdef-中的任何单个字符："><a href="#指定范围-a-f-或集合-abcdef-中的任何单个字符：" class="headerlink" title="[ ] 指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符："></a>[ ] 指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符：</h4><pre class="line-numbers language-none"><code class="language-none">例，查询name字段中含有数字的。
-select * from table1 where name like '%[0-9]%'
+select * from table1 where name like &#39;%[0-9]%&#39;
 例，查询name字段中含有小写字母的。
-select * from table1 where name like '%[a-z]%
+select * from table1 where name like &#39;%[a-z]%
 例，查询name字段中不含有数字的。
-select * from table1 where name like '%[!0-9]%'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="不属于指定范围-a-f-或集合-abcdef-的任何单个字符："><a href="#不属于指定范围-a-f-或集合-abcdef-的任何单个字符：" class="headerlink" title="[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符："></a>[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符：</h4><pre class="line-numbers language-none"><code class="language-none">like'M[^c]%' 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称
+select * from table1 where name like &#39;%[!0-9]%&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="不属于指定范围-a-f-或集合-abcdef-的任何单个字符："><a href="#不属于指定范围-a-f-或集合-abcdef-的任何单个字符：" class="headerlink" title="[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符："></a>[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符：</h4><pre class="line-numbers language-none"><code class="language-none">like&#39;M[^c]%&#39; 将搜索以字母 M 开头，并且第二个字母不是 c 的所有名称
 （如MacFeather）。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="它同于DOS命令中的通配符，代表多个字符："><a href="#它同于DOS命令中的通配符，代表多个字符：" class="headerlink" title="* 它同于DOS命令中的通配符，代表多个字符："></a>* 它同于DOS命令中的通配符，代表多个字符：</h4><pre class="line-numbers language-none"><code class="language-none">例，查询name字段中以“李”字开头。
-select * from table1 where name like '李*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+select * from table1 where name like &#39;李*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="？同于DOS命令中的？通配符，代表单个字符"><a href="#？同于DOS命令中的？通配符，代表单个字符" class="headerlink" title="？同于DOS命令中的？通配符，代表单个字符 :"></a>？同于DOS命令中的？通配符，代表单个字符 :</h4><pre class="line-numbers language-none"><code class="language-none">b?b代表brb,bFb等<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="大致同-，不同的是代只能代表单个数字"><a href="#大致同-，不同的是代只能代表单个数字" class="headerlink" title="# 大致同?，不同的是代只能代表单个数字"></a># 大致同?，不同的是代只能代表单个数字</h4><pre class="line-numbers language-none"><code class="language-none">k#k代表k1k,k8k,k0k<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="运算词"><a href="#运算词" class="headerlink" title="运算词"></a>运算词</h3><h4 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h4><p>UNION 运算符通过组合其他两个结果表(例如 TABLE1 和 TABLE2)并消去表中任何重复行而派生出一个结果表。当 ALL 随 UNION 一起使用时(即 UNION ALL)，不消除重复行。两种情况下，派生表的每一行不是来自 TABLE1 就是来自 TABLE2</p>
@@ -694,9 +688,6 @@ select * from table1 where name like '李*<span aria-hidden="true" class="line-n
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -810,7 +801,7 @@ select * from table1 where name like '李*<span aria-hidden="true" class="line-n
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

@@ -50,10 +50,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -391,9 +388,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -413,35 +407,35 @@ std::mutex mtx;
 std::queue&lt;std::string&gt; q;
 
 void Producer()
-{
+&#123;
     std::this_thread::sleep_for(2000ms);
-    std::cout &lt;&lt; "Ready Send notification." &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Ready Send notification.&quot; &lt;&lt; std::endl;
     mtx.lock();
-    q.push("message");
-    q.push("message");
+    q.push(&quot;message&quot;);
+    q.push(&quot;message&quot;);
     mtx.unlock();
     cv.notify_all();
     std::this_thread::sleep_for(200ms);
     mtx.lock();
-    q.push("message");
+    q.push(&quot;message&quot;);
     mtx.unlock();
     cv.notify_all();
- }
+ &#125;
 
 void Consumer()
-{
-    std::cout &lt;&lt; "Wait for notification." &lt;&lt; std::endl;
+&#123;
+    std::cout &lt;&lt; &quot;Wait for notification.&quot; &lt;&lt; std::endl;
     std::unique_lock&lt;std::mutex&gt; lck(mtx);
     if(q.empty())
         cv.wait(lck);
-    std::string msg = q.front();
+    std::string msg &#x3D; q.front();
     q.pop();
     mtx.unlock();
-    std::cout &lt;&lt; "Get: " &lt;&lt; msg &lt;&lt;std::endl;
-}
+    std::cout &lt;&lt; &quot;Get: &quot; &lt;&lt; msg &lt;&lt;std::endl;
+&#125;
 
 int main()
-{
+&#123;
     std::thread producer(Producer);
     std::thread consumer(Consumer);
     std::thread consumer2(Consumer);
@@ -451,7 +445,7 @@ int main()
     consumer2.join();
     consumer3.join();
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在这个例子中，有一个生产者线程与3个消费者线程，生产者线程第一次会生产2个message，但是notify_all在唤起所有3个消费者后，会有一个消费者获取不到message（最后获取锁的所有权的那个），这样就导致了那个线程被唤起后却无法获取元素。</p>
 <pre class="line-numbers language-none"><code class="language-none">Wait for notification.
 Wait for notification.
@@ -461,7 +455,7 @@ Get: message
 Get: message
 Get: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="操作系统引起的虚假唤起"><a href="#操作系统引起的虚假唤起" class="headerlink" title="操作系统引起的虚假唤起"></a>操作系统引起的虚假唤起</h2><p>当一个线程在wait情况下被唤起时，唤起他的并不是对应的条件变量信号（如pthread_cond_signal或notify_one/signal_one等方法）直接导致的。换句话说，即使没有对线程进行显式的唤醒操作，线程也可能因为某些原因（如操作系统的内部行为）被唤醒，但此时唤醒的条件并不满足，导致线程执行错误或不必要的操作。</p>
+<h2 id="操作系统引起的虚假唤起"><a href="#操作系统引起的虚假唤起" class="headerlink" title="操作系统引起的虚假唤起"></a>操作系统引起的虚假唤起</h2><p>当一个线程在wait情况下被唤起时，唤起他的并不是对应的条件变量信号（如pthread_cond_signal或notify_one&#x2F;signal_one等方法）直接导致的。换句话说，即使没有对线程进行显式的唤醒操作，线程也可能因为某些原因（如操作系统的内部行为）被唤醒，但此时唤醒的条件并不满足，导致线程执行错误或不必要的操作。</p>
 <ul>
 <li>操作系统并不保证在调用唤醒函数（如pthread_cond_signal）时只唤醒一个或特定的线程。这可能导致多个线程同时被唤醒，而实际上可能只需要唤醒一个<br>比方说一些来自于操作系统的中断信号，或者出现了另外一个并不与当前wait线程匹配的信号，也有可能将此wait线程唤起。</li>
 </ul>
@@ -477,35 +471,35 @@ std::mutex mtx;
 std::queue&lt;std::string&gt; q;
 
 void Producer()
-{
+&#123;
     std::this_thread::sleep_for(2000ms);
-    std::cout &lt;&lt; "Ready Send notification." &lt;&lt; std::endl;
+    std::cout &lt;&lt; &quot;Ready Send notification.&quot; &lt;&lt; std::endl;
     mtx.lock();
-    q.push("message");
-    q.push("message");
+    q.push(&quot;message&quot;);
+    q.push(&quot;message&quot;);
     mtx.unlock();
     cv.notify_all();
     std::this_thread::sleep_for(200ms);
     mtx.lock();
-    q.push("message");
+    q.push(&quot;message&quot;);
     mtx.unlock();
     cv.notify_all();
- }
+ &#125;
 
 void Consumer()
-{
-    std::cout &lt;&lt; "Wait for notification." &lt;&lt; std::endl;
+&#123;
+    std::cout &lt;&lt; &quot;Wait for notification.&quot; &lt;&lt; std::endl;
     std::unique_lock&lt;std::mutex&gt; lck(mtx);
     if(q.empty())
-        cv.wait(lck,[]{return !q.empty();});
-    std::string msg = q.front();
+        cv.wait(lck,[]&#123;return !q.empty();&#125;);
+    std::string msg &#x3D; q.front();
     q.pop();
     mtx.unlock();
-    std::cout &lt;&lt; "Get: " &lt;&lt; msg &lt;&lt;std::endl;
-}
+    std::cout &lt;&lt; &quot;Get: &quot; &lt;&lt; msg &lt;&lt;std::endl;
+&#125;
 
 int main()
-{
+&#123;
     std::thread producer(Producer);
     std::thread consumer(Consumer);
     std::thread consumer2(Consumer);
@@ -515,13 +509,13 @@ int main()
     consumer2.join();
     consumer3.join();
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">cv.wait(lck,[]{return !q.empty();});<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">cv.wait(lck,[]&#123;return !q.empty();&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>等价于</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">while(q.empty()){
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">while(q.empty())&#123;
     cv.wait(lck);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -764,9 +758,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -880,7 +871,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

@@ -54,10 +54,7 @@ i">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -387,9 +384,6 @@ i">
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -400,85 +394,85 @@ i">
 <pre class="line-numbers language-golang" data-language="golang"><code class="language-golang">package main
 
 import (
-	"log"
-	"os"
-	"strconv"
+	&quot;log&quot;
+	&quot;os&quot;
+	&quot;strconv&quot;
 )
 
-var processChan = make(chan int, 10)
+var processChan &#x3D; make(chan int, 10)
 
-func processListen(process *os.Process) {
-	p, _ := process.Wait()
-	exitCode := p.ExitCode()
-	log.Println("process finish ExitCode: ", exitCode)
+func processListen(process *os.Process) &#123;
+	p, _ :&#x3D; process.Wait()
+	exitCode :&#x3D; p.ExitCode()
+	log.Println(&quot;process finish ExitCode: &quot;, exitCode)
 	&lt;-processChan
-}
+&#125;
 
-func main() {
-	poolsize := 8
-	for {
-		for len(processChan) &lt; poolsize {
+func main() &#123;
+	poolsize :&#x3D; 8
+	for &#123;
+		for len(processChan) &lt; poolsize &#123;
 
-			procAttr := &amp;os.ProcAttr{
-					Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-					Sys: &amp;syscall.SysProcAttr{
-						//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
+			procAttr :&#x3D; &amp;os.ProcAttr&#123;
+					Files: []*os.File&#123;os.Stdin, os.Stdout, os.Stderr&#125;,
+					Sys: &amp;syscall.SysProcAttr&#123;
+						&#x2F;&#x2F;将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
 						Setpgid:   true,
 						Pdeathsig: syscall.SIGKILL,
-					},
-				}
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo processChan size: " + strconv.Itoa(len(processChan))}, procAttr)
-			if err != nil {
-				log.Println("StartProcess err: ", err)
+					&#125;,
+				&#125;
+			process, err :&#x3D; os.StartProcess(&quot;&#x2F;bin&#x2F;bash&quot;, []string&#123;&quot;bash&quot;, &quot;-c&quot;, &quot;echo processChan size: &quot; + strconv.Itoa(len(processChan))&#125;, procAttr)
+			if err !&#x3D; nil &#123;
+				log.Println(&quot;StartProcess err: &quot;, err)
 				continue
-			}
+			&#125;
 			processChan &lt;- -1
 			go processListen(process)
-		}
-	}
+		&#125;
+	&#125;
 
-}
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="分批同步起线程"><a href="#分批同步起线程" class="headerlink" title="分批同步起线程"></a>分批同步起线程</h2><p>每次都起poolsize数量的进程，当后台的子进程全执行完之后，再起新的一批</p>
 <pre class="line-numbers language-golang" data-language="golang"><code class="language-golang">package main
 
 import (
-	"os"
+	&quot;os&quot;
 )
-func main() {
-	poolsize := 8
-	for {
-		for i:= 0; i &lt; poolsize ;i++{
+func main() &#123;
+	poolsize :&#x3D; 8
+	for &#123;
+		for i:&#x3D; 0; i &lt; poolsize ;i++&#123;
 			var processId []*os.Process	
 			var size int
-			procAttr := &amp;os.ProcAttr{
-						Files: []*os.File{os.Stdin, os.Stdout, os.Stderr},
-						Sys: &amp;syscall.SysProcAttr{
-							//将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
+			procAttr :&#x3D; &amp;os.ProcAttr&#123;
+						Files: []*os.File&#123;os.Stdin, os.Stdout, os.Stderr&#125;,
+						Sys: &amp;syscall.SysProcAttr&#123;
+							&#x2F;&#x2F;将子进程与主进程设置为同一个进程组，当主进程退出，或者崩溃，子进程将一并退出
 							Setpgid:   true,
 							Pdeathsig: syscall.SIGKILL,
-						},
-					}
+						&#125;,
+					&#125;
 
-			process, err := os.StartProcess("/bin/bash", []string{"bash", "-c", "echo process start"}, procAttr)
+			process, err :&#x3D; os.StartProcess(&quot;&#x2F;bin&#x2F;bash&quot;, []string&#123;&quot;bash&quot;, &quot;-c&quot;, &quot;echo process start&quot;&#125;, procAttr)
 
-			if err != nil {
-				log.Println("StartProcess err: ", err)
-				ifsuccess = 0
+			if err !&#x3D; nil &#123;
+				log.Println(&quot;StartProcess err: &quot;, err)
+				ifsuccess &#x3D; 0
 				continue
-			}
+			&#125;
 			size++
-			processId = append(processId, process)
-		}
-		for size &gt; 0 {
-			p, _ := processId[size-1].Wait()
-			exitCode := p.ExitCode()
+			processId &#x3D; append(processId, process)
+		&#125;
+		for size &gt; 0 &#123;
+			p, _ :&#x3D; processId[size-1].Wait()
+			exitCode :&#x3D; p.ExitCode()
 			size--
-			log.Println("exitCode: ", exitCode)
-		}
-	}
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+			log.Println(&quot;exitCode: &quot;, exitCode)
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><h3 id="exec-Commond"><a href="#exec-Commond" class="headerlink" title="exec.Commond"></a>exec.Commond</h3><p>也可以使用exec.Commond 但是cmd结构体中的process不能外部访问，我不知道怎么用这个获取进程的exitcode，所以没用。</p>
 <h3 id="os-ProcessState-kill"><a href="#os-ProcessState-kill" class="headerlink" title="os.ProcessState.kill()"></a>os.ProcessState.kill()</h3><p>当执行这个自带的kill函数后向子进程发送的并不是 kill 信号 而是kill -9 这将导致子进程占用的资源不会被正常释放，从而变成僵尸进程</p>
@@ -714,9 +708,6 @@ func main() {
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -830,7 +821,7 @@ func main() {
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

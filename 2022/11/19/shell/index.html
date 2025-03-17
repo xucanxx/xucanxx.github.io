@@ -59,10 +59,7 @@ do
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -392,9 +389,6 @@ do
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -413,7 +407,7 @@ do
 done
 
 
-for ((i=0;i&lt;n;i++))
+for ((i&#x3D;0;i&lt;n;i++))
 do 
     code
 done <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -425,8 +419,8 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 
 <h4 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h4><pre class="line-numbers language-none"><code class="language-none">cat 文件path | while read -r line
 do
-#在这里line的最后一行有/r换行符，需要用sed过滤掉
-    newline = $(echo $line | sed 's/\r//')
+#在这里line的最后一行有&#x2F;r换行符，需要用sed过滤掉
+    newline &#x3D; $(echo $line | sed &#39;s&#x2F;\r&#x2F;&#x2F;&#39;)
 done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h2><pre><code>在声明变量时，变量名与值之间，等于与值之间不能有空格
@@ -665,9 +659,6 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -781,7 +772,7 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

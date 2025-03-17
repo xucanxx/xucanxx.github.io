@@ -51,10 +51,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -384,9 +381,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -394,13 +388,13 @@
             <div id="articleContent">
                 <h1 id="kafka日常操作"><a href="#kafka日常操作" class="headerlink" title="kafka日常操作"></a>kafka日常操作</h1><h2 id="kafka查看数据"><a href="#kafka查看数据" class="headerlink" title="kafka查看数据"></a>kafka查看数据</h2><h3 id="查看所有topic"><a href="#查看所有topic" class="headerlink" title="查看所有topic"></a>查看所有topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="查看所有group"><a href="#查看所有group" class="headerlink" title="查看所有group"></a>查看所有group</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre class="line-numbers language-none"><code class="language-none">./kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="查看指定topic的订阅信息"><a href="#查看指定topic的订阅信息" class="headerlink" title="查看指定topic的订阅信息"></a>查看指定topic的订阅信息</h3><pre class="line-numbers language-none"><code class="language-none">.&#x2F;kafka-topics.sh --describe --zookeeper 127.0.0.1:2181 --topic XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="消费指定group的订阅信息"><a href="#消费指定group的订阅信息" class="headerlink" title="消费指定group的订阅信息"></a>消费指定group的订阅信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-consumer-groups.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--group</span> XXXXX <span class="token parameter variable">--describe</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="查看从当前当前开始到结束，kafka中指定topic接收到的信息"><a href="#查看从当前当前开始到结束，kafka中指定topic接收到的信息" class="headerlink" title="查看从当前当前开始到结束，kafka中指定topic接收到的信息"></a>查看从当前当前开始到结束，kafka中指定topic接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="查看所有kafka中接收到的信息"><a href="#查看所有kafka中接收到的信息" class="headerlink" title="查看所有kafka中接收到的信息"></a>查看所有kafka中接收到的信息</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-console-consumer.sh --bootstrap-server <span class="token number">127.0</span>.0.1:9092 <span class="token parameter variable">--topic</span> XXXXX --from-beginning<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="kafka创建指令"><a href="#kafka创建指令" class="headerlink" title="kafka创建指令"></a>kafka创建指令</h2><h3 id="kafka创建topic"><a href="#kafka创建topic" class="headerlink" title="kafka创建topic"></a>kafka创建topic</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./kafka-topics.sh <span class="token parameter variable">--create</span> <span class="token parameter variable">--zookeeper</span> <span class="token number">127.0</span>.0.1:2181 --replication-factor <span class="token number">1</span> <span class="token parameter variable">--partitions</span> <span class="token number">1</span> <span class="token parameter variable">--topic</span> XXXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="kafka启动命令"><a href="#kafka启动命令" class="headerlink" title="kafka启动命令"></a>kafka启动命令</h2><h3 id="前台启动"><a href="#前台启动" class="headerlink" title="前台启动"></a>前台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-start.sh ./config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> ./bin/kafka-server-start.sh ./config/server.properties <span class="token operator">&gt;&gt;</span> ./kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> ./bin/kafka-server-start.sh ./config/server.properties <span class="token operator">>></span> ./kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="kafka关闭命令"><a href="#kafka关闭命令" class="headerlink" title="kafka关闭命令"></a>kafka关闭命令</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./bin/kafka-server-stop.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
                 
             </div>
@@ -637,9 +631,6 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -753,7 +744,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

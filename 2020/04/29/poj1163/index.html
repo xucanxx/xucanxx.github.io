@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="poj1163, 咸鱼">
     <meta name="description" content="题目The Triangle
-题面73 &amp;nbsp; 88 &amp;nbsp; 1 &amp;nbsp; 02 &amp;nbsp; 7 &amp;nbsp; 4 &amp;nbsp; 44 &amp;nbsp; 5 &amp;nbsp; 2 &amp;nbsp; 6 &amp;nbsp; 5
-(Figure">
+题面73   88   1   02   7   4   44   5   2   6   5
+(Figure 1)
+Figure 1 shows a number triangle. Write a prog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -52,10 +53,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -385,50 +383,47 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>The Triangle</p>
-<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>7<br>3 &nbsp; 8<br>8 &nbsp; 1 &nbsp; 0<br>2 &nbsp; 7 &nbsp; 4 &nbsp; 4<br>4 &nbsp; 5 &nbsp; 2 &nbsp; 6 &nbsp; 5</p>
+<h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>7<br>3   8<br>8   1   0<br>2   7   4   4<br>4   5   2   6   5</p>
 <p>(Figure 1)</p>
 <p>Figure 1 shows a number triangle. Write a program that calculates the highest sum of numbers passed on a route that starts at the top and ends somewhere on the base. Each step can go either diagonally down to the left or diagonally down to the right.</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;= 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>Your program is to read from standard input. The first line contains one integer N: the number of rows in the triangle. The following N lines describe the data of the triangle. The number of rows in the triangle is &gt; 1 but &lt;&#x3D; 100. The numbers in the triangle, all integers, are between 0 and 99.</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Your program is to write to standard output. The highest sum is written as an integer.</p>
 <h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>5</p>
-<p>7<br>3 &nbsp; 8<br>8 &nbsp; 1 &nbsp; 0<br>2 &nbsp; 7 &nbsp; 4 &nbsp; 4<br>4 &nbsp; 5 &nbsp; 2 &nbsp; 6 &nbsp; 5</p>
+<p>7<br>3   8<br>8   1   0<br>2   7   4   4<br>4   5   2   6   5</p>
 <h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>30</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+=max(a[i+1][j],a[i+1][j+1]);</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个题目应该从底层往高处递推，分别记下每个点到底层的最优解，状态转移方程为a[i][j]+&#x3D;max(a[i+1][j],a[i+1][j+1]);</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt;stdio.h&gt;
 #include&lt;algorithm&gt;
 using namespace std;
 int a[110][110];
 int main()
-{
-&nbsp;&nbsp;&nbsp; int n;
-&nbsp;&nbsp;&nbsp; //freopen("F:/y.txt","r",stdin);
-&nbsp;&nbsp;&nbsp; while(~scanf("%d",&amp;n))
-&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=1;i&lt;=n;i++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int j=1;j&lt;=i;j++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf("%d",&amp;a[i][j]);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i=n-1;i&gt;0;i--)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int j=1;j&lt;=i;j++)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a[i][j]+=max(a[i+1][j],a[i+1][j+1]);
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%d\n",a[1][1]);
-&nbsp;&nbsp;&nbsp; }
-&nbsp;&nbsp;&nbsp; return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#123;
+    int n;
+    &#x2F;&#x2F;freopen(&quot;F:&#x2F;y.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d&quot;,&amp;n))
+    &#123;
+       for(int i&#x3D;1;i&lt;&#x3D;n;i++)
+       &#123;
+           for(int j&#x3D;1;j&lt;&#x3D;i;j++)
+           scanf(&quot;%d&quot;,&amp;a[i][j]);
+       &#125;
+       for(int i&#x3D;n-1;i&gt;0;i--)
+       &#123;
+           for(int j&#x3D;1;j&lt;&#x3D;i;j++)
+           &#123;
+              a[i][j]+&#x3D;max(a[i+1][j],a[i+1][j+1]);
+           &#125;
+       &#125;
+       printf(&quot;%d\n&quot;,a[1][1]);
+    &#125;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -660,9 +655,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -776,7 +768,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

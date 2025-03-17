@@ -51,10 +51,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -388,9 +385,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -401,66 +395,66 @@
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include&lt;iostream&gt;
 #include &lt;vector&gt;
 using namespace std;
-class node{
+class node&#123;
 public:
-    node(){
-        cout &lt;&lt; "build node!" &lt;&lt;endl;
-    }
-};
-int main(){
+    node()&#123;
+        cout &lt;&lt; &quot;build node!&quot; &lt;&lt;endl;
+    &#125;
+&#125;;
+int main()&#123;
     vector&lt;node&gt; arr;
     arr.resize(10);
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>不难发现这个这个类构造了10个对象，但是众所周知vector 存储元素的实际位置是在堆上，并且vector在资源不足时会自动进行扩容以及值拷贝操作。频繁的申请与释放内存会导致内存碎片的产生。那我们有什么办法去控制vector构建对象时的行为呢？</p>
 <h3 id="控制数据位置"><a href="#控制数据位置" class="headerlink" title="控制数据位置"></a>控制数据位置</h3><p>按照传统的方法，就是我们要自己实现一个内存分配器。作为vector的模版参数传入。（gpt真好用）</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;vector&gt;
-#include &lt;memory&gt;   // 包含 std::allocator
+#include &lt;memory&gt;   &#x2F;&#x2F; 包含 std::allocator
 
-// 自定义分配器类
+&#x2F;&#x2F; 自定义分配器类
 template &lt;typename T&gt;
-class MyAllocator {
+class MyAllocator &#123;
 public:
-    // 类型定义
-    using value_type = T;
-    // 分配内存
-    T* allocate(std::size_t n) {}
-    // 释放内存
-    void deallocate(T* p, std::size_t n) {}
-    // 构造对象
+    &#x2F;&#x2F; 类型定义
+    using value_type &#x3D; T;
+    &#x2F;&#x2F; 分配内存
+    T* allocate(std::size_t n) &#123;&#125;
+    &#x2F;&#x2F; 释放内存
+    void deallocate(T* p, std::size_t n) &#123;&#125;
+    &#x2F;&#x2F; 构造对象
     template &lt;typename... Args&gt;
-    void construct(T* p, Args&amp;&amp;... args) {}
-    // 销毁对象
-    void destroy(T* p) {}
-};
-int main() {
-    // 使用自定义分配器创建 vector
+    void construct(T* p, Args&amp;&amp;... args) &#123;&#125;
+    &#x2F;&#x2F; 销毁对象
+    void destroy(T* p) &#123;&#125;
+&#125;;
+int main() &#123;
+    &#x2F;&#x2F; 使用自定义分配器创建 vector
     std::vector&lt;int, MyAllocator&lt;int&gt;&gt; myVector;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个时候果子哥就要说了，这玩意写起来太麻烦了，有没有什么简单的方法呢？<br>诶 <del>铁牛牛肉面</del> ,pmr就出现了</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
 #include &lt;array&gt;
-#include &lt;cstdlib&gt;  // for byte
+#include &lt;cstdlib&gt;  &#x2F;&#x2F; for byte
 #include &lt;memory_resource&gt;
 using namespace std;
 int main()
-{
-    // 在栈上分配一些内存：
+&#123;
+    &#x2F;&#x2F; 在栈上分配一些内存：
     array&lt;byte, 200000&gt; buf;
-    // 将它用作vector的初始内存池：
-    pmr::monotonic_buffer_resource pool{buf.data(), buf.size()};
-    pmr::vector&lt;string&gt; coll{&amp;pool};
-    for (int i = 0; i &lt; 1000; ++i) {
-        coll.emplace_back("just a non-SSO string");
-    }
-    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;
-    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;
+    &#x2F;&#x2F; 将它用作vector的初始内存池：
+    pmr::monotonic_buffer_resource pool&#123;buf.data(), buf.size()&#125;;
+    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;
+    for (int i &#x3D; 0; i &lt; 1000; ++i) &#123;
+        coll.emplace_back(&quot;just a non-SSO string&quot;);
+    &#125;
+    cout &lt;&lt; buf.begin() &lt;&lt; &quot; &quot; &lt;&lt; buf.end() &lt;&lt;endl;
+    cout &lt;&lt; coll.begin().base() &lt;&lt; &quot; &quot; &lt;&lt; coll.end().base() &lt;&lt;endl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>程序的输出可以看到，coll的data位于buf中</p>
 <pre class="line-numbers language-none"><code class="language-none">0x7ffd6d151210 0x7ffd6d181f50
@@ -472,45 +466,45 @@ int main()
 #include &lt;string&gt;
 #include &lt;vector&gt;
 #include &lt;array&gt;
-#include &lt;cstdlib&gt;  // for byte
+#include &lt;cstdlib&gt;  &#x2F;&#x2F; for byte
 #include &lt;memory_resource&gt;
 using namespace std;
 int main()
-{
-    // 在栈上分配一些内存：
+&#123;
+    &#x2F;&#x2F; 在栈上分配一些内存：
     array&lt;byte, 20&gt; buf;
-    // 将它用作vector的初始内存池：
-    pmr::monotonic_buffer_resource pool{buf.data(), buf.size()};
-    pmr::vector&lt;string&gt; coll{&amp;pool};
-    for (int i = 0; i &lt; 1000; ++i) {
-        coll.emplace_back("just a non-SSO string");
-    }
-    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;
-    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;
+    &#x2F;&#x2F; 将它用作vector的初始内存池：
+    pmr::monotonic_buffer_resource pool&#123;buf.data(), buf.size()&#125;;
+    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;
+    for (int i &#x3D; 0; i &lt; 1000; ++i) &#123;
+        coll.emplace_back(&quot;just a non-SSO string&quot;);
+    &#125;
+    cout &lt;&lt; buf.begin() &lt;&lt; &quot; &quot; &lt;&lt; buf.end() &lt;&lt;endl;
+    cout &lt;&lt; coll.begin().base() &lt;&lt; &quot; &quot; &lt;&lt; coll.end().base() &lt;&lt;endl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>他还是会重新在堆上分配内存，以保证容器的正常功能。但是我们都已经使用内存池了，自然就可以在内存不够时进行一些操作。比如说在内存资源不够时抛出异常</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
 #include &lt;array&gt;
-#include &lt;cstdlib&gt;  // for byte
+#include &lt;cstdlib&gt;  &#x2F;&#x2F; for byte
 #include &lt;memory_resource&gt;
 using namespace std;
 int main()
-{
-    // 在栈上分配一些内存：
+&#123;
+    &#x2F;&#x2F; 在栈上分配一些内存：
     array&lt;byte, 20&gt; buf;
-    // 将它用作vector的初始内存池：
-    pmr::monotonic_buffer_resource pool{buf.data(), buf.size(),pmr::null_memory_resource()};
-    pmr::vector&lt;string&gt; coll{&amp;pool};
-    for (int i = 0; i &lt; 1000; ++i) {
-        coll.emplace_back("just a non-SSO string");
-    }
-    cout &lt;&lt; buf.begin() &lt;&lt; " " &lt;&lt; buf.end() &lt;&lt;endl;
-    cout &lt;&lt; coll.begin().base() &lt;&lt; " " &lt;&lt; coll.end().base() &lt;&lt;endl;
+    &#x2F;&#x2F; 将它用作vector的初始内存池：
+    pmr::monotonic_buffer_resource pool&#123;buf.data(), buf.size(),pmr::null_memory_resource()&#125;;
+    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;
+    for (int i &#x3D; 0; i &lt; 1000; ++i) &#123;
+        coll.emplace_back(&quot;just a non-SSO string&quot;);
+    &#125;
+    cout &lt;&lt; buf.begin() &lt;&lt; &quot; &quot; &lt;&lt; buf.end() &lt;&lt;endl;
+    cout &lt;&lt; coll.begin().base() &lt;&lt; &quot; &quot; &lt;&lt; coll.end().base() &lt;&lt;endl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="标准内存资源"><a href="#标准内存资源" class="headerlink" title="标准内存资源"></a>标准内存资源</h2><p>刚刚在上面提到的 null_memory_resource()就是标准内存资源中的一种</p>
 <table>
@@ -547,35 +541,35 @@ int main()
 <p>这两个类都使用底层的内存资源来进行实际的分配和释放操作。它们只是保证内存分配更加密集的包装。因此，</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>等价于</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool{std::pmr::get_default_resource()};<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::pmr::synchronized_pool_resource myPool&#123;std::pmr::get_default_resource()&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="monotonic-buffer-resource"><a href="#monotonic-buffer-resource" class="headerlink" title="monotonic_buffer_resource"></a>monotonic_buffer_resource</h3><p>monotonic_buffer_resource这个就很有意思,它在每次申请资源时会直接在已分配的内存空间末尾追加，而不会处理之前已经分配了的空间</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;memory_resource&gt;
 #include &lt;vector&gt;
 #include &lt;iostream&gt;
 using namespace std;
-int main() {
-    // 创建一个静态缓冲区
-    int buf[1024] = {0};
+int main() &#123;
+    &#x2F;&#x2F; 创建一个静态缓冲区
+    int buf[1024] &#x3D; &#123;0&#125;;
 
-    // 创建一个 monotonic_buffer_resource，并使用静态缓冲区
+    &#x2F;&#x2F; 创建一个 monotonic_buffer_resource，并使用静态缓冲区
     pmr::monotonic_buffer_resource resource(buf, sizeof(buf));
-    // 创建一个使用该内存资源的 vector
+    &#x2F;&#x2F; 创建一个使用该内存资源的 vector
     pmr::vector&lt;int&gt; vec(&amp;resource);
     vec.push_back(0);
     cout&lt;&lt; (unsigned long long)vec.data() - (unsigned long long )buf &lt;&lt; endl;
-    // 向 vector 添加数据
-    for (int i = 1; i &lt; 10; ++i) {
+    &#x2F;&#x2F; 向 vector 添加数据
+    for (int i &#x3D; 1; i &lt; 10; ++i) &#123;
         vec.push_back(i);
-    }
-    unsigned long long off = (unsigned long long)vec.data() - (unsigned long long )buf;
+    &#125;
+    unsigned long long off &#x3D; (unsigned long long)vec.data() - (unsigned long long )buf;
     cout&lt;&lt; off &lt;&lt; endl;
-    for(int i=0;i&lt; off/sizeof(int) + vec.size();i++){
-        cout&lt;&lt; buf[i] &lt;&lt; " ";
-    }
+    for(int i&#x3D;0;i&lt; off&#x2F;sizeof(int) + vec.size();i++)&#123;
+        cout&lt;&lt; buf[i] &lt;&lt; &quot; &quot;;
+    &#125;
     cout &lt;&lt; endl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-none"><code class="language-none">0
 60
 0 0 1 0 1 2 3 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 8 9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -599,30 +593,30 @@ int main() {
 </tbody></table>
 <p>我们可以用std::pmr::get_default_resource()获取当前的默认资源,然后传递它来初始化一个多态分配器。也可以使用std::set_default_resource() 来全局地设置一个不同的默认内存资源。这个资源将在任何作用域中用作默认资源，直到下一次调用</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">static std::pmr::synchronized_pool_resource myPool;
-// 设置myPool为新的默认内存资源：
-std::pmr::memory_resource* old = std::pmr::set_default_resource(&amp;myPool);
+&#x2F;&#x2F; 设置myPool为新的默认内存资源：
+std::pmr::memory_resource* old &#x3D; std::pmr::set_default_resource(&amp;myPool);
 ...
-// 恢复旧的默认内存资源：
+&#x2F;&#x2F; 恢复旧的默认内存资源：
 std::pmr::set_default_resource(old);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="默认资源"><a href="#默认资源" class="headerlink" title="默认资源"></a>默认资源</h3><p>当set_default_resource没有被调用时会默认使用new_delete_resource()这个内存资源，他的行为跟正常的new，delete操作一样。</p>
 <ul>
 <li>每次向其申请内存时会调用new</li>
-<li>每次释放内存时会调用delete<br>然而，注意持有这种内存资源的多态分配器不能和默认的分配器互换，因为它们的类型不同。因此：<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::string s{"my string with some value"};
-std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li>每次释放内存时会调用delete<br>然而，注意持有这种内存资源的多态分配器不能和默认的分配器互换，因为它们的类型不同。因此：<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">std::string s&#123;&quot;my string with some value&quot;&#125;;
+std::pmr::string ps&#123;std::move(s), std::pmr::new_delete_resource()&#125;; &#x2F;&#x2F; 拷贝<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 将不会发生move（直接把s分配的内存转让给ps），而是把s的内存拷贝到ps内部用new分配的新的内存中。（只要是不同类型的多态分配器在std::move时都会进行值拷贝）</li>
 </ul>
 <h3 id="设置默认资源"><a href="#设置默认资源" class="headerlink" title="设置默认资源"></a>设置默认资源</h3><p>如果你在程序中设置了自定义内存资源并且把它用作默认资源， 那么直接在main()中首先将它创建为static对象将是一个好方法：</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">int main()
-{
+&#123;
     static std::pmr::synchronized_pool_resource myPool;
     ...
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>或者，提供一个返回静态资源的全局函数：</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">memory_resource* myResource()
-{
+&#123;
     static std::pmr::synchronized_pool_resource myPool;
-    return &amp;myPool;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    return &myPool;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>返回类型memory_resource是任何内存资源的基类。</p>
 <p><strong>注意之前的默认内存资源可能仍然会被使用，即使它已经被替换掉。 除非你知道（并且确信）不会发生这种情况，也就是没有使用该内存资源创建静态对象， 否则你应该确保你的资源的生命周期尽可能的长 （再提醒一次，可以在main()开始处创建它，这样它会在程序的最后才会被销毁）。</strong></p>
 <h2 id="定义自定义内存资源"><a href="#定义自定义内存资源" class="headerlink" title="定义自定义内存资源"></a>定义自定义内存资源</h2><p>你现在可以提供自定义内存资源。要想这么做，你需要：</p>
@@ -637,43 +631,43 @@ std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<sp
 </ul>
 <p>(居然是继承的方式，我还以为会用SFINAE那一套去搞呢,concept 是C++20出的啊，那没事了)  </p>
 <p>这里有一个让我们可以追踪所有内存资源的分配和释放操作的完整示例：</p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory_resource&gt;</span></span>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;memory_resource></span></span>
 
 <span class="token keyword">class</span> <span class="token class-name">Tracker</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword">public</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token class-name">memory_resource</span></span>
-<span class="token punctuation">{</span>
+<span class="token punctuation">&#123;</span>
 <span class="token keyword">private</span><span class="token operator">:</span>
     std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>upstream<span class="token punctuation">;</span>    <span class="token comment">// 被包装的内存资源</span>
-    std<span class="token double-colon punctuation">::</span>string prefix<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>string prefix<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 <span class="token keyword">public</span><span class="token operator">:</span>
     <span class="token comment">// 包装传入的或者默认的资源：</span>
     <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us
-            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">&#123;</span>us<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
 
     <span class="token keyword">explicit</span> <span class="token function">Tracker</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>string p<span class="token punctuation">,</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource <span class="token operator">*</span>us
-            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">{</span>us<span class="token punctuation">}</span><span class="token punctuation">,</span> prefix<span class="token punctuation">{</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>
-    <span class="token punctuation">}</span>
+            <span class="token operator">=</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span><span class="token function">get_default_resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> upstream<span class="token punctuation">&#123;</span>us<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> prefix<span class="token punctuation">&#123;</span>std<span class="token double-colon punctuation">::</span><span class="token function">move</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">&#125;</span>
 <span class="token keyword">private</span><span class="token operator">:</span>
-    <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">do_allocate</span><span class="token punctuation">(</span>size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">do_allocate</span><span class="token punctuation">(</span>size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">&#123;</span>
         std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"allocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>
-        <span class="token keyword">void</span><span class="token operator">*</span> ret <span class="token operator">=</span> upstream<span class="token operator">-&gt;</span><span class="token function">allocate</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span><span class="token operator">*</span> ret <span class="token operator">=</span> upstream<span class="token operator">-></span><span class="token function">allocate</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">void</span> <span class="token function">do_deallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> ptr<span class="token punctuation">,</span> size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">void</span> <span class="token function">do_deallocate</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> ptr<span class="token punctuation">,</span> size_t bytes<span class="token punctuation">,</span> size_t alignment<span class="token punctuation">)</span> <span class="token keyword">override</span> <span class="token punctuation">&#123;</span>
         std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> prefix <span class="token operator">&lt;&lt;</span> <span class="token string">"deallocate "</span> <span class="token operator">&lt;&lt;</span> bytes <span class="token operator">&lt;&lt;</span> <span class="token string">" Bytes\n"</span><span class="token punctuation">;</span>
-        upstream<span class="token operator">-&gt;</span><span class="token function">deallocate</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">bool</span> <span class="token function">do_is_equal</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span> <span class="token keyword">override</span> <span class="token punctuation">{</span>
+        upstream<span class="token operator">-></span><span class="token function">deallocate</span><span class="token punctuation">(</span>ptr<span class="token punctuation">,</span> bytes<span class="token punctuation">,</span> alignment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">bool</span> <span class="token function">do_is_equal</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token double-colon punctuation">::</span>pmr<span class="token double-colon punctuation">::</span>memory_resource<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token keyword">noexcept</span> <span class="token keyword">override</span> <span class="token punctuation">&#123;</span>
         <span class="token comment">// 是同一个对象？</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> <span class="token operator">&amp;</span>other<span class="token punctuation">)</span>
             <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
         <span class="token comment">// 是相同的类型并且prefix和upstream都相等？</span>
-        <span class="token keyword">auto</span> op <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dynamic_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">const</span> Tracker<span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token operator">&amp;</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> op <span class="token operator">!=</span> <span class="token keyword">nullptr</span> <span class="token operator">&amp;&amp;</span> op<span class="token operator">-&gt;</span>prefix <span class="token operator">==</span> prefix <span class="token operator">&amp;&amp;</span> upstream<span class="token operator">-&gt;</span><span class="token function">is_equal</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">auto</span> op <span class="token operator">=</span> <span class="token generic-function"><span class="token function">dynamic_cast</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">const</span> Tracker<span class="token operator">*</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token operator">&amp;</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> op <span class="token operator">!=</span> <span class="token keyword">nullptr</span> <span class="token operator">&amp;&amp;</span> op<span class="token operator">-></span>prefix <span class="token operator">==</span> prefix <span class="token operator">&amp;&amp;</span> upstream<span class="token operator">-></span><span class="token function">is_equal</span><span class="token punctuation">(</span>other<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>就像通常的智能内存资源一样，我们支持传递另一个内存资源（通常叫做upstream） 来包装它或者将它用作备选项。另外，我们可以传递一个可选的前缀。 每一次输出分配或释放操作信息时都会先输出这个可选的前缀。</p>
 <p>我们唯一需要实现的其他函数是do_is_equal()，它定义了何时两个内存资源可以交换 （即一个多态内存资源对象是否以及何时可以释放另一个多态内存资源对象分配的内存）。 在这里，我们简单的认为,只要前缀相同，这种类型的对象都可以释放另一个该类型对象分配的内存：</p>
 <h2 id="支持多态分配器"><a href="#支持多态分配器" class="headerlink" title="支持多态分配器"></a>支持多态分配器</h2><p>想要支持多态分配器出乎意料的简单， 你只需要：</p>
@@ -685,37 +679,37 @@ std::pmr::string ps{std::move(s), std::pmr::new_delete_resource()}; // 拷贝<sp
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;string&gt;
 #include &lt;memeory_resource&gt;
 
-// 支持多态分配器的顾客类型
-// 分配器存储在字符串成员中
+&#x2F;&#x2F; 支持多态分配器的顾客类型
+&#x2F;&#x2F; 分配器存储在字符串成员中
 class PmrCustomer
-{
+&#123;
 private:
-    std::pmr::string name;  // 也可以用来存储分配器
+    std::pmr::string name;  &#x2F;&#x2F; 也可以用来存储分配器
 public:
-    using allocator_type = std::pmr::polymorphic_allocator&lt;char&gt;;
+    using allocator_type &#x3D; std::pmr::polymorphic_allocator&lt;char&gt;;
 
-    // 初始化构造函数：
-    PmrCustomer(std::pmr::string n, allocator_type alloc = {}) : name{std::move(n), alloc} {
-    }
+    &#x2F;&#x2F; 初始化构造函数：
+    PmrCustomer(std::pmr::string n, allocator_type alloc &#x3D; &#123;&#125;) : name&#123;std::move(n), alloc&#125; &#123;
+    &#125;
 
-    // 带有分配器的移动，构造函数：
-    PmrCustomer(const PmrCustomer&amp; c, allocator_type alloc) : name{c.name, alloc} {
-    }
+    &#x2F;&#x2F; 带有分配器的移动，构造函数：
+    PmrCustomer(const PmrCustomer&amp; c, allocator_type alloc) : name&#123;c.name, alloc&#125; &#123;
+    &#125;
 
-    PmrCustomer(PmrCustomer&amp;&amp; c, allocator_type alloc) : name{std::move(c.name), alloc} {
-    }
+    PmrCustomer(PmrCustomer&amp;&amp; c, allocator_type alloc) : name&#123;std::move(c.name), alloc&#125; &#123;
+    &#125;
 
-    // setter/getter：
-    void setName(std::pmr::string s) {
-        name = std::move(s);
-    }
-    std::pmr::string getName() const {
+    &#x2F;&#x2F; setter&#x2F;getter：
+    void setName(std::pmr::string s) &#123;
+        name &#x3D; std::move(s);
+    &#125;
+    std::pmr::string getName() const &#123;
         return name;
-    }
-    std::string getNameAsString() const {
-        return std::string{name};
-    }
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+    std::string getNameAsString() const &#123;
+        return std::string&#123;name&#125;;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -848,18 +842,17 @@ public:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/01/24/duo-tai-nei-cun-zi-yuan/">
+                <a href="/2025/03/13/wang-luo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="多态内存资源">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="网络要点">
                         
-                        <span class="card-title">多态内存资源</span>
+                        <span class="card-title">网络要点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -869,31 +862,30 @@ public:
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-13
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/C/" class="post-category">
-                                    C++
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    计算机网络
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">笔记</span>
+                    <a href="/tags/%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">基础</span>
                     </a>
                     
-                    <a href="/tags/Cpp17/">
-                        <span class="chip bg-color">Cpp17</span>
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
                     </a>
                     
                 </div>
@@ -960,9 +952,6 @@ public:
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
-
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
 
 
 <!-- 代码语言 -->
@@ -1077,7 +1066,7 @@ public:
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

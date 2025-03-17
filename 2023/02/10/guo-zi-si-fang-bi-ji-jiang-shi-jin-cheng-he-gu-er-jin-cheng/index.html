@@ -52,10 +52,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -385,9 +382,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -397,7 +391,7 @@
 <h2 id="2-为什么需要进程？"><a href="#2-为什么需要进程？" class="headerlink" title="2.为什么需要进程？"></a>2.为什么需要进程？</h2><p>引入多道程序技术后为了方便管理，完成对各个程序的并发执行，引入了进程</p>
 <h2 id="3-如何操作进程？"><a href="#3-如何操作进程？" class="headerlink" title="3.如何操作进程？"></a>3.如何操作进程？</h2><p>操作系统为了能够使每个程序能够独立运行，在操作系统中为其配置了一个数据结构，也就是我们通常所说的PCB（Process Control Block），PCB 是进程运行相关的信息集合。</p>
 <h2 id="孤儿进程："><a href="#孤儿进程：" class="headerlink" title="孤儿进程："></a>孤儿进程：</h2><p>父进程运行结束，但子进程还在运行(未运行结束)的子进程就称为孤儿进程。孤儿进程最终会被init进程(进程号为1)所收养，因此init进程此时变成孤儿进程的父进程，并由init进程对它们完成状态收集工作。（linux下，init是内核启动的第一个用户级进程，init有许多很重要的任务，比如像启动getty（用于用户登录）、实现运行级别、以及处理孤立进程。）</p>
-<h2 id="僵尸进程："><a href="#僵尸进程：" class="headerlink" title="僵尸进程："></a>僵尸进程：</h2><p>一个进程使用fork创建子进程，如果子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>如果进程不调用wait / waitpid的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。所以僵尸进程是有危害的。</p>
+<h2 id="僵尸进程："><a href="#僵尸进程：" class="headerlink" title="僵尸进程："></a>僵尸进程：</h2><p>一个进程使用fork创建子进程，如果子进程退出执行后，父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称之为僵死进程。<br>如果进程不调用wait &#x2F; waitpid的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用的进程号而导致系统不能产生新的进程。所以僵尸进程是有危害的。</p>
 <h2 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程:"></a>守护进程:</h2><p>守护进程也就是通常说的Daemon进程（精灵进程），是Linux中的后台服务进程，是个特殊的孤儿进程。它是一个生存期较长的进程，通常独立于控制终端（不会因为控制终端被关闭而中断）并且周期性地执行某种任务或等待处理某些发生的事件。举例：nignx、mysql、cron都是守护进程。</p>
 <h2 id="父进程、子进程："><a href="#父进程、子进程：" class="headerlink" title="父进程、子进程："></a>父进程、子进程：</h2><p>父进程和子进程的关系是：子进程是父进程的一个副本，一个父进程能创建多个子进程，创建子进程能并发执行。一般来说，子进程先结束执行，然后父进程负责子进程的一些善后工作（回收资源）。</p>
 
@@ -632,9 +626,6 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -748,7 +739,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

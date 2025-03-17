@@ -51,10 +51,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -384,9 +381,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -399,7 +393,7 @@
 <p>A meeting is held in the capital once a year. To attend the meeting, each industry city sends an envoy. All envoys will follow the shortest path from the departure city to the capital (which is unique).</p>
 <p>Traveling in tourism cities is pleasant. For each envoy, his happiness is equal to the number of tourism cities on his path.</p>
 <p>In order to be a queen loved by people, Linova wants to choose k cities which can maximize the sum of happinesses of all envoys. Can you calculate the maximum sum for her?
-&nbsp;</p>
+ </p>
 <h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains two integers n and k (2≤n≤2⋅105, 1≤ k &lt; n)  — the number of cities and industry cities respectively.</p>
 <p>Each of the next n−1 lines contains two integers u and v (1≤u,v≤n), denoting there is a road connecting city u and city v.</p>
 <p>It is guaranteed that from any city, you can reach any other city by the roads.</p>
@@ -433,53 +427,53 @@
 #include&lt;vector&gt;
 using namespace std;
 struct nod
-{
+&#123;
 	long long d,v;
-}a[200010];
+&#125;a[200010];
 int k, n;
-int pr[200010] = { 0 };
-vector&lt;int&gt; p[200010];//p[i]代表有那些地方与i地相连
+int pr[200010] &#x3D; &#123; 0 &#125;;
+vector&lt;int&gt; p[200010];&#x2F;&#x2F;p[i]代表有那些地方与i地相连
 bool cmp(nod x, nod y)
-{
-	return x.v - x.d &gt; y.v - y.d;//对一个点的贡献值进行排序
-}
-int dfs(int t)//深搜得出每个点的深度与有多少个子节点
-{
-	vector&lt;int&gt;::iterator it = p[t].begin();
-	pr[t] = 1;
-	long long sum = 0;
-	for (it; it != p[t].end(); it++)
-	{
+&#123;
+	return x.v - x.d &gt; y.v - y.d;&#x2F;&#x2F;对一个点的贡献值进行排序
+&#125;
+int dfs(int t)&#x2F;&#x2F;深搜得出每个点的深度与有多少个子节点
+&#123;
+	vector&lt;int&gt;::iterator it &#x3D; p[t].begin();
+	pr[t] &#x3D; 1;
+	long long sum &#x3D; 0;
+	for (it; it !&#x3D; p[t].end(); it++)
+	&#123;
 		if (!pr[*it])
-		{
-			a[*it].d = a[t].d + 1;
-			sum += dfs(*it);
-		}
-	}
-	a[t].v = sum;
+		&#123;
+			a[*it].d &#x3D; a[t].d + 1;
+			sum +&#x3D; dfs(*it);
+		&#125;
+	&#125;
+	a[t].v &#x3D; sum;
 	return sum + 1;
-}
+&#125;
 int main()
-{
-	//freopen("F:/y.txt", "r", stdin);
+&#123;
+	&#x2F;&#x2F;freopen(&quot;F:&#x2F;y.txt&quot;, &quot;r&quot;, stdin);
 	cin &gt;&gt; n &gt;&gt; k;
-	for (int i = 0; i &lt; n - 1; i++)
-	{
+	for (int i &#x3D; 0; i &lt; n - 1; i++)
+	&#123;
 		int x, y;
 		cin &gt;&gt; x &gt;&gt; y;
 		p[x].push_back(y);
 		p[y].push_back(x);
-	}
-	a[0].d = -1;
+	&#125;
+	a[0].d &#x3D; -1;
 	dfs(1);
 	sort(a + 1, a + 1 + n, cmp);
-	long long ans = 0;
-	for (int i = 1; i &lt;= n - k; i++)//由于我们选择的是多少旅游城市，所以数量为n-k
-	{
-		ans += (a[i].v - a[i].d);
-	}
+	long long ans &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n - k; i++)&#x2F;&#x2F;由于我们选择的是多少旅游城市，所以数量为n-k
+	&#123;
+		ans +&#x3D; (a[i].v - a[i].d);
+	&#125;
 	cout &lt;&lt; ans &lt;&lt; endl;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -711,9 +705,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -827,7 +818,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="cf 830B-Cards Sorting, 咸鱼">
     <meta name="description" content="题目题面Cards Sorting
-Vasily has a deck of cards consisting of&amp;nbsp;n&amp;nbsp;cards.There is an integer on each of the cards, t">
+Vasily has a deck of cards consisting of n cards.There is an integer on each of the cards, this intege">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -51,10 +51,7 @@ Vasily has a deck of cards consisting of&amp;nbsp;n&amp;nbsp;cards.There is an i
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -384,21 +381,18 @@ Vasily has a deck of cards consisting of&amp;nbsp;n&amp;nbsp;cards.There is an i
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h2><p>Cards Sorting</p>
-<p>Vasily has a deck of cards consisting of&nbsp;n&nbsp;cards.There is an integer on each of the cards, this integer is between&nbsp;1&nbsp;and&nbsp;100 000, inclusive .It is possible that some cards have the same integers on them.</p>
+<p>Vasily has a deck of cards consisting of n cards.There is an integer on each of the cards, this integer is between 1 and 100 000, inclusive .It is possible that some cards have the same integers on them.</p>
 <p>Vasily decided to sort the cards .To do this, he repeatedly takes the top card from the deck, and if the number on it equals the minimum number written on the cards in the deck, then he places the card away.Otherwise, he puts it under the deckand takes the next card from the top, and so on.The process ends as soon as there are no cards in the deck.You can assume that Vasily always knows the minimum number written on some card in the remaining deck, but doesn’t know where this card (or these cards) is.</p>
 <p>You are to determine the total number of times Vasily takes the top card from the deck.
-&nbsp;</p>
-<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains single integer&nbsp;n&nbsp;(1 ≤ n ≤ 100 000) — the number of cards in the deck.</p>
-<p>The second line contains a sequence of&nbsp;n&nbsp;integers&nbsp;a1, a2, …, an&nbsp;(1 ≤ ai ≤ 100 000), where&nbsp;ai&nbsp;is the number written on the&nbsp;i - th from top card in the deck.</p>
+ </p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line contains single integer n (1 ≤ n ≤ 100 000) — the number of cards in the deck.</p>
+<p>The second line contains a sequence of n integers a1, a2, …, an (1 ≤ ai ≤ 100 000), where ai is the number written on the i - th from top card in the deck.</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>Print the total number of times Vasily takes the top card from the deck.</p>
 <h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>4<br>6 3 1 2</p>
 <h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p>7</p>
@@ -416,91 +410,91 @@ Vasily has a deck of cards consisting of&amp;nbsp;n&amp;nbsp;cards.There is an i
 #include&lt;vector&gt;
 #include&lt;string.h&gt;
 using namespace std;
-vector&lt;int&gt; ve[100010];/*建立一个vector数组，记录每一个数在数组中的位置*/
+vector&lt;int&gt; ve[100010];&#x2F;*建立一个vector数组，记录每一个数在数组中的位置*&#x2F;
 int c[100010], n, a[100010], pr[100010];
-/*用树状数组计算前缀和（一个位置前有多少个数*/
+&#x2F;*用树状数组计算前缀和（一个位置前有多少个数*&#x2F;
 int lowbit(int x)
-{
+&#123;
 	return x &amp; (-x);
-}
+&#125;
 void add(int x,int y)
-{
-	for (int i = x; i &lt;= n; i += lowbit(i))
-		c[i] += y;
-}
+&#123;
+	for (int i &#x3D; x; i &lt;&#x3D; n; i +&#x3D; lowbit(i))
+		c[i] +&#x3D; y;
+&#125;
 int find(int x)
-{
-	int ans = 0;
-	for (int i = x; i &gt; 0; i -= lowbit(i))
-		ans += c[i];
+&#123;
+	int ans &#x3D; 0;
+	for (int i &#x3D; x; i &gt; 0; i -&#x3D; lowbit(i))
+		ans +&#x3D; c[i];
 	return ans;
-}
+&#125;
 int main()
-{
-	//freopen("F:/y.txt", "r", stdin);
-	while (~scanf("%d", &amp;n))
-	{
+&#123;
+	&#x2F;&#x2F;freopen(&quot;F:&#x2F;y.txt&quot;, &quot;r&quot;, stdin);
+	while (~scanf(&quot;%d&quot;, &amp;n))
+	&#123;
 		memset(c, 0, sizeof(c));
 		memset(pr, 0, sizeof(pr));
-		int t = 0;
-		for (int i = 1; i &lt;= n; i++)
-		{
+		int t &#x3D; 0;
+		for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		&#123;
 			int x;
-			scanf("%d", &amp;x);
-			if (pr[x] == 0)
-			{
-				pr[x] = 1;
-				a[t++] = x;
-			}
+			scanf(&quot;%d&quot;, &amp;x);
+			if (pr[x] &#x3D;&#x3D; 0)
+			&#123;
+				pr[x] &#x3D; 1;
+				a[t++] &#x3D; x;
+			&#125;
 			ve[x].push_back(i);
 			add(i, 1);
-		}
-	/*因为存入vector时是安i的顺序存的，所以在vector[]内部的元素是有序的*/
-		sort(a, a + t);/*查看每次操作后的最小值*/
-		long long ans = 0, p = 0;
-		for (int i = 0; i &lt; t; i++)//每次要保证最小的卡片全部被取走
-		{
-			int s = ve[a[i]].size();
-			if (p &lt; ve[a[i]][0])/*记录p之前的数*/
-			{
-				vector&lt;int&gt;::iterator it = ve[a[i]].begin();
-				int x = ve[a[i]][s - 1];
-				ans += find(x) - find(p);
-				p = x;
-				for (it; it != ve[a[i]].end(); it++)
-				{
-					add(*it, -1);/* *it前面的数的数量减一*/
-				}
-			}
-			else/*记录p之后的数*/
-			{
-				int temp = 0;
-				vector&lt;int&gt;::iterator it = ve[a[i]].begin();
-				int x = 0;
-				for (it; it != ve[a[i]].end(); it++)
-				{
+		&#125;
+	&#x2F;*因为存入vector时是安i的顺序存的，所以在vector[]内部的元素是有序的*&#x2F;
+		sort(a, a + t);&#x2F;*查看每次操作后的最小值*&#x2F;
+		long long ans &#x3D; 0, p &#x3D; 0;
+		for (int i &#x3D; 0; i &lt; t; i++)&#x2F;&#x2F;每次要保证最小的卡片全部被取走
+		&#123;
+			int s &#x3D; ve[a[i]].size();
+			if (p &lt; ve[a[i]][0])&#x2F;*记录p之前的数*&#x2F;
+			&#123;
+				vector&lt;int&gt;::iterator it &#x3D; ve[a[i]].begin();
+				int x &#x3D; ve[a[i]][s - 1];
+				ans +&#x3D; find(x) - find(p);
+				p &#x3D; x;
+				for (it; it !&#x3D; ve[a[i]].end(); it++)
+				&#123;
+					add(*it, -1);&#x2F;* *it前面的数的数量减一*&#x2F;
+				&#125;
+			&#125;
+			else&#x2F;*记录p之后的数*&#x2F;
+			&#123;
+				int temp &#x3D; 0;
+				vector&lt;int&gt;::iterator it &#x3D; ve[a[i]].begin();
+				int x &#x3D; 0;
+				for (it; it !&#x3D; ve[a[i]].end(); it++)
+				&#123;
 					if (*it &lt; p)
-					{
-						x = *it;
-					}
+					&#123;
+						x &#x3D; *it;
+					&#125;
 					else
-					{
+					&#123;
 						break;
-					}
-				}
-				ans += find(n) - find(p) + find(x);
-				p = x;
-				it = ve[a[i]].begin();
-				for (it; it != ve[a[i]].end(); it++)
-				{
-					add(*it, -1);/**it前面的数的数量减一*/
-				}
-			}
-		}
-		printf("%lld\n", ans);
-	}
+					&#125;
+				&#125;
+				ans +&#x3D; find(n) - find(p) + find(x);
+				p &#x3D; x;
+				it &#x3D; ve[a[i]].begin();
+				for (it; it !&#x3D; ve[a[i]].end(); it++)
+				&#123;
+					add(*it, -1);&#x2F;**it前面的数的数量减一*&#x2F;
+				&#125;
+			&#125;
+		&#125;
+		printf(&quot;%lld\n&quot;, ans);
+	&#125;
 	return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>
@@ -732,9 +726,6 @@ int main()
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -848,7 +839,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

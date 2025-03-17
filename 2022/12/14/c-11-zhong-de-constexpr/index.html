@@ -50,10 +50,7 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="咸鱼" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -387,9 +384,6 @@
         <hr class="clearfix">
 
         
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.min.css">
-        
 
         
 
@@ -398,66 +392,66 @@
                 <h1 id="C-中的constexpr"><a href="#C-中的constexpr" class="headerlink" title="C++中的constexpr"></a>C++中的constexpr</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52902391/article/details/120308866">https://blog.csdn.net/m0_52902391/article/details/120308866</a><br><a target="_blank" rel="noopener" href="https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp17/constexpr/#c14-constexpr">https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp17/constexpr/#c14-constexpr</a></p>
 <h2 id="常量表达式"><a href="#常量表达式" class="headerlink" title="常量表达式"></a>常量表达式</h2><p>值不会改变且在编译期就能得到计算结果的表达式。<br>字面值属于常量表达式，用常量表达式初始化的const对象也是常量表达式。</p>
 <h2 id="constexpr-与-const"><a href="#constexpr-与-const" class="headerlink" title="constexpr 与 const"></a>constexpr 与 const</h2><p>在定义常量时，const 和 constexpr 是等价的，都可以在程序的编译阶段计算出结果 都为常量表达式<br>但是const可以修饰函数的传入参数为只读（并非常量），而constexpr无法修饰</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp"> // error
-void func1(constexpr int p) {
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp"> &#x2F;&#x2F; error
+void func1(constexpr int p) &#123;
 
-}
-
-
-// ok
-void func2(const int p) {
-
-}
+&#125;
 
 
-void func3(const int p) {
-    int a[p];//error ,此时p并非常量表达式，只是只读参数
-}
+&#x2F;&#x2F; ok
+void func2(const int p) &#123;
+
+&#125;
+
+
+void func3(const int p) &#123;
+    int a[p];&#x2F;&#x2F;error ,此时p并非常量表达式，只是只读参数
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="用constexpr修饰函数"><a href="#用constexpr修饰函数" class="headerlink" title="用constexpr修饰函数"></a>用constexpr修饰函数</h2><p>constexpr 并不能修改任意函数的返回值，这些函数成为常量表达式函数时，必须要满足以下几个条件：<br>（这些规则不仅对应普通函数适用，对应类的成员函数也是适用的）  </p>
-<h4 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h4><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">// error，不是常量表达式函数
+<h4 id="1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。"><a href="#1-函数必须要有返回值，并且-return-返回的表达式必须是常量表达式。" class="headerlink" title="1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。"></a>1.函数必须要有返回值，并且 return 返回的表达式必须是常量表达式。</h4><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">&#x2F;&#x2F; error，不是常量表达式函数
 constexpr void func1()
-{
-    int a = 100;
-    cout &lt;&lt; "a: " &lt;&lt; a &lt;&lt; endl;
-}
+&#123;
+    int a &#x3D; 100;
+    cout &lt;&lt; &quot;a: &quot; &lt;&lt; a &lt;&lt; endl;
+&#125;
  
-// error，不是常量表达式函数
+&#x2F;&#x2F; error，不是常量表达式函数
 constexpr int func2()
-{
-    int a = 100;
+&#123;
+    int a &#x3D; 100;
     return a;
-}
+&#125;
 
-// ok
+&#x2F;&#x2F; ok
 constexpr int func3()
-{
-    constexpr int a = 100;
+&#123;
+    constexpr int a &#x3D; 100;
     return a;
-}
+&#125;
  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>函数 func1() 没有返回值，不满足常量表达式函数要求<br>函数 func2() 返回值不是常量表达式，不满足常量表达式函数要求  </p>
-<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">// error
+<h3 id="2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。"><a href="#2-整个函数的函数体中，不能出现非常量表达式之外的语句（using-指令、typedef-语句以及-static-assert-断言、return-语句除外）。" class="headerlink" title="2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。"></a>2.整个函数的函数体中，不能出现非常量表达式之外的语句（using 指令、typedef 语句以及 static_assert 断言、return 语句除外）。</h3><pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">&#x2F;&#x2F; error
 constexpr int func1()
-{
-    constexpr int a = 100;
-    constexpr int b = 10;
-    for (int i = 0; i &lt; b; ++i)
-    {
-        cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; endl;
-    }
+&#123;
+    constexpr int a &#x3D; 100;
+    constexpr int b &#x3D; 10;
+    for (int i &#x3D; 0; i &lt; b; ++i)
+    &#123;
+        cout &lt;&lt; &quot;i: &quot; &lt;&lt; i &lt;&lt; endl;
+    &#125;
     return a + b;
-}
+&#125;
  
-// ok
+&#x2F;&#x2F; ok
 constexpr int func2()
-{
-    using mytype = int;
-    constexpr mytype a = 100;
-    constexpr mytype b = 10;
-    constexpr mytype c = a * b;
+&#123;
+    using mytype &#x3D; int;
+    constexpr mytype a &#x3D; 100;
+    constexpr mytype b &#x3D; 10;
+    constexpr mytype c &#x3D; a * b;
     return c - (a + b);
-}
+&#125;
  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在c++11中constexpr函数只能有一个return语句，不支持多个独立语句，最多也只能通过逗号表达式或三目表达式来表达。<br>C++14开始，constexpr函数可以使用多行语句编写</p>
 <h2 id="修饰模板函数"><a href="#修饰模板函数" class="headerlink" title="修饰模板函数"></a>修饰模板函数</h2><p>C++11 语法中，constexpr 可以修饰函数模板，但由于模板中类型的不确定性，因此函数模板实例化后的模板函数是否符合常量表达式函数的要求也是不确定的。<br>如果 constexpr 修饰的模板函数实例化结果不满足常量表达式函数的要求，则 constexpr 会被自动忽略，即该函数就等同于一个普通函数。</p>
@@ -465,53 +459,53 @@ constexpr int func2()
 #include&lt; iostream &gt;
 using namespace std;
  
-struct Person {
+struct Person &#123;
     const char* name;
     int age;
-};
+&#125;;
  
-// 定义函数模板
+&#x2F;&#x2F; 定义函数模板
 template&lt; typename T &gt;
-constexpr T dispaly(T t) {
+constexpr T dispaly(T t) &#123;
     return t;
-}
+&#125;
  
 int main()
-{
-    struct Person p { "luffy", 19 };
-    //普通函数
-    struct Person ret = dispaly(p);
-    cout &lt;&lt; "luffy's name: " &lt;&lt; ret.name &lt;&lt; ", age: " &lt;&lt; ret.age &lt;&lt; endl;
+&#123;
+    struct Person p &#123; &quot;luffy&quot;, 19 &#125;;
+    &#x2F;&#x2F;普通函数
+    struct Person ret &#x3D; dispaly(p);
+    cout &lt;&lt; &quot;luffy&#39;s name: &quot; &lt;&lt; ret.name &lt;&lt; &quot;, age: &quot; &lt;&lt; ret.age &lt;&lt; endl;
  
-    //常量表达式函数
-    constexpr int ret1 = dispaly(250);
+    &#x2F;&#x2F;常量表达式函数
+    constexpr int ret1 &#x3D; dispaly(250);
     cout &lt;&lt; ret1 &lt;&lt; endl;
  
-    constexpr struct Person p1 { "luffy", 19 };
-    constexpr struct Person p2 = dispaly(p1);
-    cout &lt;&lt; "luffy's name: " &lt;&lt; p2.name &lt;&lt; ", age: " &lt;&lt; p2.age &lt;&lt; endl;
+    constexpr struct Person p1 &#123; &quot;luffy&quot;, 19 &#125;;
+    constexpr struct Person p2 &#x3D; dispaly(p1);
+    cout &lt;&lt; &quot;luffy&#39;s name: &quot; &lt;&lt; p2.name &lt;&lt; &quot;, age: &quot; &lt;&lt; p2.age &lt;&lt; endl;
     return 0;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在上面示例程序中定义了一个函数模板 display()，但由于其返回值类型未定，因此在实例化之前无法判断其是否符合常量表达式函数的要求：</p>
-<p>struct Person ret = dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 = dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 = dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的  </p>
+<p>struct Person ret &#x3D; dispaly(p); 由于参数 p 是变量，所以实例化后的函数不是常量表达式函数，此时 constexpr 是无效的<br>constexpr int ret1 &#x3D; dispaly(250); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的<br>constexpr struct Person p2 &#x3D; dispaly(p1); 参数是常量，符合常量表达式函数的要求，此时 constexpr 是有效的  </p>
 <h2 id="修饰构造函数（编译期的对象构造）"><a href="#修饰构造函数（编译期的对象构造）" class="headerlink" title="修饰构造函数（编译期的对象构造）"></a>修饰构造函数（编译期的对象构造）</h2><p>如果想用直接得到一个常量对象，也可以使用 constexpr 修饰一个构造函数，这样就可以得到一个常量构造函数了。常量构造函数有一个要求：构造函数的函数体必须为空，并且必须采用初始化列表的方式为各个成员赋值。</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 using namespace std;
  
-struct Person {
+struct Person &#123;
     constexpr Person(const char* p, int age) :name(p), age(age)
-    {
-    }
+    &#123;
+    &#125;
     const char* name;
     int age;
-};
+&#125;;
  
 int main()
-{
-    constexpr struct Person p1("luffy", 19);
-    cout &lt;&lt; "luffy's name: " &lt;&lt; p1.name &lt;&lt; ", age: " &lt;&lt; p1.age &lt;&lt; endl;
+&#123;
+    constexpr struct Person p1(&quot;luffy&quot;, 19);
+    cout &lt;&lt; &quot;luffy&#39;s name: &quot; &lt;&lt; p1.name &lt;&lt; &quot;, age: &quot; &lt;&lt; p1.age &lt;&lt; endl;
     return 0;
-}
+&#125;
  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -520,42 +514,42 @@ int main()
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;functional&gt;
 
-std::function&lt;int(int)&gt; foo(int a, int b) {
-    return [a, b](int x) {
+std::function&lt;int(int)&gt; foo(int a, int b) &#123;
+    return [a, b](int x) &#123;
         return a * x + b;
-    };
-}
+    &#125;;
+&#125;
 
-int main() {
-    std::cout &lt;&lt; foo(1, 2)(2) &lt;&lt; std::endl; //4
-}
+int main() &#123;
+    std::cout &lt;&lt; foo(1, 2)(2) &lt;&lt; std::endl; &#x2F;&#x2F;4
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>编译器会将其转换为如下形式：</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">#include &lt;iostream&gt;
 #include &lt;functional&gt;
 
-class SomeFunctor {
+class SomeFunctor &#123;
 public:
     SomeFunctor(int a, int b)
         : m_a(a), m_b(b)
-    { }
+    &#123; &#125;
 
-    int operator()(int x) {
+    int operator()(int x) &#123;
         return m_a * x + m_b;
-    }
+    &#125;
 
 private:
     int m_a;
     int m_b;
-};
+&#125;;
 
-std::function&lt;int(int)&gt; foo(int a, int b) {
+std::function&lt;int(int)&gt; foo(int a, int b) &#123;
     return SomeFunctor(a, b);
-}
+&#125;
 
-int main() {
-    std::cout &lt;&lt; foo(1, 2)(2) &lt;&lt; std::endl; //4
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+int main() &#123;
+    std::cout &lt;&lt; foo(1, 2)(2) &lt;&lt; std::endl; &#x2F;&#x2F;4
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="C-17对lambda表达式做了如下改进："><a href="#C-17对lambda表达式做了如下改进：" class="headerlink" title="C++17对lambda表达式做了如下改进："></a>C++17对lambda表达式做了如下改进：</h3><ul>
 <li><p>若lambda表达式捕获的变量是字面量类型（literal type），则整个lambda表达式也将表现为字面量类型。</p>
@@ -566,21 +560,21 @@ int main() {
 </li>
 </ul>
 <p>constexpr lambda表达式的显式语法如下：</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">[capture_list] (params_list) constexpr -&gt; return_type {function_body}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">[capture_list] (params_list) constexpr -&gt; return_type &#123;function_body&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在完整体的lambda表达式中，constexpr添加到参数列表和返回值类型之间，举个例子：</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">void foo() {
-    auto fib = [](int n) constexpr -&gt; int {
-        int a = 0, b = 1;
-        for (int i = 0; i &lt; n; ++i) {
-            int c = a + b;
-            a = b;
-            b = c;
-        }
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">void foo() &#123;
+    auto fib &#x3D; [](int n) constexpr -&gt; int &#123;
+        int a &#x3D; 0, b &#x3D; 1;
+        for (int i &#x3D; 0; i &lt; n; ++i) &#123;
+            int c &#x3D; a + b;
+            a &#x3D; b;
+            b &#x3D; c;
+        &#125;
         return a;
-    };
-    static_assert(fib(5) == 5, "");
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;;
+    static_assert(fib(5) &#x3D;&#x3D; 5, &quot;&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="constexpr-lambda表达式和constexpr函数一样，需要满足的条件"><a href="#constexpr-lambda表达式和constexpr函数一样，需要满足的条件" class="headerlink" title="constexpr lambda表达式和constexpr函数一样，需要满足的条件"></a>constexpr lambda表达式和constexpr函数一样，需要满足的条件</h2><ul>
 <li>返回值的类型必须是字面量类型</li>
@@ -597,55 +591,55 @@ int main() {
 <p>且与constexpr函数一样，constexpr lambda表达式中，如果参数或捕获列表的参数不是编译期常量，则constexpr lambda表达式会退化为普通的lambda表达式</p>
 <p>当一个lambda表达式被显式或隐式地声明为constexpr，则它可以被转换为一个constexpr的函数指针</p>
 <h2 id="constexpr-if-编译期分支选择"><a href="#constexpr-if-编译期分支选择" class="headerlink" title="constexpr if 编译期分支选择"></a>constexpr if 编译期分支选择</h2><p>传统的if-else语句是在运行期进行判断和选择的，无法运用在编译期，所以在泛型编程中，无法使用if-else来直接做一些判断。在C++17之前，只能被拆分为一个泛型版本和一个特化版本</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">//C++17之前的写法
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">&#x2F;&#x2F;C++17之前的写法
 void print()
-{
+&#123;
     std::cout &lt;&lt; std::endl;
-}
+&#125;
 
 template &lt;typename T, typename... Ts&gt;
 void print(T head, Ts... tail)
-{
+&#123;
     std::cout &lt;&lt; head &lt;&lt; std::endl;
     print(tail...);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <p>C++17引入了constexpr if，支持在编译期进行判断，即在编译期就可以直接知道结果，可以广泛应用于泛型编程。以上例子使用C++17实现则可以将两步合二为一</p>
 <pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">template &lt;typename T, typename... Ts&gt;
 void print(T head, Ts... tail)
-{
+&#123;
     std::cout &lt;&lt; head &lt;&lt; std::endl;
     if constexpr (sizeof...(tail) &gt; 0)
         print(tail...);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="优化std-enable-if写法"><a href="#优化std-enable-if写法" class="headerlink" title="优化std::enable_if写法"></a>优化std::enable_if写法</h3><p>constexpr if在泛型编程中的一个应用是，可以替代冗长的std::enable_if的写法。在C++17之前，需要为了不同类型条件去写各式各样的特化模版，利用SFINAE加上std::enable_if，会写得非常复杂</p>
-<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">//C++17之前
+<pre class="line-numbers language-Cpp" data-language="Cpp"><code class="language-Cpp">&#x2F;&#x2F;C++17之前
 template&lt;typename T&gt; 
-std::enable_if_t&lt;std::is_integral&lt;T&gt;::value, std::string&gt; to_string(T t) {
+std::enable_if_t&lt;std::is_integral&lt;T&gt;::value, std::string&gt; to_string(T t) &#123;
     return std::to_string(t);
-}
+&#125;
  ​
 template&lt;typename T&gt;
-std::enable_if_t&lt;!std::is_integral&lt;T&gt;::value, std::string&gt; to_string(T t) {
+std::enable_if_t&lt;!std::is_integral&lt;T&gt;::value, std::string&gt; to_string(T t) &#123;
     return t;
-}
+&#125;
 
-//C++17
+&#x2F;&#x2F;C++17
 template &lt;typename T&gt;
-auto to_string(T t) {
+auto to_string(T t) &#123;
     if constexpr(std::is_integral&lt;T&gt;::value)
         return std::to_string(t);
-    else //此处else不可省略
+    else &#x2F;&#x2F;此处else不可省略
         return t;
-}
+&#125;
 
-int main() {
-    std::cout &lt;&lt; to_string("ok") &lt;&lt; std::endl;
-    std::cout &lt;&lt; to_string(123) &lt;&lt; std::endl; //如果省略else则会报错：error: 'auto' in return type deduced as 'int' here but deduced as 'std::string' in earlier return statement
+int main() &#123;
+    std::cout &lt;&lt; to_string(&quot;ok&quot;) &lt;&lt; std::endl;
+    std::cout &lt;&lt; to_string(123) &lt;&lt; std::endl; &#x2F;&#x2F;如果省略else则会报错：error: &#39;auto&#39; in return type deduced as &#39;int&#39; here but deduced as &#39;std::string&#39; in earlier return statement
     return 0;
-}
+&#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上面的例子中，else不可省略，否则会产生编译器推导错误，无法编译通过。</p>
 <p>编译器在做优化时，甚至会把没有使用的分支省略掉，当然另一个分支必须支持C++语法，而老的C++标准即使使用了if，另一个分支也会被编译。对于constexpr if，编译器只会实例化条件通过的子句。由于返回值类型我们可以用auto让编译器自动推导，所以每个constexpr if子句的返回值类型也不需要完全一致。</p>
@@ -885,9 +879,6 @@ int main() {
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 
-  <!-- 是否加载使用自带的 prismjs. -->
-  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
-
 
 <!-- 代码语言 -->
 
@@ -1001,7 +992,7 @@ int main() {
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2019-2025</span>
             
             <a href="/about" target="_blank">xucanxx</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
