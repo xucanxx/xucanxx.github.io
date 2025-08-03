@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>多态内存资源 | 咸鱼</title><meta name="keywords" content="笔记,Cpp17"><meta name="author" content="xucanxx"><meta name="copyright" content="xucanxx"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="多态内存资源"><meta name="application-name" content="多态内存资源"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="多态内存资源"><meta property="og:url" content="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/index.html"><meta property="og:site_name" content="咸鱼"><meta property="og:description" content="多态内存资源文章说得很详细（虽然我还是不怎么懂，做个笔记吧）https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;MeouSker77&amp;#x2F;Cpp17&amp;#x2F;blob&amp;#x2F;master&amp;#x2F;markdown&amp;#x2F;src&amp;#x2F;ch29.md 多态分配器这玩意最直接的用法就是控制容器的内存，打个比方在我使用vector容器时一般情况下会这么用"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://xucanxx.github.io/img/featureimages/5.jpg"><meta property="article:author" content="xucanxx"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://xucanxx.github.io/img/featureimages/5.jpg"><meta name="description" content="多态内存资源文章说得很详细（虽然我还是不怎么懂，做个笔记吧）https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;MeouSker77&amp;#x2F;Cpp17&amp;#x2F;blob&amp;#x2F;master&amp;#x2F;markdown&amp;#x2F;src&amp;#x2F;ch29.md 多态分配器这玩意最直接的用法就是控制容器的内存，打个比方在我使用vector容器时一般情况下会这么用"><link rel="shortcut icon" href="/favicon.png"><link rel="canonical" href="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:{"enable":true,"maxBarrage":1,"barrageTime":4000,"accessToken":"","mailMd5":""},
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: false,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xucanxx","link":"链接: ","source":"来源: 咸鱼","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '咸鱼',
+  title: '多态内存资源',
+  postAI: '',
+  pageFillDescription: '多态内存资源, 多态分配器, 控制数据位置, 控制内存资源的一些行为, 标准内存资源, null_memory_resource, synchronized_pool_resource和unsynchronized_pool_resource, monotonic_buffer_resource, 默认内存资源, 默认资源, 设置默认资源, 定义自定义内存资源, 支持多态分配器多态内存资源文章说得很详细虽然我还是不怎么懂做个笔记吧多态分配器这玩意最直接的用法就是控制容器的内存打个比方在我使用容器时一般情况下会这么用不难发现这个这个类构造了个对象但是众所周知存储元素的实际位置是在堆上并且在资源不足时会自动进行扩容以及值拷贝操作频繁的申请与释放内存会导致内存碎片的产生那我们有什么办法去控制构建对象时的行为呢控制数据位置按照传统的方法就是我们要自己实现一个内存分配器作为的模版参数传入真好用包含自定义分配器类类型定义分配内存释放内存构造对象销毁对象使用自定义分配器创建这个时候果子哥就要说了这玩意写起来太麻烦了有没有什么简单的方法呢诶铁牛牛肉面就出现了在栈上分配一些内存将它用作的初始内存池程序的输出可以看到的位于中通过这种方式我们就可以控制的数据存放地址了控制内存资源的一些行为这个时候果子哥又要问了要是在重新分配内存时超出了缓存区的大小它会怎么处理呢欸我不吃牛肉看代码在栈上分配一些内存将它用作的初始内存池他还是会重新在堆上分配内存以保证容器的正常功能但是我们都已经使用内存池了自然就可以在内存不够时进行一些操作比如说在内存资源不够时抛出异常在栈上分配一些内存将它用作的初始内存池标准内存资源刚刚在上面提到的就是标准内存资源中的一种标准内存资源行为返回一个调用和的内存资源的指针创建更少碎片化的线程安全的内存资源的类创建更少碎片化的线程不安全的内存资源的类创建从不释放可以传递一个可选的缓冲区线程不安全的类返回一个每次分配都会失败的内存资源的指针上方的代码当中的内存空间调用不足后会向传入的标准内存资源对象申请资源即向申请新资源而申请失败后会抛出异常和和是尝试在相邻位置分配所有内存的内存资源类因此使用它们可以尽可能的减小内存碎片它们的不同在于是线程安全的性能会差一些而不是因此如果你知道这个池里的内存只会被单个线程访问或者分配和释放操作都是同步的那么使用将是更好的选择这两个类都使用底层的内存资源来进行实际的分配和释放操作它们只是保证内存分配更加密集的包装因此等价于这个就很有意思它在每次申请资源时会直接在已分配的内存空间末尾追加而不会处理之前已经分配了的空间创建一个静态缓冲区创建一个并使用静态缓冲区创建一个使用该内存资源的向添加数据通过这段代码可以发现在变更容量大小时计划释放的内存没有做任何处理而是直接在已分配的内存资源的最后追加了一段资源分给通过这种方式虽然会造成内存资源的浪费但是以此换来的是简单的处理逻辑与极快的速度默认内存资源内存资源行为返回一个指向当前默认内存资源的指针设置默认内存资源传递一个指针并返回之前的内存资源的指针我们可以用获取当前的默认资源然后传递它来初始化一个多态分配器也可以使用来全局地设置一个不同的默认内存资源这个资源将在任何作用域中用作默认资源直到下一次调用设置为新的默认内存资源恢复旧的默认内存资源默认资源当没有被调用时会默认使用这个内存资源他的行为跟正常的操作一样每次向其申请内存时会调用每次释放内存时会调用然而注意持有这种内存资源的多态分配器不能和默认的分配器互换因为它们的类型不同因此拷贝将不会发生直接把分配的内存转让给而是把的内存拷贝到内部用分配的新的内存中只要是不同类型的多态分配器在时都会进行值拷贝设置默认资源如果你在程序中设置了自定义内存资源并且把它用作默认资源那么直接在中首先将它创建为对象将是一个好方法或者提供一个返回静态资源的全局函数返回类型是任何内存资源的基类注意之前的默认内存资源可能仍然会被使用即使它已经被替换掉除非你知道并且确信不会发生这种情况也就是没有使用该内存资源创建静态对象否则你应该确保你的资源的生命周期尽可能的长再提醒一次可以在开始处创建它这样它会在程序的最后才会被销毁定义自定义内存资源你现在可以提供自定义内存资源要想这么做你需要从派生实现下列私有函数来分配内存来释放内存来定义什么情况下何时你的类型可以和其他内存资源对象交换分配的内存居然是继承的方式我还以为会用那一套去搞呢是出的啊那没事了这里有一个让我们可以追踪所有内存资源的分配和释放操作的完整示例被包装的内存资源包装传入的或者默认的资源是同一个对象是相同的类型并且和都相等就像通常的智能内存资源一样我们支持传递另一个内存资源通常叫做来包装它或者将它用作备选项另外我们可以传递一个可选的前缀每一次输出分配或释放操作信息时都会先输出这个可选的前缀我们唯一需要实现的其他函数是它定义了何时两个内存资源可以交换即一个多态内存资源对象是否以及何时可以释放另一个多态内存资源对象分配的内存在这里我们简单的认为只要前缀相同这种类型的对象都可以释放另一个该类型对象分配的内存支持多态分配器想要支持多态分配器出乎意料的简单你只需要定义一个成员作为一个多态分配器为所有构造函数添加一个接受分配器作为额外参数的重载包括拷贝和移动构造函数给初始化用的构造函数的分配器参数添加一个默认的类型的值不包括拷贝和移动构造函数支持多态分配器的顾客类型分配器存储在字符串成员中也可以用来存储分配器初始化构造函数带有分配器的移动构造函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-03-17 12:52:02',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="/favicon.png"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">咸鱼</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/ACM/" style="font-size: 1.05rem;">ACM<sup>13</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C++<sup>1</sup></a><a href="/tags/Cpp17/" style="font-size: 1.05rem;">Cpp17<sup>1</sup></a><a href="/tags/brpc/" style="font-size: 1.05rem;">brpc<sup>1</sup></a><a href="/tags/bug/" style="font-size: 1.05rem;">bug<sup>1</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.05rem;">基础<sup>9</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.05rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">果子私房笔记<sup>16</sup></a><a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 1.05rem;">框架<sup>1</sup></a><a href="/tags/%E7%9E%8E%E7%8E%A9/" style="font-size: 1.05rem;">瞎玩<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.05rem;">笔记<sup>13</sup></a><a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.05rem;">考研<sup>1</sup></a><a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 1.05rem;">随笔<sup>4</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.05rem;">面试<sup>8</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="anzhiyu.switchCommentBarrage()" title="热评开关"><a class="commentBarrage"><i class="anzhiyufont anzhiyu-icon-message"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/" itemprop="url">C++</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>笔记</span></a><a class="article-meta__tags" href="/tags/Cpp17/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Cpp17</span></a></span></div></div><h1 class="post-title" itemprop="name headline">多态内存资源</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-01-24T06:25:27.000Z" title="发表于 2024-01-24 14:25:27">2024-01-24</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-03-17T04:52:02.103Z" title="更新于 2025-03-17 12:52:02">2025-03-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为长沙"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>长沙</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/img/featureimages/5.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/"><header><a class="post-meta-categories" href="/categories/C/" itemprop="url">C++</a><a href="/tags/%E7%AC%94%E8%AE%B0/" tabindex="-1" itemprop="url">笔记</a><a href="/tags/Cpp17/" tabindex="-1" itemprop="url">Cpp17</a><h1 id="CrawlerTitle" itemprop="name headline">多态内存资源</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xucanxx</span><time itemprop="dateCreated datePublished" datetime="2024-01-24T06:25:27.000Z" title="发表于 2024-01-24 14:25:27">2024-01-24</time><time itemprop="dateCreated datePublished" datetime="2025-03-17T04:52:02.103Z" title="更新于 2025-03-17 12:52:02">2025-03-17</time></header><h1 id="多态内存资源"><a href="#多态内存资源" class="headerlink" title="多态内存资源"></a>多态内存资源</h1><p>文章说得很详细（虽然我还是不怎么懂，做个笔记吧）<br><a target="_blank" rel="noopener" href="https://github.com/MeouSker77/Cpp17/blob/master/markdown/src/ch29.md">https://github.com/MeouSker77/Cpp17/blob/master/markdown/src/ch29.md</a></p>
+<h2 id="多态分配器"><a href="#多态分配器" class="headerlink" title="多态分配器"></a>多态分配器</h2><p>这玩意最直接的用法就是控制容器的内存，打个比方在我使用vector容器时一般情况下会这么用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">node</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">node</span>()&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;build node!&quot;</span> &lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;node&gt; arr;</span><br><span class="line">    arr.<span class="built_in">resize</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不难发现这个这个类构造了10个对象，但是众所周知vector 存储元素的实际位置是在堆上，并且vector在资源不足时会自动进行扩容以及值拷贝操作。频繁的申请与释放内存会导致内存碎片的产生。那我们有什么办法去控制vector构建对象时的行为呢？</p>
+<h3 id="控制数据位置"><a href="#控制数据位置" class="headerlink" title="控制数据位置"></a>控制数据位置</h3><p>按照传统的方法，就是我们要自己实现一个内存分配器。作为vector的模版参数传入。（gpt真好用）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span>   <span class="comment">// 包含 std::allocator</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义分配器类</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyAllocator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 类型定义</span></span><br><span class="line">    <span class="keyword">using</span> value_type = T;</span><br><span class="line">    <span class="comment">// 分配内存</span></span><br><span class="line">    <span class="function">T* <span class="title">allocate</span><span class="params">(std::<span class="type">size_t</span> n)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">deallocate</span><span class="params">(T* p, std::<span class="type">size_t</span> n)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 构造对象</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">construct</span><span class="params">(T* p, Args&amp;&amp;... args)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 销毁对象</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">destroy</span><span class="params">(T* p)</span> </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用自定义分配器创建 vector</span></span><br><span class="line">    std::vector&lt;<span class="type">int</span>, MyAllocator&lt;<span class="type">int</span>&gt;&gt; myVector;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个时候果子哥就要说了，这玩意写起来太麻烦了，有没有什么简单的方法呢？<br>诶 <del>铁牛牛肉面</del> ,pmr就出现了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span>  <span class="comment">// for byte</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory_resource&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 在栈上分配一些内存：</span></span><br><span class="line">    array&lt;byte, 200000&gt; buf;</span><br><span class="line">    <span class="comment">// 将它用作vector的初始内存池：</span></span><br><span class="line">    pmr::monotonic_buffer_resource pool&#123;buf.<span class="built_in">data</span>(), buf.<span class="built_in">size</span>()&#125;;</span><br><span class="line">    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; ++i) &#123;</span><br><span class="line">        coll.<span class="built_in">emplace_back</span>(<span class="string">&quot;just a non-SSO string&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; buf.<span class="built_in">begin</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; buf.<span class="built_in">end</span>() &lt;&lt;endl;</span><br><span class="line">    cout &lt;&lt; coll.<span class="built_in">begin</span>().<span class="built_in">base</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; coll.<span class="built_in">end</span>().<span class="built_in">base</span>() &lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序的输出可以看到，coll的data位于buf中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x7ffd6d151210 0x7ffd6d181f50</span><br><span class="line">0x7ffd6d1591f0 0x7ffd6d160ef0</span><br></pre></td></tr></table></figure>
+
+<p>通过这种方式，我们就可以控制vector的数据存放地址了。</p>
+<h3 id="控制内存资源的一些行为"><a href="#控制内存资源的一些行为" class="headerlink" title="控制内存资源的一些行为"></a>控制内存资源的一些行为</h3><p>这个时候果子哥又要问了要是vector在重新分配内存时，超出了缓存区的大小，它会怎么处理呢？<br>欸 <del>我不吃牛肉</del> ,看代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span>  <span class="comment">// for byte</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory_resource&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 在栈上分配一些内存：</span></span><br><span class="line">    array&lt;byte, 20&gt; buf;</span><br><span class="line">    <span class="comment">// 将它用作vector的初始内存池：</span></span><br><span class="line">    pmr::monotonic_buffer_resource pool&#123;buf.<span class="built_in">data</span>(), buf.<span class="built_in">size</span>()&#125;;</span><br><span class="line">    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; ++i) &#123;</span><br><span class="line">        coll.<span class="built_in">emplace_back</span>(<span class="string">&quot;just a non-SSO string&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; buf.<span class="built_in">begin</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; buf.<span class="built_in">end</span>() &lt;&lt;endl;</span><br><span class="line">    cout &lt;&lt; coll.<span class="built_in">begin</span>().<span class="built_in">base</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; coll.<span class="built_in">end</span>().<span class="built_in">base</span>() &lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>他还是会重新在堆上分配内存，以保证容器的正常功能。但是我们都已经使用内存池了，自然就可以在内存不够时进行一些操作。比如说在内存资源不够时抛出异常</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdlib&gt;</span>  <span class="comment">// for byte</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory_resource&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 在栈上分配一些内存：</span></span><br><span class="line">    array&lt;byte, 20&gt; buf;</span><br><span class="line">    <span class="comment">// 将它用作vector的初始内存池：</span></span><br><span class="line">    pmr::monotonic_buffer_resource pool&#123;buf.<span class="built_in">data</span>(), buf.<span class="built_in">size</span>(),pmr::<span class="built_in">null_memory_resource</span>()&#125;;</span><br><span class="line">    pmr::vector&lt;string&gt; coll&#123;&amp;pool&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; ++i) &#123;</span><br><span class="line">        coll.<span class="built_in">emplace_back</span>(<span class="string">&quot;just a non-SSO string&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; buf.<span class="built_in">begin</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; buf.<span class="built_in">end</span>() &lt;&lt;endl;</span><br><span class="line">    cout &lt;&lt; coll.<span class="built_in">begin</span>().<span class="built_in">base</span>() &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; coll.<span class="built_in">end</span>().<span class="built_in">base</span>() &lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="标准内存资源"><a href="#标准内存资源" class="headerlink" title="标准内存资源"></a>标准内存资源</h2><p>刚刚在上面提到的 null_memory_resource()就是标准内存资源中的一种</p>
+<table>
+<thead>
+<tr>
+<th>标准内存资源</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>new_delete_resource()</td>
+<td>返回一个调用new和delete的内存资源的指针</td>
+</tr>
+<tr>
+<td>synchronized_pool_resource</td>
+<td>创建更少碎片化的、线程安全的内存资源的类</td>
+</tr>
+<tr>
+<td>unsynchronized_pool_resource</td>
+<td>创建更少碎片化的、线程不安全的内存资源的类</td>
+</tr>
+<tr>
+<td>monotonic_buffer_resource</td>
+<td>创建从不释放、可以传递一个可选的缓冲区、线程不安全的类</td>
+</tr>
+<tr>
+<td>null_memory_resource()</td>
+<td>返回一个每次分配都会失败的内存资源的指针</td>
+</tr>
+</tbody></table>
+<h3 id="null-memory-resource"><a href="#null-memory-resource" class="headerlink" title="null_memory_resource"></a>null_memory_resource</h3><p>上方的代码，当buf中的内存空间调用不足后会向传入的标准内存资源对象申请资源。即向null_memory_resource申请新资源，而null_memory_resource申请失败后buf会抛出异常。</p>
+<h3 id="synchronized-pool-resource和unsynchronized-pool-resource"><a href="#synchronized-pool-resource和unsynchronized-pool-resource" class="headerlink" title="synchronized_pool_resource和unsynchronized_pool_resource"></a>synchronized_pool_resource和unsynchronized_pool_resource</h3><p>synchronized_pool_resource和unsynchronized_pool_resource是 尝试在相邻位置分配所有内存的内存资源类。因此，使用它们可以尽可能的减小内存碎片。</p>
+<p>它们的不同在于synchronized_pool_resource是线程安全的（性能会差一些）， 而unsynchronized_pool_resource不是。 因此，如果你知道这个池里的内存只会 被单个线程访问（或者分配和释放操作都是同步的），那么使用unsynchronized_pool_resource 将是更好的选择。</p>
+<p>这两个类都使用底层的内存资源来进行实际的分配和释放操作。它们只是保证内存分配更加密集的包装。因此，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::pmr::synchronized_pool_resource myPool;</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::pmr::synchronized_pool_resource myPool&#123;std::pmr::<span class="built_in">get_default_resource</span>()&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="monotonic-buffer-resource"><a href="#monotonic-buffer-resource" class="headerlink" title="monotonic_buffer_resource"></a>monotonic_buffer_resource</h3><p>monotonic_buffer_resource这个就很有意思,它在每次申请资源时会直接在已分配的内存空间末尾追加，而不会处理之前已经分配了的空间</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory_resource&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个静态缓冲区</span></span><br><span class="line">    <span class="type">int</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 monotonic_buffer_resource，并使用静态缓冲区</span></span><br><span class="line">    <span class="function">pmr::monotonic_buffer_resource <span class="title">resource</span><span class="params">(buf, <span class="keyword">sizeof</span>(buf))</span></span>;</span><br><span class="line">    <span class="comment">// 创建一个使用该内存资源的 vector</span></span><br><span class="line">    <span class="function">pmr::vector&lt;<span class="type">int</span>&gt; <span class="title">vec</span><span class="params">(&amp;resource)</span></span>;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">0</span>);</span><br><span class="line">    cout&lt;&lt; (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)vec.<span class="built_in">data</span>() - (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> )buf &lt;&lt; endl;</span><br><span class="line">    <span class="comment">// 向 vector 添加数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; ++i) &#123;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> off = (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)vec.<span class="built_in">data</span>() - (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> )buf;</span><br><span class="line">    cout&lt;&lt; off &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt; off/<span class="built_in">sizeof</span>(<span class="type">int</span>) + vec.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        cout&lt;&lt; buf[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">60</span><br><span class="line">0 0 1 0 1 2 3 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 8 9</span><br></pre></td></tr></table></figure>
+<p>通过这段代码可以发现，vector在变更容量大小时，计划释放的内存没有做任何处理，而是直接在已分配的内存资源的最后追加了一段资源分给vector。</p>
+<p>通过这种方式虽然会造成内存资源的浪费，但是以此换来的是简单的处理逻辑与极快的速度。</p>
+<h2 id="默认内存资源"><a href="#默认内存资源" class="headerlink" title="默认内存资源"></a>默认内存资源</h2><table>
+<thead>
+<tr>
+<th>内存资源</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get_default_resource()</td>
+<td>返回一个指向当前默认内存资源的指针</td>
+</tr>
+<tr>
+<td>set_default_resource(memresPtr)</td>
+<td>设置默认内存资源（传递一个指针）并返回之前的内存资源的指针</td>
+</tr>
+</tbody></table>
+<p>我们可以用std::pmr::get_default_resource()获取当前的默认资源,然后传递它来初始化一个多态分配器。也可以使用std::set_default_resource() 来全局地设置一个不同的默认内存资源。这个资源将在任何作用域中用作默认资源，直到下一次调用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> std::pmr::synchronized_pool_resource myPool;</span><br><span class="line"><span class="comment">// 设置myPool为新的默认内存资源：</span></span><br><span class="line">std::pmr::memory_resource* old = std::pmr::<span class="built_in">set_default_resource</span>(&amp;myPool);</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 恢复旧的默认内存资源：</span></span><br><span class="line">std::pmr::<span class="built_in">set_default_resource</span>(old);</span><br></pre></td></tr></table></figure>
+<h3 id="默认资源"><a href="#默认资源" class="headerlink" title="默认资源"></a>默认资源</h3><p>当set_default_resource没有被调用时会默认使用new_delete_resource()这个内存资源，他的行为跟正常的new，delete操作一样。</p>
+<ul>
+<li>每次向其申请内存时会调用new</li>
+<li>每次释放内存时会调用delete<br>然而，注意持有这种内存资源的多态分配器不能和默认的分配器互换，因为它们的类型不同。因此：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::string s&#123;<span class="string">&quot;my string with some value&quot;</span>&#125;;</span><br><span class="line">std::pmr::string ps&#123;std::<span class="built_in">move</span>(s), std::pmr::<span class="built_in">new_delete_resource</span>()&#125;; <span class="comment">// 拷贝</span></span><br></pre></td></tr></table></figure>
+将不会发生move（直接把s分配的内存转让给ps），而是把s的内存拷贝到ps内部用new分配的新的内存中。（只要是不同类型的多态分配器在std::move时都会进行值拷贝）</li>
+</ul>
+<h3 id="设置默认资源"><a href="#设置默认资源" class="headerlink" title="设置默认资源"></a>设置默认资源</h3><p>如果你在程序中设置了自定义内存资源并且把它用作默认资源， 那么直接在main()中首先将它创建为static对象将是一个好方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">static</span> std::pmr::synchronized_pool_resource myPool;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者，提供一个返回静态资源的全局函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">memory_resource* <span class="title">myResource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">static</span> std::pmr::synchronized_pool_resource myPool;</span><br><span class="line">    <span class="keyword">return</span> &amp;myPool;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回类型memory_resource是任何内存资源的基类。</p>
+<p><strong>注意之前的默认内存资源可能仍然会被使用，即使它已经被替换掉。 除非你知道（并且确信）不会发生这种情况，也就是没有使用该内存资源创建静态对象， 否则你应该确保你的资源的生命周期尽可能的长 （再提醒一次，可以在main()开始处创建它，这样它会在程序的最后才会被销毁）。</strong></p>
+<h2 id="定义自定义内存资源"><a href="#定义自定义内存资源" class="headerlink" title="定义自定义内存资源"></a>定义自定义内存资源</h2><p>你现在可以提供自定义内存资源。要想这么做，你需要：</p>
+<ul>
+<li>从<code>std::pmr::memory_resource</code>派生</li>
+<li>实现下列私有函数<ul>
+<li><code>do_allocate()</code>来分配内存</li>
+<li><code>do_deallocate()</code>来释放内存</li>
+<li><code>do_is_equal()</code>来定义什么情况下何时你的类型可以和其他内存资源对象交换分配的内存</li>
+</ul>
+</li>
+</ul>
+<p>(居然是继承的方式，我还以为会用SFINAE那一套去搞呢,concept 是C++20出的啊，那没事了)  </p>
+<p>这里有一个让我们可以追踪所有内存资源的分配和释放操作的完整示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory_resource&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tracker</span> : <span class="keyword">public</span> std::pmr::memory_resource</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::pmr::memory_resource *upstream;    <span class="comment">// 被包装的内存资源</span></span><br><span class="line">    std::string prefix&#123;&#125;;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 包装传入的或者默认的资源：</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Tracker</span><span class="params">(std::pmr::memory_resource *us</span></span></span><br><span class="line"><span class="params"><span class="function">            = std::pmr::get_default_resource())</span> : upstream&#123;</span>us&#125; &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Tracker</span><span class="params">(std::string p, std::pmr::memory_resource *us</span></span></span><br><span class="line"><span class="params"><span class="function">            = std::pmr::get_default_resource())</span> : upstream&#123;</span>us&#125;, prefix&#123;std::<span class="built_in">move</span>(p)&#125; &#123;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span>* <span class="title">do_allocate</span><span class="params">(<span class="type">size_t</span> bytes, <span class="type">size_t</span> alignment)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; prefix &lt;&lt; <span class="string">&quot;allocate &quot;</span> &lt;&lt; bytes &lt;&lt; <span class="string">&quot; Bytes\n&quot;</span>;</span><br><span class="line">        <span class="type">void</span>* ret = upstream-&gt;<span class="built_in">allocate</span>(bytes, alignment);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">do_deallocate</span><span class="params">(<span class="type">void</span>* ptr, <span class="type">size_t</span> bytes, <span class="type">size_t</span> alignment)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        std::cout &lt;&lt; prefix &lt;&lt; <span class="string">&quot;deallocate &quot;</span> &lt;&lt; bytes &lt;&lt; <span class="string">&quot; Bytes\n&quot;</span>;</span><br><span class="line">        upstream-&gt;<span class="built_in">deallocate</span>(ptr, bytes, alignment);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">do_is_equal</span><span class="params">(<span class="type">const</span> std::pmr::memory_resource&amp; other)</span> <span class="type">const</span> <span class="keyword">noexcept</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 是同一个对象？</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == &amp;other)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 是相同的类型并且prefix和upstream都相等？</span></span><br><span class="line">        <span class="keyword">auto</span> op = <span class="built_in">dynamic_cast</span>&lt;<span class="type">const</span> Tracker*&gt;(&amp;other);</span><br><span class="line">        <span class="keyword">return</span> op != <span class="literal">nullptr</span> &amp;&amp; op-&gt;prefix == prefix &amp;&amp; upstream-&gt;<span class="built_in">is_equal</span>(other);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>就像通常的智能内存资源一样，我们支持传递另一个内存资源（通常叫做upstream） 来包装它或者将它用作备选项。另外，我们可以传递一个可选的前缀。 每一次输出分配或释放操作信息时都会先输出这个可选的前缀。</p>
+<p>我们唯一需要实现的其他函数是do_is_equal()，它定义了何时两个内存资源可以交换 （即一个多态内存资源对象是否以及何时可以释放另一个多态内存资源对象分配的内存）。 在这里，我们简单的认为,只要前缀相同，这种类型的对象都可以释放另一个该类型对象分配的内存：</p>
+<h2 id="支持多态分配器"><a href="#支持多态分配器" class="headerlink" title="支持多态分配器"></a>支持多态分配器</h2><p>想要支持多态分配器出乎意料的简单， 你只需要：</p>
+<ul>
+<li>定义一个public成员allocator_type作为一个多态分配器</li>
+<li>为所有构造函数添加一个接受分配器作为额外参数的重载（包括拷贝和移动构造函数）</li>
+<li>给初始化用的构造函数的分配器参数添加一个默认的allocator_type类型的值 （ 不 包括拷贝和移动构造函数）</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memeory_resource&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 支持多态分配器的顾客类型</span></span><br><span class="line"><span class="comment">// 分配器存储在字符串成员中</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PmrCustomer</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::pmr::string name;  <span class="comment">// 也可以用来存储分配器</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">using</span> allocator_type = std::pmr::polymorphic_allocator&lt;<span class="type">char</span>&gt;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化构造函数：</span></span><br><span class="line">    <span class="built_in">PmrCustomer</span>(std::pmr::string n, allocator_type alloc = &#123;&#125;) : name&#123;std::<span class="built_in">move</span>(n), alloc&#125; &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 带有分配器的移动，构造函数：</span></span><br><span class="line">    <span class="built_in">PmrCustomer</span>(<span class="type">const</span> PmrCustomer&amp; c, allocator_type alloc) : name&#123;c.name, alloc&#125; &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">PmrCustomer</span>(PmrCustomer&amp;&amp; c, allocator_type alloc) : name&#123;std::<span class="built_in">move</span>(c.name), alloc&#125; &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// setter/getter：</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setName</span><span class="params">(std::pmr::string s)</span> </span>&#123;</span><br><span class="line">        name = std::<span class="built_in">move</span>(s);</span><br><span class="line">    &#125;</span><br><span class="line">    std::<span class="function">pmr::string <span class="title">getName</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">std::string <span class="title">getNameAsString</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> std::string&#123;name&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/favicon.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/favicon.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">xucanxx</div><div class="post-copyright__author_desc">虚残</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/')">多态内存资源</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=多态内存资源&amp;url=https://xucanxx.github.io/2024/01/24/duo-tai-nei-cun-zi-yuan/&amp;pic=/img/featureimages/5.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xucanxx.github.io" target="_blank">咸鱼</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>笔记<span class="tagsPageCount">13</span></a><a class="post-meta__box__tags" href="/tags/Cpp17/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Cpp17<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/img/featureimages/7.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/06/liang-qun-xiao-ying/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">惊群效应</div></div></a></div><div class="next-post pull-right"><a href="/2025/03/13/wang-luo/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">网络要点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2022/12/14/c-11-zhong-de-constexpr/" title="C++中的constexpr"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/8.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-12-14</div><div class="title">C++中的constexpr</div></div></a></div><div><a href="/2022/02/11/springboot-chang-yong-zhu-jie/" title="SpringBoot常用注解"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-02-11</div><div class="title">SpringBoot常用注解</div></div></a></div><div><a href="/2022/02/17/list-ji-he/" title="List集合"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-02-17</div><div class="title">List集合</div></div></a></div><div><a href="/2022/02/14/java-de-san-chong-sui-ji-han-shu/" title="java的三种随机函数"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-02-14</div><div class="title">java的三种随机函数</div></div></a></div><div><a href="/2022/12/13/kafka-ri-chang-cao-zuo/" title="kafka日常操作"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/8.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-12-13</div><div class="title">kafka日常操作</div></div></a></div><div><a href="/2023/07/06/nginx-ru-men/" title="nginx入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/8.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-07-06</div><div class="title">nginx入门</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description">I good vegetable a</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%80%81%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">多态内存资源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81%E5%88%86%E9%85%8D%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">多态分配器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%95%B0%E6%8D%AE%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">控制数据位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%8C%E4%B8%BA"><span class="toc-number">1.1.2.</span> <span class="toc-text">控制内存资源的一些行为</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90"><span class="toc-number">1.2.</span> <span class="toc-text">标准内存资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null-memory-resource"><span class="toc-number">1.2.1.</span> <span class="toc-text">null_memory_resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized-pool-resource%E5%92%8Cunsynchronized-pool-resource"><span class="toc-number">1.2.2.</span> <span class="toc-text">synchronized_pool_resource和unsynchronized_pool_resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#monotonic-buffer-resource"><span class="toc-number">1.2.3.</span> <span class="toc-text">monotonic_buffer_resource</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90"><span class="toc-number">1.3.</span> <span class="toc-text">默认内存资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E8%B5%84%E6%BA%90"><span class="toc-number">1.3.1.</span> <span class="toc-text">默认资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E8%B5%84%E6%BA%90"><span class="toc-number">1.3.2.</span> <span class="toc-text">设置默认资源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E5%AD%98%E8%B5%84%E6%BA%90"><span class="toc-number">1.4.</span> <span class="toc-text">定义自定义内存资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%A4%9A%E6%80%81%E5%88%86%E9%85%8D%E5%99%A8"><span class="toc-number">1.5.</span> <span class="toc-text">支持多态分配器</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/03/13/linux/" title="Linux要点"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux要点"/></a><div class="content"><a class="title" href="/2025/03/13/linux/" title="Linux要点">Linux要点</a><time datetime="2025-03-13T07:45:59.000Z" title="发表于 2025-03-13 15:45:59">2025-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/13/c/" title="C++要点"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++要点"/></a><div class="content"><a class="title" href="/2025/03/13/c/" title="C++要点">C++要点</a><time datetime="2025-03-13T07:45:59.000Z" title="发表于 2025-03-13 15:45:59">2025-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/13/fen-bu-shi/" title="分布式"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式"/></a><div class="content"><a class="title" href="/2025/03/13/fen-bu-shi/" title="分布式">分布式</a><time datetime="2025-03-13T07:45:59.000Z" title="发表于 2025-03-13 15:45:59">2025-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/13/duo-xian-cheng/" title="多线程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多线程"/></a><div class="content"><a class="title" href="/2025/03/13/duo-xian-cheng/" title="多线程">多线程</a><time datetime="2025-03-13T07:45:59.000Z" title="发表于 2025-03-13 15:45:59">2025-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/13/kai-yuan-kuang-jia-huo-zu-jian/" title="开源框架或组件"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/featureimages/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="开源框架或组件"/></a><div class="content"><a class="title" href="/2025/03/13/kai-yuan-kuang-jia-huo-zu-jian/" title="开源框架或组件">开源框架或组件</a><time datetime="2025-03-13T07:45:59.000Z" title="发表于 2025-03-13 15:45:59">2025-03-13</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="xucanxx" target="_blank">xucanxx</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/xucanxx/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">14</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/ACM/" style="font-size: 0.88rem;">ACM<sup>13</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C++<sup>1</sup></a><a href="/tags/Cpp17/" style="font-size: 0.88rem;">Cpp17<sup>1</sup></a><a href="/tags/brpc/" style="font-size: 0.88rem;">brpc<sup>1</sup></a><a href="/tags/bug/" style="font-size: 0.88rem;">bug<sup>1</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 0.88rem;">基础<sup>9</sup></a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 0.88rem;">操作系统<sup>1</sup></a><a href="/tags/%E6%9E%9C%E5%AD%90%E7%A7%81%E6%88%BF%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">果子私房笔记<sup>16</sup></a><a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 0.88rem;">框架<sup>1</sup></a><a href="/tags/%E7%9E%8E%E7%8E%A9/" style="font-size: 0.88rem;">瞎玩<sup>1</sup></a><a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 0.88rem;">笔记<sup>13</sup></a><a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 0.88rem;">考研<sup>1</sup></a><a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 0.88rem;">随笔<sup>4</sup></a><a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 0.88rem;">面试<sup>8</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="switch-commentBarrage" href="javascript:anzhiyu.switchCommentBarrage();" title="开关弹幕"><i class="anzhiyufont anzhiyu-icon-danmu"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 xucanxx 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
